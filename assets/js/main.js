@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const searchQuery = searchInput.value.trim();
             if (searchQuery) {
-                const googleSearchUrl = 'https://www.google.com/search?q=site:iroyzlab.github.io/albadar/+' + encodeURIComponent(searchQuery);
+                const googleSearchUrl = 'https://www.google.com/search?q=site:albadar-psi.vercel.app/+' + encodeURIComponent(searchQuery);
                 window.location.href = googleSearchUrl;
             }
         });

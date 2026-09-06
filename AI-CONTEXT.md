@@ -7,7 +7,7 @@ Dokumentasi arsitektur, filosofi desain, struktur file, dan pedoman konten resmi
 ## 1. Project Overview & Tech Stack
 
 - **Platform**: Static Web (HTML5 Semantic, Pure Vanilla CSS3, Vanilla JavaScript ES6+) di-hosting via **GitHub Pages**.
-- **URL Produksi**: `https://iroyzlab.github.io/albadar/`
+- **URL Produksi**: `https://albadar-psi.vercel.app`
 - **Future Readiness**: Terstruktur modular dan siap untuk migrasi masa depan ke Headless CMS atau Fullstack Backend framework (seperti Laravel atau Next.js).
 - **Design Philosophy**: **Premium, Luxury, Institutional, Islamic**. Menghadirkan citra pesantren modern yang berwibawa, elegan, tertib, dan berstandar internasional.
 
