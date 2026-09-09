@@ -3202,11 +3202,13 @@ body.menu-open .menu-bar {
         gap: 0.875rem;
     }
 
+    .hero-cta-group .btn,
+    .hero-cta-group .btn-lux,
     .btn,
     .btn-lux {
         width: 100%;
         text-align: center;
-        align-self: stretch !important;
+        align-self: stretch;
         padding: 0.85rem 1.25rem;
     }
 
@@ -3435,12 +3437,12 @@ body.menu-open .menu-bar {
 
 .mobile-sticky-cta .btn-lux,
 .mobile-sticky-cta .mobile-sticky-cta-btn {
-    padding: 0.55rem 1rem !important;
-    font-size: 0.8rem !important;
-    white-space: nowrap !important;
+    padding: 0.55rem 1rem;
+    font-size: 0.8rem;
+    white-space: nowrap;
     flex-shrink: 0;
-    width: auto !important;
-    display: inline-flex !important;
+    width: auto;
+    display: inline-flex;
     align-items: center;
     gap: 0.35rem;
     border-radius: 8px;
