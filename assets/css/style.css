@@ -33,10 +33,7 @@
     color: var(--lux-dark);
 }
 
-/* Custom Cursor: Hide default cursor only on hover & fine pointer desktop devices */
-@media (hover: hover) and (pointer: fine) {
-    * { cursor: none !important; }
-}
+
 
 html {
     scroll-behavior: smooth;
@@ -188,11 +185,29 @@ p {
 .section-title-lux {
     font-family: var(--font-heading);
     font-size: clamp(1.8rem, 3vw, 2.5rem);
-    line-height: 1.1;
+    line-height: 1.15;
     font-weight: 400;
     letter-spacing: -0.02em;
     color: var(--lux-dark);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.section-header-lux .section-title-lux {
+    margin-bottom: 0.75rem;
+}
+
+.section-header-lux .section-title-lux:last-child {
+    margin-bottom: 0;
+}
+
+.section-subtitle,
+.section-subtitle-lux {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    max-width: 650px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 1.6;
 }
 
 .bg-emerald .section-title-lux,
@@ -200,56 +215,7 @@ p {
     color: #fff;
 }
 
-/* === CUSTOM CURSOR (DESKTOP ONLY) === */
-.cursor-dot, .cursor-outline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    will-change: left, top, transform, opacity;
-}
 
-.cursor-dot {
-    width: 6px;
-    height: 6px;
-    background-color: var(--lux-gold);
-    transition: opacity 0.2s ease, transform 0.15s ease;
-}
-
-.cursor-outline {
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--lux-gold);
-    background-color: transparent;
-    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                height 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-                background-color 0.3s ease,
-                border-color 0.3s ease,
-                transform 0.2s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.3s ease;
-}
-
-.cursor-outline.hovered {
-    transform: translate(-50%, -50%) scale(0.5);
-    background-color: var(--lux-gold);
-    opacity: 0.6;
-}
-
-.cursor-hidden {
-    opacity: 0 !important;
-}
-
-@media (hover: none) or (pointer: coarse), (max-width: 768px) {
-    .cursor-dot, .cursor-outline {
-        display: none !important;
-    }
-    * {
-        cursor: auto !important;
-    }
-}
 
 /* === HEADER & NAVIGATION (GLOBAL) === */
 .site-header {
@@ -775,13 +741,28 @@ p {
     font-weight: 600;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: gap 0.3s ease;
+    position: relative;
+    padding-bottom: 3px;
+    transition: color 0.3s ease;
+}
+
+.btn-text-lux::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-secondary);
+    transition: width 0.3s ease;
 }
 
 .btn-text-lux:hover {
-    gap: 1rem;
     color: var(--color-secondary);
+}
+
+.btn-text-lux:hover::after {
+    width: 100%;
 }
 
 .btn-lg {
@@ -1332,12 +1313,27 @@ p {
     color: var(--color-primary);
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    transition: gap 0.3s ease;
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s ease;
 }
 
-.news-card-lux:hover .news-read-lux {
-    gap: 1rem;
+.news-read-lux::after,
+.read-more::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background-color: var(--color-primary);
+    transition: width 0.3s ease;
+}
+
+.news-card-lux:hover .news-read-lux::after,
+.news-read-lux:hover::after,
+.read-more:hover::after {
+    width: 100%;
 }
 
 /* === AFILIASI & MITRA MARQUEE === */
@@ -2656,25 +2652,36 @@ body.menu-open .menu-bar {
     transform: translateY(0);
 }
 
-/* === FRAMER MOTION-LIKE SPRINGY STAGGERED REVEAL === */
-.stagger-group {
-    /* Container utility for staggered elements */
+/* === LEVEL A: FADE-IN (Subtle Opacity-only Scroll Reveal) === */
+.fade-in {
+    opacity: 0;
+    transition: opacity 350ms ease-out;
+    will-change: opacity;
 }
 
-.stagger-item {
+.fade-in.is-visible {
+    opacity: 1;
+}
+
+/* === LEVEL B: FADE-STAGGER (Fast & Subtle 10px Stagger) === */
+.fade-stagger {
     opacity: 0;
-    transform: translateY(40px) scale(0.95);
-    transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform: translateY(10px);
+    transition: opacity 300ms ease-out, transform 300ms ease-out;
     will-change: opacity, transform;
 }
 
-.stagger-item.is-visible {
+.fade-stagger.is-visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .stagger-item {
+    .stagger-item,
+    .fade-in,
+    .fade-stagger,
+    .reveal,
+    .reveal-stagger {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
@@ -2997,10 +3004,7 @@ body.menu-open .menu-bar {
         height: 40px;
     }
 
-    /* Disable custom desktop cursor on mobile */
-    .cursor-dot, .cursor-outline {
-        display: none !important;
-    }
+
 
     /* Mobile Body & Container overflow safeguards */
     html, body {

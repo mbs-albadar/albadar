@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             newsGridContainer.innerHTML = filtered.map(function(item) {
-                return '<article class="news-card-lux reveal-stagger lux-img-zoom">' +
+                return '<article class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
                         '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
                     '</div>' +
@@ -361,14 +361,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     '</div>' +
                 '</article>';
             }).join('');
-
-            // Activate animation on dynamically rendered cards
-            const articles = newsGridContainer.querySelectorAll('.reveal-stagger');
-            articles.forEach(function(article, index) {
-                setTimeout(function() {
-                    article.classList.add('active');
-                }, index * 80);
-            });
         }
 
         // Fetch news data from JSON with local fallback
@@ -398,96 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Custom Cursor & Magnetic Effect (Desktop only with hover & fine pointer support)
-    const isDesktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches && window.innerWidth > 768;
-    
-    if (isDesktopPointer) {
-        let cursorDot = document.getElementById('cursorDot');
-        let cursorOutline = document.getElementById('cursorOutline');
 
-        if (!cursorDot) {
-            cursorDot = document.createElement('div');
-            cursorDot.id = 'cursorDot';
-            cursorDot.className = 'cursor-dot';
-            document.body.appendChild(cursorDot);
-        }
-        if (!cursorOutline) {
-            cursorOutline = document.createElement('div');
-            cursorOutline.id = 'cursorOutline';
-            cursorOutline.className = 'cursor-outline';
-            document.body.appendChild(cursorOutline);
-        }
-
-        let mouseX = -100;
-        let mouseY = -100;
-        let outlineX = -100;
-        let outlineY = -100;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-
-            // Dot moves instantly without delay
-            cursorDot.style.left = `${mouseX}px`;
-            cursorDot.style.top = `${mouseY}px`;
-            cursorDot.classList.remove('cursor-hidden');
-            cursorOutline.classList.remove('cursor-hidden');
-        });
-
-        document.addEventListener('mouseleave', () => {
-            cursorDot.classList.add('cursor-hidden');
-            cursorOutline.classList.add('cursor-hidden');
-        });
-
-        document.addEventListener('mouseenter', () => {
-            cursorDot.classList.remove('cursor-hidden');
-            cursorOutline.classList.remove('cursor-hidden');
-        });
-
-        // Smooth trailing animation loop using rAF and Linear Interpolation (lerp)
-        const renderCursor = () => {
-            const ease = 0.15; // Smooth trailing factor
-            outlineX += (mouseX - outlineX) * ease;
-            outlineY += (mouseY - outlineY) * ease;
-
-            cursorOutline.style.left = `${outlineX}px`;
-            cursorOutline.style.top = `${outlineY}px`;
-
-            requestAnimationFrame(renderCursor);
-        };
-        requestAnimationFrame(renderCursor);
-
-        // Interactive elements hover state (outline scales down & increases opacity)
-        const interactiveElements = document.querySelectorAll('a, button, .lux-img-zoom, .nav-link, .bento-card-lux, .tag-item, .news-card-lux, .faq-question, .step-card-lux, .facility-card, .magnetic-btn');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursorOutline.classList.add('hovered'));
-            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovered'));
-        });
-
-        // Magnetic Effect on interactive CTA buttons
-        const magneticButtons = document.querySelectorAll('.magnetic-btn, .btn-gold-lux, .btn-primary-lux, a.nav-cta');
-        magneticButtons.forEach((btn) => {
-            const maxDisplacement = 15; // Max 15px magnetic attraction
-
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const btnCenterX = rect.left + rect.width / 2;
-                const btnCenterY = rect.top + rect.height / 2;
-
-                const deltaX = (e.clientX - btnCenterX) / (rect.width / 2);
-                const deltaY = (e.clientY - btnCenterY) / (rect.height / 2);
-
-                const moveX = Math.max(Math.min(deltaX * maxDisplacement, maxDisplacement), -maxDisplacement);
-                const moveY = Math.max(Math.min(deltaY * maxDisplacement, maxDisplacement), -maxDisplacement);
-
-                btn.style.transform = `translate3d(${moveX.toFixed(1)}px, ${moveY.toFixed(1)}px, 0)`;
-            });
-
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate3d(0px, 0px, 0)';
-            });
-        });
-    }
 
     // Reveal on Scroll (Must be initialized AFTER news items are injected)
     const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
@@ -523,40 +426,32 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ==========================================================================
-    // Springy Staggered Reveal Observer (Framer Motion-like)
+    // Smooth Scroll Animations (Level A: fade-in, Level B: fade-stagger)
     // ==========================================================================
-    const staggerGroups = document.querySelectorAll('.stagger-group');
-    if (staggerGroups.length > 0) {
-        const staggerGroupObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const items = entry.target.querySelectorAll('.stagger-item');
-                    items.forEach((item, index) => {
-                        // Stagger delay between items (100ms interval, capped at 800ms)
-                        const delay = Math.min(index * 100, 800);
-                        setTimeout(() => {
-                            item.classList.add('is-visible');
-                        }, delay);
-                    });
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15 });
-        staggerGroups.forEach(group => staggerGroupObserver.observe(group));
-    }
-
-    // Standalone .stagger-item (elements not inside .stagger-group)
-    const standaloneStaggerItems = document.querySelectorAll('.stagger-item:not(.stagger-group .stagger-item)');
-    if (standaloneStaggerItems.length > 0) {
-        const standaloneObserver = new IntersectionObserver((entries, observer) => {
+    const fadeInElements = document.querySelectorAll('.fade-in');
+    if (fadeInElements.length > 0) {
+        const fadeInObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible');
                     observer.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.15 });
-        standaloneStaggerItems.forEach(item => standaloneObserver.observe(item));
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        fadeInElements.forEach(el => fadeInObserver.observe(el));
+    }
+
+    const fadeStaggerElements = document.querySelectorAll('.fade-stagger');
+    if (fadeStaggerElements.length > 0) {
+        const fadeStaggerObserver = new IntersectionObserver((entries, observer) => {
+            const intersecting = entries.filter(e => e.isIntersecting);
+            intersecting.forEach((entry, idx) => {
+                entry.target.style.transitionDelay = `${idx * 70}ms`;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+        fadeStaggerElements.forEach(el => fadeStaggerObserver.observe(el));
     }
 
     // Parallax Geometric Pattern (Islamic Rub el Hizb)
