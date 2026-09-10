@@ -3218,10 +3218,11 @@ body.menu-open .menu-bar {
 }
 
 /* Institutional Floating Statistics Bar (White Card / Blue Accent) */
+.stats-section.bg-lux-dark,
 .stats-section,
 .luxury-stats-section {
-    background-color: transparent !important;
-    background: transparent !important;
+    background-color: transparent;
+    background: transparent;
     margin-top: -40px;
     padding: 0;
     border-top: none;
@@ -3230,20 +3231,24 @@ body.menu-open .menu-bar {
     z-index: 10;
 }
 
+.stats-section .luxury-stats-grid,
+.luxury-stats-section .luxury-stats-grid,
 .luxury-stats-grid {
     display: flex;
     justify-content: space-between;
     align-items: center;
     max-width: 1000px;
     margin: 0 auto;
-    background: #ffffff !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 16px;
     padding: 1rem 2rem;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     gap: 0.5rem;
 }
 
+.stats-section .luxury-stat-card,
+.luxury-stats-section .luxury-stat-card,
 .luxury-stat-card {
     display: flex;
     flex-direction: row;
@@ -3253,8 +3258,8 @@ body.menu-open .menu-bar {
     background: transparent;
     border: none;
     border-radius: 12px;
-    box-shadow: none !important;
-    border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
     padding: 0.6rem 0.75rem;
     flex: 1;
     text-align: left;
@@ -3262,37 +3267,51 @@ body.menu-open .menu-bar {
     cursor: pointer;
 }
 
+.stats-section .luxury-stat-card:last-child,
+.luxury-stats-section .luxury-stat-card:last-child,
 .luxury-stat-card:last-child {
-    border-right: none !important;
+    border-right: none;
 }
 
+.stats-section .luxury-stat-card:hover,
+.stats-section .luxury-stat-card:active,
+.luxury-stats-section .luxury-stat-card:hover,
+.luxury-stats-section .luxury-stat-card:active,
 .luxury-stat-card:hover,
 .luxury-stat-card:active {
-    background-color: transparent !important;
-    box-shadow: none !important;
+    background-color: transparent;
+    box-shadow: none;
 }
 
-.stat-icon,
-.luxury-stat-card .stat-icon {
-    width: 24px !important;
-    height: 24px !important;
-    padding: 8px !important;
-    box-sizing: content-box !important;
-    border-radius: 50% !important;
-    background-color: var(--color-secondary) !important;
-    color: #ffffff !important;
-    border: 2px solid transparent !important;
+.stats-section .stat-icon,
+.luxury-stats-section .stat-icon,
+.stats-section .luxury-stat-card .stat-icon,
+.luxury-stats-section .luxury-stat-card .stat-icon,
+.luxury-stat-card .stat-icon,
+.stat-icon {
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+    box-sizing: content-box;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    border: 2px solid transparent;
     margin: 0;
     flex-shrink: 0;
-    transition: all 0.3s ease !important;
+    transition: all 0.3s ease;
 }
 
+.stats-section .luxury-stat-card:hover .stat-icon,
+.stats-section .luxury-stat-card:active .stat-icon,
+.luxury-stats-section .luxury-stat-card:hover .stat-icon,
+.luxury-stats-section .luxury-stat-card:active .stat-icon,
 .luxury-stat-card:hover .stat-icon,
 .luxury-stat-card:active .stat-icon {
-    border-color: var(--lux-gold) !important;
-    background-color: var(--color-secondary) !important;
-    color: #ffffff !important;
-    transform: rotate(-15deg) !important;
+    border-color: var(--lux-gold);
+    background-color: var(--color-secondary);
+    color: #ffffff;
+    transform: rotate(-15deg);
 }
 
 .stat-info {
@@ -3308,10 +3327,14 @@ body.menu-open .menu-bar {
     transform: translateY(-4px);
 }
 
-.stat-number,
-.luxury-stat-card .stat-number {
-    font-size: 1.1rem !important;
-    color: var(--color-secondary) !important;
+.stats-section .stat-number,
+.luxury-stats-section .stat-number,
+.stats-section .luxury-stat-card .stat-number,
+.luxury-stats-section .luxury-stat-card .stat-number,
+.luxury-stat-card .stat-number,
+.stat-number {
+    font-size: 1.1rem;
+    color: var(--color-secondary);
     font-weight: 700;
     font-family: var(--font-heading, 'Fraunces', serif);
     line-height: 1;
@@ -3321,26 +3344,38 @@ body.menu-open .menu-bar {
     transition: color 0.3s ease;
 }
 
-.stat-label,
-.luxury-stat-card .stat-label {
-    font-size: 0.45rem !important;
-    color: var(--color-text-muted) !important;
+.stats-section .stat-label,
+.luxury-stats-section .stat-label,
+.stats-section .luxury-stat-card .stat-label,
+.luxury-stats-section .luxury-stat-card .stat-label,
+.luxury-stat-card .stat-label,
+.stat-label {
+    font-size: 0.45rem;
+    color: var(--color-text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     font-weight: 500;
     font-family: var(--font-body, 'Inter', sans-serif);
     margin: 0;
-    white-space: nowrap !important;
+    white-space: nowrap;
     line-height: 1.2;
     display: block;
     transition: color 0.3s ease;
 }
 
+.stats-section .luxury-stat-card:hover .stat-number,
+.stats-section .luxury-stat-card:active .stat-number,
+.stats-section .luxury-stat-card:hover .stat-label,
+.stats-section .luxury-stat-card:active .stat-label,
+.luxury-stats-section .luxury-stat-card:hover .stat-number,
+.luxury-stats-section .luxury-stat-card:active .stat-number,
+.luxury-stats-section .luxury-stat-card:hover .stat-label,
+.luxury-stats-section .luxury-stat-card:active .stat-label,
 .luxury-stat-card:hover .stat-number,
 .luxury-stat-card:active .stat-number,
 .luxury-stat-card:hover .stat-label,
 .luxury-stat-card:active .stat-label {
-    color: var(--color-secondary) !important;
+    color: var(--color-secondary);
 }
 
 @media (max-width: 768px) {
@@ -3349,6 +3384,8 @@ body.menu-open .menu-bar {
         margin-top: -30px;
         padding: 0;
     }
+    .stats-section .luxury-stats-grid,
+    .luxury-stats-section .luxury-stats-grid,
     .luxury-stats-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -3356,32 +3393,46 @@ body.menu-open .menu-bar {
         gap: 0.5rem;
         padding: 1rem 0.75rem;
     }
+    .stats-section .luxury-stat-card,
+    .luxury-stats-section .luxury-stat-card,
     .luxury-stat-card {
-        border-right: none !important;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        border-right: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         padding: 0.6rem 0.5rem;
         width: 100%;
     }
+    .stats-section .luxury-stat-card:last-child,
+    .luxury-stats-section .luxury-stat-card:last-child,
     .luxury-stat-card:last-child {
         grid-column: span 2;
-        border-bottom: none !important;
+        border-bottom: none;
     }
+    .stats-section .luxury-stat-card:active,
+    .luxury-stats-section .luxury-stat-card:active,
     .luxury-stat-card:active {
-        background-color: transparent !important;
-        box-shadow: none !important;
+        background-color: transparent;
+        box-shadow: none;
     }
+    .stats-section .luxury-stat-card:active .stat-info,
+    .luxury-stats-section .luxury-stat-card:active .stat-info,
     .luxury-stat-card:active .stat-info {
         transform: translateY(-4px);
     }
+    .stats-section .luxury-stat-card:active .stat-icon,
+    .luxury-stats-section .luxury-stat-card:active .stat-icon,
     .luxury-stat-card:active .stat-icon {
-        border-color: var(--lux-gold) !important;
-        background-color: var(--color-secondary) !important;
-        color: #ffffff !important;
-        transform: rotate(-15deg) !important;
+        border-color: var(--lux-gold);
+        background-color: var(--color-secondary);
+        color: #ffffff;
+        transform: rotate(-15deg);
     }
+    .stats-section .luxury-stat-card:active .stat-number,
+    .stats-section .luxury-stat-card:active .stat-label,
+    .luxury-stats-section .luxury-stat-card:active .stat-number,
+    .luxury-stats-section .luxury-stat-card:active .stat-label,
     .luxury-stat-card:active .stat-number,
     .luxury-stat-card:active .stat-label {
-        color: var(--color-secondary) !important;
+        color: var(--color-secondary);
     }
 }
 
