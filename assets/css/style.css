@@ -1466,8 +1466,10 @@ p {
     padding: 8rem 0;
 }
 
+section.luxury-steps-section,
+.section.luxury-steps-section,
 .luxury-steps-section {
-    background-color: var(--lux-bg) !important;
+    background-color: var(--lux-bg);
     padding: 6rem 0;
 }
 
@@ -3048,6 +3050,24 @@ body.menu-open .menu-bar {
     }
 
     /* Section Mobile Padding Reduction */
+    section.section,
+    section.editorial-intro,
+    section.bento-section-lux,
+    section.news-section-lux,
+    section.steps-section-lux,
+    section.luxury-steps-section,
+    section.final-cta,
+    section.timeline-section,
+    section.two-week-service,
+    body .section,
+    body .editorial-intro,
+    body .bento-section-lux,
+    body .news-section-lux,
+    body .steps-section-lux,
+    body .luxury-steps-section,
+    body .final-cta,
+    body .timeline-section,
+    body .two-week-service,
     .section,
     .editorial-intro,
     .bento-section-lux,
@@ -3057,24 +3077,44 @@ body.menu-open .menu-bar {
     .final-cta,
     .timeline-section,
     .two-week-service {
-        padding: 3.5rem 0 !important;
+        padding: 3.5rem 0;
     }
 
+    section.cta-lux,
+    body .cta-lux,
     .cta-lux {
-        padding: 4.5rem 0 !important;
+        padding: 4.5rem 0;
     }
 
+    section.page-hero,
+    section.ppdb-hero,
+    body .page-hero,
+    body .ppdb-hero,
     .page-hero,
     .ppdb-hero {
-        padding: 7rem 1.25rem 3.5rem !important;
+        padding: 7rem 1.25rem 3.5rem;
     }
 
+    .hero-lux .hero-lux-content,
+    .container.hero-lux-content,
+    body .hero-lux-content,
     .hero-lux-content {
-        padding: 7rem 1.25rem 3.5rem !important;
+        padding: 7rem 1.25rem 3.5rem;
     }
 
     /* Card Padding Reduction on Mobile */
+    body .bento-card-lux,
+    body .bento-card-lux-dark,
+    body .curriculum-card-green,
+    body .curriculum-card-blue,
+    body .curriculum-card-dark,
+    body .ppdb-info-card,
+    body .req-info-box,
+    body .program-content,
+    body .feature-card,
+    body .value-card,
     .bento-card-lux,
+    .bento-card-lux-dark,
     .curriculum-card-green,
     .curriculum-card-blue,
     .curriculum-card-dark,
@@ -3083,15 +3123,36 @@ body.menu-open .menu-bar {
     .program-content,
     .feature-card,
     .value-card {
-        padding: 1.5rem !important;
+        padding: 1.5rem;
     }
 
+    footer.site-footer,
+    footer.site-footer-lux,
+    body .site-footer,
+    body .site-footer-lux,
     .site-footer,
     .site-footer-lux {
-        padding: 3.5rem 0 1.5rem !important;
+        padding: 3.5rem 0 1.5rem;
     }
 
     /* STRICT 1-COLUMN GRID COLLAPSE FOR ALL GRIDS */
+    body .bento-grid-lux,
+    body .luxury-curriculum-grid,
+    body .news-grid-lux,
+    body .news-grid,
+    body .steps-grid-lux,
+    body .luxury-steps-grid,
+    body .editorial-grid,
+    body .intro-grid,
+    body .cards-grid,
+    body .grid-2,
+    body .grid-3,
+    body .grid-4,
+    body .program-option-grid,
+    body .timeline-row,
+    body .gallery-grid,
+    body .footer-grid,
+    body .footer-grid-lux,
     .bento-grid-lux,
     .luxury-curriculum-grid,
     .news-grid-lux,
@@ -3109,16 +3170,26 @@ body.menu-open .menu-bar {
     .gallery-grid,
     .footer-grid,
     .footer-grid-lux {
-        grid-template-columns: 1fr !important;
-        gap: 1.5rem !important;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 
     /* Reset Bento Grid Spans */
+    .bento-grid-lux .bento-card-lux.large,
+    .bento-grid-lux .bento-card-lux.wide,
+    .bento-grid-lux .bento-card-lux-dark.large,
+    .bento-grid-lux .bento-card-lux-dark.wide,
+    body .bento-card-lux.large,
+    body .bento-card-lux.wide,
+    body .bento-card-lux-dark.large,
+    body .bento-card-lux-dark.wide,
     .bento-card-lux.large,
-    .bento-card-lux.wide {
-        grid-column: span 1 !important;
-        grid-row: auto !important;
-        min-height: auto !important;
+    .bento-card-lux.wide,
+    .bento-card-lux-dark.large,
+    .bento-card-lux-dark.wide {
+        grid-column: span 1;
+        grid-row: auto;
+        min-height: auto;
     }
 
     /* Layout & Flexbox Adjustments */
@@ -3186,14 +3257,26 @@ body.menu-open .menu-bar {
         padding: 0.8rem 0;
     }
 
+    body .editorial-intro .editorial-desc,
+    .editorial-intro .editorial-desc,
+    .editorial-grid .editorial-desc,
+    body .editorial-desc,
     .editorial-desc {
-        min-height: auto !important;
+        min-height: auto;
     }
 
+    body .editorial-intro .contact-map,
+    body .editorial-intro .contact-map iframe,
+    .editorial-intro .contact-map,
+    .editorial-intro .contact-map iframe,
+    .editorial-grid .contact-map,
+    .editorial-grid .contact-map iframe,
+    body .contact-map,
+    body .contact-map iframe,
     .contact-map,
     .contact-map iframe {
-        min-height: 300px !important;
-        height: 300px !important;
+        min-height: 300px;
+        height: 300px;
     }
 
     .intro-image-wrapper img {
@@ -3201,23 +3284,28 @@ body.menu-open .menu-bar {
     }
 
     /* Floating WhatsApp Button Mobile Optimization */
+    a.wa-float-btn,
+    body .wa-float-btn,
     .wa-float-btn {
-        bottom: 16px !important;
-        right: 16px !important;
-        width: 50px !important;
-        height: 50px !important;
-        z-index: 998 !important;
+        bottom: 16px;
+        right: 16px;
+        width: 50px;
+        height: 50px;
+        z-index: 998;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-        transition: bottom 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+        transition: bottom 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    body.sticky-cta-active a.wa-float-btn,
     body.sticky-cta-active .wa-float-btn {
-        bottom: 78px !important;
+        bottom: 78px;
     }
 
+    a.wa-float-btn svg,
+    body .wa-float-btn svg,
     .wa-float-btn svg {
-        width: 26px !important;
-        height: 26px !important;
+        width: 26px;
+        height: 26px;
     }
 
     /* Mobile Body bottom padding to ensure sticky bar does not cover content */
@@ -3227,16 +3315,28 @@ body.menu-open .menu-bar {
 }
 
 @media (max-width: 480px) {
+    body .container,
     .container {
-        padding: 0 1rem !important;
+        padding: 0 1rem;
     }
 
+    body .hero-lux-title,
+    body .section-title-lux,
+    body .editorial-title,
+    body section.page-hero .page-title,
+    body .page-hero .page-title,
+    body .page-title,
+    body .cta-title-lux,
+    .page-hero .page-title,
+    .section-header-lux .section-title-lux,
+    .cta-lux .cta-title-lux,
+    .editorial-intro .editorial-title,
     .hero-lux-title,
     .section-title-lux,
     .editorial-title,
     .page-title,
     .cta-title-lux {
-        font-size: clamp(1.75rem, 7vw, 2.5rem) !important;
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
     }
 
     .hero-cta-group {
