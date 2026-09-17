@@ -11,6 +11,10 @@
     --color-text: #1A1A1A;
     --color-text-muted: #555555;
     --color-border: #e0e0e0;
+    --radius-sm: 8px;    /* elemen kecil: badge, input, icon box */
+    --radius-md: 16px;   /* card, container standar - default */
+    --radius-lg: 24px;   /* card besar/hero/featured section */
+    --radius-pill: 999px; /* tombol pill/rounded penuh */
     --font-heading: 'Fraunces', serif;
     --font-body: 'Inter', sans-serif;
     --transition: all 0.3s ease;
@@ -265,7 +269,7 @@ p {
 .site-header .logo:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px var(--lux-gold);
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
 }
 
 .site-header.scrolled .logo,
@@ -370,7 +374,7 @@ p {
     background-color: var(--lux-gold);
     color: var(--lux-dark);
     padding: 0.5rem 1.15rem;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.85rem;
     flex-shrink: 0;
@@ -394,7 +398,7 @@ p {
     border: 1px solid var(--lux-gold);
     color: var(--lux-gold);
     padding: 0.45rem 1.15rem;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 0.85rem;
     white-space: nowrap;
@@ -447,7 +451,7 @@ p {
     background: #ffffff;
     min-width: 210px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     opacity: 0;
     visibility: hidden;
     transform: translateY(4px);
@@ -552,7 +556,7 @@ p {
     transform: translateY(-50%);
     background: #ffffff;
     padding: 0.35rem 0.5rem 0.35rem 0.85rem;
-    border-radius: 30px;
+    border-radius: var(--radius-pill);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     display: none;
     align-items: center;
@@ -591,7 +595,7 @@ p {
     color: #ffffff;
     border: none;
     padding: 0.3rem 0.8rem;
-    border-radius: 20px;
+    border-radius: var(--radius-pill);
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
@@ -624,7 +628,7 @@ p {
     right: 0;
     width: 280px;
     background: #ffffff;
-    border-radius: 12px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     z-index: 1050;
     max-height: 300px;
@@ -700,7 +704,7 @@ p {
     padding: 1rem 2.5rem;
     font-size: 1rem;
     font-weight: 500;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     transition: all 0.2s ease;
     text-decoration: none;
     border: none;
@@ -843,7 +847,7 @@ p {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
     padding: 0.5rem 1.2rem;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-size: 0.9rem;
     margin-bottom: 2rem;
 }
@@ -1072,7 +1076,7 @@ p {
 
 .bento-card-lux {
     background: #fff;
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -1110,7 +1114,7 @@ p {
     background-color: var(--color-primary);
     color: #ffffff;
     padding: 2.5rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -1118,7 +1122,7 @@ p {
     background-color: var(--color-secondary);
     color: #ffffff;
     padding: 2.5rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -1126,7 +1130,7 @@ p {
     background-color: var(--lux-dark);
     color: #ffffff;
     padding: 2.5rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
@@ -1237,7 +1241,7 @@ p {
     color: var(--color-text-muted);
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
     outline: none;
@@ -1264,7 +1268,7 @@ p {
 
 .news-card-lux, .news-card {
     background: #fff;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     text-decoration: none;
@@ -1634,7 +1638,7 @@ section.luxury-steps-section,
     padding: 2rem 1.5rem;
     border-top: 4px solid var(--lux-gold);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 }
 
 .luxury-step-num {
@@ -1706,7 +1710,7 @@ section.luxury-steps-section,
     width: 100%;
     height: 480px;
     object-fit: cover;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
@@ -1723,7 +1727,7 @@ section.luxury-steps-section,
 .feature-card, .value-card {
     background: #fff;
     padding: 2.2rem 1.8rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 100%;
@@ -1738,7 +1742,7 @@ section.luxury-steps-section,
 .card-icon-wrap {
     width: 52px;
     height: 52px;
-    border-radius: 14px;
+    border-radius: var(--radius-sm);
     background: rgba(212, 181, 130, 0.15);
     border: 1px solid rgba(212, 181, 130, 0.3);
     color: #6B5220;
@@ -1837,7 +1841,7 @@ section.luxury-steps-section,
     padding: 2.5rem 1.5rem;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     transition: transform 0.3s ease;
     height: 100%;
 }
@@ -1881,7 +1885,7 @@ section.luxury-steps-section,
 
 .program-option-card {
     background: #fff;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
@@ -1907,7 +1911,7 @@ section.luxury-steps-section,
 /* Student Life & Extracurricular */
 .facility-card {
     background: #fff;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: transform 0.3s ease;
@@ -1945,7 +1949,7 @@ section.luxury-steps-section,
 .tag-item {
     background: #fff;
     padding: 0.8rem 1.5rem;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     font-weight: 500;
     color: var(--color-primary);
@@ -2008,7 +2012,7 @@ section.luxury-steps-section,
 .schedule-card {
     background: #fff;
     padding: 2rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     text-align: center;
 }
@@ -2087,7 +2091,7 @@ section.luxury-steps-section,
 .contact-map {
     height: 450px;
     background: var(--color-border);
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     overflow: hidden;
 }
 
@@ -2105,7 +2109,7 @@ section.luxury-steps-section,
 .contact-form-card {
     background: #ffffff;
     border: 1px solid rgba(212, 181, 130, 0.35);
-    border-radius: 20px;
+    border-radius: var(--radius-lg);
     padding: 2.75rem 2.25rem;
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.05);
 }
@@ -2121,7 +2125,7 @@ section.luxury-steps-section,
     padding: 1.35rem 1rem 0.65rem 1rem;
     background: #ffffff;
     border: 1.5px solid rgba(0, 0, 0, 0.12);
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--color-text);
@@ -2161,7 +2165,7 @@ section.luxury-steps-section,
     transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
     transform-origin: left top;
     padding: 0 0.35rem;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     line-height: 1;
 }
 
@@ -2188,7 +2192,7 @@ section.luxury-steps-section,
     background: var(--color-primary);
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--radius-pill);
     font-family: var(--font-body);
     font-size: 1rem;
     font-weight: 600;
@@ -2259,7 +2263,7 @@ section.luxury-steps-section,
     max-width: 800px;
     margin: 0 auto;
     padding: 3rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 20px 50px rgba(0,0,0,0.1);
     text-align: center;
 }
@@ -2297,7 +2301,7 @@ section.luxury-steps-section,
 .timeline-image {
     background-color: var(--lux-bg);
     min-height: 250px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2305,7 +2309,7 @@ section.luxury-steps-section,
 
 .timeline-image img {
     width: 100%;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     box-shadow: 0 15px 40px rgba(0,0,0,0.15);
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -2328,7 +2332,7 @@ section.luxury-steps-section,
 .req-info-box {
     background: #fff;
     padding: 3rem 2rem;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     border: 1px solid var(--color-border);
     max-width: 600px;
@@ -2360,7 +2364,7 @@ section.luxury-steps-section,
 .lightbox-overlay img {
     max-width: 90%;
     max-height: 90%;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
@@ -2372,7 +2376,7 @@ section.luxury-steps-section,
 }
 
 .gallery-item {
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     position: relative;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
@@ -2498,7 +2502,7 @@ section.luxury-steps-section,
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
     display: inline-block;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
     transition: all 0.3s ease;
 }
@@ -2774,7 +2778,7 @@ body.menu-open .menu-bar {
 /* 3. Image Hover & Visual Cohesion (Cinematic Tone & Luxury Zoom) */
 .lux-img-zoom {
     overflow: hidden;
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     position: relative;
 }
 
@@ -2951,7 +2955,7 @@ body.menu-open .menu-bar {
         box-shadow: none;
         background: rgba(0, 0, 0, 0.04);
         padding-left: 0.5rem;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         min-width: auto;
         border: none;
         pointer-events: auto;
@@ -3214,7 +3218,7 @@ body.menu-open .menu-bar {
     .site-header .logo:focus-visible {
         outline: none;
         box-shadow: 0 0 0 2px var(--lux-gold);
-        border-radius: 4px;
+        border-radius: var(--radius-sm);
     }
 
     .logo-img {
@@ -3384,7 +3388,7 @@ body.menu-open .menu-bar {
     margin: 0 auto;
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 16px;
+    border-radius: var(--radius-md);
     padding: 1rem 2rem;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
     gap: 0.5rem;
@@ -3400,7 +3404,7 @@ body.menu-open .menu-bar {
     gap: 0.75rem;
     background: transparent;
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     box-shadow: none;
     border-right: 1px solid rgba(0, 0, 0, 0.08);
     padding: 0.6rem 0.75rem;
@@ -3532,7 +3536,7 @@ body.menu-open .menu-bar {
     .luxury-stats-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        border-radius: 14px;
+        border-radius: var(--radius-md);
         gap: 0.5rem;
         padding: 1rem 0.75rem;
     }
@@ -3639,7 +3643,7 @@ body.menu-open .menu-bar {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
 }
 
