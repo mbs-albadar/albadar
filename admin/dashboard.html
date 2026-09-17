@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -6,31 +6,42 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Dashboard Admin | SMP MBS Al Badar Prambanan</title>
     <link rel="icon" type="image/png" href="../assets/img/logo-ppm-mbs.png">
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --color-primary: #04473A;
             --color-primary-hover: #03382D;
+            --color-primary-light: #E6EFE9;
             --color-secondary: #11366E;
             --lux-dark: #04473A;
             --lux-gold: #D4B582;
-            --lux-bg: #F8F9FA;
+            --lux-gold-light: #FBF7F0;
+            --lux-gold-hover: #C5A46D;
+            --lux-bg: #F4F6F8;
             --color-surface: #FFFFFF;
             --color-text-main: #1F2937;
             --color-text-muted: #6B7280;
             --color-border: #E5E7EB;
+            --color-border-light: #F0F2F5;
+            --color-success: #059669;
+            --color-success-bg: #ECFDF5;
+            --color-danger: #DC2626;
+            --color-danger-bg: #FEF2F2;
             --radius-sm: 8px;
-            --radius-md: 16px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
             --radius-pill: 999px;
-            --shadow-sm: 0 2px 8px rgba(4, 71, 58, 0.08);
-            --shadow-md: 0 8px 24px rgba(4, 71, 58, 0.12);
+            --shadow-sm: 0 2px 8px rgba(4, 71, 58, 0.06);
+            --shadow-md: 0 8px 24px rgba(4, 71, 58, 0.09);
+            --shadow-lg: 0 20px 50px rgba(4, 71, 58, 0.12);
             --font-heading: 'Fraunces', serif;
             --font-body: 'Inter', sans-serif;
+            --sidebar-width: 260px;
         }
 
         * {
@@ -45,208 +56,2104 @@
             color: var(--color-text-main);
             min-height: 100vh;
             display: flex;
+            overflow-x: hidden;
+        }
+
+        /* Initial Auth Loading Overlay */
+        #authOverlay {
+            position: fixed;
+            inset: 0;
+            background: #FFFFFF;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-            position: relative;
-            background-image: radial-gradient(circle at 10% 20%, rgba(4, 71, 58, 0.04) 0%, transparent 40%),
-                              radial-gradient(circle at 90% 80%, rgba(17, 54, 110, 0.05) 0%, transparent 40%);
+            gap: 1rem;
         }
 
-        .dashboard-card {
-            width: 100%;
-            max-width: 520px;
-            background: var(--color-surface);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--color-border);
-            padding: 2.5rem 2rem;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--color-primary), var(--lux-gold));
-        }
-
-        .badge-placeholder {
-            display: inline-block;
-            background: rgba(212, 181, 130, 0.18);
-            color: var(--color-primary);
-            border: 1px solid var(--lux-gold);
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 0.35rem 0.85rem;
-            border-radius: var(--radius-pill);
-            margin-bottom: 1.25rem;
-        }
-
-        .dashboard-title {
-            font-family: var(--font-heading);
-            font-size: 1.6rem;
-            color: var(--lux-dark);
-            margin-bottom: 0.75rem;
-        }
-
-        .dashboard-info {
-            font-size: 1.05rem;
-            color: var(--color-text-main);
-            margin-bottom: 1.75rem;
-            line-height: 1.7;
-        }
-
-        .role-pill {
-            display: inline-block;
-            background: var(--color-primary);
-            color: #ffffff;
-            font-weight: 600;
-            padding: 0.2rem 0.65rem;
-            border-radius: var(--radius-sm);
-            font-size: 0.875rem;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-logout {
-            padding: 0.75rem 1.75rem;
-            background-color: transparent;
-            color: var(--color-text-muted);
-            border: 1.5px solid var(--color-border);
-            border-radius: var(--radius-pill);
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-logout:hover {
-            background-color: #FEE2E2;
-            color: #DC2626;
-            border-color: #FECACA;
-        }
-
-        .loading-state {
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
-            padding: 1.5rem 0;
-        }
-
-        .spinner {
-            width: 24px;
-            height: 24px;
-            border: 2px solid rgba(4, 71, 58, 0.2);
-            border-radius: 50%;
+        .auth-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(4, 71, 58, 0.15);
             border-top-color: var(--color-primary);
+            border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin: 0 auto 0.75rem;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* SIDEBAR STYLING */
+        .admin-sidebar {
+            width: var(--sidebar-width);
+            background: var(--lux-dark);
+            color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            min-height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 100;
+            transition: transform 0.3s ease;
+            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem 1.25rem 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-brand img {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px;
+        }
+
+        .sidebar-brand-text h2 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            color: #FFFFFF;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .sidebar-brand-text span {
+            font-size: 0.7rem;
+            color: var(--lux-gold);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* User Profile in Sidebar */
+        .sidebar-user {
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--lux-gold);
+            color: var(--lux-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .user-details {
+            overflow: hidden;
+        }
+
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-pill);
+            margin-top: 0.2rem;
+        }
+
+        .role-super_admin {
+            background: rgba(212, 181, 130, 0.25);
+            color: var(--lux-gold);
+            border: 1px solid var(--lux-gold);
+        }
+
+        .role-admin {
+            background: rgba(5, 150, 105, 0.25);
+            color: #34D399;
+            border: 1px solid #059669;
+        }
+
+        /* Navigation Links */
+        .sidebar-nav {
+            flex: 1;
+            padding: 1rem 0.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            overflow-y: auto;
+        }
+
+        .nav-category-title {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 0.6rem 0.6rem 0.2rem;
+            font-weight: 700;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.7rem 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-item:hover {
+            color: #FFFFFF;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .sidebar-item.active {
+            color: var(--lux-dark);
+            background: var(--lux-gold);
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(212, 181, 130, 0.3);
+        }
+
+        .sidebar-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            padding: 1rem 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-sidebar-logout {
+            color: #F87171 !important;
+        }
+
+        .btn-sidebar-logout:hover {
+            background: rgba(220, 38, 38, 0.15) !important;
+            color: #FCA5A5 !important;
+        }
+
+        /* MAIN CONTENT AREA */
+        .admin-main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: calc(100% - var(--sidebar-width));
+        }
+
+        .admin-topbar {
+            background: var(--color-surface);
+            height: 64px;
+            border-bottom: 1px solid var(--color-border);
+            padding: 0 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--color-text-main);
+            cursor: pointer;
+            padding: 0.4rem;
+        }
+
+        .topbar-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--lux-dark);
+            font-weight: 700;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .view-site-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.8rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 0.45rem 0.85rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(4, 71, 58, 0.2);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .view-site-link:hover {
+            background: var(--color-primary-light);
+            border-color: var(--color-primary);
+        }
+
+        /* CONTENT SECTIONS */
+        .admin-content {
+            padding: 1.75rem;
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tab-section {
+            display: none;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .tab-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            pointer-events: none;
+        }
+
+        .toast {
+            pointer-events: auto;
+            min-width: 280px;
+            max-width: 400px;
+            padding: 0.85rem 1.15rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            animation: slideInRight 0.3s ease-out;
+            color: #FFFFFF;
+        }
+
+        .toast-success {
+            background: #059669;
+        }
+
+        .toast-error {
+            background: #DC2626;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* BERANDA MODULE */
+        .welcome-card {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #065F46 100%);
+            color: #FFFFFF;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-bottom: 1.75rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(212, 181, 130, 0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-card h1 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-card p {
+            font-size: 0.95rem;
+            opacity: 0.88;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--lux-gold);
+        }
+
+        .stat-icon-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-icon-green {
+            background: rgba(4, 71, 58, 0.1);
+            color: var(--color-primary);
+        }
+
+        .stat-icon-gold {
+            background: rgba(212, 181, 130, 0.2);
+            color: #92400E;
+        }
+
+        .stat-icon-blue {
+            background: rgba(17, 54, 110, 0.1);
+            color: var(--color-secondary);
+        }
+
+        .stat-icon-cyan {
+            background: rgba(8, 145, 178, 0.12);
+            color: #0E7490;
+        }
+
+        .stat-icon-purple {
+            background: rgba(124, 58, 237, 0.12);
+            color: #6D28D9;
+        }
+
+        .stat-val {
+            font-family: var(--font-heading);
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--lux-dark);
+            line-height: 1.1;
+        }
+
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+            font-weight: 500;
+        }
+
+        /* BERITA MODULE */
+        .section-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn-primary-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.7rem 1.25rem;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary-action:hover {
+            background: var(--color-primary-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .card-container {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+        }
+
+        .filter-toolbar {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            background: #FAFAFA;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 220px;
+            position: relative;
+        }
+
+        .search-box svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.55rem 0.75rem 0.55rem 2.25rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            background: #FFFFFF;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-primary);
+        }
+
+        .select-filter {
+            padding: 0.55rem 0.85rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            background: #FFFFFF;
+            outline: none;
+            color: var(--color-text-main);
+        }
+
+        /* Responsive Table */
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+
+        .data-table th {
+            background: #F9FAFB;
+            padding: 0.85rem 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            border-bottom: 1px solid var(--color-border);
+            white-space: nowrap;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+        }
+
+        .data-table td {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid var(--color-border-light);
+            vertical-align: middle;
+        }
+
+        .data-table tr:hover td {
+            background-color: #FAFAFA;
+        }
+
+        .news-thumb {
+            width: 52px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            background: #E5E7EB;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .news-title-cell {
+            font-weight: 600;
+            color: var(--color-text-main);
+            max-width: 320px;
+            line-height: 1.4;
+        }
+
+        .news-slug-sub {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            font-family: monospace;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .cat-kegiatan {
+            background: rgba(4, 71, 58, 0.1);
+            color: var(--color-primary);
+        }
+
+        .cat-prestasi {
+            background: rgba(212, 181, 130, 0.25);
+            color: #92400E;
+        }
+
+        .cat-pengumuman {
+            background: rgba(17, 54, 110, 0.12);
+            color: var(--color-secondary);
+        }
+
+        .cat-default {
+            background: #E5E7EB;
+            color: #374151;
+        }
+
+        .table-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-action-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: #FFFFFF;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--color-text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .btn-action-icon:hover {
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+            background: var(--color-primary-light);
+        }
+
+        .btn-action-danger:hover {
+            border-color: var(--color-danger);
+            color: var(--color-danger);
+            background: var(--color-danger-bg);
+        }
+
+        .empty-placeholder {
+            text-align: center;
+            padding: 3.5rem 1.5rem;
+            color: var(--color-text-muted);
+        }
+
+        .empty-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 0.75rem;
+            opacity: 0.4;
+        }
+
+        /* PLACEHOLDER SECTIONS */
+        .feature-placeholder-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .feature-placeholder-card svg {
+            width: 64px;
+            height: 64px;
+            color: var(--lux-gold);
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-placeholder-card h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--lux-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-placeholder-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .badge-soon {
+            display: inline-block;
+            background: var(--lux-gold-light);
+            border: 1px solid var(--lux-gold);
+            color: #92400E;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            margin-top: 1.25rem;
+        }
+
+        /* MODAL STYLING */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-backdrop.active {
+            display: flex;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal-box {
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            z-index: 2;
+        }
+
+        .modal-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--lux-dark);
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: var(--radius-sm);
+        }
+
+        .modal-close-btn:hover {
+            color: var(--color-text-main);
+            background: #F3F4F6;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group-admin {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group-admin label {
+            display: block;
+            font-size: 0.825rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group-admin input,
+        .form-group-admin select,
+        .form-group-admin textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            color: var(--color-text-main);
+            background: #FFFFFF;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group-admin input:focus,
+        .form-group-admin select:focus,
+        .form-group-admin textarea:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(4, 71, 58, 0.08);
+        }
+
+        .form-group-admin input[readonly],
+        .form-group-admin input:disabled {
+            background-color: #F9FAFB;
+            color: #6B7280;
+            cursor: not-allowed;
+        }
+
+        .form-help {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 0.3rem;
+        }
+
+        .image-preview-box {
+            margin-top: 0.5rem;
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--color-border);
+            background: #F9FAFB;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .image-preview-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview-box span {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            background: #F9FAFB;
+            position: sticky;
+            bottom: 0;
+            z-index: 2;
+        }
+
+        .btn-cancel {
+            padding: 0.65rem 1.25rem;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-pill);
+            color: var(--color-text-main);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-cancel:hover {
+            background: #F3F4F6;
+        }
+
+        /* Delete Confirmation Dialog Modal */
+        .confirm-box {
+            max-width: 420px;
+            text-align: center;
+            padding: 2rem 1.5rem 1.5rem;
+        }
+
+        .confirm-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #FEE2E2;
+            color: var(--color-danger);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .confirm-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--lux-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .confirm-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .btn-danger-action {
+            background: var(--color-danger);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.65rem 1.25rem;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-body);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-danger-action:hover {
+            background: #B91C1C;
+        }
+
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 900px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-sidebar.open {
+                transform: translateX(0);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: inline-flex;
+            }
+
+            .form-row-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 95;
+                display: none;
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
-    <main class="dashboard-card">
-        <div id="loading" class="loading-state">
-            <div class="spinner" aria-hidden="true"></div>
-            Memuat data sesi...
+    <!-- Auth Loading Overlay -->
+    <div id="authOverlay">
+        <div class="auth-spinner"></div>
+        <p style="font-size: 0.9rem; color: var(--color-text-muted);">Memverifikasi sesi administrator...</p>
+    </div>
+
+    <!-- Mobile Sidebar Overlay Backdrop -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="sidebar-brand">
+            <img src="../assets/img/logo-ppm-mbs.png" alt="Logo Al Badar" onerror="this.style.display='none'">
+            <div class="sidebar-brand-text">
+                <h2>Al Badar Admin</h2>
+                <span>PPM MBS Yogyakarta</span>
+            </div>
         </div>
 
-        <div id="content" style="display: none;">
-            <span class="badge-placeholder">Halaman Placeholder Sementara</span>
-            <h1 class="dashboard-title">Panel Administrasi</h1>
-            <p class="dashboard-info" id="welcomeText">
-                <!-- Data from Supabase will be injected here -->
-            </p>
-            <button id="logoutBtn" class="btn-logout" type="button">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="sidebar-user">
+            <div class="user-avatar" id="sidebarAvatar">A</div>
+            <div class="user-details">
+                <div class="user-name" id="sidebarUserName">Administrator</div>
+                <div class="user-role-badge role-admin" id="sidebarUserRole">ADMIN</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-category-title">Menu Utama</div>
+            <button type="button" class="sidebar-item active" data-target="sec-beranda">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Beranda
+            </button>
+
+            <button type="button" class="sidebar-item" data-target="sec-berita">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                    <path d="M18 14h-8"></path>
+                    <path d="M15 18h-5"></path>
+                    <path d="M10 6h8v4h-8V6Z"></path>
+                </svg>
+                Berita
+            </button>
+
+            <button type="button" class="sidebar-item" data-target="sec-prestasi">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="8" r="6"></circle>
+                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                </svg>
+                Prestasi
+            </button>
+
+            <button type="button" class="sidebar-item" data-target="sec-galeri">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                    <circle cx="9" cy="9" r="2"></circle>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                </svg>
+                Galeri
+            </button>
+
+            <div class="nav-category-title role-super-admin-only">Super Admin</div>
+            <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-siswa">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Data Siswa
+            </button>
+
+            <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-guru">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8.5" cy="7" r="4"></circle>
+                    <polyline points="17 11 19 13 23 9"></polyline>
+                </svg>
+                Data Guru
+            </button>
+
+            <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-setting">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Setting
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button type="button" class="sidebar-item btn-sidebar-logout" id="sidebarLogoutBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                     <polyline points="16 17 21 12 16 7"></polyline>
                     <line x1="21" y1="12" x2="9" y2="12"></line>
                 </svg>
-                Keluar (Logout)
+                Logout
             </button>
         </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="admin-main">
+        <header class="admin-topbar">
+            <div class="topbar-left">
+                <button type="button" class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Buka Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <h1 class="topbar-title" id="pageTitle">Beranda</h1>
+            </div>
+            <div class="topbar-right">
+                <a href="../index.html" target="_blank" rel="noopener" class="view-site-link">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    Lihat Website
+                </a>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <!-- 1. SECTION BERANDA -->
+            <section class="tab-section active" id="sec-beranda">
+                <div class="welcome-card">
+                    <h1 id="welcomeHeading">Selamat Datang, Administrator</h1>
+                    <p id="welcomeSub">Sistem Informasi Administrasi dan Pengelolaan Konten SMP MBS Al Badar Prambanan.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <a href="#berita" class="stat-box" onclick="switchTab('sec-berita'); return false;">
+                        <div class="stat-icon-wrap stat-icon-green">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                <path d="M18 14h-8"></path>
+                                <path d="M15 18h-5"></path>
+                                <path d="M10 6h8v4h-8V6Z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="stat-val" id="statNewsCount">...</div>
+                            <div class="stat-lbl">Total Berita & Artikel</div>
+                        </div>
+                    </a>
+
+                    <a href="#prestasi" class="stat-box" onclick="switchTab('sec-prestasi'); return false;">
+                        <div class="stat-icon-wrap stat-icon-gold">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="6"></circle>
+                                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="stat-val" id="statAchieveCount">...</div>
+                            <div class="stat-lbl">Total Prestasi Siswa</div>
+                        </div>
+                    </a>
+
+                    <div class="stat-box" id="cardStatSiswa" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-siswa');">
+                        <div class="stat-icon-wrap stat-icon-cyan">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="stat-val" id="statStudentCount">...</div>
+                            <div class="stat-lbl">Jumlah Siswa</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box" id="cardStatGuru" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-guru');">
+                        <div class="stat-icon-wrap stat-icon-purple">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <polyline points="17 11 19 13 23 9"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="stat-val" id="statTeacherCount">...</div>
+                            <div class="stat-lbl">Jumlah Guru</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box" style="cursor: default;">
+                        <div class="stat-icon-wrap stat-icon-blue">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="stat-val" id="statUserRole" style="font-size: 1.35rem;">ADMIN</div>
+                            <div class="stat-lbl">Tingkat Hak Akses</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Action Bar -->
+                <div class="card-container" style="padding: 1.5rem;">
+                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.75rem; color: var(--lux-dark); font-size: 1.15rem;">Aksi Cepat</h3>
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button type="button" class="btn-primary-action" onclick="openNewsModal()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Tambah Berita Baru
+                        </button>
+                        <button type="button" class="btn-cancel" onclick="switchTab('sec-berita')">
+                            Kelola Semua Berita
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. SECTION BERITA (CRUD PENUH) -->
+            <section class="tab-section" id="sec-berita">
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Manajemen Berita</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Publikasikan, sunting, dan hapus artikel berita sekolah.</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openNewsModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Tambah Berita
+                    </button>
+                </div>
+
+                <div class="card-container">
+                    <div class="filter-toolbar">
+                        <div class="search-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="newsSearchInput" class="search-input" placeholder="Cari judul berita...">
+                        </div>
+                        <select id="newsCategoryFilter" class="select-filter">
+                            <option value="all">Semua Kategori</option>
+                            <option value="Kegiatan">Kegiatan</option>
+                            <option value="Prestasi">Prestasi</option>
+                            <option value="Pengumuman">Pengumuman</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 70px;">Gambar</th>
+                                    <th>Judul Berita & Slug</th>
+                                    <th>Kategori</th>
+                                    <th>Tanggal Publikasi</th>
+                                    <th style="width: 100px; text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="newsTableBody">
+                                <tr>
+                                    <td colspan="5" class="empty-placeholder">
+                                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                                        Memuat data berita...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. PLACEHOLDER PRESTASI -->
+            <section class="tab-section" id="sec-prestasi">
+                <div class="feature-placeholder-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+                    <h2>Modul Prestasi Santri</h2>
+                    <p>Manajemen rekam jejak medali, kejuaraan nasional, dan prestasi santri SMP MBS Al Badar.</p>
+                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                </div>
+            </section>
+
+            <!-- 4. PLACEHOLDER GALERI -->
+            <section class="tab-section" id="sec-galeri">
+                <div class="feature-placeholder-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                    <h2>Modul Galeri Foto</h2>
+                    <p>Manajemen album dokumentasi kegiatan, fasilitas pesantren, dan kehidupan santri.</p>
+                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                </div>
+            </section>
+
+            <!-- 5. PLACEHOLDER DATA SISWA (SUPER ADMIN ONLY) -->
+            <section class="tab-section role-super-admin-only" id="sec-siswa">
+                <div class="feature-placeholder-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <h2>Modul Data Siswa & Santri</h2>
+                    <p>Akses terbatas Super Admin untuk mengelola data induk santri Boarding dan Full Day School.</p>
+                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                </div>
+            </section>
+
+            <!-- 6. PLACEHOLDER DATA GURU (SUPER ADMIN ONLY) -->
+            <section class="tab-section role-super-admin-only" id="sec-guru">
+                <div class="feature-placeholder-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                    <h2>Modul Data Guru & GTK</h2>
+                    <p>Akses terbatas Super Admin untuk administrasi pendidik dan tenaga kependidikan.</p>
+                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                </div>
+            </section>
+
+            <!-- 7. PLACEHOLDER SETTING (SUPER ADMIN ONLY) -->
+            <section class="tab-section role-super-admin-only" id="sec-setting">
+                <div class="feature-placeholder-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    <h2>Pengaturan Sistem</h2>
+                    <p>Konfigurasi parameter global, manajemen akun administrator, dan integrasi sistem.</p>
+                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                </div>
+            </section>
+        </div>
     </main>
+
+    <!-- MODAL FORM TAMBAH / EDIT BERITA -->
+    <div class="modal-backdrop" id="newsModalBackdrop">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="newsModalTitle">Tambah Berita Baru</h3>
+                <button type="button" class="modal-close-btn" onclick="closeNewsModal()" aria-label="Tutup Modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="newsForm">
+                <div class="modal-body">
+                    <div class="form-group-admin">
+                        <label for="newsTitleInput">Judul Berita *</label>
+                        <input type="text" id="newsTitleInput" required placeholder="Contoh: Santri Al Badar Raih Juara Tahfidz Nasional">
+                    </div>
+
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="newsSlugInput">ID / Slug Berita (URL) *</label>
+                            <input type="text" id="newsSlugInput" required placeholder="santri-albadar-raih-juara">
+                            <div class="form-help" id="newsSlugHelp">Huruf kecil, angka, dan tanda hubung (-)</div>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="newsDateInput">Tanggal Berita *</label>
+                            <input type="date" id="newsDateInput" required>
+                            <div class="form-help">Tersimpan publik: <strong id="datePreviewText">-</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="newsCategoryInput">Kategori *</label>
+                            <select id="newsCategoryInput" required>
+                                <option value="Kegiatan">Kegiatan</option>
+                                <option value="Prestasi">Prestasi</option>
+                                <option value="Pengumuman">Pengumuman</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="newsImageInput">URL Gambar / Sampul *</label>
+                            <input type="url" id="newsImageInput" required placeholder="https://images.unsplash.com/...">
+                        </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="form-group-admin">
+                        <label>Pratinjau Sampul</label>
+                        <div class="image-preview-box" id="imagePreviewBox">
+                            <span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="newsExcerptInput">Ringkasan Pendek (Excerpt) *</label>
+                        <textarea id="newsExcerptInput" rows="2" required placeholder="Deskripsi singkat yang muncul pada kartu pratinjau berita..."></textarea>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="newsContentInput">Isi Konten Lengkap *</label>
+                        <textarea id="newsContentInput" rows="6" required placeholder="Tuliskan isi naskah berita lengkap di sini..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeNewsModal()">Batal</button>
+                    <button type="submit" id="saveNewsBtn" class="btn-primary-action">
+                        <span id="saveNewsText">Simpan Berita</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS BERITA -->
+    <div class="modal-backdrop" id="deleteModalBackdrop">
+        <div class="modal-box confirm-box">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Berita Ini?</h3>
+            <p class="confirm-desc">
+                Anda akan menghapus berita: <br><strong id="deleteNewsTitleText" style="color: var(--color-text-main);">...</strong>.<br>
+                Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeleteModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeleteBtn">Hapus Berita</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Supabase JS Client & Config -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/supabase-config.js"></script>
 
     <script>
-        const loadingEl = document.getElementById('loading');
-        const contentEl = document.getElementById('content');
-        const welcomeText = document.getElementById('welcomeText');
-        const logoutBtn = document.getElementById('logoutBtn');
+        // GLOBAL STATE
+        let currentUser = null;
+        let currentProfile = null;
+        let allNewsList = [];
+        let isEditingNews = false;
+        let editingNewsOriginalId = null;
+        let isSlugManual = false;
+        let newsIdToDelete = null;
 
-        async function initDashboard() {
+        const INDO_MONTHS = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        // 1. DATE HELPERS
+        function isoToIndonesian(isoStr) {
+            if (!isoStr) return '';
+            const parts = isoStr.split('-');
+            if (parts.length !== 3) return isoStr;
+            const year = parts[0];
+            const monthIdx = parseInt(parts[1], 10) - 1;
+            const day = parts[2].padStart(2, '0');
+            const monthName = INDO_MONTHS[monthIdx] || '';
+            return `${day} ${monthName} ${year}`;
+        }
+
+        function indonesianToIso(indoStr) {
+            if (!indoStr) return '';
+            const parts = indoStr.trim().split(/\s+/);
+            if (parts.length !== 3) return '';
+            const day = parts[0].padStart(2, '0');
+            const monthName = parts[1];
+            const year = parts[2];
+            const monthIdx = INDO_MONTHS.findIndex(m => m.toLowerCase() === monthName.toLowerCase());
+            if (monthIdx === -1) return '';
+            const month = String(monthIdx + 1).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function slugify(text) {
+            return text
+                .toString()
+                .toLowerCase()
+                .replace(/[^\w\s-]/g, '')
+                .trim()
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const d = document.createElement('div');
+            d.textContent = text;
+            return d.innerHTML;
+        }
+
+        function showToast(msg, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    ${type === 'success' 
+                        ? '<polyline points="20 6 9 17 4 12"></polyline>' 
+                        : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>'}
+                </svg>
+                <span>${escapeHtml(msg)}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // 2. AUTH & ROLE INITIALIZATION
+        async function checkAuth() {
             try {
-                // 1. Check session
                 const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
-
                 if (sessionError || !session || !session.user) {
                     window.location.replace('login.html');
                     return;
                 }
 
-                // 2. Fetch admin profile
+                currentUser = session.user;
+
+                // Query admin_profiles
                 const { data: profile, error: profileError } = await supabaseClient
                     .from('admin_profiles')
                     .select('*')
-                    .eq('id', session.user.id)
+                    .eq('id', currentUser.id)
                     .single();
 
                 if (profileError || !profile) {
-                    // Not registered in admin_profiles
                     await supabaseClient.auth.signOut();
                     window.location.replace('login.html');
                     return;
                 }
 
-                // 3. Render greeting
-                const fullName = profile.full_name || session.user.email;
-                const role = profile.role || 'admin';
-                welcomeText.innerHTML = `Selamat datang, <strong>${escapeHtml(fullName)}</strong>.<br>Role Anda: <span class="role-pill">${escapeHtml(role)}</span>.`;
+                currentProfile = profile;
 
-                loadingEl.style.display = 'none';
-                contentEl.style.display = 'block';
+                // Render User in Sidebar & UI
+                const fullName = profile.full_name || currentUser.email;
+                const role = profile.role || 'admin';
+
+                document.getElementById('sidebarUserName').textContent = fullName;
+                document.getElementById('welcomeHeading').textContent = `Selamat Datang, ${fullName}`;
+                document.getElementById('sidebarAvatar').textContent = fullName.charAt(0).toUpperCase();
+
+                const roleBadge = document.getElementById('sidebarUserRole');
+                roleBadge.textContent = role.toUpperCase();
+                roleBadge.className = `user-role-badge role-${role}`;
+                document.getElementById('statUserRole').textContent = role.toUpperCase();
+
+                // Role Permissions: Hide super_admin only elements for regular admin
+                if (role !== 'super_admin') {
+                    document.querySelectorAll('.role-super-admin-only').forEach(el => {
+                        el.style.display = 'none';
+                    });
+                    const cardSiswa = document.getElementById('cardStatSiswa');
+                    const cardGuru = document.getElementById('cardStatGuru');
+                    if (cardSiswa) cardSiswa.style.cursor = 'default';
+                    if (cardGuru) cardGuru.style.cursor = 'default';
+                } else {
+                    const cardSiswa = document.getElementById('cardStatSiswa');
+                    const cardGuru = document.getElementById('cardStatGuru');
+                    if (cardSiswa) cardSiswa.style.cursor = 'pointer';
+                    if (cardGuru) cardGuru.style.cursor = 'pointer';
+                }
+
+                // Hide Loading Screen
+                document.getElementById('authOverlay').style.display = 'none';
+
+                // Initial Load Data
+                loadDashboardStats();
+                loadNewsList();
+
+                // Check Hash Navigation
+                handleHashNav();
+
             } catch (err) {
-                console.error('Error initializing dashboard:', err);
+                console.error('Auth verification error:', err);
                 window.location.replace('login.html');
             }
         }
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
+        // 3. TAB NAVIGATION
+        const menuTitles = {
+            'sec-beranda': 'Beranda',
+            'sec-berita': 'Manajemen Berita',
+            'sec-prestasi': 'Data Prestasi',
+            'sec-galeri': 'Galeri Foto',
+            'sec-siswa': 'Data Siswa',
+            'sec-guru': 'Data Guru',
+            'sec-setting': 'Pengaturan Sistem'
+        };
+
+        function switchTab(targetSectionId) {
+            // Check super_admin restriction
+            if (currentProfile && currentProfile.role !== 'super_admin') {
+                const superAdminSections = ['sec-siswa', 'sec-guru', 'sec-setting'];
+                if (superAdminSections.includes(targetSectionId)) {
+                    targetSectionId = 'sec-beranda';
+                }
+            }
+
+            // Update Sidebar Items
+            document.querySelectorAll('.sidebar-item[data-target]').forEach(btn => {
+                if (btn.dataset.target === targetSectionId) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            // Update Section Views
+            document.querySelectorAll('.tab-section').forEach(sec => {
+                if (sec.id === targetSectionId) {
+                    sec.classList.add('active');
+                } else {
+                    sec.classList.remove('active');
+                }
+            });
+
+            // Update Topbar Title
+            document.getElementById('pageTitle').textContent = menuTitles[targetSectionId] || 'Dashboard';
+
+            // Close mobile sidebar if open
+            closeMobileSidebar();
+
+            // Sync URL hash
+            const hash = targetSectionId.replace('sec-', '');
+            if (window.location.hash !== `#${hash}`) {
+                history.replaceState(null, null, `#${hash}`);
+            }
         }
 
-        logoutBtn.addEventListener('click', async () => {
-            logoutBtn.disabled = true;
-            try {
-                await supabaseClient.auth.signOut();
-            } catch (err) {
-                console.error('Logout error:', err);
-            } finally {
-                window.location.replace('login.html');
+        function handleHashNav() {
+            const rawHash = window.location.hash.replace('#', '');
+            if (rawHash) {
+                const targetId = `sec-${rawHash}`;
+                if (document.getElementById(targetId)) {
+                    switchTab(targetId);
+                    return;
+                }
+            }
+            switchTab('sec-beranda');
+        }
+
+        window.addEventListener('hashchange', handleHashNav);
+
+        document.querySelectorAll('.sidebar-item[data-target]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchTab(btn.dataset.target);
+            });
+        });
+
+        // Mobile Sidebar Controls
+        const mobileToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('adminSidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        function openMobileSidebar() {
+            sidebar.classList.add('open');
+            overlay.classList.add('active');
+        }
+
+        function closeMobileSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
+        }
+
+        mobileToggle.addEventListener('click', openMobileSidebar);
+        overlay.addEventListener('click', closeMobileSidebar);
+
+        // Logout action
+        document.getElementById('sidebarLogoutBtn').addEventListener('click', async () => {
+            if (confirm('Apakah Anda yakin ingin keluar dari sistem admin?')) {
+                try {
+                    await supabaseClient.auth.signOut();
+                } catch (err) {
+                    console.error('Logout error:', err);
+                } finally {
+                    window.location.replace('login.html');
+                }
             }
         });
 
-        initDashboard();
+        // 4. BERANDA STATS FETCH
+        async function loadDashboardStats() {
+            try {
+                // 1. News Count
+                const { count: newsCount, error: newsErr } = await supabaseClient
+                    .from('news')
+                    .select('*', { count: 'exact', head: true });
+
+                document.getElementById('statNewsCount').textContent = newsErr ? '0' : (newsCount ?? 0);
+
+                // 2. Achievements Count
+                const { count: achCount, error: achErr } = await supabaseClient
+                    .from('achievements')
+                    .select('*', { count: 'exact', head: true });
+
+                document.getElementById('statAchieveCount').textContent = achErr ? '0' : (achCount ?? 0);
+
+                // 3. Students Count (via RPC get_student_stats to respect RLS across all roles)
+                try {
+                    const { data: studentStats, error: studentErr } = await supabaseClient.rpc('get_student_stats');
+                    if (studentErr || !Array.isArray(studentStats)) {
+                        console.warn('Error loading student stats RPC:', studentErr);
+                        document.getElementById('statStudentCount').textContent = '0';
+                    } else {
+                        const totalStudents = studentStats.reduce((sum, item) => sum + (Number(item.total) || 0), 0);
+                        document.getElementById('statStudentCount').textContent = totalStudents;
+                    }
+                } catch (rpcErr) {
+                    console.warn('Exception running get_student_stats:', rpcErr);
+                    document.getElementById('statStudentCount').textContent = '0';
+                }
+
+                // 4. Teachers Count (publicly readable teachers table)
+                try {
+                    const { count: teacherCount, error: teacherErr } = await supabaseClient
+                        .from('teachers')
+                        .select('*', { count: 'exact', head: true });
+
+                    document.getElementById('statTeacherCount').textContent = teacherErr ? '0' : (teacherCount ?? 0);
+                } catch (tErr) {
+                    console.warn('Exception fetching teachers count:', tErr);
+                    document.getElementById('statTeacherCount').textContent = '0';
+                }
+
+            } catch (err) {
+                console.error('Error loading stats:', err);
+            }
+        }
+
+        // 5. BERITA MODULE (CRUD)
+        async function loadNewsList() {
+            const tbody = document.getElementById('newsTableBody');
+            try {
+                // Query news ordered by created_at desc (or fallback)
+                const { data, error } = await supabaseClient
+                    .from('news')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Fetch news error:', error);
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-placeholder" style="color: var(--color-danger);">
+                                Gagal memuat daftar berita: ${escapeHtml(error.message)}
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                allNewsList = data || [];
+                renderNewsTable(allNewsList);
+
+                // Refresh count on Beranda
+                document.getElementById('statNewsCount').textContent = allNewsList.length;
+
+            } catch (err) {
+                console.error('Error in loadNewsList:', err);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="empty-placeholder" style="color: var(--color-danger);">
+                            Terjadi kesalahan saat memuat data.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function renderNewsTable(items) {
+            const tbody = document.getElementById('newsTableBody');
+            if (!items || items.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="empty-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                            <p>Belum ada data berita yang tersedia.</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = items.map(item => {
+                const categoryClass = item.category === 'Kegiatan' 
+                    ? 'cat-kegiatan' 
+                    : (item.category === 'Prestasi' ? 'cat-prestasi' : (item.category === 'Pengumuman' ? 'cat-pengumuman' : 'cat-default'));
+
+                const placeholderImg = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='40' viewBox='0 0 52 40'%3E%3Crect width='52' height='40' fill='%23E5E7EB'/%3E%3Ctext x='50%25' y='50%25' font-size='8' text-anchor='middle' alignment-baseline='middle' fill='%239CA3AF'%3EFoto%3C/text%3E%3C/svg%3E";
+
+                return `
+                    <tr>
+                        <td>
+                            <img src="${escapeHtml(item.image || placeholderImg)}" alt="Thumb" class="news-thumb" onerror="this.src='${placeholderImg}'">
+                        </td>
+                        <td>
+                            <div class="news-title-cell">${escapeHtml(item.title)}</div>
+                            <span class="news-slug-sub">${escapeHtml(item.id)}</span>
+                        </td>
+                        <td>
+                            <span class="category-badge ${categoryClass}">${escapeHtml(item.category || '-')}</span>
+                        </td>
+                        <td style="color: var(--color-text-muted); white-space: nowrap;">
+                            ${escapeHtml(item.date || '-')}
+                        </td>
+                        <td style="text-align: center;">
+                            <div class="table-actions" style="justify-content: center;">
+                                <button type="button" class="btn-action-icon" title="Edit Berita" onclick="openEditNewsModal('${escapeHtml(item.id)}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        <path d="m15 5 4 4"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-action-icon btn-action-danger" title="Hapus Berita" onclick="openDeleteModal('${escapeHtml(item.id)}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Search & Category Filter
+        const searchInput = document.getElementById('newsSearchInput');
+        const categoryFilter = document.getElementById('newsCategoryFilter');
+
+        function applyNewsFilter() {
+            const query = searchInput.value.toLowerCase().trim();
+            const cat = categoryFilter.value;
+
+            const filtered = allNewsList.filter(item => {
+                const matchTitle = (item.title || '').toLowerCase().includes(query) || (item.id || '').toLowerCase().includes(query);
+                const matchCat = (cat === 'all') || (item.category === cat);
+                return matchTitle && matchCat;
+            });
+
+            renderNewsTable(filtered);
+        }
+
+        searchInput.addEventListener('input', applyNewsFilter);
+        categoryFilter.addEventListener('change', applyNewsFilter);
+
+        // 6. MODAL ADD / EDIT NEWS
+        const newsModal = document.getElementById('newsModalBackdrop');
+        const newsForm = document.getElementById('newsForm');
+        const titleInput = document.getElementById('newsTitleInput');
+        const slugInput = document.getElementById('newsSlugInput');
+        const dateInput = document.getElementById('newsDateInput');
+        const datePreviewText = document.getElementById('datePreviewText');
+        const categoryInput = document.getElementById('newsCategoryInput');
+        const imageInput = document.getElementById('newsImageInput');
+        const imagePreviewBox = document.getElementById('imagePreviewBox');
+        const excerptInput = document.getElementById('newsExcerptInput');
+        const contentInput = document.getElementById('newsContentInput');
+        const saveNewsBtn = document.getElementById('saveNewsBtn');
+        const saveNewsText = document.getElementById('saveNewsText');
+
+        // Date preview listener
+        dateInput.addEventListener('input', () => {
+            datePreviewText.textContent = isoToIndonesian(dateInput.value) || '-';
+        });
+
+        // Slug auto-generation in Add mode
+        titleInput.addEventListener('input', () => {
+            if (!isEditingNews && !isSlugManual) {
+                slugInput.value = slugify(titleInput.value);
+            }
+        });
+
+        slugInput.addEventListener('input', () => {
+            isSlugManual = true;
+        });
+
+        // Image preview listener
+        imageInput.addEventListener('input', () => {
+            const url = imageInput.value.trim();
+            if (url) {
+                imagePreviewBox.innerHTML = `<img src="${escapeHtml(url)}" alt="Preview" onerror="this.parentElement.innerHTML='<span style=\\'color:var(--color-danger);\\'>URL gambar tidak valid</span>'">`;
+            } else {
+                imagePreviewBox.innerHTML = '<span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>';
+            }
+        });
+
+        function openNewsModal() {
+            isEditingNews = false;
+            editingNewsOriginalId = null;
+            isSlugManual = false;
+            newsForm.reset();
+
+            document.getElementById('newsModalTitle').textContent = 'Tambah Berita Baru';
+            saveNewsText.textContent = 'Simpan Berita';
+
+            // Enable slug editing in Add mode
+            slugInput.readOnly = false;
+            slugInput.disabled = false;
+            document.getElementById('newsSlugHelp').textContent = 'Huruf kecil, angka, dan tanda hubung (-). Dibuat otomatis dari judul.';
+
+            // Default date: today
+            const todayIso = new Date().toISOString().split('T')[0];
+            dateInput.value = todayIso;
+            datePreviewText.textContent = isoToIndonesian(todayIso);
+
+            imagePreviewBox.innerHTML = '<span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>';
+
+            newsModal.classList.add('active');
+        }
+
+        function openEditNewsModal(newsId) {
+            const item = allNewsList.find(n => n.id === newsId);
+            if (!item) return;
+
+            isEditingNews = true;
+            editingNewsOriginalId = item.id;
+            isSlugManual = true;
+
+            document.getElementById('newsModalTitle').textContent = 'Edit Berita';
+            saveNewsText.textContent = 'Perbarui Berita';
+
+            titleInput.value = item.title || '';
+            slugInput.value = item.id || '';
+            
+            // In edit mode: Slug is read-only (Primary Key)
+            slugInput.readOnly = true;
+            document.getElementById('newsSlugHelp').textContent = 'ID Slug tidak dapat diubah (Primary Key).';
+
+            // Parse Indonesian date back to YYYY-MM-DD input
+            const iso = indonesianToIso(item.date || '');
+            dateInput.value = iso || '';
+            datePreviewText.textContent = item.date || '-';
+
+            categoryInput.value = item.category || 'Kegiatan';
+            imageInput.value = item.image || '';
+            excerptInput.value = item.excerpt || '';
+            contentInput.value = item.content || '';
+
+            if (item.image) {
+                imagePreviewBox.innerHTML = `<img src="${escapeHtml(item.image)}" alt="Preview" onerror="this.parentElement.innerHTML='<span>Gagal memuat pratinjau gambar</span>'">`;
+            } else {
+                imagePreviewBox.innerHTML = '<span>Belum ada URL gambar</span>';
+            }
+
+            newsModal.classList.add('active');
+        }
+
+        function closeNewsModal() {
+            newsModal.classList.remove('active');
+        }
+
+        // Form Submit: Insert or Update
+        newsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = titleInput.value.trim();
+            const slug = slugify(slugInput.value);
+            const dateIso = dateInput.value;
+            const formattedDate = isoToIndonesian(dateIso);
+            const category = categoryInput.value;
+            const image = imageInput.value.trim();
+            const excerpt = excerptInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (!title || !slug || !formattedDate || !category || !excerpt || !content) {
+                showToast('Mohon lengkapi semua field yang berbintang wajib.', 'error');
+                return;
+            }
+
+            saveNewsBtn.disabled = true;
+            saveNewsText.textContent = 'Menyimpan...';
+
+            try {
+                if (!isEditingNews) {
+                    // --- INSERT ---
+                    const payload = {
+                        id: slug,
+                        title: title,
+                        date: formattedDate,
+                        category: category,
+                        image: image || null,
+                        excerpt: excerpt,
+                        content: content,
+                        author_id: currentUser ? currentUser.id : null,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('news')
+                        .insert([payload])
+                        .select();
+
+                    if (error) {
+                        if (error.code === '23505') {
+                            showToast(`ID / Slug "${slug}" sudah digunakan. Silakan gunakan slug lain.`, 'error');
+                        } else {
+                            showToast(`Gagal menambahkan berita: ${error.message}`, 'error');
+                        }
+                        return;
+                    }
+
+                    showToast('Berita baru berhasil ditambahkan!');
+                    closeNewsModal();
+                    loadNewsList();
+                } else {
+                    // --- UPDATE ---
+                    const payload = {
+                        title: title,
+                        date: formattedDate,
+                        category: category,
+                        image: image || null,
+                        excerpt: excerpt,
+                        content: content,
+                        author_id: currentUser ? currentUser.id : null,
+                        updated_at: new Date().toISOString()
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('news')
+                        .update(payload)
+                        .eq('id', editingNewsOriginalId)
+                        .select();
+
+                    if (error) {
+                        showToast(`Gagal memperbarui berita: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    showToast('Berita berhasil diperbarui!');
+                    closeNewsModal();
+                    loadNewsList();
+                }
+            } catch (err) {
+                console.error('Save news error:', err);
+                showToast('Terjadi kesalahan sistem saat menyimpan berita.', 'error');
+            } finally {
+                saveNewsBtn.disabled = false;
+                saveNewsText.textContent = isEditingNews ? 'Perbarui Berita' : 'Simpan Berita';
+            }
+        });
+
+        // 7. DELETE NEWS CONFIRMATION
+        const deleteModal = document.getElementById('deleteModalBackdrop');
+        const deleteNewsTitleText = document.getElementById('deleteNewsTitleText');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+        function openDeleteModal(newsId) {
+            const item = allNewsList.find(n => n.id === newsId);
+            if (!item) return;
+
+            newsIdToDelete = newsId;
+            deleteNewsTitleText.textContent = `"${item.title}" (${item.id})`;
+            deleteModal.classList.add('active');
+        }
+
+        function closeDeleteModal() {
+            deleteModal.classList.remove('active');
+            newsIdToDelete = null;
+        }
+
+        confirmDeleteBtn.addEventListener('click', async () => {
+            if (!newsIdToDelete) return;
+
+            confirmDeleteBtn.disabled = true;
+            confirmDeleteBtn.textContent = 'Menghapus...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('news')
+                    .delete()
+                    .eq('id', newsIdToDelete);
+
+                if (error) {
+                    showToast(`Gagal menghapus berita: ${error.message}`, 'error');
+                    return;
+                }
+
+                showToast('Berita berhasil dihapus dari database.');
+                closeDeleteModal();
+                loadNewsList();
+            } catch (err) {
+                console.error('Delete news error:', err);
+                showToast('Terjadi kesalahan saat menghapus berita.', 'error');
+            } finally {
+                confirmDeleteBtn.disabled = false;
+                confirmDeleteBtn.textContent = 'Hapus Berita';
+            }
+        });
+
+        // Close modal on escape key or clicking backdrop
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeNewsModal();
+                closeDeleteModal();
+            }
+        });
+
+        newsModal.addEventListener('click', (e) => {
+            if (e.target === newsModal) closeNewsModal();
+        });
+
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) closeDeleteModal();
+        });
+
+        // Run Auth Check
+        checkAuth();
     </script>
 </body>
 </html>
