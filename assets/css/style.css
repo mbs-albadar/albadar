@@ -137,6 +137,44 @@ select:focus-visible {
     margin-top: 3rem;
 }
 
+.mt-xl {
+    margin-top: 2.5rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mb-xs {
+    margin-bottom: 0.5rem;
+}
+
+.mb-sm {
+    margin-bottom: 1rem;
+}
+
+.mb-md {
+    margin-bottom: 1.5rem;
+}
+
+.mb-lg {
+    margin-bottom: 3rem;
+}
+
+.bg-lux-bg {
+    background-color: var(--lux-bg);
+}
+
+.btn-group-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
 /* === TYPOGRAPHY === */
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
@@ -220,6 +258,74 @@ p {
 .bg-emerald .section-title-lux,
 .bg-lux-dark .section-title-lux {
     color: #fff;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.section-title-sm {
+    font-size: 1.5rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.section-subtitle-sm {
+    font-size: 0.85rem !important;
+    color: var(--color-text-muted) !important;
+    margin: 0 !important;
+}
+
+.section-lead-lux {
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+    opacity: 0.9;
+    font-size: 1.15rem;
+    line-height: 1.7;
+}
+
+.editorial-title-lg {
+    font-size: clamp(2rem, 3.5vw, 2.75rem) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 1.5rem !important;
+}
+
+.editorial-lead {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+}
+
+.card-title-custom {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--lux-dark);
+    margin-bottom: 0.5rem;
+}
+
+.card-desc-custom {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.cta-desc-lux {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.micro-copy {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 
@@ -1524,6 +1630,10 @@ section.luxury-steps-section,
     transition: color 0.3s ease;
 }
 
+.bg-lux-dark .step-card-lux h3 {
+    color: #ffffff;
+}
+
 .step-card-lux:hover h3 {
     color: var(--lux-gold);
 }
@@ -2075,20 +2185,36 @@ section.luxury-steps-section,
 /* === CONTACT === */
 .contact-list {
     list-style: none;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
     padding: 0;
 }
 
 .contact-list li {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
     font-size: 1.1rem;
     color: var(--color-text-muted);
 }
 
+.contact-list li:last-child {
+    margin-bottom: 1.5rem;
+}
+
 .contact-list strong {
     display: block;
-    color: var(--lux-dark);
+    color: var(--color-primary);
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
+}
+
+.contact-list strong svg {
+    vertical-align: -3px;
+    margin-right: 4px;
+}
+
+.contact-list a {
+    color: var(--color-primary);
+    font-weight: 600;
 }
 
 .contact-map {
