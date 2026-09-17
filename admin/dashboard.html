@@ -1003,6 +1003,384 @@
             background: #B91C1C;
         }
 
+/* PRESTASI MODULE STYLES */
+        .achievement-admin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .achievement-admin-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .achievement-admin-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--lux-gold);
+            transform: translateY(-2px);
+        }
+
+        /* File Upload Zone & Controls */
+        .file-upload-zone {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+        }
+
+        .btn-select-file {
+            background: #FFFFFF;
+            border: 1.5px solid var(--color-primary);
+            color: var(--color-primary);
+            padding: 0.55rem 1.15rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-select-file:hover {
+            background: var(--color-primary-light);
+        }
+
+        .file-size-info {
+            font-size: 0.775rem;
+            color: var(--color-text-muted);
+        }
+
+        .image-preview-wrapper {
+            margin-top: 0.75rem;
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .btn-action-text {
+            background: none;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .btn-action-change {
+            color: var(--color-primary);
+            background: var(--color-primary-light);
+        }
+
+        .btn-action-change:hover {
+            background: rgba(4, 71, 58, 0.2);
+        }
+
+        .btn-action-remove {
+            color: var(--color-danger);
+            background: var(--color-danger-bg);
+        }
+
+        .btn-action-remove:hover {
+            background: #FEE2E2;
+        }
+
+        /* Image Banner Header */
+        .achievement-card-media {
+            position: relative;
+            width: calc(100% + 3rem);
+            margin: -1.5rem -1.5rem 1.25rem -1.5rem;
+            aspect-ratio: 16 / 9;
+            background: #E5E7EB;
+            overflow: hidden;
+        }
+
+        .achievement-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .achievement-admin-card:hover .achievement-card-media img {
+            transform: scale(1.03);
+        }
+
+        .achievement-floating-icon {
+            position: absolute;
+            bottom: 0.75rem;
+            right: 0.75rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px;
+            z-index: 2;
+        }
+
+        .achievement-floating-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .achievement-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-badges-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+        }
+
+        .achievement-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-pill);
+            line-height: 1.2;
+        }
+
+        .badge-gold {
+            background: rgba(212, 181, 130, 0.2);
+            color: #92400E;
+            border: 1px solid rgba(212, 181, 130, 0.5);
+        }
+
+        .badge-green {
+            background: rgba(4, 71, 58, 0.12);
+            color: var(--color-primary);
+            border: 1px solid rgba(4, 71, 58, 0.3);
+        }
+
+        .badge-blue {
+            background: rgba(17, 54, 110, 0.12);
+            color: var(--color-secondary);
+            border: 1px solid rgba(17, 54, 110, 0.3);
+        }
+
+        /* Tingkat Tag Badges */
+        .badge-tingkat {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 0.2rem 0.55rem;
+            border-radius: var(--radius-pill);
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .badge-tingkat-kabupaten {
+            background: #F1F5F9;
+            color: #475569;
+            border: 1px solid #CBD5E1;
+        }
+
+        .badge-tingkat-provinsi {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+        }
+
+        .badge-tingkat-nasional {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        .badge-tingkat-internasional {
+            background: #FAF5FF;
+            color: #7E22CE;
+            border: 1px solid #E9D5FF;
+        }
+
+        .achievement-card-icon-wrap {
+            width: 52px;
+            height: 52px;
+            margin-bottom: 0.85rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .achievement-card-icon-wrap svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .achievement-card-title {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--lux-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.35;
+        }
+
+        .achievement-card-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            line-height: 1.55;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .achievement-detail-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px dashed var(--color-border);
+            padding-top: 0.85rem;
+        }
+
+        .achievement-detail-list li {
+            position: relative;
+            padding-left: 1.4rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.825rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        .achievement-detail-list li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 0.75rem;
+            color: var(--lux-gold);
+        }
+
+        .achievement-detail-list li strong {
+            color: var(--color-text-main);
+            font-weight: 600;
+        }
+
+        /* Detail Repeater in Form Modal */
+        .details-repeater-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .detail-row input {
+            padding: 0.6rem 0.85rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+
+        .detail-row .detail-label-input {
+            width: 38%;
+        }
+
+        .detail-row .detail-val-input {
+            flex: 1;
+        }
+
+        .btn-remove-detail {
+            background: none;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-danger);
+            cursor: pointer;
+            padding: 0.55rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .btn-remove-detail:hover {
+            background: var(--color-danger-bg);
+            border-color: #F87171;
+        }
+
+        .btn-add-detail {
+            background: var(--color-primary-light);
+            color: var(--color-primary);
+            border: 1px dashed rgba(4, 71, 58, 0.4);
+            padding: 0.35rem 0.75rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all 0.2s;
+        }
+
+        .btn-add-detail:hover {
+            background: rgba(4, 71, 58, 0.15);
+        }
+
+        .icon-modal-preview {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--lux-bg);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 2px;
+        }
+
+        .icon-modal-preview svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
             .admin-sidebar {
@@ -1319,13 +1697,46 @@
                 </div>
             </section>
 
-            <!-- 3. PLACEHOLDER PRESTASI -->
+            <!-- 3. SECTION PRESTASI (CRUD PENUH) -->
             <section class="tab-section" id="sec-prestasi">
-                <div class="feature-placeholder-card">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
-                    <h2>Modul Prestasi Santri</h2>
-                    <p>Manajemen rekam jejak medali, kejuaraan nasional, dan prestasi santri SMP MBS Al Badar.</p>
-                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Manajemen Prestasi Santri</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Kelola rekam jejak capaian, medali olimpiade, dan prestasi santri SMP MBS Al Badar.</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openAchievementModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        Tambah Prestasi Baru
+                    </button>
+                </div>
+
+                <div class="card-container" style="margin-bottom: 1.5rem;">
+                    <div class="filter-toolbar">
+                        <div class="search-box">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="achievementSearchInput" class="search-input" placeholder="Cari judul, badge, atau tingkat prestasi...">
+                        </div>
+                        <div class="category-filter-box">
+                            <label for="achievementIconFilter" style="font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted);">Kategori:</label>
+                            <select id="achievementIconFilter" class="filter-select">
+                                <option value="all">Semua Kategori</option>
+                                <option value="akademik">Akademik</option>
+                                <option value="olahraga">Olahraga</option>
+                                <option value="seni">Seni</option>
+                                <option value="tahfidz">Tahfidz / Keagamaan</option>
+                                <option value="kepemimpinan">Kepemimpinan</option>
+                                <option value="umum">Umum</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid Card Preview -->
+                <div id="achievementsGrid" class="achievement-admin-grid">
+                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                        Memuat data prestasi...
+                    </div>
                 </div>
             </section>
 
@@ -1470,6 +1881,177 @@
         </div>
     </div>
 
+    <!-- MODAL TAMBAH / EDIT PRESTASI -->
+    <div class="modal-backdrop" id="achievementModalBackdrop">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 class="modal-title" id="achievementModalTitle">Tambah Prestasi Baru</h3>
+                <button type="button" class="modal-close-btn" onclick="closeAchievementModal()" aria-label="Tutup Modal">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="achievementForm">
+                <div class="modal-body">
+                    <!-- Row 1: Nama Kompetisi & Warna Badge -->
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="achievementBadgeLabelInput">Nama Kompetisi/Penyelenggara (singkat) *</label>
+                            <input type="text" id="achievementBadgeLabelInput" required placeholder="misal: OPI, O2SN, KSN">
+                            <div class="form-help">Singkatan kompetisi atau penyelenggara untuk badge kartu</div>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="achievementBadgeColorInput">Warna Badge *</label>
+                            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                                <select id="achievementBadgeColorInput" required style="flex: 1;">
+                                    <option value="gold">Emas (Gold) - Prestasi Utama / Medali</option>
+                                    <option value="green">Hijau (Green) - Akademik & Sekolah</option>
+                                    <option value="blue">Biru (Blue) - Khusus / Diniyah</option>
+                                </select>
+                                <span id="badgeColorPreview" class="achievement-badge badge-gold" style="white-space: nowrap;">PREVIEW</span>
+                            </div>
+                            <div class="form-help">Pilih warna aksen badge identitas</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Tingkat & Kategori Ikon -->
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="achievementTingkatInput">Tingkat Kompetisi *</label>
+                            <select id="achievementTingkatInput" required>
+                                <option value="Kabupaten">Kabupaten</option>
+                                <option value="Wilayah/Provinsi">Wilayah/Provinsi</option>
+                                <option value="Nasional" selected>Nasional</option>
+                                <option value="Internasional">Internasional</option>
+                            </select>
+                            <div class="form-help">Pilih skala jenjang capaian kejuaraan</div>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="achievementIconInput">Kategori Ikon SVG *</label>
+                            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                                <select id="achievementIconInput" required style="flex: 1;">
+                                    <option value="akademik">Akademik (Topi Toga & Piagam)</option>
+                                    <option value="olahraga">Olahraga (Medali & Pita Olahraga)</option>
+                                    <option value="seni">Seni (Kuas & Palet Lukis)</option>
+                                    <option value="tahfidz">Tahfidz / Keagamaan (Al-Qur'an Terbuka)</option>
+                                    <option value="kepemimpinan">Kepemimpinan (Perisai & Bintang HW)</option>
+                                    <option value="umum">Umum (Medali Prestasi Kehormatan)</option>
+                                </select>
+                                <div id="iconPreviewContainer" class="icon-modal-preview" title="Pratinjau Ikon SVG"></div>
+                            </div>
+                            <div class="form-help">Ikon duotone custom yang ditampilkan pada kartu</div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Foto Prestasi File Upload + Live Preview -->
+                    <div class="form-group-admin">
+                        <label>Foto Prestasi</label>
+                        <input type="file" id="achievementFileInput" accept="image/*" style="display: none;">
+                        
+                        <div class="file-upload-zone" id="achievementUploadZone">
+                            <button type="button" class="btn-select-file" id="btnSelectAchievementFile">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span id="selectFileBtnText">Pilih Foto dari Perangkat</span>
+                            </button>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                        </div>
+
+                        <!-- Live Preview Box & Actions -->
+                        <div class="image-preview-wrapper" id="achievementPreviewWrapper">
+                            <div class="image-preview-box" id="achievementImagePreviewBox">
+                                <span>Belum ada foto yang dipilih (opsional)</span>
+                            </div>
+                            <div class="preview-actions" id="achievementPreviewActions" style="display: none;">
+                                <button type="button" class="btn-action-text btn-action-change" id="btnChangePhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    Ganti Foto
+                                </button>
+                                <button type="button" class="btn-action-text btn-action-remove" id="btnRemovePhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Hapus Foto
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-help">Opsional. Foto akan tampil sebagai cover kartu prestasi.</div>
+                    </div>
+
+                    <!-- Row 4: Judul -->
+                    <div class="form-group-admin">
+                        <label for="achievementTitleInput">Judul Prestasi / Nama Lengkap Kejuaraan *</label>
+                        <input type="text" id="achievementTitleInput" required placeholder="Contoh: Olimpiade Pelajar Indonesia">
+                    </div>
+
+                    <!-- Row 5: Deskripsi -->
+                    <div class="form-group-admin">
+                        <label for="achievementDescInput">Deskripsi Prestasi *</label>
+                        <textarea id="achievementDescInput" rows="3" required placeholder="Tuliskan uraian capaian santri dalam ajang tersebut..."></textarea>
+                    </div>
+
+                    <!-- Row 6: Details Repeatable Section -->
+                    <div class="form-group-admin">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <label style="margin-bottom: 0;">Detail Capaian (Poin-Poin Informasi)</label>
+                            <button type="button" class="btn-add-detail" id="btnAddDetailRow">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                Tambah Baris
+                            </button>
+                        </div>
+                        <div id="detailsContainer" class="details-repeater-list">
+                            <!-- Dynamic Rows inserted here -->
+                        </div>
+                        <div class="form-help">Format 2 kolom: Label (kiri) dan Isi (kanan), misalnya Label: "Tingkat", Isi: "Nasional".</div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeAchievementModal()">Batal</button>
+                    <button type="submit" id="saveAchievementBtn" class="btn-primary-action">
+                        <span id="saveAchievementText">Simpan Prestasi</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS PRESTASI -->
+    <div class="modal-backdrop" id="deleteAchievementModalBackdrop">
+        <div class="modal-box confirm-box">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Prestasi Ini?</h3>
+            <p class="confirm-desc">
+                Anda akan menghapus data prestasi: <br><strong id="deleteAchievementTitleText" style="color: var(--color-text-main);">...</strong>.<br>
+                Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeleteAchievementModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeleteAchievementBtn">Hapus Prestasi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievement Duotone Icons & Storage Upload Helper -->
+    <script src="../assets/js/achievement-icons.js"></script>
+    <script src="../assets/js/upload-helper.js"></script>
     <!-- Supabase JS Client & Config -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/supabase-config.js"></script>
@@ -1483,6 +2065,13 @@
         let editingNewsOriginalId = null;
         let isSlugManual = false;
         let newsIdToDelete = null;
+        let allAchievementsList = [];
+        let isEditingAchievement = false;
+        let editingAchievementId = null;
+        let achievementIdToDelete = null;
+        let selectedAchievementFile = null;
+        let existingAchievementImageUrl = null;
+        let isPhotoRemoved = false;
 
         const INDO_MONTHS = [
             'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -1613,6 +2202,7 @@
                 // Initial Load Data
                 loadDashboardStats();
                 loadNewsList();
+                loadAchievementsList();
 
                 // Check Hash Navigation
                 handleHashNav();
@@ -2141,6 +2731,8 @@
             if (e.key === 'Escape') {
                 closeNewsModal();
                 closeDeleteModal();
+                closeAchievementModal();
+                closeDeleteAchievementModal();
             }
         });
 
@@ -2150,6 +2742,520 @@
 
         deleteModal.addEventListener('click', (e) => {
             if (e.target === deleteModal) closeDeleteModal();
+        });
+
+        // 5b. PRESTASI MODULE (CRUD)
+        async function loadAchievementsList() {
+            const grid = document.getElementById('achievementsGrid');
+            try {
+                const { data, error } = await supabaseClient
+                    .from('achievements')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Fetch achievements error:', error);
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1; color: var(--color-danger);">
+                            Gagal memuat daftar prestasi: ${escapeHtml(error.message)}
+                        </div>
+                    `;
+                    return;
+                }
+
+                allAchievementsList = data || [];
+                renderAchievementsGrid(allAchievementsList);
+
+                // Refresh count on Beranda
+                document.getElementById('statAchieveCount').textContent = allAchievementsList.length;
+
+            } catch (err) {
+                console.error('Unexpected achievements error:', err);
+                grid.innerHTML = `
+                    <div class="empty-placeholder" style="grid-column: 1 / -1; color: var(--color-danger);">
+                        Terjadi kesalahan sistem saat memuat daftar prestasi.
+                    </div>
+                `;
+            }
+        }
+
+        function renderAchievementsGrid(list) {
+            const grid = document.getElementById('achievementsGrid');
+            if (!list || list.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                        Belum ada data prestasi santri. Klik tombol "+ Tambah Prestasi Baru" di atas untuk menambahkan prestasi pertama.
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = list.map(item => {
+                const iconSvg = (window.ACHIEVEMENT_ICONS && window.ACHIEVEMENT_ICONS[item.icon])
+                    ? window.ACHIEVEMENT_ICONS[item.icon]
+                    : (window.ACHIEVEMENT_ICONS ? window.ACHIEVEMENT_ICONS.umum : '');
+
+                const badgeColor = item.badge_color || 'gold';
+                const badgeLabel = item.badge_label || 'PRESTASI';
+
+                let tingkatTag = '';
+                if (item.tingkat) {
+                    let tClass = 'kabupaten';
+                    const lower = item.tingkat.toLowerCase();
+                    if (lower.includes('internasional')) tClass = 'internasional';
+                    else if (lower.includes('nasional')) tClass = 'nasional';
+                    else if (lower.includes('wilayah') || lower.includes('provinsi')) tClass = 'provinsi';
+                    
+                    tingkatTag = `<span class="badge-tingkat badge-tingkat-${tClass}">${escapeHtml(item.tingkat)}</span>`;
+                }
+
+                let mediaHtml = '';
+                let iconHtml = '';
+
+                if (item.image_url) {
+                    // With photo: media banner at top, duotone icon floating in bottom-right circle
+                    mediaHtml = `
+                        <div class="achievement-card-media">
+                            <img src="${escapeHtml(item.image_url)}" alt="${escapeHtml(item.title || 'Foto Prestasi')}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                            <div class="achievement-floating-icon" title="Kategori: ${escapeHtml(item.icon)}">
+                                ${iconSvg}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Without photo: big duotone icon at top
+                    iconHtml = `
+                        <div class="achievement-card-icon-wrap">
+                            ${iconSvg}
+                        </div>
+                    `;
+                }
+
+                let detailsHtml = '';
+                if (Array.isArray(item.details) && item.details.length > 0) {
+                    const lis = item.details
+                        .filter(d => d && (d.label || d.value))
+                        .map(d => {
+                            const lbl = d.label ? `<strong>${escapeHtml(d.label)}:</strong> ` : '';
+                            const val = escapeHtml(d.value || '');
+                            return `<li>${lbl}${val}</li>`;
+                        }).join('');
+                    if (lis) {
+                        detailsHtml = `<ul class="achievement-detail-list">${lis}</ul>`;
+                    }
+                }
+
+                return `
+                    <div class="achievement-admin-card ${item.image_url ? 'has-media' : ''}">
+                        ${mediaHtml}
+                        <div class="achievement-card-top">
+                            <div class="achievement-badges-wrap">
+                                <span class="achievement-badge badge-${escapeHtml(badgeColor)}">${escapeHtml(badgeLabel)}</span>
+                                ${tingkatTag}
+                            </div>
+                            <div class="table-actions">
+                                <button type="button" class="btn-action-icon" title="Edit Prestasi" onclick="openEditAchievementModal('${escapeHtml(String(item.id))}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path>
+                                        <path d="m15 5 4 4"></path>
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-action-icon btn-action-danger" title="Hapus Prestasi" onclick="openDeleteAchievementModal('${escapeHtml(String(item.id))}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        ${iconHtml}
+
+                        <h3 class="achievement-card-title">${escapeHtml(item.title || '')}</h3>
+                        <p class="achievement-card-desc">${escapeHtml(item.description || '')}</p>
+                        ${detailsHtml}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Prestasi Filter & Search
+        const achSearchInput = document.getElementById('achievementSearchInput');
+        const achIconFilter = document.getElementById('achievementIconFilter');
+
+        function applyAchievementsFilter() {
+            const query = achSearchInput.value.toLowerCase().trim();
+            const iconKey = achIconFilter.value;
+
+            const filtered = allAchievementsList.filter(item => {
+                const matchQuery = (item.title || '').toLowerCase().includes(query) ||
+                                   (item.badge_label || '').toLowerCase().includes(query) ||
+                                   (item.tingkat || '').toLowerCase().includes(query) ||
+                                   (item.description || '').toLowerCase().includes(query);
+                const matchIcon = (iconKey === 'all') || (item.icon === iconKey);
+                return matchQuery && matchIcon;
+            });
+
+            renderAchievementsGrid(filtered);
+        }
+
+        achSearchInput.addEventListener('input', applyAchievementsFilter);
+        achIconFilter.addEventListener('change', applyAchievementsFilter);
+
+        // Details Repeater Rows
+        const detailsContainer = document.getElementById('detailsContainer');
+        const btnAddDetailRow = document.getElementById('btnAddDetailRow');
+
+        function addDetailRow(label = '', value = '') {
+            const row = document.createElement('div');
+            row.className = 'detail-row';
+            row.innerHTML = `
+                <input type="text" class="detail-label-input" placeholder="Label (misal: Tingkat)" value="${escapeHtml(label)}">
+                <input type="text" class="detail-val-input" placeholder="Isi (misal: Nasional)" value="${escapeHtml(value)}">
+                <button type="button" class="btn-remove-detail" title="Hapus Baris" onclick="this.parentElement.remove()">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            `;
+            detailsContainer.appendChild(row);
+        }
+
+        btnAddDetailRow.addEventListener('click', () => addDetailRow('', ''));
+
+        // Prestasi Modal Add / Edit Elements
+        const achModal = document.getElementById('achievementModalBackdrop');
+        const achForm = document.getElementById('achievementForm');
+        const achBadgeLabelInput = document.getElementById('achievementBadgeLabelInput');
+        const achBadgeColorInput = document.getElementById('achievementBadgeColorInput');
+        const badgeColorPreview = document.getElementById('badgeColorPreview');
+        const achTingkatInput = document.getElementById('achievementTingkatInput');
+        const achIconInput = document.getElementById('achievementIconInput');
+        const iconPreviewContainer = document.getElementById('iconPreviewContainer');
+        const achFileInput = document.getElementById('achievementFileInput');
+        const btnSelectAchievementFile = document.getElementById('btnSelectAchievementFile');
+        const selectFileBtnText = document.getElementById('selectFileBtnText');
+        const achImagePreviewBox = document.getElementById('achievementImagePreviewBox');
+        const achPreviewActions = document.getElementById('achievementPreviewActions');
+        const btnChangePhoto = document.getElementById('btnChangePhoto');
+        const btnRemovePhoto = document.getElementById('btnRemovePhoto');
+        const achTitleInput = document.getElementById('achievementTitleInput');
+        const achDescInput = document.getElementById('achievementDescInput');
+        const saveAchBtn = document.getElementById('saveAchievementBtn');
+        const saveAchText = document.getElementById('saveAchievementText');
+
+        function updateModalIconPreview() {
+            const key = achIconInput.value;
+            const svg = (window.ACHIEVEMENT_ICONS && window.ACHIEVEMENT_ICONS[key]) || '';
+            iconPreviewContainer.innerHTML = svg || '<span style="font-size:0.7rem;color:var(--color-text-muted);">-</span>';
+        }
+
+        function updateModalBadgePreview() {
+            const color = achBadgeColorInput.value || 'gold';
+            const label = achBadgeLabelInput.value.trim() || 'PREVIEW';
+            badgeColorPreview.className = `achievement-badge badge-${color}`;
+            badgeColorPreview.textContent = label;
+        }
+
+        achIconInput.addEventListener('change', updateModalIconPreview);
+        achBadgeColorInput.addEventListener('change', updateModalBadgePreview);
+        achBadgeLabelInput.addEventListener('input', updateModalBadgePreview);
+
+        // File Selection Handlers
+        btnSelectAchievementFile.addEventListener('click', () => {
+            achFileInput.click();
+        });
+
+        btnChangePhoto.addEventListener('click', () => {
+            achFileInput.click();
+        });
+
+        btnRemovePhoto.addEventListener('click', () => {
+            selectedAchievementFile = null;
+            existingAchievementImageUrl = null;
+            isPhotoRemoved = true;
+            achFileInput.value = '';
+            achImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih (opsional)</span>';
+            achPreviewActions.style.display = 'none';
+            selectFileBtnText.textContent = 'Pilih Foto dari Perangkat';
+        });
+
+        achFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            // 2MB Validation
+            const maxBytes = 2 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
+                achFileInput.value = '';
+                return;
+            }
+
+            selectedAchievementFile = file;
+            isPhotoRemoved = false;
+
+            // Live Preview via Object URL
+            const previewUrl = URL.createObjectURL(file);
+            achImagePreviewBox.innerHTML = `<img src="${previewUrl}" alt="Pratinjau Foto" style="max-height: 180px; object-fit: contain;">`;
+            achPreviewActions.style.display = 'flex';
+            selectFileBtnText.textContent = 'Ganti Foto Terpilih';
+        });
+
+        function openAchievementModal() {
+            isEditingAchievement = false;
+            editingAchievementId = null;
+            selectedAchievementFile = null;
+            existingAchievementImageUrl = null;
+            isPhotoRemoved = false;
+            achFileInput.value = '';
+            achForm.reset();
+            detailsContainer.innerHTML = '';
+
+            document.getElementById('achievementModalTitle').textContent = 'Tambah Prestasi Baru';
+            saveAchText.textContent = 'Simpan Prestasi';
+
+            achBadgeColorInput.value = 'gold';
+            achTingkatInput.value = 'Nasional';
+            achIconInput.value = 'akademik';
+            achImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih (opsional)</span>';
+            achPreviewActions.style.display = 'none';
+            selectFileBtnText.textContent = 'Pilih Foto dari Perangkat';
+
+            updateModalIconPreview();
+            updateModalBadgePreview();
+
+            // Default 2 helper rows
+            addDetailRow('Capaian', '');
+            addDetailRow('Tingkat', 'Nasional');
+
+            achModal.classList.add('active');
+        }
+
+        function openEditAchievementModal(achId) {
+            const item = allAchievementsList.find(a => String(a.id) === String(achId));
+            if (!item) return;
+
+            isEditingAchievement = true;
+            editingAchievementId = item.id;
+            selectedAchievementFile = null;
+            isPhotoRemoved = false;
+            achFileInput.value = '';
+            existingAchievementImageUrl = item.image_url || null;
+
+            achForm.reset();
+            detailsContainer.innerHTML = '';
+
+            document.getElementById('achievementModalTitle').textContent = 'Edit Prestasi';
+            saveAchText.textContent = 'Perbarui Prestasi';
+
+            achBadgeLabelInput.value = item.badge_label || '';
+            achBadgeColorInput.value = item.badge_color || 'gold';
+            achTingkatInput.value = item.tingkat || 'Nasional';
+            achIconInput.value = item.icon || 'akademik';
+            achTitleInput.value = item.title || '';
+            achDescInput.value = item.description || '';
+
+            updateModalIconPreview();
+            updateModalBadgePreview();
+
+            if (item.image_url) {
+                achImagePreviewBox.innerHTML = `<img src="${escapeHtml(item.image_url)}" alt="Foto Prestasi" style="max-height: 180px; object-fit: contain;">`;
+                achPreviewActions.style.display = 'flex';
+                selectFileBtnText.textContent = 'Ganti Foto';
+            } else {
+                achImagePreviewBox.innerHTML = '<span>Belum ada foto dokumentasi (opsional)</span>';
+                achPreviewActions.style.display = 'none';
+                selectFileBtnText.textContent = 'Pilih Foto dari Perangkat';
+            }
+
+            if (Array.isArray(item.details) && item.details.length > 0) {
+                item.details.forEach(d => {
+                    addDetailRow(d.label || '', d.value || '');
+                });
+            } else {
+                addDetailRow('', '');
+            }
+
+            achModal.classList.add('active');
+        }
+
+        function closeAchievementModal() {
+            achModal.classList.remove('active');
+        }
+
+        achForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const badgeLabel = achBadgeLabelInput.value.trim();
+            const badgeColor = achBadgeColorInput.value;
+            const tingkat = achTingkatInput.value;
+            const icon = achIconInput.value;
+            const title = achTitleInput.value.trim();
+            const description = achDescInput.value.trim();
+
+            if (!badgeLabel || !badgeColor || !tingkat || !icon || !title || !description) {
+                showToast('Mohon lengkapi semua field yang berbintang wajib.', 'error');
+                return;
+            }
+
+            // Collect details
+            const detailRows = detailsContainer.querySelectorAll('.detail-row');
+            const detailsArray = [];
+            detailRows.forEach(row => {
+                const lbl = row.querySelector('.detail-label-input').value.trim();
+                const val = row.querySelector('.detail-val-input').value.trim();
+                if (lbl || val) {
+                    detailsArray.push({ label: lbl, value: val });
+                }
+            });
+
+            saveAchBtn.disabled = true;
+
+            // Handle Photo Upload to Storage
+            let finalImageUrl = existingAchievementImageUrl;
+
+            if (selectedAchievementFile) {
+                saveAchText.textContent = 'Mengupload foto...';
+                try {
+                    finalImageUrl = await uploadImageToStorage(selectedAchievementFile, 'prestasi');
+                } catch (uploadErr) {
+                    console.error('Upload photo error:', uploadErr);
+                    let errMessage = uploadErr.message || 'Kesalahan upload storage';
+                    if (errMessage.includes('Bucket not found') || errMessage.includes('NoSuchBucket')) {
+                        errMessage = 'Bucket "site-media" belum dibuat di Supabase Storage. Harap buat bucket "site-media" (Public) terlebih dahulu di Supabase Dashboard.';
+                    }
+                    showToast(errMessage, 'error');
+                    saveAchBtn.disabled = false;
+                    saveAchText.textContent = isEditingAchievement ? 'Perbarui Prestasi' : 'Simpan Prestasi';
+                    return;
+                }
+            } else if (isPhotoRemoved) {
+                finalImageUrl = null;
+            }
+
+            saveAchText.textContent = 'Menyimpan...';
+
+            try {
+                if (!isEditingAchievement) {
+                    // INSERT
+                    const payload = {
+                        badge_label: badgeLabel,
+                        badge_color: badgeColor,
+                        tingkat: tingkat,
+                        icon: icon,
+                        image_url: finalImageUrl,
+                        title: title,
+                        description: description,
+                        details: detailsArray,
+                        author_id: currentUser ? currentUser.id : null,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('achievements')
+                        .insert([payload])
+                        .select();
+
+                    if (error) {
+                        showToast(`Gagal menambahkan prestasi: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    showToast('Data prestasi baru berhasil ditambahkan!');
+                    closeAchievementModal();
+                    loadAchievementsList();
+                } else {
+                    // UPDATE
+                    const payload = {
+                        badge_label: badgeLabel,
+                        badge_color: badgeColor,
+                        tingkat: tingkat,
+                        icon: icon,
+                        image_url: finalImageUrl,
+                        title: title,
+                        description: description,
+                        details: detailsArray,
+                        author_id: currentUser ? currentUser.id : null
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('achievements')
+                        .update(payload)
+                        .eq('id', editingAchievementId)
+                        .select();
+
+                    if (error) {
+                        showToast(`Gagal memperbarui prestasi: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    showToast('Data prestasi berhasil diperbarui!');
+                    closeAchievementModal();
+                    loadAchievementsList();
+                }
+            } catch (err) {
+                console.error('Save achievement error:', err);
+                showToast('Terjadi kesalahan saat menyimpan data prestasi.', 'error');
+            } finally {
+                saveAchBtn.disabled = false;
+                saveAchText.textContent = isEditingAchievement ? 'Perbarui Prestasi' : 'Simpan Prestasi';
+            }
+        });
+
+        // Delete Achievement Confirmation Modal
+        const deleteAchModal = document.getElementById('deleteAchievementModalBackdrop');
+        const deleteAchTitleText = document.getElementById('deleteAchievementTitleText');
+        const confirmDeleteAchBtn = document.getElementById('confirmDeleteAchievementBtn');
+
+        function openDeleteAchievementModal(achId) {
+            const item = allAchievementsList.find(a => String(a.id) === String(achId));
+            if (!item) return;
+
+            achievementIdToDelete = item.id;
+            deleteAchTitleText.textContent = `"${item.title}"`;
+            deleteAchModal.classList.add('active');
+        }
+
+        function closeDeleteAchievementModal() {
+            deleteAchModal.classList.remove('active');
+            achievementIdToDelete = null;
+        }
+
+        confirmDeleteAchBtn.addEventListener('click', async () => {
+            if (!achievementIdToDelete) return;
+
+            confirmDeleteAchBtn.disabled = true;
+            confirmDeleteAchBtn.textContent = 'Menghapus...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('achievements')
+                    .delete()
+                    .eq('id', achievementIdToDelete);
+
+                if (error) {
+                    showToast(`Gagal menghapus prestasi: ${error.message}`, 'error');
+                    return;
+                }
+
+                showToast('Data prestasi berhasil dihapus.');
+                closeDeleteAchievementModal();
+                loadAchievementsList();
+            } catch (err) {
+                console.error('Delete achievement error:', err);
+                showToast('Terjadi kesalahan saat menghapus data prestasi.', 'error');
+            } finally {
+                confirmDeleteAchBtn.disabled = false;
+                confirmDeleteAchBtn.textContent = 'Hapus Prestasi';
+            }
+        });
+
+        achModal.addEventListener('click', (e) => {
+            if (e.target === achModal) closeAchievementModal();
+        });
+
+        deleteAchModal.addEventListener('click', (e) => {
+            if (e.target === deleteAchModal) closeDeleteAchievementModal();
         });
 
         // Run Auth Check
