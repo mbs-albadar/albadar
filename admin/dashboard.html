@@ -537,6 +537,211 @@
             font-weight: 500;
         }
 
+        /* RECENT ACTIVITIES (BERANDA) */
+        .recent-activities-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .activity-item:hover {
+            border-color: var(--lux-gold);
+            background: var(--lux-cream);
+            transform: translateX(3px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .activity-icon-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon-news {
+            background: rgba(5, 150, 105, 0.12);
+            color: var(--color-primary);
+        }
+
+        .activity-icon-achieve {
+            background: rgba(212, 181, 130, 0.2);
+            color: #B4833E;
+        }
+
+        .activity-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--lux-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.35;
+        }
+
+        .activity-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            margin-top: 0.25rem;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .activity-badge {
+            font-size: 0.675rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: var(--radius-pill);
+            letter-spacing: 0.2px;
+        }
+
+        .activity-badge.badge-news {
+            background: rgba(5, 150, 105, 0.12);
+            color: #047857;
+            border: 1px solid rgba(5, 150, 105, 0.25);
+        }
+
+        .activity-badge.badge-achieve {
+            background: rgba(212, 181, 130, 0.18);
+            color: #8C6527;
+            border: 1px solid rgba(212, 181, 130, 0.35);
+        }
+
+        .activity-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--color-text-muted);
+        }
+
+        .activity-action-arrow {
+            color: var(--color-text-muted);
+            opacity: 0.4;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .activity-item:hover .activity-action-arrow {
+            color: var(--color-primary);
+            opacity: 1;
+            transform: translateX(2px);
+        }
+
+        .activity-empty-state {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: var(--lux-cream);
+            border: 1px dashed var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* QUICK ACTIONS GRID (BERANDA) */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.85rem;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.9rem 1.1rem;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--lux-dark);
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            width: 100%;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--lux-gold);
+            background: var(--lux-cream);
+            color: var(--color-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 181, 130, 0.2);
+        }
+
+        .quick-action-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.2s ease;
+        }
+
+        .quick-action-btn:hover .quick-action-icon {
+            transform: scale(1.08);
+        }
+
+        .quick-icon-green {
+            background: rgba(5, 150, 105, 0.12);
+            color: var(--color-primary);
+        }
+
+        .quick-icon-blue {
+            background: rgba(37, 99, 235, 0.12);
+            color: #2563EB;
+        }
+
+        .quick-icon-gold {
+            background: rgba(212, 181, 130, 0.2);
+            color: #B4833E;
+        }
+
+        .quick-icon-cyan {
+            background: rgba(6, 182, 212, 0.12);
+            color: #0891B2;
+        }
+
+        .quick-icon-purple {
+            background: rgba(139, 92, 246, 0.12);
+            color: #7C3AED;
+        }
+
+        .quick-icon-orange {
+            background: rgba(249, 115, 22, 0.12);
+            color: #EA580C;
+        }
+
+        @media (max-width: 640px) {
+            .quick-actions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* BERITA MODULE */
         .section-header-bar {
             display: flex;
@@ -2181,29 +2386,138 @@
                         </div>
                     </div>
 
-                    <div class="stat-box" style="cursor: default;">
-                        <div class="stat-icon-wrap stat-icon-blue">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
+                </div>
+
+                <!-- News Publication Trend Chart Section -->
+                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
                         <div>
-                            <div class="stat-val" id="statUserRole" style="font-size: 1.35rem;">ADMIN</div>
-                            <div class="stat-lbl">Tingkat Hak Akses</div>
+                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                </svg>
+                                Tren Publikasi Berita (6 Bulan Terakhir)
+                            </h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Grafik jumlah berita dan artikel yang dipublikasikan setiap bulan.</p>
+                        </div>
+                        <span class="counter-badge" id="newsTrendTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">6 Bulan</span>
+                    </div>
+
+                    <div id="newsChartWrapper" style="position: relative; width: 100%; height: 260px;">
+                        <canvas id="newsMonthlyChart"></canvas>
+                    </div>
+
+                    <div id="newsChartEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; display: block; opacity: 0.6;">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada data berita untuk ditampilkan</p>
+                    </div>
+                </div>
+
+                <!-- Recent Activities Section -->
+                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.15rem; flex-wrap: wrap; gap: 0.5rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--lux-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                                </svg>
+                                Aktivitas Terbaru
+                            </h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Riwayat pembaruan berita dan prestasi terakhir di website.</p>
+                        </div>
+                        <span class="counter-badge" id="recentActivitiesCountBadge">5 Terbaru</span>
+                    </div>
+
+                    <div class="recent-activities-list" id="recentActivitiesList">
+                        <div class="activity-loading" style="text-align: center; padding: 2rem 1rem; color: var(--color-text-muted);">
+                            <div class="auth-spinner" style="margin: 0 auto 0.5rem; width: 24px; height: 24px;"></div>
+                            Memuat aktivitas terbaru...
                         </div>
                     </div>
                 </div>
 
                 <!-- Quick Action Bar -->
                 <div class="card-container" style="padding: 1.5rem;">
-                    <h3 style="font-family: var(--font-heading); margin-bottom: 0.75rem; color: var(--lux-dark); font-size: 1.15rem;">Aksi Cepat</h3>
-                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                        <button type="button" class="btn-primary-action" onclick="openNewsModal()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                            Tambah Berita Baru
+                    <div style="margin-bottom: 1rem;">
+                        <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            Aksi Cepat
+                        </h3>
+                        <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Pintasan cepat untuk mengelola modul dan konten sekolah.</p>
+                    </div>
+                    <div class="quick-actions-grid">
+                        <button type="button" class="quick-action-btn" onclick="openNewsModal()">
+                            <div class="quick-action-icon quick-icon-green">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                            <span>Tambah Berita Baru</span>
                         </button>
-                        <button type="button" class="btn-cancel" onclick="switchTab('sec-berita')">
-                            Kelola Semua Berita
+
+                        <button type="button" class="quick-action-btn" onclick="switchTab('sec-berita')">
+                            <div class="quick-action-icon quick-icon-blue">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                    <path d="M18 14h-8"></path>
+                                    <path d="M15 18h-5"></path>
+                                    <path d="M10 6h8v4h-8V6Z"></path>
+                                </svg>
+                            </div>
+                            <span>Kelola Semua Berita</span>
+                        </button>
+
+                        <button type="button" class="quick-action-btn" onclick="switchTab('sec-prestasi'); setTimeout(() => openAchievementModal(), 100);">
+                            <div class="quick-action-icon quick-icon-gold">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="8" r="6"></circle>
+                                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                                </svg>
+                            </div>
+                            <span>Tambah Prestasi</span>
+                        </button>
+
+                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-siswa')">
+                            <div class="quick-action-icon quick-icon-cyan">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <span>Kelola Data Siswa</span>
+                        </button>
+
+                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-guru')">
+                            <div class="quick-action-icon quick-icon-purple">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                            </div>
+                            <span>Kelola Data Guru</span>
+                        </button>
+
+                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-site-images')">
+                            <div class="quick-action-icon quick-icon-orange">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                                    <circle cx="9" cy="9" r="2"></circle>
+                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                                </svg>
+                            </div>
+                            <span>Kelola Gambar Situs</span>
                         </button>
                     </div>
                 </div>
@@ -3184,6 +3498,8 @@
     <!-- Achievement Duotone Icons & Storage Upload Helper -->
     <script src="../assets/js/achievement-icons.js"></script>
     <script src="../assets/js/upload-helper.js"></script>
+    <!-- Chart.js 4 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
     <!-- Supabase JS Client & Config -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/supabase-config.js"></script>
@@ -3197,6 +3513,7 @@
         let editingNewsOriginalId = null;
         let isSlugManual = false;
         let newsIdToDelete = null;
+        let newsTrendChart = null;
         let allAchievementsList = [];
         let isEditingAchievement = false;
         let editingAchievementId = null;
@@ -3209,6 +3526,7 @@
             'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
             'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
         ];
+        const INDO_SHORT_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
         // 1. DATE HELPERS
         function isoToIndonesian(isoStr) {
@@ -3310,7 +3628,8 @@
                 const roleBadge = document.getElementById('sidebarUserRole');
                 roleBadge.textContent = role.toUpperCase();
                 roleBadge.className = `user-role-badge role-${role}`;
-                document.getElementById('statUserRole').textContent = role.toUpperCase();
+                const statUserRoleEl = document.getElementById('statUserRole');
+                if (statUserRoleEl) statUserRoleEl.textContent = role.toUpperCase();
 
                 // Role Permissions: Hide super_admin only elements for regular admin
                 if (role !== 'super_admin') {
@@ -3333,6 +3652,8 @@
 
                 // Initial Load Data
                 loadDashboardStats();
+                loadNewsMonthlyTrend();
+                loadRecentActivities();
                 loadNewsList();
                 loadAchievementsList();
                 if (currentProfile && currentProfile.role === 'super_admin') {
@@ -3402,7 +3723,11 @@
             }
 
             // Lazy load data if switching to specific tabs
-            if (targetSectionId === 'sec-siswa' && allStudentsList.length === 0) {
+            if (targetSectionId === 'sec-beranda') {
+                loadDashboardStats();
+                loadNewsMonthlyTrend();
+                loadRecentActivities();
+            } else if (targetSectionId === 'sec-siswa' && allStudentsList.length === 0) {
                 loadStudentsList();
             } else if (targetSectionId === 'sec-guru' && allTeachersList.length === 0) {
                 loadTeachersList();
@@ -3511,6 +3836,365 @@
             }
         }
 
+        // 4b. BERANDA RECENT ACTIVITIES
+        function formatRelativeTime(dateString) {
+            if (!dateString) return '-';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return '-';
+
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+
+            if (diffInSeconds < 60) {
+                return 'Baru saja';
+            }
+            const diffInMinutes = Math.floor(diffInSeconds / 60);
+            if (diffInMinutes < 60) {
+                return `${diffInMinutes} menit lalu`;
+            }
+            const diffInHours = Math.floor(diffInMinutes / 60);
+            if (diffInHours < 24) {
+                return `${diffInHours} jam lalu`;
+            }
+            const diffInDays = Math.floor(diffInHours / 24);
+            if (diffInDays === 1) {
+                return 'Kemarin';
+            }
+            if (diffInDays < 7) {
+                return `${diffInDays} hari lalu`;
+            }
+            const diffInWeeks = Math.floor(diffInDays / 7);
+            if (diffInWeeks < 4) {
+                return `${diffInWeeks} minggu lalu`;
+            }
+            const diffInMonths = Math.floor(diffInDays / 30);
+            if (diffInMonths < 12) {
+                return `${diffInMonths} bulan lalu`;
+            }
+            const diffInYears = Math.floor(diffInDays / 365);
+            return `${diffInYears} tahun lalu`;
+        }
+
+        async function loadRecentActivities() {
+            const container = document.getElementById('recentActivitiesList');
+            if (!container) return;
+
+            try {
+                const [newsRes, achRes] = await Promise.all([
+                    supabaseClient
+                        .from('news')
+                        .select('id, title, created_at')
+                        .order('created_at', { ascending: false })
+                        .limit(5),
+                    supabaseClient
+                        .from('achievements')
+                        .select('id, title, created_at')
+                        .order('created_at', { ascending: false })
+                        .limit(5)
+                ]);
+
+                const newsItems = (newsRes.data || []).map(item => ({
+                    id: item.id,
+                    title: item.title || 'Tanpa Judul',
+                    created_at: item.created_at,
+                    type: 'news',
+                    badgeText: 'Berita Baru',
+                    targetSection: 'sec-berita'
+                }));
+
+                const achItems = (achRes.data || []).map(item => ({
+                    id: item.id,
+                    title: item.title || 'Tanpa Judul',
+                    created_at: item.created_at,
+                    type: 'achievement',
+                    badgeText: 'Prestasi Baru',
+                    targetSection: 'sec-prestasi'
+                }));
+
+                const combined = [...newsItems, ...achItems]
+                    .filter(item => item.created_at)
+                    .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                    .slice(0, 5);
+
+                renderRecentActivities(combined);
+
+            } catch (err) {
+                console.error('Error in loadRecentActivities:', err);
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 1.5rem; color: var(--color-danger); font-size: 0.85rem;">
+                        Gagal memuat riwayat aktivitas terbaru.
+                    </div>
+                `;
+            }
+        }
+
+        function renderRecentActivities(items) {
+            const container = document.getElementById('recentActivitiesList');
+            if (!container) return;
+
+            if (!items || items.length === 0) {
+                container.innerHTML = `
+                    <div class="activity-empty-state" style="text-align: center; padding: 2rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; display: block; opacity: 0.6;">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada aktivitas. Mulai tambahkan berita atau prestasi pertama!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => {
+                const isNews = item.type === 'news';
+                const iconClass = isNews ? 'activity-icon-news' : 'activity-icon-achieve';
+                const badgeClass = isNews ? 'badge-news' : 'badge-achieve';
+                const relativeTime = formatRelativeTime(item.created_at);
+                const iconSvg = isNews
+                    ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                           <path d="M18 14h-8"></path>
+                           <path d="M15 18h-5"></path>
+                           <path d="M10 6h8v4h-8V6Z"></path>
+                       </svg>`
+                    : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <circle cx="12" cy="8" r="6"></circle>
+                           <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                       </svg>`;
+
+                return `
+                    <div class="activity-item" onclick="switchTab('${item.targetSection}')" onkeydown="if(event.key==='Enter'||event.key===' '){switchTab('${item.targetSection}');event.preventDefault();}" role="button" tabindex="0" title="Klik untuk membuka ${item.badgeText}">
+                        <div class="activity-icon-wrap ${iconClass}">
+                            ${iconSvg}
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-title" title="${escapeHtml(item.title)}">${escapeHtml(item.title)}</div>
+                            <div class="activity-meta">
+                                <span class="activity-badge ${badgeClass}">${item.badgeText}</span>
+                                <span class="activity-time">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    ${escapeHtml(relativeTime)}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="activity-action-arrow">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 4c. BERANDA NEWS TREND CHART
+        function parseNewsDate(item) {
+            if (!item) return null;
+            // 1. Try parsing item.date ("13 Juli 2026" or ISO string)
+            if (item.date && typeof item.date === 'string') {
+                const iso = indonesianToIso(item.date);
+                if (iso) {
+                    const parts = iso.split('-');
+                    if (parts.length === 3) {
+                        return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                    }
+                }
+                const d = new Date(item.date);
+                if (!isNaN(d.getTime())) return d;
+            }
+            // 2. Fallback to item.created_at
+            if (item.created_at) {
+                const d = new Date(item.created_at);
+                if (!isNaN(d.getTime())) return d;
+            }
+            return null;
+        }
+
+        async function loadNewsMonthlyTrend() {
+            try {
+                let list = allNewsList;
+                if (!list || list.length === 0) {
+                    const { data, error } = await supabaseClient
+                        .from('news')
+                        .select('id, title, date, created_at');
+                    if (!error && data) {
+                        list = data;
+                    }
+                }
+                renderNewsMonthlyChart(list || []);
+            } catch (err) {
+                console.error('Error loading news monthly trend:', err);
+            }
+        }
+
+        function renderNewsMonthlyChart(newsList) {
+            const canvas = document.getElementById('newsMonthlyChart');
+            const wrapper = document.getElementById('newsChartWrapper');
+            const emptyMsg = document.getElementById('newsChartEmptyMessage');
+            const badge = document.getElementById('newsTrendTotalBadge');
+            if (!canvas || !wrapper || !emptyMsg) return;
+
+            // Generate last 6 months up to current month (in chronological order)
+            const now = new Date();
+            const curYear = now.getFullYear();
+            const curMonth = now.getMonth();
+            const months = [];
+            const monthMap = {};
+
+            for (let i = 5; i >= 0; i--) {
+                const d = new Date(curYear, curMonth - i, 1);
+                const y = d.getFullYear();
+                const m = d.getMonth();
+                const key = `${y}-${String(m + 1).padStart(2, '0')}`;
+                const label = `${INDO_SHORT_MONTHS[m]} ${y}`;
+                const entry = { key, label, count: 0 };
+                months.push(entry);
+                monthMap[key] = entry;
+            }
+
+            // Count news per month
+            if (Array.isArray(newsList)) {
+                newsList.forEach(item => {
+                    const dateObj = parseNewsDate(item);
+                    if (dateObj) {
+                        const y = dateObj.getFullYear();
+                        const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+                        const key = `${y}-${m}`;
+                        if (monthMap[key]) {
+                            monthMap[key].count++;
+                        }
+                    }
+                });
+            }
+
+            const totalCount = months.reduce((sum, m) => sum + m.count, 0);
+
+            if (badge) {
+                badge.textContent = `Total: ${totalCount} Berita`;
+            }
+
+            // If all months have 0 news, show friendly empty message
+            if (totalCount === 0) {
+                wrapper.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                if (newsTrendChart) {
+                    newsTrendChart.destroy();
+                    newsTrendChart = null;
+                }
+                return;
+            }
+
+            wrapper.style.display = 'block';
+            emptyMsg.style.display = 'none';
+
+            // If Chart.js CDN is still loading, retry briefly
+            if (typeof Chart === 'undefined') {
+                setTimeout(() => renderNewsMonthlyChart(newsList), 150);
+                return;
+            }
+
+            // Destroy existing chart instance to prevent canvas reuse error
+            if (newsTrendChart) {
+                newsTrendChart.destroy();
+                newsTrendChart = null;
+            }
+
+            const labels = months.map(m => m.label);
+            const dataValues = months.map(m => m.count);
+
+            const ctx = canvas.getContext('2d');
+
+            // Subtle vertical gradient using primary brand color
+            let bgFill = 'rgba(4, 71, 58, 0.85)';
+            try {
+                const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+                gradient.addColorStop(0, 'rgba(4, 71, 58, 0.92)');
+                gradient.addColorStop(1, 'rgba(4, 71, 58, 0.40)');
+                bgFill = gradient;
+            } catch (e) {
+                // Fallback to solid rgba
+            }
+
+            newsTrendChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Jumlah Berita',
+                        data: dataValues,
+                        backgroundColor: bgFill,
+                        hoverBackgroundColor: '#04473A',
+                        borderColor: '#04473A',
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        borderSkipped: false,
+                        maxBarThickness: 48
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#04473A',
+                            titleColor: '#FFFFFF',
+                            bodyColor: '#FBF7F0',
+                            borderColor: 'rgba(212, 181, 130, 0.4)',
+                            borderWidth: 1,
+                            padding: { top: 8, bottom: 8, left: 12, right: 12 },
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                title: function(items) {
+                                    return items[0].label;
+                                },
+                                label: function(context) {
+                                    const val = context.parsed.y;
+                                    return `${val} berita dipublikasikan`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0,
+                                stepSize: 1,
+                                color: '#6B7280',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11
+                                }
+                            },
+                            grid: {
+                                color: '#F0F2F5',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6B7280',
+                                font: {
+                                    family: "'Inter', sans-serif",
+                                    size: 11,
+                                    weight: '500'
+                                }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
         // 5. BERITA MODULE (CRUD)
         async function loadNewsList() {
             const tbody = document.getElementById('newsTableBody');
@@ -3538,6 +4222,9 @@
 
                 // Refresh count on Beranda
                 document.getElementById('statNewsCount').textContent = allNewsList.length;
+
+                // Refresh monthly trend chart
+                renderNewsMonthlyChart(allNewsList);
 
             } catch (err) {
                 console.error('Error in loadNewsList:', err);
@@ -3864,6 +4551,7 @@
                     showToast('Berita baru berhasil ditambahkan!');
                     closeNewsModal();
                     loadNewsList();
+                    loadRecentActivities();
                 } else {
                     // --- UPDATE ---
                     const payload = {
@@ -3891,6 +4579,7 @@
                     showToast('Berita berhasil diperbarui!');
                     closeNewsModal();
                     loadNewsList();
+                    loadRecentActivities();
                 }
             } catch (err) {
                 console.error('Save news error:', err);
@@ -3940,6 +4629,7 @@
                 showToast('Berita berhasil dihapus dari database.');
                 closeDeleteModal();
                 loadNewsList();
+                loadRecentActivities();
             } catch (err) {
                 console.error('Delete news error:', err);
                 showToast('Terjadi kesalahan saat menghapus berita.', 'error');
@@ -4387,6 +5077,7 @@
                     showToast('Data prestasi baru berhasil ditambahkan!');
                     closeAchievementModal();
                     loadAchievementsList();
+                    loadRecentActivities();
                 } else {
                     // UPDATE
                     const payload = {
@@ -4415,6 +5106,7 @@
                     showToast('Data prestasi berhasil diperbarui!');
                     closeAchievementModal();
                     loadAchievementsList();
+                    loadRecentActivities();
                 }
             } catch (err) {
                 console.error('Save achievement error:', err);
@@ -4464,6 +5156,7 @@
                 showToast('Data prestasi berhasil dihapus.');
                 closeDeleteAchievementModal();
                 loadAchievementsList();
+                loadRecentActivities();
             } catch (err) {
                 console.error('Delete achievement error:', err);
                 showToast('Terjadi kesalahan saat menghapus data prestasi.', 'error');
