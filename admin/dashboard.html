@@ -137,14 +137,15 @@
             font-weight: 600;
         }
 
-        /* User Profile in Sidebar */
+        /* User Profile in Sidebar (Positioned at bottom above Logout) */
         .sidebar-user {
-            padding: 1rem 1.25rem;
-            background: rgba(255, 255, 255, 0.04);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.85rem 1.15rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            flex-shrink: 0;
         }
 
         .user-avatar {
@@ -164,6 +165,8 @@
 
         .user-details {
             overflow: hidden;
+            flex: 1;
+            min-width: 0;
         }
 
         .user-name {
@@ -206,6 +209,25 @@
             flex-direction: column;
             gap: 0.25rem;
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212, 181, 130, 0.3) transparent;
+        }
+
+        .sidebar-nav::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb {
+            background: rgba(212, 181, 130, 0.3);
+            border-radius: 10px;
+        }
+
+        .sidebar-nav::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 181, 130, 0.5);
         }
 
         .nav-category-title {
@@ -254,8 +276,9 @@
         }
 
         .sidebar-footer {
-            padding: 1rem 0.75rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.35rem 0.75rem 0.85rem;
+            background: rgba(255, 255, 255, 0.03);
+            flex-shrink: 0;
         }
 
         .btn-sidebar-logout {
@@ -1567,6 +1590,15 @@
             margin-top: 2px;
         }
 
+        .student-keterangan-text {
+            display: block;
+            font-size: 0.775rem;
+            color: #6B7280;
+            font-style: italic;
+            margin-top: 3px;
+            line-height: 1.35;
+        }
+
         .badge-class {
             background: #EFF6FF;
             color: #1D4ED8;
@@ -1778,6 +1810,140 @@
             display: block;
         }
 
+        /* SETTING MODULE */
+        .setting-section-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .setting-card-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--color-border);
+            background: #FAFAFA;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .setting-card-header h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: var(--lux-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        .setting-card-header p {
+            font-size: 0.825rem;
+            color: var(--color-text-muted);
+        }
+
+        .setting-card-body {
+            padding: 1.5rem;
+        }
+
+        .setting-info-note {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            background: #EFF6FF;
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1.1rem;
+            color: #1E40AF;
+            font-size: 0.825rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+        }
+
+        .setting-param-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--color-border-light);
+            flex-wrap: wrap;
+        }
+
+        .setting-param-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-param-item:first-child {
+            padding-top: 0;
+        }
+
+        .setting-param-info {
+            flex: 1;
+            min-width: 240px;
+        }
+
+        .setting-param-label {
+            font-weight: 600;
+            color: var(--color-text-main);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .setting-param-key {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            background: #F3F4F6;
+            padding: 0.15rem 0.45rem;
+            border-radius: var(--radius-xs);
+            border: 1px solid #E5E7EB;
+            display: inline-block;
+        }
+
+        .setting-param-control {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .setting-param-input {
+            width: 140px;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--lux-dark);
+            text-align: right;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .setting-param-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(4, 71, 58, 0.1);
+        }
+
+        .role-select {
+            padding: 0.35rem 0.65rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+            background: #FFFFFF;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .role-select:focus {
+            border-color: var(--color-primary);
+        }
+
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
             .admin-sidebar {
@@ -1833,16 +1999,8 @@
         <div class="sidebar-brand">
             <img src="../assets/img/logo.png" alt="Logo Al Badar" onerror="this.style.display='none'">
             <div class="sidebar-brand-text">
-                <h2>Al Badar Admin</h2>
-                <span>PPM MBS Yogyakarta</span>
-            </div>
-        </div>
-
-        <div class="sidebar-user">
-            <div class="user-avatar" id="sidebarAvatar">A</div>
-            <div class="user-details">
-                <div class="user-name" id="sidebarUserName">Administrator</div>
-                <div class="user-role-badge role-admin" id="sidebarUserRole">ADMIN</div>
+                <h2>Portal Admin</h2>
+                <span>SMP MBS AL BADAR</span>
             </div>
         </div>
 
@@ -1911,6 +2069,14 @@
                 Setting
             </button>
         </nav>
+
+        <div class="sidebar-user">
+            <div class="user-avatar" id="sidebarAvatar">A</div>
+            <div class="user-details">
+                <div class="user-name" id="sidebarUserName">Administrator</div>
+                <div class="user-role-badge role-admin" id="sidebarUserRole">ADMIN</div>
+            </div>
+        </div>
 
         <div class="sidebar-footer">
             <button type="button" class="sidebar-item btn-sidebar-logout" id="sidebarLogoutBtn">
@@ -2270,13 +2436,88 @@
                 </div>
             </section>
 
-            <!-- 7. PLACEHOLDER SETTING (SUPER ADMIN ONLY) -->
+            <!-- 7. SECTION SETTING (SUPER ADMIN ONLY) -->
             <section class="tab-section role-super-admin-only" id="sec-setting">
-                <div class="feature-placeholder-card">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    <h2>Pengaturan Sistem</h2>
-                    <p>Konfigurasi parameter global, manajemen akun administrator, dan integrasi sistem.</p>
-                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Pengaturan Sistem</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Kelola hak akses administrator dan parameter global situs sekolah.</p>
+                    </div>
+                </div>
+
+                <!-- Bagian 1: Kelola Akun Admin -->
+                <div class="setting-section-card">
+                    <div class="setting-card-header">
+                        <div>
+                            <h3>Kelola Akun Administrator</h3>
+                            <p>Daftar pengguna dengan hak akses dashboard admin dan pengaturan level perannya.</p>
+                        </div>
+                        <span class="counter-badge" id="adminCountBadge">0 Akun</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-info-note">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <div>
+                                <strong>Panduan Tambah Admin:</strong> Untuk menambah admin baru, buat akun terlebih dahulu di <strong>Supabase Dashboard &gt; Authentication &gt; Users</strong>, lalu tambahkan baris di tabel <code>admin_profiles</code> dengan role yang sesuai.
+                            </div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 50px; text-align: center;">No</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Email Akun</th>
+                                        <th style="width: 150px;">Role Saat Ini</th>
+                                        <th style="width: 170px;">Ubah Role</th>
+                                        <th style="width: 150px;">Tanggal Dibuat</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminUsersTableBody">
+                                    <tr>
+                                        <td colspan="6" class="empty-placeholder">
+                                            <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                                            Memuat data administrator...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian 2: Pengaturan Sekolah -->
+                <div class="setting-section-card">
+                    <div class="setting-card-header">
+                        <div>
+                            <h3>Pengaturan Statistik &amp; Informasi Sekolah</h3>
+                            <p>Parameter kuantitatif yang tampil di berbagai halaman website profil sekolah.</p>
+                        </div>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-info-note" style="background: #FDF4E3; border-color: #FCD34D; color: #92400E;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <div>
+                                <strong>Catatan Sinkronisasi Otomatis:</strong> Angka Santri Boarding dan Siswa Full Day di halaman utama dihitung <strong>OTOMATIS</strong> dari data di menu <strong>Data Siswa</strong>, tidak perlu diatur di sini.
+                            </div>
+                        </div>
+
+                        <div id="schoolSettingsContainer">
+                            <div class="empty-placeholder">
+                                <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                                Memuat parameter sekolah...
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
@@ -2717,21 +2958,49 @@
                         <div class="form-help">Nama siswa dalam aksara Arab/Hijaiyah untuk kebutuhan administrasi tahfidz &amp; bahasa.</div>
                     </div>
 
-                    <div class="form-row-grid">
-                        <div class="form-group-admin">
-                            <label for="studentClassInput">Kelas *</label>
-                            <input type="text" id="studentClassInput" list="studentClassDatalist" required placeholder="misal: 7A, 7B, 8A">
-                            <datalist id="studentClassDatalist">
-                                <option value="7A"></option>
-                                <option value="7B"></option>
-                                <option value="8A"></option>
-                                <option value="8B"></option>
-                                <option value="9A"></option>
-                                <option value="9B"></option>
-                            </datalist>
-                            <div class="form-help">Pilih kelas yang tersedia atau ketik nama kelas baru.</div>
+                    <!-- PENEMPATAN KELAS & STATUS (SKEMA BARU) -->
+                    <div style="background: var(--lux-cream, #fbfaf6); border: 1px solid var(--color-border, #e2e8f0); border-radius: var(--radius-md, 8px); padding: 1rem; margin-bottom: 1.25rem;">
+                        <div style="font-size: 0.85rem; font-weight: 600; color: var(--lux-dark); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+                            Penempatan Kelas &amp; Status
                         </div>
 
+                        <div class="form-row-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+                            <div class="form-group-admin" style="margin-bottom: 0.5rem;">
+                                <label for="studentKelasAwalInput">Kelas Awal</label>
+                                <input type="number" id="studentKelasAwalInput" min="1" max="12" placeholder="misal: 7">
+                                <div class="form-help">Wajib jika status khusus kosong.</div>
+                            </div>
+
+                            <div class="form-group-admin" style="margin-bottom: 0.5rem;">
+                                <label for="studentRombelInput">Rombel (Opsional)</label>
+                                <select id="studentRombelInput">
+                                    <option value="">-- Tanpa Rombel --</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                                <div class="form-help">Hanya untuk siswa SMP sendiri.</div>
+                            </div>
+
+                            <div class="form-group-admin" style="margin-bottom: 0.5rem;">
+                                <label for="studentTahunDataInput">Tahun Data *</label>
+                                <input type="number" id="studentTahunDataInput" min="2000" max="2099" required>
+                                <div class="form-help">Kapan kelas awal dicatat.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group-admin" style="margin-top: 0.5rem; margin-bottom: 0.25rem;">
+                            <label for="studentStatusKhususInput">Status Khusus (Opsional)</label>
+                            <input type="text" id="studentStatusKhususInput" placeholder="misal: Mahasantri">
+                            <div class="form-help">Kalau diisi, field Kelas Awal/Rombel jadi tidak wajib dan diabaikan saat tampil.</div>
+                        </div>
+
+                        <div style="margin-top: 0.65rem; font-size: 0.775rem; color: var(--color-text-muted); line-height: 1.4; border-top: 1px dashed var(--color-border); padding-top: 0.5rem;">
+                            Kelas saat ini akan dihitung otomatis setiap TAHUN AJARAN BARU (mulai Juli) berdasarkan Kelas Awal dan Tahun Data - tidak perlu diupdate manual tiap kenaikan kelas.
+                        </div>
+                    </div>
+
+                    <div class="form-row-grid">
                         <div class="form-group-admin">
                             <label for="studentGenderInput">Jenis Kelamin *</label>
                             <select id="studentGenderInput" required>
@@ -2739,23 +3008,27 @@
                                 <option value="Putri">Putri</option>
                             </select>
                         </div>
-                    </div>
 
-                    <div class="form-row-grid">
                         <div class="form-group-admin">
                             <label for="studentProgramInput">Program Pendidikan</label>
                             <select id="studentProgramInput">
                                 <option value="">-- Kosongkan Dulu (Belum Diisi) --</option>
-                                <option value="Boarding">Boarding (Pesantren)</option>
-                                <option value="Full Day">Full Day School</option>
+                                <option value="boarding">Boarding (Pesantren)</option>
+                                <option value="fullday">Full Day School</option>
                             </select>
                             <div class="form-help">Dapat dikosongkan jika santri belum memilih program.</div>
                         </div>
+                    </div>
 
-                        <div class="form-group-admin">
-                            <label for="studentYearInput">Tahun Masuk (Angkatan) *</label>
-                            <input type="number" id="studentYearInput" required min="2000" max="2099">
-                        </div>
+                    <div class="form-group-admin">
+                        <label for="studentYearInput">Tahun Masuk (Angkatan) *</label>
+                        <input type="number" id="studentYearInput" required min="2000" max="2099">
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="studentKeteranganInput">Keterangan / Catatan Tambahan (Opsional)</label>
+                        <textarea id="studentKeteranganInput" rows="2" placeholder="misal: Sekolah asal, status mahasantri, dll. (boleh kosong)"></textarea>
+                        <div class="form-help">Catatan internal santri. Ditampilkan berupa teks miring di bawah nama siswa pada daftar.</div>
                     </div>
                 </div>
 
@@ -3066,6 +3339,7 @@
                     loadStudentsList();
                     loadTeachersList();
                     loadSiteImagesList();
+                    loadSettingsData();
                 }
 
                 // Check Hash Navigation
@@ -3132,6 +3406,8 @@
                 loadStudentsList();
             } else if (targetSectionId === 'sec-guru' && allTeachersList.length === 0) {
                 loadTeachersList();
+            } else if (targetSectionId === 'sec-setting') {
+                loadSettingsData();
             }
         }
 
@@ -4643,6 +4919,29 @@
             });
         }
 
+        // 1. Reusable function getTahunAjaranSekarang() & hitungKelasSaatIni(student)
+        function getTahunAjaranSekarang() {
+            const now = new Date();
+            const tahun = now.getFullYear();
+            const bulan = now.getMonth() + 1; // 1-12
+            // Tahun ajaran baru dimulai Juli. Sebelum Juli, masih dianggap 
+            // tahun ajaran yang dimulai tahun sebelumnya.
+            return bulan >= 7 ? tahun : tahun - 1;
+        }
+
+        function hitungKelasSaatIni(student) {
+            if (!student) return '-';
+            if (student.status_khusus && String(student.status_khusus).trim()) {
+                return String(student.status_khusus).trim();
+            }
+            if (!student.kelas_awal) return '-';
+            const tahunAjaranSekarang = getTahunAjaranSekarang();
+            const kelasAwal = Number(student.kelas_awal);
+            const tahunData = Number(student.tahun_data) || tahunAjaranSekarang;
+            const kelasSekarang = kelasAwal + (tahunAjaranSekarang - tahunData);
+            return `Kelas ${kelasSekarang}${student.rombel ? String(student.rombel).trim() : ''}`;
+        }
+
         async function loadStudentsList() {
             try {
                 const tbody = document.getElementById('studentTableBody');
@@ -4651,7 +4950,6 @@
                 const { data, error } = await supabaseClient
                     .from('students')
                     .select('*')
-                    .order('class', { ascending: true })
                     .order('name', { ascending: true });
 
                 if (error) {
@@ -4678,17 +4976,17 @@
             const container = document.getElementById('studentClassFilterPills');
             if (!container) return;
 
-            // Extract unique sorted classes
-            const classesSet = new Set(['7A', '7B']);
+            // Extract unique computed classes from hitungKelasSaatIni()
+            const classesSet = new Set();
             allStudentsList.forEach(s => {
-                if (s.class && s.class.trim()) classesSet.add(s.class.trim());
+                const k = hitungKelasSaatIni(s);
+                if (k && k !== '-') classesSet.add(k);
             });
-            const classList = Array.from(classesSet).sort();
+            const classList = Array.from(classesSet).sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
-            // Update Datalist in student modal as well
-            const datalist = document.getElementById('studentClassDatalist');
-            if (datalist) {
-                datalist.innerHTML = classList.map(c => `<option value="${escapeHtml(c)}"></option>`).join('');
+            // If active filter is not 'all' and no longer exists in classList, revert to 'all'
+            if (activeStudentClassFilter !== 'all' && !classList.includes(activeStudentClassFilter)) {
+                activeStudentClassFilter = 'all';
             }
 
             let html = `
@@ -4698,7 +4996,7 @@
             `;
 
             classList.forEach(c => {
-                const count = allStudentsList.filter(s => s.class === c).length;
+                const count = allStudentsList.filter(s => hitungKelasSaatIni(s) === c).length;
                 html += `
                     <button type="button" class="pill-btn ${activeStudentClassFilter === c ? 'active' : ''}" data-class="${escapeHtml(c)}" onclick="setStudentClassFilter('${escapeHtml(c)}')">
                         ${escapeHtml(c)} (${count})
@@ -4724,10 +5022,13 @@
             const q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
 
             let filtered = allStudentsList.filter(s => {
-                const matchClass = (activeStudentClassFilter === 'all' || s.class === activeStudentClassFilter);
+                const kelasSaatIni = hitungKelasSaatIni(s);
+                const matchClass = (activeStudentClassFilter === 'all' || kelasSaatIni === activeStudentClassFilter);
                 const matchSearch = (!q || 
                     (s.name && s.name.toLowerCase().includes(q)) || 
-                    (s.nama_arab && s.nama_arab.toLowerCase().includes(q))
+                    (s.nama_arab && s.nama_arab.toLowerCase().includes(q)) || 
+                    (s.keterangan && s.keterangan.toLowerCase().includes(q)) || 
+                    kelasSaatIni.toLowerCase().includes(q)
                 );
                 return matchClass && matchSearch;
             });
@@ -4749,6 +5050,8 @@
 
             tbody.innerHTML = filtered.map((s, idx) => {
                 const arabHtml = s.nama_arab ? `<span class="student-arabic-name">${escapeHtml(s.nama_arab)}</span>` : '';
+                const ketHtml = s.keterangan ? `<div class="student-keterangan-text">${escapeHtml(s.keterangan)}</div>` : '';
+                const kelasDisplay = hitungKelasSaatIni(s);
                 
                 let genderBadge = '';
                 if (s.jenis_kelamin === 'Putra') {
@@ -4764,7 +5067,7 @@
                     programBadge = `<span class="badge-unfilled">Belum diisi</span>`;
                 } else if (s.program.toLowerCase() === 'boarding') {
                     programBadge = `<span class="badge-program-boarding">Boarding</span>`;
-                } else if (s.program.toLowerCase().includes('day')) {
+                } else if (s.program.toLowerCase() === 'fullday' || s.program.toLowerCase().includes('day')) {
                     programBadge = `<span class="badge-program-fullday">Full Day</span>`;
                 } else {
                     programBadge = `<span class="category-badge cat-default">${escapeHtml(s.program)}</span>`;
@@ -4776,8 +5079,9 @@
                         <td>
                             <strong style="color: var(--lux-dark);">${escapeHtml(s.name)}</strong>
                             ${arabHtml}
+                            ${ketHtml}
                         </td>
-                        <td><span class="badge-class">${escapeHtml(s.class || '-')}</span></td>
+                        <td><span class="badge-class">${escapeHtml(kelasDisplay)}</span></td>
                         <td>${genderBadge}</td>
                         <td>${programBadge}</td>
                         <td>${s.enrollment_year || '-'}</td>
@@ -4803,8 +5107,16 @@
             if (!modal) return;
 
             form.reset();
+            const currentTahunAjaran = getTahunAjaranSekarang();
             document.getElementById('studentIdInput').value = '';
-            document.getElementById('studentYearInput').value = new Date().getFullYear();
+            document.getElementById('studentKelasAwalInput').value = '';
+            document.getElementById('studentRombelInput').value = '';
+            document.getElementById('studentTahunDataInput').value = currentTahunAjaran;
+            document.getElementById('studentStatusKhususInput').value = '';
+            document.getElementById('studentGenderInput').value = 'Putra';
+            document.getElementById('studentProgramInput').value = '';
+            document.getElementById('studentYearInput').value = currentTahunAjaran;
+            document.getElementById('studentKeteranganInput').value = '';
 
             if (studentId) {
                 const s = allStudentsList.find(item => String(item.id) === String(studentId));
@@ -4813,15 +5125,28 @@
                     document.getElementById('studentIdInput').value = s.id;
                     document.getElementById('studentNameInput').value = s.name || '';
                     document.getElementById('studentArabicNameInput').value = s.nama_arab || '';
-                    document.getElementById('studentClassInput').value = s.class || '';
+                    document.getElementById('studentKelasAwalInput').value = (s.kelas_awal !== null && s.kelas_awal !== undefined) ? s.kelas_awal : '';
+                    document.getElementById('studentRombelInput').value = s.rombel || '';
+                    document.getElementById('studentTahunDataInput').value = s.tahun_data || currentTahunAjaran;
+                    document.getElementById('studentStatusKhususInput').value = s.status_khusus || '';
                     document.getElementById('studentGenderInput').value = s.jenis_kelamin || 'Putra';
-                    document.getElementById('studentProgramInput').value = s.program || '';
-                    document.getElementById('studentYearInput').value = s.enrollment_year || new Date().getFullYear();
+                    document.getElementById('studentProgramInput').value = s.program ? s.program.toLowerCase().replace(/\s+/g, '') : '';
+                    document.getElementById('studentYearInput').value = s.enrollment_year || currentTahunAjaran;
+                    document.getElementById('studentKeteranganInput').value = s.keterangan || '';
                 }
             } else {
                 title.textContent = 'Tambah Data Siswa';
+                // Pre-populate if currently viewing a class tab
                 if (activeStudentClassFilter !== 'all') {
-                    document.getElementById('studentClassInput').value = activeStudentClassFilter;
+                    if (activeStudentClassFilter.toLowerCase().includes('mahasantri')) {
+                        document.getElementById('studentStatusKhususInput').value = activeStudentClassFilter;
+                    } else {
+                        const match = activeStudentClassFilter.match(/Kelas\s*(\d+)([A-Za-z]?)/i);
+                        if (match) {
+                            document.getElementById('studentKelasAwalInput').value = match[1];
+                            document.getElementById('studentRombelInput').value = match[2].toUpperCase();
+                        }
+                    }
                 }
             }
 
@@ -4839,15 +5164,29 @@
             const studentId = document.getElementById('studentIdInput').value;
             const name = document.getElementById('studentNameInput').value.trim();
             const arabicName = document.getElementById('studentArabicNameInput').value.trim();
-            const studentClass = document.getElementById('studentClassInput').value.trim();
+            const kelasAwalVal = document.getElementById('studentKelasAwalInput').value.trim();
+            const rombel = document.getElementById('studentRombelInput').value.trim();
+            const tahunDataVal = document.getElementById('studentTahunDataInput').value.trim();
+            const statusKhusus = document.getElementById('studentStatusKhususInput').value.trim();
             const gender = document.getElementById('studentGenderInput').value;
             const program = document.getElementById('studentProgramInput').value;
-            const year = parseInt(document.getElementById('studentYearInput').value, 10) || new Date().getFullYear();
+            const currentTahunAjaran = getTahunAjaranSekarang();
+            const year = parseInt(document.getElementById('studentYearInput').value, 10) || currentTahunAjaran;
+            const keterangan = document.getElementById('studentKeteranganInput').value.trim();
 
-            if (!name || !studentClass) {
-                showToast('Nama siswa dan kelas wajib diisi', 'error');
+            if (!name) {
+                showToast('Nama siswa wajib diisi', 'error');
                 return;
             }
+
+            // Kelas Awal WAJIB kecuali diisi Status Khusus
+            if (!statusKhusus && !kelasAwalVal) {
+                showToast('Kelas Awal wajib diisi jika Status Khusus tidak diisi', 'error');
+                return;
+            }
+
+            const tahunData = tahunDataVal ? parseInt(tahunDataVal, 10) : currentTahunAjaran;
+            const kelasAwal = kelasAwalVal ? parseInt(kelasAwalVal, 10) : null;
 
             btnSave.disabled = true;
             btnSave.textContent = 'Menyimpan...';
@@ -4856,10 +5195,14 @@
                 const payload = {
                     name: name,
                     nama_arab: arabicName || null,
-                    class: studentClass,
+                    kelas_awal: kelasAwal,
+                    rombel: rombel || null,
+                    tahun_data: tahunData,
+                    status_khusus: statusKhusus || null,
                     jenis_kelamin: gender,
                     program: program || null,
-                    enrollment_year: year
+                    enrollment_year: year,
+                    keterangan: keterangan || null
                 };
 
                 let result;
@@ -4893,7 +5236,8 @@
             const s = allStudentsList.find(item => String(item.id) === String(studentId));
             if (!s) return;
             studentToDelete = s;
-            document.getElementById('deleteStudentNameText').textContent = s.name + (s.class ? ` (${s.class})` : '');
+            const kelasDisplay = hitungKelasSaatIni(s);
+            document.getElementById('deleteStudentNameText').textContent = s.name + (kelasDisplay && kelasDisplay !== '-' ? ` (${kelasDisplay})` : '');
             document.getElementById('deleteStudentModalBackdrop').classList.add('active');
         }
 
@@ -5303,6 +5647,239 @@
             } finally {
                 btn.disabled = false;
                 btn.textContent = 'Hapus Guru';
+            }
+        }
+
+        // ==========================================
+        // MODUL SETTING (SUPER ADMIN ONLY)
+        // ==========================================
+        let allAdminProfiles = [];
+        let allSchoolSettings = [];
+
+        async function loadSettingsData() {
+            await Promise.all([
+                loadAdminProfiles(),
+                loadSchoolSettings()
+            ]);
+        }
+
+        async function loadAdminProfiles() {
+            const tbody = document.getElementById('adminUsersTableBody');
+            const badge = document.getElementById('adminCountBadge');
+            if (!tbody) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('admin_profiles')
+                    .select('*')
+                    .order('created_at', { ascending: true });
+
+                if (error) {
+                    console.error('Error fetching admin_profiles:', error);
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="empty-placeholder" style="color: var(--color-danger);">
+                                Gagal memuat data admin: ${escapeHtml(error.message)}
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                allAdminProfiles = data || [];
+                if (badge) badge.textContent = `${allAdminProfiles.length} Akun`;
+                renderAdminProfilesTable();
+            } catch (err) {
+                console.error('Exception loading admin profiles:', err);
+            }
+        }
+
+        function renderAdminProfilesTable() {
+            const tbody = document.getElementById('adminUsersTableBody');
+            if (!tbody) return;
+
+            if (allAdminProfiles.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-placeholder">Belum ada akun administrator terdaftar.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = allAdminProfiles.map((adm, idx) => {
+                const isCurrent = (currentUser && currentUser.id === adm.id);
+                const roleBadgeClass = adm.role === 'super_admin' ? 'role-super_admin' : 'role-admin';
+                const roleLabel = adm.role === 'super_admin' ? 'SUPER ADMIN' : 'CONTENT EDITOR';
+                const createdDate = adm.created_at ? isoToIndonesian(adm.created_at.substring(0, 10)) : '-';
+
+                return `
+                    <tr>
+                        <td style="text-align: center; color: var(--color-text-muted); font-size: 0.85rem;">${idx + 1}</td>
+                        <td>
+                            <strong style="color: var(--lux-dark);">${escapeHtml(adm.full_name || 'Admin')}</strong>
+                            ${isCurrent ? ' <span style="font-size: 0.72rem; background: var(--color-primary-light); color: var(--color-primary); font-weight: 600; padding: 2px 6px; border-radius: var(--radius-pill); margin-left: 4px;">Anda</span>' : ''}
+                        </td>
+                        <td style="color: var(--color-text-muted); font-size: 0.875rem;">${escapeHtml(adm.email || '-')}</td>
+                        <td>
+                            <span class="user-role-badge ${roleBadgeClass}">${roleLabel}</span>
+                        </td>
+                        <td>
+                            <select class="role-select" onchange="handleAdminRoleChange('${adm.id}', this.value, '${escapeHtml(adm.role)}', this)">
+                                <option value="super_admin" ${adm.role === 'super_admin' ? 'selected' : ''}>Super Admin</option>
+                                <option value="content_editor" ${adm.role === 'content_editor' ? 'selected' : ''}>Content Editor</option>
+                            </select>
+                        </td>
+                        <td style="color: var(--color-text-muted); font-size: 0.85rem;">${createdDate}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function handleAdminRoleChange(profileId, newRole, oldRole, selectEl) {
+            // Guard: super_admin cannot downgrade own account to content_editor
+            if (currentUser && currentUser.id === profileId && newRole !== 'super_admin') {
+                showToast('Tidak bisa mengubah role akun sendiri, minta admin lain untuk mengubahnya', 'error');
+                selectEl.value = oldRole;
+                return;
+            }
+
+            if (newRole === oldRole) return;
+
+            selectEl.disabled = true;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('admin_profiles')
+                    .update({ role: newRole })
+                    .eq('id', profileId);
+
+                if (error) throw error;
+
+                showToast(`Role berhasil diubah menjadi ${newRole === 'super_admin' ? 'Super Admin' : 'Content Editor'}.`, 'success');
+                await loadAdminProfiles();
+            } catch (err) {
+                console.error('Error updating admin role:', err);
+                showToast(`Gagal mengubah role: ${err.message}`, 'error');
+                selectEl.value = oldRole;
+            } finally {
+                selectEl.disabled = false;
+            }
+        }
+
+        async function loadSchoolSettings() {
+            const container = document.getElementById('schoolSettingsContainer');
+            if (!container) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('school_settings')
+                    .select('*')
+                    .order('key', { ascending: true });
+
+                if (error) {
+                    console.error('Error fetching school_settings:', error);
+                    container.innerHTML = `
+                        <div class="empty-placeholder" style="color: var(--color-danger);">
+                            Gagal memuat pengaturan sekolah: ${escapeHtml(error.message)}
+                        </div>
+                    `;
+                    return;
+                }
+
+                allSchoolSettings = data || [];
+                renderSchoolSettings();
+            } catch (err) {
+                console.error('Exception loading school settings:', err);
+            }
+        }
+
+        function renderSchoolSettings() {
+            const container = document.getElementById('schoolSettingsContainer');
+            if (!container) return;
+
+            if (allSchoolSettings.length === 0) {
+                container.innerHTML = '<div class="empty-placeholder">Belum ada konfigurasi sekolah di tabel.</div>';
+                return;
+            }
+
+            // Desired key order: ekstrakurikuler_count, lingkungan_islami_percent, tahun_berdiri
+            const keyOrder = ['ekstrakurikuler_count', 'lingkungan_islami_percent', 'tahun_berdiri'];
+            const sortedSettings = [...allSchoolSettings].sort((a, b) => {
+                const idxA = keyOrder.indexOf(a.key);
+                const idxB = keyOrder.indexOf(b.key);
+                return (idxA === -1 ? 99 : idxA) - (idxB === -1 ? 99 : idxB);
+            });
+
+            container.innerHTML = sortedSettings.map(item => {
+                let unitSuffix = '';
+                let inputType = 'text';
+                if (item.key === 'lingkungan_islami_percent') {
+                    unitSuffix = '<span style="color: var(--color-text-muted); font-weight: 600;">%</span>';
+                    inputType = 'number';
+                } else if (item.key === 'ekstrakurikuler_count' || item.key === 'tahun_berdiri') {
+                    inputType = 'number';
+                }
+
+                const safeKey = escapeHtml(item.key);
+                const safeVal = escapeHtml(item.value || '');
+                const safeLabel = escapeHtml(item.label || item.key);
+
+                return `
+                    <div class="setting-param-item">
+                        <div class="setting-param-info">
+                            <span class="setting-param-label">${safeLabel}</span>
+                            <span class="setting-param-key">key: ${safeKey}</span>
+                        </div>
+                        <div class="setting-param-control">
+                            <input type="${inputType}" id="settingInput_${safeKey}" class="setting-param-input" value="${safeVal}">
+                            ${unitSuffix}
+                            <button type="button" class="btn-primary-action" id="btnSaveSetting_${safeKey}" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSchoolSetting('${safeKey}')">
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function saveSchoolSetting(key) {
+            const input = document.getElementById(`settingInput_${key}`);
+            const btn = document.getElementById(`btnSaveSetting_${key}`);
+            if (!input || !btn) return;
+
+            const newVal = input.value.trim();
+            if (!newVal) {
+                showToast('Nilai tidak boleh kosong', 'error');
+                return;
+            }
+
+            const item = allSchoolSettings.find(s => s.key === key);
+            const labelText = item ? (item.label || key) : key;
+
+            btn.disabled = true;
+            const originalText = btn.textContent;
+            btn.textContent = 'Menyimpan...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('school_settings')
+                    .update({ 
+                        value: newVal,
+                        updated_at: new Date().toISOString()
+                    })
+                    .eq('key', key);
+
+                if (error) throw error;
+
+                showToast(`"${labelText}" berhasil diperbarui.`, 'success');
+                if (item) item.value = newVal;
+            } catch (err) {
+                console.error('Error saving school setting:', err);
+                showToast(`Gagal menyimpan pengaturan: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
             }
         }
 
