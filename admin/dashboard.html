@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow">
     <title>Dashboard Admin | SMP MBS Al Badar Prambanan</title>
-    <link rel="icon" type="image/png" href="../assets/img/logo-ppm-mbs.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,12 +112,13 @@
         }
 
         .sidebar-brand img {
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
             border-radius: var(--radius-sm);
             background: rgba(255, 255, 255, 0.1);
-            padding: 3px;
+            padding: 2px;
+            flex-shrink: 0;
         }
 
         .sidebar-brand-text h2 {
@@ -1525,6 +1526,258 @@
             margin-top: auto;
         }
 
+        /* DATA SISWA MODULE */
+        .class-filter-pills {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pill-btn {
+            padding: 0.35rem 0.85rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--color-border);
+            background: #FFFFFF;
+            font-size: 0.825rem;
+            font-weight: 500;
+            color: var(--color-text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pill-btn:hover:not(.active) {
+            background: #F3F4F6;
+            border-color: #D1D5DB;
+        }
+
+        .pill-btn.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border-color: var(--color-primary);
+            font-weight: 600;
+        }
+
+        .student-arabic-name {
+            display: block;
+            font-family: 'Amiri', 'Traditional Arabic', serif;
+            font-size: 0.95rem;
+            color: #4B5563;
+            direction: rtl;
+            margin-top: 2px;
+        }
+
+        .badge-class {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            border: 1px solid #BFDBFE;
+            display: inline-block;
+        }
+
+        .badge-gender-putra {
+            background: #F0FDF4;
+            color: #15803D;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-gender-putri {
+            background: #FDF2F8;
+            color: #BE185D;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-program-boarding {
+            background: #F5F3FF;
+            color: #6D28D9;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-program-fullday {
+            background: #ECFEFF;
+            color: #0E7490;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            display: inline-block;
+        }
+
+        .badge-unfilled {
+            background: #FEF3C7;
+            color: #92400E;
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            border: 1px dashed #F59E0B;
+            display: inline-block;
+        }
+
+        /* DATA GURU MODULE */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 1.25rem;
+            padding: 1.25rem;
+        }
+
+        .teacher-card {
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .teacher-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .teacher-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .teacher-avatar-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--lux-gold));
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            overflow: hidden;
+            border: 2px solid #FFFFFF;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        .teacher-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .teacher-info-header {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .teacher-name {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--lux-dark);
+            line-height: 1.3;
+            margin-bottom: 0.25rem;
+        }
+
+        .teacher-subject-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            background: var(--color-primary-light);
+            padding: 0.15rem 0.55rem;
+            border-radius: var(--radius-pill);
+        }
+
+        .teacher-order-pill {
+            position: absolute;
+            top: 0.85rem;
+            right: 0.85rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            background: #F3F4F6;
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-pill);
+            border: 1px solid #E5E7EB;
+        }
+
+        .teacher-position-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #92400E;
+            background: #FEF3C7;
+            padding: 0.15rem 0.55rem;
+            border-radius: var(--radius-pill);
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        .teacher-bio-text {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-top: 0.35rem;
+        }
+
+        .teacher-card-footer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--color-border-light);
+        }
+
+        #teacherImagePreviewBox {
+            width: 100%;
+            height: 180px;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg, rgba(4, 71, 58, 0.08), rgba(212, 181, 130, 0.08));
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        #teacherImagePreviewBox img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
             .admin-sidebar {
@@ -1578,7 +1831,7 @@
     <!-- SIDEBAR -->
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="sidebar-brand">
-            <img src="../assets/img/logo-ppm-mbs.png" alt="Logo Al Badar" onerror="this.style.display='none'">
+            <img src="../assets/img/logo.png" alt="Logo Al Badar" onerror="this.style.display='none'">
             <div class="sidebar-brand-text">
                 <h2>Al Badar Admin</h2>
                 <span>PPM MBS Yogyakarta</span>
@@ -1884,23 +2137,99 @@
                 </div>
             </section>
 
-            <!-- 5. PLACEHOLDER DATA SISWA (SUPER ADMIN ONLY) -->
+            <!-- 5. SECTION DATA SISWA (SUPER ADMIN ONLY) -->
             <section class="tab-section role-super-admin-only" id="sec-siswa">
-                <div class="feature-placeholder-card">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    <h2>Modul Data Siswa & Santri</h2>
-                    <p>Akses terbatas Super Admin untuk mengelola data induk santri Boarding dan Full Day School.</p>
-                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Data Siswa &amp; Santri</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Kelola data induk santri SMP MBS Al Badar Prambanan per kelas.</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openStudentModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Tambah Siswa
+                    </button>
+                </div>
+
+                <div class="card-container">
+                    <div class="filter-toolbar" style="align-items: center; justify-content: space-between;">
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; flex: 1; align-items: center;">
+                            <div class="search-box" style="max-width: 300px;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="studentSearchInput" class="search-input" placeholder="Cari nama siswa...">
+                            </div>
+                            <div class="class-filter-pills" id="studentClassFilterPills">
+                                <button type="button" class="pill-btn active" data-class="all" onclick="setStudentClassFilter('all')">Semua Kelas</button>
+                            </div>
+                        </div>
+                        <span class="counter-badge" id="studentCountBadge">0 Siswa</span>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 45px; text-align: center;">No</th>
+                                    <th>Nama Siswa</th>
+                                    <th style="width: 90px;">Kelas</th>
+                                    <th style="width: 110px;">Jenis Kelamin</th>
+                                    <th style="width: 140px;">Program</th>
+                                    <th style="width: 110px;">Tahun Masuk</th>
+                                    <th style="width: 100px; text-align: center;">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentTableBody">
+                                <tr>
+                                    <td colspan="7" class="empty-placeholder">
+                                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                                        Memuat data siswa...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
-            <!-- 6. PLACEHOLDER DATA GURU (SUPER ADMIN ONLY) -->
+            <!-- 6. SECTION DATA GURU (SUPER ADMIN ONLY) -->
             <section class="tab-section role-super-admin-only" id="sec-guru">
-                <div class="feature-placeholder-card">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
-                    <h2>Modul Data Guru & GTK</h2>
-                    <p>Akses terbatas Super Admin untuk administrasi pendidik dan tenaga kependidikan.</p>
-                    <span class="badge-soon">Segera Hadir pada Fase Berikutnya</span>
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Data Guru &amp; Tenaga Pendidik</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Manajemen data ustadz, ustadzah, mata pelajaran, dan profil pendidik.</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openTeacherModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Tambah Guru
+                    </button>
+                </div>
+
+                <div class="card-container">
+                    <div class="filter-toolbar" style="align-items: center; justify-content: space-between;">
+                        <div class="search-box" style="max-width: 360px;">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="text" id="teacherSearchInput" class="search-input" placeholder="Cari nama guru atau mata pelajaran...">
+                        </div>
+                        <span class="counter-badge" id="teacherCountBadge">0 Guru &amp; GTK</span>
+                    </div>
+
+                    <div class="teachers-grid" id="teachersGrid">
+                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                            <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
+                            Memuat data guru...
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -2364,6 +2693,221 @@
         </div>
     </div>
 
+    <!-- MODAL TAMBAH/EDIT DATA SISWA -->
+    <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
+        <div class="modal-card" style="max-width: 580px;">
+            <div class="modal-header">
+                <h3 id="studentModalTitle">Tambah Data Siswa</h3>
+                <button type="button" class="btn-close-modal" onclick="closeStudentModal()" aria-label="Tutup">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="studentForm" onsubmit="saveStudent(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="studentIdInput">
+
+                    <div class="form-group-admin">
+                        <label for="studentNameInput">Nama Lengkap Siswa *</label>
+                        <input type="text" id="studentNameInput" required placeholder="misal: Muhammad Al Fatih">
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="studentArabicNameInput">Nama Arab (Opsional)</label>
+                        <input type="text" id="studentArabicNameInput" placeholder="misal: محمد الفاتح" style="direction: rtl; font-family: 'Amiri', 'Traditional Arabic', serif;">
+                        <div class="form-help">Nama siswa dalam aksara Arab/Hijaiyah untuk kebutuhan administrasi tahfidz &amp; bahasa.</div>
+                    </div>
+
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="studentClassInput">Kelas *</label>
+                            <input type="text" id="studentClassInput" list="studentClassDatalist" required placeholder="misal: 7A, 7B, 8A">
+                            <datalist id="studentClassDatalist">
+                                <option value="7A"></option>
+                                <option value="7B"></option>
+                                <option value="8A"></option>
+                                <option value="8B"></option>
+                                <option value="9A"></option>
+                                <option value="9B"></option>
+                            </datalist>
+                            <div class="form-help">Pilih kelas yang tersedia atau ketik nama kelas baru.</div>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="studentGenderInput">Jenis Kelamin *</label>
+                            <select id="studentGenderInput" required>
+                                <option value="Putra">Putra</option>
+                                <option value="Putri">Putri</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="studentProgramInput">Program Pendidikan</label>
+                            <select id="studentProgramInput">
+                                <option value="">-- Kosongkan Dulu (Belum Diisi) --</option>
+                                <option value="Boarding">Boarding (Pesantren)</option>
+                                <option value="Full Day">Full Day School</option>
+                            </select>
+                            <div class="form-help">Dapat dikosongkan jika santri belum memilih program.</div>
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="studentYearInput">Tahun Masuk (Angkatan) *</label>
+                            <input type="number" id="studentYearInput" required min="2000" max="2099">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeStudentModal()">Batal</button>
+                    <button type="submit" class="btn-submit" id="btnSaveStudent">Simpan Siswa</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM DELETE SISWA -->
+    <div class="modal-backdrop" id="deleteStudentModalBackdrop">
+        <div class="modal-box confirm-box" style="max-width: 440px;">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Data Siswa?</h3>
+            <p class="confirm-desc">
+                Apakah Anda yakin ingin menghapus data santri: <br><strong id="deleteStudentNameText" style="color: var(--color-text-main);">...</strong>?<br>
+                Tindakan ini permanen dan tidak dapat dibatalkan.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeleteStudentModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeleteStudentBtn" onclick="confirmDeleteStudent()">Hapus Siswa</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH/EDIT DATA GURU -->
+    <div class="modal-backdrop" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="teacherModalTitle">
+        <div class="modal-card" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="teacherModalTitle">Tambah Data Guru</h3>
+                <button type="button" class="btn-close-modal" onclick="closeTeacherModal()" aria-label="Tutup">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="teacherForm" onsubmit="saveTeacher(event)">
+                <div class="modal-body">
+                    <input type="hidden" id="teacherIdInput">
+
+                    <div class="form-group-admin">
+                        <label for="teacherNameInput">Nama Lengkap Guru &amp; Gelar *</label>
+                        <input type="text" id="teacherNameInput" required placeholder="misal: Wahyu Hidayat, S.Pd.Si.">
+                    </div>
+
+                    <div class="form-row-grid">
+                        <div class="form-group-admin">
+                            <label for="teacherSubjectInput">Mata Pelajaran (Subject) *</label>
+                            <input type="text" id="teacherSubjectInput" required placeholder="misal: Matematika / Tahsin">
+                        </div>
+
+                        <div class="form-group-admin">
+                            <label for="teacherPositionInput">Jabatan / Amanah Tambahan</label>
+                            <input type="text" id="teacherPositionInput" placeholder="misal: Wali Kelas 7A (boleh kosong)">
+                            <div class="form-help">Opsional. Boleh dikosongkan.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="teacherDisplayOrderInput">Urutan Tampilan *</label>
+                        <input type="number" id="teacherDisplayOrderInput" required min="1" value="1">
+                        <div class="form-help">Urutan prioritas saat ditampilkan di website dan daftar guru.</div>
+                    </div>
+
+                    <!-- Foto Guru Upload -->
+                    <div class="form-group-admin">
+                        <label>Foto Guru (Opsional)</label>
+                        <input type="file" id="teacherFileInput" accept="image/*" style="display: none;">
+
+                        <div class="file-upload-zone" id="teacherUploadZone">
+                            <button type="button" class="btn-select-file" id="btnSelectTeacherFile">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span id="selectTeacherFileBtnText">Pilih Foto dari Perangkat</span>
+                            </button>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                        </div>
+
+                        <div class="image-preview-wrapper" id="teacherPreviewWrapper">
+                            <div class="image-preview-box" id="teacherImagePreviewBox">
+                                <span>Belum ada foto yang dipilih (opsional)</span>
+                            </div>
+                            <div class="preview-actions" id="teacherPreviewActions" style="display: none;">
+                                <button type="button" class="btn-action-text btn-action-change" id="btnChangeTeacherPhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    Ganti Foto
+                                </button>
+                                <button type="button" class="btn-action-text btn-action-remove" id="btnRemoveTeacherPhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Hapus Foto
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-help">Opsional. Jika dikosongkan, kartu akan menampilkan inisial nama secara otomatis.</div>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="teacherBioInput">Bio / Profil Singkat</label>
+                        <textarea id="teacherBioInput" rows="3" placeholder="Informasi kualifikasi, riwayat pendidikan, atau profil guru..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeTeacherModal()">Batal</button>
+                    <button type="submit" class="btn-submit" id="btnSaveTeacher">Simpan Guru</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CONFIRM DELETE GURU -->
+    <div class="modal-backdrop" id="deleteTeacherModalBackdrop">
+        <div class="modal-box confirm-box" style="max-width: 440px;">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Data Guru?</h3>
+            <p class="confirm-desc">
+                Apakah Anda yakin ingin menghapus data pendidik: <br><strong id="deleteTeacherNameText" style="color: var(--color-text-main);">...</strong>?<br>
+                Jika guru memiliki file foto di penyimpanan, foto tersebut juga akan dihapus. Tindakan ini permanen.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeleteTeacherModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeleteTeacherBtn" onclick="confirmDeleteTeacher()">Hapus Guru</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Achievement Duotone Icons & Storage Upload Helper -->
     <script src="../assets/js/achievement-icons.js"></script>
     <script src="../assets/js/upload-helper.js"></script>
@@ -2519,6 +3063,8 @@
                 loadNewsList();
                 loadAchievementsList();
                 if (currentProfile && currentProfile.role === 'super_admin') {
+                    loadStudentsList();
+                    loadTeachersList();
                     loadSiteImagesList();
                 }
 
@@ -2579,6 +3125,13 @@
             const hash = targetSectionId.replace('sec-', '');
             if (window.location.hash !== `#${hash}`) {
                 history.replaceState(null, null, `#${hash}`);
+            }
+
+            // Lazy load data if switching to specific tabs
+            if (targetSectionId === 'sec-siswa' && allStudentsList.length === 0) {
+                loadStudentsList();
+            } else if (targetSectionId === 'sec-guru' && allTeachersList.length === 0) {
+                loadTeachersList();
             }
         }
 
@@ -4060,6 +4613,698 @@
         deleteSiteImageModal.addEventListener('click', (e) => {
             if (e.target === deleteSiteImageModal) closeDeleteSiteImageModal();
         });
+
+        // ==========================================
+        // MODUL DATA SISWA (SUPER ADMIN ONLY)
+        // ==========================================
+        let allStudentsList = [];
+        let activeStudentClassFilter = 'all';
+        let studentToDelete = null;
+
+        const studentModal = document.getElementById('studentModal');
+        const deleteStudentModalBackdrop = document.getElementById('deleteStudentModalBackdrop');
+        const studentSearchInput = document.getElementById('studentSearchInput');
+
+        if (studentSearchInput) {
+            studentSearchInput.addEventListener('input', () => {
+                renderStudentsTable();
+            });
+        }
+
+        if (studentModal) {
+            studentModal.addEventListener('click', (e) => {
+                if (e.target === studentModal) closeStudentModal();
+            });
+        }
+
+        if (deleteStudentModalBackdrop) {
+            deleteStudentModalBackdrop.addEventListener('click', (e) => {
+                if (e.target === deleteStudentModalBackdrop) closeDeleteStudentModal();
+            });
+        }
+
+        async function loadStudentsList() {
+            try {
+                const tbody = document.getElementById('studentTableBody');
+                if (!tbody) return;
+
+                const { data, error } = await supabaseClient
+                    .from('students')
+                    .select('*')
+                    .order('class', { ascending: true })
+                    .order('name', { ascending: true });
+
+                if (error) {
+                    console.error('Error fetching students:', error);
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-placeholder" style="color: var(--color-danger);">
+                                Gagal memuat data siswa: ${escapeHtml(error.message)}
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                allStudentsList = data || [];
+                renderStudentClassPills();
+                renderStudentsTable();
+            } catch (err) {
+                console.error('Exception loading students:', err);
+            }
+        }
+
+        function renderStudentClassPills() {
+            const container = document.getElementById('studentClassFilterPills');
+            if (!container) return;
+
+            // Extract unique sorted classes
+            const classesSet = new Set(['7A', '7B']);
+            allStudentsList.forEach(s => {
+                if (s.class && s.class.trim()) classesSet.add(s.class.trim());
+            });
+            const classList = Array.from(classesSet).sort();
+
+            // Update Datalist in student modal as well
+            const datalist = document.getElementById('studentClassDatalist');
+            if (datalist) {
+                datalist.innerHTML = classList.map(c => `<option value="${escapeHtml(c)}"></option>`).join('');
+            }
+
+            let html = `
+                <button type="button" class="pill-btn ${activeStudentClassFilter === 'all' ? 'active' : ''}" data-class="all" onclick="setStudentClassFilter('all')">
+                    Semua Kelas
+                </button>
+            `;
+
+            classList.forEach(c => {
+                const count = allStudentsList.filter(s => s.class === c).length;
+                html += `
+                    <button type="button" class="pill-btn ${activeStudentClassFilter === c ? 'active' : ''}" data-class="${escapeHtml(c)}" onclick="setStudentClassFilter('${escapeHtml(c)}')">
+                        ${escapeHtml(c)} (${count})
+                    </button>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function setStudentClassFilter(c) {
+            activeStudentClassFilter = c;
+            renderStudentClassPills();
+            renderStudentsTable();
+        }
+
+        function renderStudentsTable() {
+            const tbody = document.getElementById('studentTableBody');
+            const searchInput = document.getElementById('studentSearchInput');
+            const countBadge = document.getElementById('studentCountBadge');
+            if (!tbody) return;
+
+            const q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+
+            let filtered = allStudentsList.filter(s => {
+                const matchClass = (activeStudentClassFilter === 'all' || s.class === activeStudentClassFilter);
+                const matchSearch = (!q || 
+                    (s.name && s.name.toLowerCase().includes(q)) || 
+                    (s.nama_arab && s.nama_arab.toLowerCase().includes(q))
+                );
+                return matchClass && matchSearch;
+            });
+
+            if (countBadge) {
+                countBadge.textContent = `${filtered.length} Siswa`;
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty-placeholder">
+                            ${allStudentsList.length === 0 ? 'Belum ada data siswa. Klik tombol "Tambah Siswa" untuk memulai.' : 'Tidak ditemukan siswa yang sesuai filter atau pencarian.'}
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map((s, idx) => {
+                const arabHtml = s.nama_arab ? `<span class="student-arabic-name">${escapeHtml(s.nama_arab)}</span>` : '';
+                
+                let genderBadge = '';
+                if (s.jenis_kelamin === 'Putra') {
+                    genderBadge = `<span class="badge-gender-putra">Putra</span>`;
+                } else if (s.jenis_kelamin === 'Putri') {
+                    genderBadge = `<span class="badge-gender-putri">Putri</span>`;
+                } else {
+                    genderBadge = `<span class="category-badge cat-default">${escapeHtml(s.jenis_kelamin || '-')}</span>`;
+                }
+
+                let programBadge = '';
+                if (!s.program || !s.program.trim()) {
+                    programBadge = `<span class="badge-unfilled">Belum diisi</span>`;
+                } else if (s.program.toLowerCase() === 'boarding') {
+                    programBadge = `<span class="badge-program-boarding">Boarding</span>`;
+                } else if (s.program.toLowerCase().includes('day')) {
+                    programBadge = `<span class="badge-program-fullday">Full Day</span>`;
+                } else {
+                    programBadge = `<span class="category-badge cat-default">${escapeHtml(s.program)}</span>`;
+                }
+
+                return `
+                    <tr>
+                        <td style="text-align: center; color: var(--color-text-muted); font-size: 0.85rem;">${idx + 1}</td>
+                        <td>
+                            <strong style="color: var(--lux-dark);">${escapeHtml(s.name)}</strong>
+                            ${arabHtml}
+                        </td>
+                        <td><span class="badge-class">${escapeHtml(s.class || '-')}</span></td>
+                        <td>${genderBadge}</td>
+                        <td>${programBadge}</td>
+                        <td>${s.enrollment_year || '-'}</td>
+                        <td style="text-align: center;">
+                            <div class="table-actions" style="justify-content: center;">
+                                <button type="button" class="btn-action-icon" title="Edit Siswa" onclick="openStudentModal('${s.id}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                </button>
+                                <button type="button" class="btn-action-icon btn-action-danger" title="Hapus Siswa" onclick="openDeleteStudentModal('${s.id}')">
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function openStudentModal(studentId = null) {
+            const modal = document.getElementById('studentModal');
+            const title = document.getElementById('studentModalTitle');
+            const form = document.getElementById('studentForm');
+            if (!modal) return;
+
+            form.reset();
+            document.getElementById('studentIdInput').value = '';
+            document.getElementById('studentYearInput').value = new Date().getFullYear();
+
+            if (studentId) {
+                const s = allStudentsList.find(item => String(item.id) === String(studentId));
+                if (s) {
+                    title.textContent = 'Edit Data Siswa';
+                    document.getElementById('studentIdInput').value = s.id;
+                    document.getElementById('studentNameInput').value = s.name || '';
+                    document.getElementById('studentArabicNameInput').value = s.nama_arab || '';
+                    document.getElementById('studentClassInput').value = s.class || '';
+                    document.getElementById('studentGenderInput').value = s.jenis_kelamin || 'Putra';
+                    document.getElementById('studentProgramInput').value = s.program || '';
+                    document.getElementById('studentYearInput').value = s.enrollment_year || new Date().getFullYear();
+                }
+            } else {
+                title.textContent = 'Tambah Data Siswa';
+                if (activeStudentClassFilter !== 'all') {
+                    document.getElementById('studentClassInput').value = activeStudentClassFilter;
+                }
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeStudentModal() {
+            const modal = document.getElementById('studentModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        async function saveStudent(e) {
+            e.preventDefault();
+            const btnSave = document.getElementById('btnSaveStudent');
+            const studentId = document.getElementById('studentIdInput').value;
+            const name = document.getElementById('studentNameInput').value.trim();
+            const arabicName = document.getElementById('studentArabicNameInput').value.trim();
+            const studentClass = document.getElementById('studentClassInput').value.trim();
+            const gender = document.getElementById('studentGenderInput').value;
+            const program = document.getElementById('studentProgramInput').value;
+            const year = parseInt(document.getElementById('studentYearInput').value, 10) || new Date().getFullYear();
+
+            if (!name || !studentClass) {
+                showToast('Nama siswa dan kelas wajib diisi', 'error');
+                return;
+            }
+
+            btnSave.disabled = true;
+            btnSave.textContent = 'Menyimpan...';
+
+            try {
+                const payload = {
+                    name: name,
+                    nama_arab: arabicName || null,
+                    class: studentClass,
+                    jenis_kelamin: gender,
+                    program: program || null,
+                    enrollment_year: year
+                };
+
+                let result;
+                if (studentId) {
+                    result = await supabaseClient
+                        .from('students')
+                        .update(payload)
+                        .eq('id', studentId);
+                } else {
+                    result = await supabaseClient
+                        .from('students')
+                        .insert([payload]);
+                }
+
+                if (result.error) throw result.error;
+
+                showToast(studentId ? 'Data siswa berhasil diperbarui' : 'Siswa baru berhasil ditambahkan', 'success');
+                closeStudentModal();
+                await loadStudentsList();
+                loadDashboardStats();
+            } catch (err) {
+                console.error('Error saving student:', err);
+                showToast(`Gagal menyimpan siswa: ${err.message || 'Terjadi kesalahan'}`, 'error');
+            } finally {
+                btnSave.disabled = false;
+                btnSave.textContent = 'Simpan Siswa';
+            }
+        }
+
+        function openDeleteStudentModal(studentId) {
+            const s = allStudentsList.find(item => String(item.id) === String(studentId));
+            if (!s) return;
+            studentToDelete = s;
+            document.getElementById('deleteStudentNameText').textContent = s.name + (s.class ? ` (${s.class})` : '');
+            document.getElementById('deleteStudentModalBackdrop').classList.add('active');
+        }
+
+        function closeDeleteStudentModal() {
+            document.getElementById('deleteStudentModalBackdrop').classList.remove('active');
+            studentToDelete = null;
+        }
+
+        async function confirmDeleteStudent() {
+            if (!studentToDelete) return;
+            const btn = document.getElementById('confirmDeleteStudentBtn');
+            btn.disabled = true;
+            btn.textContent = 'Menghapus...';
+
+            try {
+                const { error } = await supabaseClient
+                    .from('students')
+                    .delete()
+                    .eq('id', studentToDelete.id);
+
+                if (error) throw error;
+
+                showToast('Data siswa berhasil dihapus', 'success');
+                closeDeleteStudentModal();
+                await loadStudentsList();
+                loadDashboardStats();
+            } catch (err) {
+                console.error('Error deleting student:', err);
+                showToast(`Gagal menghapus siswa: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Hapus Siswa';
+            }
+        }
+
+        // ==========================================
+        // MODUL DATA GURU (SUPER ADMIN ONLY)
+        // ==========================================
+        let allTeachersList = [];
+        let teacherToDelete = null;
+        let selectedTeacherFile = null;
+        let existingTeacherPhotoUrl = null;
+        let isTeacherPhotoRemoved = false;
+
+        const teacherModal = document.getElementById('teacherModal');
+        const deleteTeacherModalBackdrop = document.getElementById('deleteTeacherModalBackdrop');
+        const teacherSearchInput = document.getElementById('teacherSearchInput');
+        const teacherFileInput = document.getElementById('teacherFileInput');
+        const btnSelectTeacherFile = document.getElementById('btnSelectTeacherFile');
+        const selectTeacherFileBtnText = document.getElementById('selectTeacherFileBtnText');
+        const btnChangeTeacherPhoto = document.getElementById('btnChangeTeacherPhoto');
+        const btnRemoveTeacherPhoto = document.getElementById('btnRemoveTeacherPhoto');
+
+        if (teacherSearchInput) {
+            teacherSearchInput.addEventListener('input', () => {
+                renderTeachersGrid();
+            });
+        }
+
+        if (teacherModal) {
+            teacherModal.addEventListener('click', (e) => {
+                if (e.target === teacherModal) closeTeacherModal();
+            });
+        }
+
+        if (deleteTeacherModalBackdrop) {
+            deleteTeacherModalBackdrop.addEventListener('click', (e) => {
+                if (e.target === deleteTeacherModalBackdrop) closeDeleteTeacherModal();
+            });
+        }
+
+        if (btnSelectTeacherFile && teacherFileInput) {
+            btnSelectTeacherFile.addEventListener('click', () => teacherFileInput.click());
+        }
+
+        if (btnChangeTeacherPhoto && teacherFileInput) {
+            btnChangeTeacherPhoto.addEventListener('click', () => teacherFileInput.click());
+        }
+
+        if (btnRemoveTeacherPhoto) {
+            btnRemoveTeacherPhoto.addEventListener('click', () => {
+                selectedTeacherFile = null;
+                isTeacherPhotoRemoved = true;
+                resetTeacherPhotoPreview();
+            });
+        }
+
+        if (teacherFileInput) {
+            teacherFileInput.addEventListener('change', (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+
+                const maxBytes = 2 * 1024 * 1024;
+                if (file.size > maxBytes) {
+                    showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
+                    teacherFileInput.value = '';
+                    return;
+                }
+
+                selectedTeacherFile = file;
+                isTeacherPhotoRemoved = false;
+
+                const previewUrl = URL.createObjectURL(file);
+                showTeacherPhotoPreview(previewUrl, true);
+            });
+        }
+
+        async function loadTeachersList() {
+            try {
+                const grid = document.getElementById('teachersGrid');
+                if (!grid) return;
+
+                const { data, error } = await supabaseClient
+                    .from('teachers')
+                    .select('*')
+                    .order('display_order', { ascending: true });
+
+                if (error) {
+                    console.error('Error fetching teachers:', error);
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1; color: var(--color-danger);">
+                            Gagal memuat data guru: ${escapeHtml(error.message)}
+                        </div>
+                    `;
+                    return;
+                }
+
+                allTeachersList = data || [];
+                renderTeachersGrid();
+            } catch (err) {
+                console.error('Exception loading teachers:', err);
+            }
+        }
+
+        function renderTeachersGrid() {
+            const grid = document.getElementById('teachersGrid');
+            const searchInput = document.getElementById('teacherSearchInput');
+            const countBadge = document.getElementById('teacherCountBadge');
+            if (!grid) return;
+
+            const q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+
+            let filtered = allTeachersList.filter(t => {
+                if (!q) return true;
+                const matchName = t.name && t.name.toLowerCase().includes(q);
+                const matchSubject = t.subject && t.subject.toLowerCase().includes(q);
+                const matchPos = t.position && t.position.toLowerCase().includes(q);
+                return matchName || matchSubject || matchPos;
+            });
+
+            if (countBadge) {
+                countBadge.textContent = `${filtered.length} Guru & GTK`;
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                        ${allTeachersList.length === 0 ? 'Belum ada data guru. Klik tombol "Tambah Guru" untuk memulai.' : 'Tidak ditemukan guru yang sesuai pencarian.'}
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(t => {
+                const initial = (t.name || 'G').trim().charAt(0).toUpperCase();
+                let avatarHtml = '';
+                if (t.photo_url) {
+                    avatarHtml = `<img src="${escapeHtml(t.photo_url)}" alt="${escapeHtml(t.name)}" class="teacher-avatar-img" onerror="this.parentElement.textContent='${initial}'">`;
+                } else {
+                    avatarHtml = initial;
+                }
+
+                const posHtml = t.position ? `<div class="teacher-position-text">${escapeHtml(t.position)}</div>` : '';
+                const bioHtml = t.bio ? `<div class="teacher-bio-text" title="${escapeHtml(t.bio)}">${escapeHtml(t.bio)}</div>` : '';
+
+                return `
+                    <div class="teacher-card">
+                        <div class="teacher-order-pill">#${t.display_order ?? '-'}</div>
+                        <div>
+                            <div class="teacher-card-header">
+                                <div class="teacher-avatar-box">
+                                    ${avatarHtml}
+                                </div>
+                                <div class="teacher-info-header">
+                                    <h4 class="teacher-name">${escapeHtml(t.name)}</h4>
+                                    <span class="teacher-subject-tag">${escapeHtml(t.subject || '-')}</span>
+                                </div>
+                            </div>
+                            ${posHtml}
+                            ${bioHtml}
+                        </div>
+                        <div class="teacher-card-footer">
+                            <button type="button" class="btn-action-icon" title="Edit Data Guru" onclick="openTeacherModal('${t.id}')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button type="button" class="btn-action-icon btn-action-danger" title="Hapus Guru" onclick="openDeleteTeacherModal('${t.id}')">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openTeacherModal(teacherId = null) {
+            const modal = document.getElementById('teacherModal');
+            const title = document.getElementById('teacherModalTitle');
+            const form = document.getElementById('teacherForm');
+            if (!modal) return;
+
+            form.reset();
+            document.getElementById('teacherIdInput').value = '';
+            selectedTeacherFile = null;
+            existingTeacherPhotoUrl = null;
+            isTeacherPhotoRemoved = false;
+            resetTeacherPhotoPreview();
+
+            if (teacherId) {
+                const t = allTeachersList.find(item => String(item.id) === String(teacherId));
+                if (t) {
+                    title.textContent = 'Edit Data Guru';
+                    document.getElementById('teacherIdInput').value = t.id;
+                    document.getElementById('teacherNameInput').value = t.name || '';
+                    document.getElementById('teacherSubjectInput').value = t.subject || '';
+                    document.getElementById('teacherPositionInput').value = t.position || '';
+                    document.getElementById('teacherDisplayOrderInput').value = t.display_order ?? (allTeachersList.length + 1);
+                    document.getElementById('teacherBioInput').value = t.bio || '';
+
+                    if (t.photo_url) {
+                        existingTeacherPhotoUrl = t.photo_url;
+                        showTeacherPhotoPreview(t.photo_url, false);
+                    }
+                }
+            } else {
+                title.textContent = 'Tambah Data Guru';
+                document.getElementById('teacherDisplayOrderInput').value = (allTeachersList.length + 1);
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeTeacherModal() {
+            const modal = document.getElementById('teacherModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function showTeacherPhotoPreview(url, isBlob = false) {
+            const box = document.getElementById('teacherImagePreviewBox');
+            const actions = document.getElementById('teacherPreviewActions');
+            const uploadZone = document.getElementById('teacherUploadZone');
+            const btnText = document.getElementById('selectTeacherFileBtnText');
+            if (box) {
+                box.innerHTML = `<img src="${url}" alt="Preview Foto Guru">`;
+            }
+            if (actions) actions.style.display = 'flex';
+            if (uploadZone) uploadZone.style.display = 'none';
+            if (btnText) btnText.textContent = 'Ganti Foto Terpilih';
+        }
+
+        function resetTeacherPhotoPreview() {
+            const box = document.getElementById('teacherImagePreviewBox');
+            const actions = document.getElementById('teacherPreviewActions');
+            const uploadZone = document.getElementById('teacherUploadZone');
+            const fileInput = document.getElementById('teacherFileInput');
+            const btnText = document.getElementById('selectTeacherFileBtnText');
+            if (fileInput) fileInput.value = '';
+            if (box) {
+                box.innerHTML = `<span>Belum ada foto yang dipilih (opsional)</span>`;
+            }
+            if (actions) actions.style.display = 'none';
+            if (uploadZone) uploadZone.style.display = 'flex';
+            if (btnText) btnText.textContent = 'Pilih Foto dari Perangkat';
+        }
+
+        async function saveTeacher(e) {
+            e.preventDefault();
+            const btnSave = document.getElementById('btnSaveTeacher');
+            const teacherId = document.getElementById('teacherIdInput').value;
+            const name = document.getElementById('teacherNameInput').value.trim();
+            const subject = document.getElementById('teacherSubjectInput').value.trim();
+            const position = document.getElementById('teacherPositionInput').value.trim();
+            const displayOrder = parseInt(document.getElementById('teacherDisplayOrderInput').value, 10) || 1;
+            const bio = document.getElementById('teacherBioInput').value.trim();
+
+            if (!name || !subject) {
+                showToast('Nama guru dan mata pelajaran wajib diisi', 'error');
+                return;
+            }
+
+            btnSave.disabled = true;
+            btnSave.textContent = 'Menyimpan...';
+
+            try {
+                let finalPhotoUrl = existingTeacherPhotoUrl;
+
+                if (isTeacherPhotoRemoved) {
+                    if (existingTeacherPhotoUrl) {
+                        try {
+                            const oldPath = getStoragePathFromUrl(existingTeacherPhotoUrl, 'site-media');
+                            if (oldPath) {
+                                await supabaseClient.storage.from('site-media').remove([oldPath]);
+                            }
+                        } catch (e) {
+                            console.warn('Could not remove old teacher photo:', e);
+                        }
+                    }
+                    finalPhotoUrl = null;
+                }
+
+                if (selectedTeacherFile) {
+                    btnSave.textContent = 'Mengupload foto guru...';
+                    if (existingTeacherPhotoUrl && !isTeacherPhotoRemoved) {
+                        try {
+                            const oldPath = getStoragePathFromUrl(existingTeacherPhotoUrl, 'site-media');
+                            if (oldPath) {
+                                await supabaseClient.storage.from('site-media').remove([oldPath]);
+                            }
+                        } catch (e) {
+                            console.warn('Could not remove old teacher photo before replace:', e);
+                        }
+                    }
+                    finalPhotoUrl = await uploadImageToStorage(selectedTeacherFile, 'guru');
+                }
+
+                btnSave.textContent = 'Menyimpan data guru...';
+                const payload = {
+                    name: name,
+                    subject: subject,
+                    position: position || null,
+                    bio: bio || null,
+                    display_order: displayOrder,
+                    photo_url: finalPhotoUrl
+                };
+
+                let result;
+                if (teacherId) {
+                    result = await supabaseClient
+                        .from('teachers')
+                        .update(payload)
+                        .eq('id', teacherId);
+                } else {
+                    result = await supabaseClient
+                        .from('teachers')
+                        .insert([payload]);
+                }
+
+                if (result.error) throw result.error;
+
+                showToast(teacherId ? 'Data guru berhasil diperbarui' : 'Guru baru berhasil ditambahkan', 'success');
+                closeTeacherModal();
+                await loadTeachersList();
+                loadDashboardStats();
+            } catch (err) {
+                console.error('Error saving teacher:', err);
+                showToast(`Gagal menyimpan guru: ${err.message || 'Terjadi kesalahan'}`, 'error');
+            } finally {
+                btnSave.disabled = false;
+                btnSave.textContent = 'Simpan Guru';
+            }
+        }
+
+        function openDeleteTeacherModal(teacherId) {
+            const t = allTeachersList.find(item => String(item.id) === String(teacherId));
+            if (!t) return;
+            teacherToDelete = t;
+            document.getElementById('deleteTeacherNameText').textContent = t.name + (t.subject ? ` - ${t.subject}` : '');
+            document.getElementById('deleteTeacherModalBackdrop').classList.add('active');
+        }
+
+        function closeDeleteTeacherModal() {
+            document.getElementById('deleteTeacherModalBackdrop').classList.remove('active');
+            teacherToDelete = null;
+        }
+
+        async function confirmDeleteTeacher() {
+            if (!teacherToDelete) return;
+            const btn = document.getElementById('confirmDeleteTeacherBtn');
+            btn.disabled = true;
+            btn.textContent = 'Menghapus...';
+
+            try {
+                if (teacherToDelete.photo_url) {
+                    try {
+                        const path = getStoragePathFromUrl(teacherToDelete.photo_url, 'site-media');
+                        if (path) {
+                            await supabaseClient.storage.from('site-media').remove([path]);
+                        }
+                    } catch (errStorage) {
+                        console.warn('Storage deletion error for teacher photo:', errStorage);
+                    }
+                }
+
+                const { error } = await supabaseClient
+                    .from('teachers')
+                    .delete()
+                    .eq('id', teacherToDelete.id);
+
+                if (error) throw error;
+
+                showToast('Data guru berhasil dihapus', 'success');
+                closeDeleteTeacherModal();
+                await loadTeachersList();
+                loadDashboardStats();
+            } catch (err) {
+                console.error('Error deleting teacher:', err);
+                showToast(`Gagal menghapus guru: ${err.message}`, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Hapus Guru';
+            }
+        }
 
         // Run Auth Check
         checkAuth();
