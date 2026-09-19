@@ -363,21 +363,49 @@ document.addEventListener('DOMContentLoaded', function() {
             }).join('');
         }
 
-        // Fetch news data from JSON with local fallback
-        fetch('assets/data/news.json')
-            .then(function(response) {
-                if (!response.ok) throw new Error('HTTP status ' + response.status);
-                return response.json();
-            })
-            .then(function(data) {
-                cachedNewsData = data;
-                renderNewsCards(cachedNewsData, 'all');
-            })
-            .catch(function(err) {
-                console.warn('News JSON fetch error (using fallback data):', err);
-                cachedNewsData = fallbackNewsData;
-                renderNewsCards(cachedNewsData, 'all');
-            });
+        // Fetch news data: Priority Supabase -> Fallback assets/data/news.json -> Fallback hardcoded
+        function loadNewsData() {
+            if (typeof supabaseClient !== 'undefined') {
+                supabaseClient
+                    .from('news')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .then(function(res) {
+                        if (res.error) throw res.error;
+                        if (Array.isArray(res.data) && res.data.length > 0) {
+                            cachedNewsData = res.data;
+                            renderNewsCards(cachedNewsData, 'all');
+                            return;
+                        }
+                        throw new Error('No news returned from Supabase');
+                    })
+                    .catch(function(err) {
+                        console.warn('Supabase news query failed, falling back to news.json:', err);
+                        fallbackToNewsJson();
+                    });
+            } else {
+                fallbackToNewsJson();
+            }
+        }
+
+        function fallbackToNewsJson() {
+            fetch('assets/data/news.json')
+                .then(function(response) {
+                    if (!response.ok) throw new Error('HTTP status ' + response.status);
+                    return response.json();
+                })
+                .then(function(data) {
+                    cachedNewsData = data;
+                    renderNewsCards(cachedNewsData, 'all');
+                })
+                .catch(function(err) {
+                    console.warn('News JSON fetch error (using fallback data):', err);
+                    cachedNewsData = fallbackNewsData;
+                    renderNewsCards(cachedNewsData, 'all');
+                });
+        }
+
+        loadNewsData();
 
         // Filter button click listener
         newsFilterButtons.forEach(function(btn) {

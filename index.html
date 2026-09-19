@@ -415,7 +415,7 @@
         </section>
 
         <!-- COMPACT STATISTICS SECTION -->
-        <section class="stats-section bg-lux-dark">
+        <section class="stats-section bg-lux-dark" id="heroStatsSection">
             <div class="container">
                 <div class="luxury-stats-grid">
                     <div class="luxury-stat-card reveal-stagger">
@@ -425,7 +425,7 @@
                             <path d="M9 21v-6a3 3 0 0 1 6 0v6"></path>
                         </svg>
                         <div class="stat-info">
-                            <span class="stat-number">22</span>
+                            <span class="stat-number" id="statBoarding">22</span>
                             <span class="stat-label">Santri Boarding</span>
                         </div>
                     </div>
@@ -435,7 +435,7 @@
                             <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
                         </svg>
                         <div class="stat-info">
-                            <span class="stat-number">13</span>
+                            <span class="stat-number" id="statFullday">13</span>
                             <span class="stat-label">Siswa Full Day</span>
                         </div>
                     </div>
@@ -444,7 +444,7 @@
                             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                         </svg>
                         <div class="stat-info">
-                            <span class="stat-number">11</span>
+                            <span class="stat-number" id="statEkskul">11</span>
                             <span class="stat-label">Ekstrakurikuler</span>
                         </div>
                     </div>
@@ -454,7 +454,7 @@
                             <path d="m9 12 2 2 4-4"></path>
                         </svg>
                         <div class="stat-info">
-                            <span class="stat-number">100%</span>
+                            <span class="stat-number" id="statIslami">100%</span>
                             <span class="stat-label">Lingkungan Islami</span>
                         </div>
                     </div>
@@ -466,7 +466,7 @@
                             <line x1="3" y1="10" x2="21" y2="10"></line>
                         </svg>
                         <div class="stat-info">
-                            <span class="stat-number">2019</span>
+                            <span class="stat-number" id="statTahun">2019</span>
                             <span class="stat-label">Pengalaman Mendidik</span>
                         </div>
                     </div>
@@ -862,5 +862,211 @@
     </a>
 
     <script src="assets/js/main.js"></script>
+    <!-- Supabase JS Client & Config for Dynamic Hero Statistics -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-config.js"></script>
+    <script>
+        (function() {
+            // Default fallback targets matching hardcoded HTML
+            const stats = {
+                boarding: 22,
+                fullday: 13,
+                ekskul: 11,
+                islami: 100,
+                tahun: '2019'
+            };
+
+            let hasAnimated = false;
+
+            const statBoardingEl = document.getElementById('statBoarding');
+            const statFulldayEl = document.getElementById('statFullday');
+            const statEkskulEl = document.getElementById('statEkskul');
+            const statIslamiEl = document.getElementById('statIslami');
+            const statTahunEl = document.getElementById('statTahun');
+
+            function animateCountUp(element, getTarget, duration = 1200, suffix = '') {
+                if (!element) return;
+                const startTime = performance.now();
+                const start = 0;
+
+                function step(currentTime) {
+                    const target = typeof getTarget === 'function' ? getTarget() : getTarget;
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease-out cubic: fast at start, decelerating smoothly to finish
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    const currentVal = Math.round(start + (target - start) * easeOut);
+                    element.textContent = currentVal + suffix;
+
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        element.textContent = (typeof getTarget === 'function' ? getTarget() : target) + suffix;
+                    }
+                }
+
+                requestAnimationFrame(step);
+            }
+
+            function triggerAnimation() {
+                if (hasAnimated) return;
+                hasAnimated = true;
+
+                // Tahun Berdiri is static (not animated with count-up)
+                if (statTahunEl) {
+                    statTahunEl.textContent = stats.tahun;
+                }
+
+                animateCountUp(statBoardingEl, () => stats.boarding, 1200);
+                animateCountUp(statFulldayEl, () => stats.fullday, 1200);
+                animateCountUp(statEkskulEl, () => stats.ekskul, 1200);
+                animateCountUp(statIslamiEl, () => stats.islami, 1200, '%');
+            }
+
+            // Setup IntersectionObserver: triggers once when stats bar enters viewport
+            const statsSection = document.getElementById('heroStatsSection') || document.querySelector('.luxury-stats-grid');
+            if (statsSection && 'IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            triggerAnimation();
+                            obs.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.15 });
+
+                observer.observe(statsSection);
+            } else {
+                triggerAnimation();
+            }
+
+            // Fetch live data from Supabase
+            async function fetchRealStats() {
+                if (typeof supabaseClient === 'undefined') return;
+
+                try {
+                    await Promise.all([
+                        // 1. Total Santri Boarding & Siswa Full Day via RPC get_student_stats
+                        (async () => {
+                            try {
+                                const { data: studentStats, error: rpcErr } = await supabaseClient.rpc('get_student_stats');
+                                if (!rpcErr && Array.isArray(studentStats) && studentStats.length > 0) {
+                                    let bSum = 0;
+                                    let fSum = 0;
+                                    let found = false;
+
+                                    studentStats.forEach(item => {
+                                        const prog = String(item.program || '').toLowerCase().trim();
+                                        const count = Number(item.total || item.count || 0);
+                                        if (prog === 'boarding') {
+                                            bSum += count;
+                                            found = true;
+                                        } else if (prog === 'fullday' || prog === 'full day' || prog === 'full_day') {
+                                            fSum += count;
+                                            found = true;
+                                        }
+                                    });
+
+                                    if (found) {
+                                        stats.boarding = bSum;
+                                        stats.fullday = fSum;
+                                        if (hasAnimated) {
+                                            if (statBoardingEl) statBoardingEl.textContent = stats.boarding;
+                                            if (statFulldayEl) statFulldayEl.textContent = stats.fullday;
+                                        }
+                                    }
+                                }
+                            } catch (e) {
+                                console.warn('Gagal memuat student stats via RPC:', e);
+                            }
+                        })(),
+
+                        // 2. Ekstrakurikuler, Lingkungan Islami, Tahun Berdiri via school_settings
+                        (async () => {
+                            try {
+                                const { data: settingsData, error: sErr } = await supabaseClient
+                                    .from('school_settings')
+                                    .select('key, value');
+
+                                if (!sErr && Array.isArray(settingsData)) {
+                                    settingsData.forEach(item => {
+                                        if (!item || !item.key || item.value === null || item.value === '') return;
+                                        const strVal = String(item.value).trim();
+
+                                        if (item.key === 'ekstrakurikuler_count') {
+                                            const n = parseInt(strVal, 10);
+                                            if (!isNaN(n)) {
+                                                stats.ekskul = n;
+                                                if (hasAnimated && statEkskulEl) statEkskulEl.textContent = n;
+                                            }
+                                        } else if (item.key === 'lingkungan_islami_percent') {
+                                            const n = parseInt(strVal.replace(/%/g, '').trim(), 10);
+                                            if (!isNaN(n)) {
+                                                stats.islami = n;
+                                                if (hasAnimated && statIslamiEl) statIslamiEl.textContent = n + '%';
+                                            }
+                                        } else if (item.key === 'tahun_berdiri') {
+                                            stats.tahun = strVal;
+                                            if (statTahunEl) statTahunEl.textContent = strVal;
+                                        }
+                                    });
+                                }
+                            } catch (e) {
+                                console.warn('Gagal memuat school_settings:', e);
+                            }
+                        })()
+                    ]);
+                } catch (err) {
+                    console.warn('Gagal memuat statistik dinamis dari Supabase:', err);
+                }
+            }
+
+            // 3. Dynamic News Preview (3 Latest News)
+            async function loadHomeNewsPreview() {
+                const container = document.getElementById('newsContainer');
+                if (!container || typeof supabaseClient === 'undefined') return;
+
+                function escapeHtml(text) {
+                    if (!text) return '';
+                    const d = document.createElement('div');
+                    d.textContent = text;
+                    return d.innerHTML;
+                }
+
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('news')
+                        .select('id, title, date, category, excerpt, image, created_at')
+                        .order('created_at', { ascending: false })
+                        .limit(3);
+
+                    if (!error && Array.isArray(data) && data.length > 0) {
+                        container.innerHTML = data.map(item => `
+                            <a href="news.html" class="news-card-lux">
+                                <div class="news-img-wrap">
+                                    <img src="${escapeHtml(item.image || 'assets/img/placeholder.svg')}" alt="${escapeHtml(item.title || 'Berita')}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
+                                </div>
+                                <div class="news-content-lux">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                        <span class="news-tag-lux">${escapeHtml(item.category || 'Berita')}</span>
+                                        <span class="news-date" style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 500;">${escapeHtml(item.date || '')}</span>
+                                    </div>
+                                    <h3 class="news-title-lux">${escapeHtml(item.title || '')}</h3>
+                                    <p class="news-excerpt-lux">${escapeHtml(item.excerpt || '')}</p>
+                                    <span class="news-read-lux">Baca Selengkapnya</span>
+                                </div>
+                            </a>
+                        `).join('');
+                    }
+                } catch (err) {
+                    console.warn('Gagal memuat preview berita beranda dari Supabase:', err);
+                    // Fallback: the 3 hardcoded cards remain intact in HTML
+                }
+            }
+
+            fetchRealStats();
+            loadHomeNewsPreview();
+        })();
+    </script>
 </body>
 </html>

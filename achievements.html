@@ -47,9 +47,107 @@
             border-radius: 20px;
             margin-bottom: 1rem;
         }
-        .badge-gold { background: rgba(212, 181, 130, 0.2); color: var(--lux-gold); border: 1px solid rgba(212, 181, 130, 0.4); }
+        .badge-gold { background: rgba(212, 181, 130, 0.2); color: #92400E; border: 1px solid rgba(212, 181, 130, 0.5); }
         .badge-green { background: rgba(4, 71, 58, 0.12); color: var(--color-primary); border: 1px solid rgba(4, 71, 58, 0.3); }
         .badge-blue { background: rgba(17, 54, 110, 0.12); color: var(--color-secondary); border: 1px solid rgba(17, 54, 110, 0.3); }
+
+        /* Card with Media Banner */
+        .feature-card.has-media {
+            padding-top: 0 !important;
+            overflow: hidden;
+        }
+
+        .achievement-card-media {
+            position: relative;
+            width: calc(100% + 3.6rem);
+            margin: 0 -1.8rem 1.25rem -1.8rem;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, rgba(4, 71, 58, 0.08), rgba(212, 181, 130, 0.08));
+            overflow: hidden;
+        }
+
+        .achievement-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .feature-card:hover .achievement-card-media img {
+            transform: scale(1.04);
+        }
+
+        .achievement-floating-icon {
+            position: absolute;
+            bottom: 0.75rem;
+            right: 0.75rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #FFFFFF;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7px;
+            z-index: 2;
+        }
+
+        .achievement-floating-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Tingkat Badges */
+        .badge-tingkat {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 0.2rem 0.55rem;
+            border-radius: 20px;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .badge-tingkat-kabupaten {
+            background: #F1F5F9;
+            color: #475569;
+            border: 1px solid #CBD5E1;
+        }
+
+        .badge-tingkat-provinsi {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+        }
+
+        .badge-tingkat-nasional {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        .badge-tingkat-internasional {
+            background: #FAF5FF;
+            color: #7E22CE;
+            border: 1px solid #E9D5FF;
+        }
+
+        .achievement-badges-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.75rem;
+        }
+        
+        .achievement-badges-wrap .achievement-badge {
+            margin-bottom: 0;
+        }
         
         .achievement-detail-list {
             list-style: none;
@@ -144,44 +242,9 @@
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Capaian Kejuaraan Nasional</h2>
                 </div>
-                <div class="cards-grid grid-3">
-                    <!-- Card 1: OPI -->
-                    <div class="feature-card fade-stagger">
-                        <span class="achievement-badge badge-gold">OPI</span>
-                        <div class="card-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg></div>
-                        <h3 class="card-title-custom">Olimpiade Pelajar Indonesia</h3>
-                        <p class="card-desc-custom">Meraih medali Perak dan Perunggu pada ajang olimpiade tingkat nasional bersaing dengan pelajar dari berbagai wilayah Indonesia.</p>
-                        <ul class="achievement-detail-list">
-                            <li><strong>Medali Perak &amp; Perunggu:</strong> Ajang Olimpiade Nasional</li>
-                            <li><strong>Capaian:</strong> Prestasi Akademik &amp; Sains</li>
-                            <li><strong>Tingkat:</strong> Nasional</li>
-                        </ul>
-                    </div>
-
-                    <!-- Card 2: Kompas -->
-                    <div class="feature-card fade-stagger">
-                        <span class="achievement-badge badge-green">Kompas</span>
-                        <div class="card-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45.99-.99 1.01A5 5 0 0 0 4 22"></path><path d="M14 14.66V17c0 .55.45.99.99 1.01A5 5 0 0 1 20 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
-                        <h3 class="card-title-custom">Kompetisi Pelajar Ambis</h3>
-                        <p class="card-desc-custom">Mengharumkan nama sekolah dengan raihan lengkap medali Emas, Perak, dan Perunggu pada kompetisi pelajar nasional.</p>
-                        <ul class="achievement-detail-list">
-                            <li><strong>Raihan Medali:</strong> Medali Emas, Perak, dan Perunggu</li>
-                            <li><strong>Capaian:</strong> Pengetahuan Terpadu &amp; Akademik</li>
-                            <li><strong>Tingkat:</strong> Nasional</li>
-                        </ul>
-                    </div>
-
-                    <!-- Card 3: Olimnus Islamic -->
-                    <div class="feature-card fade-stagger">
-                        <span class="achievement-badge badge-blue">Mendatang</span>
-                        <div class="card-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></div>
-                        <h3 class="card-title-custom">Olimnus Islamic</h3>
-                        <p class="card-desc-custom">Bersiap menghadapi kompetisi diniyah tingkat nasional dalam waktu dekat dengan persiapan intensif dan pembimbingan terpadu.</p>
-                        <ul class="achievement-detail-list">
-                            <li><strong>Status:</strong> Persiapan Delegasi Santri</li>
-                            <li><strong>Fokus:</strong> Musabaqah &amp; Pembinaan Diniyah</li>
-                            <li><strong>Tingkat:</strong> Nasional</li>
-                        </ul>
+                <div class="cards-grid grid-3" id="achievementsContainer">
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--color-text-muted);">
+                        <p style="font-size: 1rem;">Memuat data prestasi...</p>
                     </div>
                 </div>
             </div>
@@ -306,5 +369,142 @@
     </a>
 
     <script src="assets/js/main.js"></script>
+    <!-- Duotone Icons & Supabase Client -->
+    <script src="assets/js/achievement-icons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-config.js"></script>
+    <script>
+        (async function() {
+            const container = document.getElementById('achievementsContainer');
+            if (!container) return;
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            try {
+                if (typeof supabaseClient === 'undefined') {
+                    throw new Error('Supabase client tidak terdefinisi');
+                }
+
+                // Query achievements ordered by display_order ascending, fallback to created_at
+                const { data, error } = await supabaseClient
+                    .from('achievements')
+                    .select('*')
+                    .order('display_order', { ascending: true, nullsFirst: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    container.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--color-text-muted);">
+                            <p style="font-size: 1rem;">Belum ada data prestasi yang tersedia.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = data.map(item => {
+                    const iconKey = (item.icon && window.ACHIEVEMENT_ICONS && window.ACHIEVEMENT_ICONS[item.icon])
+                        ? item.icon
+                        : 'umum';
+                    const iconSvg = (window.ACHIEVEMENT_ICONS && window.ACHIEVEMENT_ICONS[iconKey])
+                        ? window.ACHIEVEMENT_ICONS[iconKey]
+                        : '';
+
+                    const badgeColor = item.badge_color || 'gold';
+                    const badgeLabel = item.badge_label || 'PRESTASI';
+
+                    let tingkatTag = '';
+                    if (item.tingkat) {
+                        let tClass = 'kabupaten';
+                        const lower = item.tingkat.toLowerCase();
+                        if (lower.includes('internasional')) tClass = 'internasional';
+                        else if (lower.includes('nasional')) tClass = 'nasional';
+                        else if (lower.includes('wilayah') || lower.includes('provinsi')) tClass = 'provinsi';
+                        
+                        tingkatTag = `<span class="badge-tingkat badge-tingkat-${tClass}">${escapeHtml(item.tingkat)}</span>`;
+                    }
+
+                    let mediaHtml = '';
+                    let iconHtml = '';
+
+                    if (item.image_url) {
+                        // With photo: media banner at top, duotone icon floating in bottom-right circle
+                        mediaHtml = `
+                            <div class="achievement-card-media">
+                                <img src="${escapeHtml(item.image_url)}" alt="${escapeHtml(item.title || 'Foto Prestasi')}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                                <div class="achievement-floating-icon" title="Kategori: ${escapeHtml(item.icon || 'umum')}">
+                                    ${iconSvg}
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Without photo: duotone icon in card-icon box
+                        iconHtml = `
+                            <div class="card-icon" style="margin-bottom: 1rem;">
+                                ${iconSvg}
+                            </div>
+                        `;
+                    }
+
+                    let detailsHtml = '';
+                    let detailsList = [];
+                    if (Array.isArray(item.details)) {
+                        detailsList = item.details;
+                    } else if (typeof item.details === 'string') {
+                        try {
+                            const parsed = JSON.parse(item.details);
+                            if (Array.isArray(parsed)) detailsList = parsed;
+                        } catch (e) {}
+                    }
+
+                    if (detailsList.length > 0) {
+                        const lis = detailsList
+                            .filter(d => d && (d.label || d.value))
+                            .map(d => {
+                                const lbl = d.label ? `<strong>${escapeHtml(d.label)}:</strong> ` : '';
+                                const val = escapeHtml(d.value || '');
+                                return `<li>${lbl}${val}</li>`;
+                            }).join('');
+                        if (lis) {
+                            detailsHtml = `<ul class="achievement-detail-list">${lis}</ul>`;
+                        }
+                    }
+
+                    return `
+                        <div class="feature-card fade-stagger ${item.image_url ? 'has-media' : ''}">
+                            ${mediaHtml}
+                            <div class="achievement-badges-wrap">
+                                <span class="achievement-badge badge-${escapeHtml(badgeColor)}">${escapeHtml(badgeLabel)}</span>
+                                ${tingkatTag}
+                            </div>
+                            ${iconHtml}
+                            <h3 class="card-title-custom">${escapeHtml(item.title || '')}</h3>
+                            <p class="card-desc-custom">${escapeHtml(item.description || '')}</p>
+                            ${detailsHtml}
+                        </div>
+                    `;
+                }).join('');
+
+                // Trigger smooth reveal animation for newly injected cards
+                const newCards = container.querySelectorAll('.fade-stagger');
+                newCards.forEach((c, idx) => {
+                    setTimeout(() => c.classList.add('is-visible'), idx * 80);
+                });
+
+            } catch (err) {
+                console.error('Gagal memuat data prestasi dari Supabase:', err);
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem 1rem; color: var(--color-danger);">
+                        <p style="font-size: 1rem; margin-bottom: 0.5rem;">Gagal memuat data prestasi, silakan refresh halaman.</p>
+                    </div>
+                `;
+            }
+        })();
+    </script>
 </body>
 </html>
