@@ -38,6 +38,21 @@ async function uploadImageToStorage(file, folder = 'general') {
   return urlData.publicUrl;
 }
 
+function getStoragePathFromUrl(url, bucket = 'site-media') {
+  if (!url) return null;
+  try {
+    const marker = `/${bucket}/`;
+    const idx = url.indexOf(marker);
+    if (idx !== -1) {
+      return decodeURIComponent(url.substring(idx + marker.length));
+    }
+  } catch (e) {
+    console.error('Error extracting storage path:', e);
+  }
+  return null;
+}
+
 if (typeof window !== 'undefined') {
   window.uploadImageToStorage = uploadImageToStorage;
+  window.getStoragePathFromUrl = getStoragePathFromUrl;
 }

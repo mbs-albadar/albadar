@@ -1403,6 +1403,128 @@
             display: block;
         }
 
+        /* === PREVIEW BOX STYLES FOR NEWS & SITE IMAGES === */
+        #newsImagePreviewBox,
+        #siteImagePreviewBox {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(4, 71, 58, 0.08), rgba(212, 181, 130, 0.08));
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        #newsImagePreviewBox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        #siteImagePreviewBox img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* === MEDIA LIBRARY / SITE IMAGES STYLES === */
+        .site-images-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .site-image-card {
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-image-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--lux-gold);
+        }
+
+        .site-image-media {
+            width: 100%;
+            height: 190px;
+            background: linear-gradient(135deg, rgba(4, 71, 58, 0.08), rgba(212, 181, 130, 0.08));
+            overflow: hidden;
+            position: relative;
+        }
+
+        .site-image-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+
+        .site-image-card:hover .site-image-media img {
+            transform: scale(1.02);
+        }
+
+        .site-image-body {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-image-title {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            color: var(--lux-dark);
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 0.35rem;
+        }
+
+        .badge-key-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #F3F4F6;
+            color: #374151;
+            border: 1px solid #E5E7EB;
+            font-family: monospace;
+            font-size: 0.725rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: var(--radius-xs);
+            margin-bottom: 0.6rem;
+            width: fit-content;
+        }
+
+        .site-image-desc {
+            font-size: 0.825rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+            margin-bottom: 0.85rem;
+            flex-grow: 1;
+        }
+
+        .site-image-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #F3F4F6;
+            padding-top: 0.75rem;
+            margin-top: auto;
+        }
+
         /* MOBILE RESPONSIVENESS */
         @media (max-width: 900px) {
             .admin-sidebar {
@@ -1517,6 +1639,15 @@
                     <polyline points="17 11 19 13 23 9"></polyline>
                 </svg>
                 Data Guru
+            </button>
+
+            <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-site-images">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                    <circle cx="9" cy="9" r="2"></circle>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                </svg>
+                Gambar Situs
             </button>
 
             <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-setting">
@@ -1773,6 +1904,43 @@
                 </div>
             </section>
 
+            <!-- 6. SECTION KELOLA GAMBAR SITUS (SUPER ADMIN ONLY) -->
+            <section class="tab-section role-super-admin-only" id="sec-site-images">
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Kelola Gambar Situs</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Manajemen aset visual & foto yang terhubung ke halaman website (Media Library).</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openSiteImageModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Tambah Gambar Baru
+                    </button>
+                </div>
+
+                <!-- Filter & Search Bar -->
+                <div class="filter-card">
+                    <div class="search-input-wrap" style="flex: 1; max-width: 420px;">
+                        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="searchSiteImagesInput" placeholder="Cari label, key, atau keterangan..." class="search-input">
+                    </div>
+                    <div class="count-badge" id="siteImagesCountBadge">Total: 0 Gambar</div>
+                </div>
+
+                <!-- Grid Container -->
+                <div id="siteImagesContainer">
+                    <div class="admin-loading-state">
+                        <div class="loading-spinner"></div>
+                        Memuat gambar situs...
+                    </div>
+                </div>
+            </section>
+
             <!-- 7. PLACEHOLDER SETTING (SUPER ADMIN ONLY) -->
             <section class="tab-section role-super-admin-only" id="sec-setting">
                 <div class="feature-placeholder-card">
@@ -1815,28 +1983,56 @@
                         </div>
                     </div>
 
-                    <div class="form-row-grid">
-                        <div class="form-group-admin">
-                            <label for="newsCategoryInput">Kategori *</label>
-                            <select id="newsCategoryInput" required>
-                                <option value="Kegiatan">Kegiatan</option>
-                                <option value="Prestasi">Prestasi</option>
-                                <option value="Pengumuman">Pengumuman</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group-admin">
-                            <label for="newsImageInput">URL Gambar / Sampul *</label>
-                            <input type="url" id="newsImageInput" required placeholder="https://images.unsplash.com/...">
-                        </div>
+                    <div class="form-group-admin">
+                        <label for="newsCategoryInput">Kategori *</label>
+                        <select id="newsCategoryInput" required>
+                            <option value="Kegiatan">Kegiatan</option>
+                            <option value="Prestasi">Prestasi</option>
+                            <option value="Pengumuman">Pengumuman</option>
+                        </select>
                     </div>
 
-                    <!-- Image Preview -->
+                    <!-- Gambar Sampul Berita: File Upload + Live Preview -->
                     <div class="form-group-admin">
-                        <label>Pratinjau Sampul</label>
-                        <div class="image-preview-box" id="imagePreviewBox">
-                            <span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>
+                        <label>Foto Sampul Berita *</label>
+                        <input type="file" id="newsFileInput" accept="image/*" style="display: none;">
+
+                        <div class="file-upload-zone" id="newsUploadZone">
+                            <button type="button" class="btn-select-file" id="btnSelectNewsFile">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span id="selectNewsFileBtnText">Pilih Foto dari Perangkat</span>
+                            </button>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
                         </div>
+
+                        <!-- Live Preview Box & Actions -->
+                        <div class="image-preview-wrapper" id="newsPreviewWrapper">
+                            <div class="image-preview-box" id="newsImagePreviewBox">
+                                <span>Belum ada foto yang dipilih</span>
+                            </div>
+                            <div class="preview-actions" id="newsPreviewActions" style="display: none;">
+                                <button type="button" class="btn-action-text btn-action-change" id="btnChangeNewsPhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    Ganti Foto
+                                </button>
+                                <button type="button" class="btn-action-text btn-action-remove" id="btnRemoveNewsPhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Hapus Foto
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-help">Wajib. Foto ini akan tampil sebagai sampul utama artikel berita.</div>
                     </div>
 
                     <div class="form-group-admin">
@@ -2052,6 +2248,122 @@
         </div>
     </div>
 
+    <!-- MODAL FORM TAMBAH / EDIT GAMBAR SITUS -->
+    <div class="modal-backdrop" id="siteImageModal">
+        <div class="modal-box" style="max-width: 580px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title" id="siteImageModalTitle">Tambah Gambar Situs</h3>
+                    <p class="modal-subtitle">Unggah dan kelola aset foto statis untuk elemen halaman website.</p>
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeSiteImageModal()" aria-label="Tutup">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <form id="siteImageForm">
+                <div class="modal-body">
+                    <!-- Upload Foto -->
+                    <div class="form-group-admin">
+                        <label>Foto Gambar Situs *</label>
+                        <input type="file" id="siteImageFileInput" accept="image/*" style="display: none;">
+                        
+                        <div class="file-upload-zone" id="siteImageUploadZone">
+                            <button type="button" class="btn-select-file" id="btnSelectSiteImageFile">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span id="selectSiteImageBtnText">Pilih Foto dari Perangkat</span>
+                            </button>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                        </div>
+
+                        <!-- Live Preview Box & Actions -->
+                        <div class="image-preview-wrapper" id="siteImagePreviewWrapper">
+                            <div class="image-preview-box" id="siteImagePreviewBox">
+                                <span>Belum ada foto yang dipilih</span>
+                            </div>
+                            <div class="preview-actions" id="siteImagePreviewActions" style="display: none;">
+                                <button type="button" class="btn-action-text btn-action-change" id="btnChangeSiteImagePhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    Ganti Foto
+                                </button>
+                                <button type="button" class="btn-action-text btn-action-remove" id="btnRemoveSiteImagePhoto">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                                    </svg>
+                                    Hapus Foto
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-help">Wajib saat menambah gambar baru. Foto disimpan di Supabase Storage (folder: situs).</div>
+                    </div>
+
+                    <!-- Label -->
+                    <div class="form-group-admin">
+                        <label for="siteImageLabelInput">Label Gambar *</label>
+                        <input type="text" id="siteImageLabelInput" required placeholder="Contoh: Lingkungan Sekolah">
+                        <div class="form-help">Nama atau judul pengenal gambar yang mudah dipahami admin.</div>
+                    </div>
+
+                    <!-- Key -->
+                    <div class="form-group-admin">
+                        <label for="siteImageKeyInput">Key Teknis (Opsional)</label>
+                        <input type="text" id="siteImageKeyInput" placeholder="Contoh: lingkungan-sekolah">
+                        <div class="form-help">Digunakan untuk menyambungkan foto ini ke halaman website tertentu (huruf kecil, tanpa spasi). Boleh dikosongkan jika hanya arsip.</div>
+                    </div>
+
+                    <!-- Keterangan -->
+                    <div class="form-group-admin">
+                        <label for="siteImageDescInput">Keterangan / Catatan Tambahan (Opsional)</label>
+                        <textarea id="siteImageDescInput" rows="2" placeholder="Catatan posisi, fotografer, atau penjelasan foto..."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeSiteImageModal()">Batal</button>
+                    <button type="submit" id="saveSiteImageBtn" class="btn-primary-action">
+                        <span id="saveSiteImageText">Simpan Gambar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS GAMBAR SITUS -->
+    <div class="modal-backdrop" id="deleteSiteImageModalBackdrop">
+        <div class="modal-box confirm-box" style="max-width: 440px;">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Gambar Situs?</h3>
+            <div style="width: 140px; height: 95px; border-radius: var(--radius-sm); overflow: hidden; margin: 0.75rem auto; background: #E5E7EB; border: 1px solid var(--color-border);">
+                <img id="deleteSiteImageThumb" src="" alt="Thumbnail" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+            <p class="confirm-desc">
+                Label: <br><strong id="deleteSiteImageLabelText" style="color: var(--color-text-main);">...</strong><br>
+                File gambar di penyimpanan (Supabase Storage) dan data di sistem akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeleteSiteImageModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeleteSiteImageBtn">Hapus Gambar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Achievement Duotone Icons & Storage Upload Helper -->
     <script src="../assets/js/achievement-icons.js"></script>
     <script src="../assets/js/upload-helper.js"></script>
@@ -2206,6 +2518,9 @@
                 loadDashboardStats();
                 loadNewsList();
                 loadAchievementsList();
+                if (currentProfile && currentProfile.role === 'super_admin') {
+                    loadSiteImagesList();
+                }
 
                 // Check Hash Navigation
                 handleHashNav();
@@ -2223,13 +2538,14 @@
             'sec-prestasi': 'Data Prestasi',
             'sec-siswa': 'Data Siswa',
             'sec-guru': 'Data Guru',
+            'sec-site-images': 'Kelola Gambar Situs',
             'sec-setting': 'Pengaturan Sistem'
         };
 
         function switchTab(targetSectionId) {
             // Check super_admin restriction
             if (currentProfile && currentProfile.role !== 'super_admin') {
-                const superAdminSections = ['sec-siswa', 'sec-guru', 'sec-setting'];
+                const superAdminSections = ['sec-siswa', 'sec-guru', 'sec-site-images', 'sec-setting'];
                 if (superAdminSections.includes(targetSectionId)) {
                     targetSectionId = 'sec-beranda';
                 }
@@ -2487,13 +2803,22 @@
         // 6. MODAL ADD / EDIT NEWS
         const newsModal = document.getElementById('newsModalBackdrop');
         const newsForm = document.getElementById('newsForm');
+        let selectedNewsFile = null;
+        let existingNewsImageUrl = null;
+        let isNewsPhotoRemoved = false;
+
         const titleInput = document.getElementById('newsTitleInput');
         const slugInput = document.getElementById('newsSlugInput');
         const dateInput = document.getElementById('newsDateInput');
         const datePreviewText = document.getElementById('datePreviewText');
         const categoryInput = document.getElementById('newsCategoryInput');
-        const imageInput = document.getElementById('newsImageInput');
-        const imagePreviewBox = document.getElementById('imagePreviewBox');
+        const newsFileInput = document.getElementById('newsFileInput');
+        const btnSelectNewsFile = document.getElementById('btnSelectNewsFile');
+        const selectNewsFileBtnText = document.getElementById('selectNewsFileBtnText');
+        const newsImagePreviewBox = document.getElementById('newsImagePreviewBox');
+        const newsPreviewActions = document.getElementById('newsPreviewActions');
+        const btnChangeNewsPhoto = document.getElementById('btnChangeNewsPhoto');
+        const btnRemoveNewsPhoto = document.getElementById('btnRemoveNewsPhoto');
         const excerptInput = document.getElementById('newsExcerptInput');
         const contentInput = document.getElementById('newsContentInput');
         const saveNewsBtn = document.getElementById('saveNewsBtn');
@@ -2515,20 +2840,54 @@
             isSlugManual = true;
         });
 
-        // Image preview listener
-        imageInput.addEventListener('input', () => {
-            const url = imageInput.value.trim();
-            if (url) {
-                imagePreviewBox.innerHTML = `<img src="${escapeHtml(url)}" alt="Preview" onerror="this.parentElement.innerHTML='<span style=\\'color:var(--color-danger);\\'>URL gambar tidak valid</span>'">`;
-            } else {
-                imagePreviewBox.innerHTML = '<span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>';
+        // News File Upload Selection Handlers
+        btnSelectNewsFile.addEventListener('click', () => {
+            newsFileInput.click();
+        });
+
+        btnChangeNewsPhoto.addEventListener('click', () => {
+            newsFileInput.click();
+        });
+
+        btnRemoveNewsPhoto.addEventListener('click', () => {
+            selectedNewsFile = null;
+            existingNewsImageUrl = null;
+            isNewsPhotoRemoved = true;
+            newsFileInput.value = '';
+            newsImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih</span>';
+            newsPreviewActions.style.display = 'none';
+            selectNewsFileBtnText.textContent = 'Pilih Foto dari Perangkat';
+        });
+
+        newsFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            // 2MB Validation
+            const maxBytes = 2 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
+                newsFileInput.value = '';
+                return;
             }
+
+            selectedNewsFile = file;
+            isNewsPhotoRemoved = false;
+
+            const previewUrl = URL.createObjectURL(file);
+            newsImagePreviewBox.innerHTML = `<img src="${previewUrl}" alt="Pratinjau Sampul" style="width: 100%; height: 100%; object-fit: cover;">`;
+            newsPreviewActions.style.display = 'flex';
+            selectNewsFileBtnText.textContent = 'Ganti Foto Terpilih';
         });
 
         function openNewsModal() {
             isEditingNews = false;
             editingNewsOriginalId = null;
             isSlugManual = false;
+            selectedNewsFile = null;
+            existingNewsImageUrl = null;
+            isNewsPhotoRemoved = false;
+            newsFileInput.value = '';
             newsForm.reset();
 
             document.getElementById('newsModalTitle').textContent = 'Tambah Berita Baru';
@@ -2544,7 +2903,9 @@
             dateInput.value = todayIso;
             datePreviewText.textContent = isoToIndonesian(todayIso);
 
-            imagePreviewBox.innerHTML = '<span>Pratinjau gambar akan muncul di sini setelah URL dimasukkan</span>';
+            newsImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih</span>';
+            newsPreviewActions.style.display = 'none';
+            selectNewsFileBtnText.textContent = 'Pilih Foto dari Perangkat';
 
             newsModal.classList.add('active');
         }
@@ -2556,6 +2917,10 @@
             isEditingNews = true;
             editingNewsOriginalId = item.id;
             isSlugManual = true;
+            selectedNewsFile = null;
+            isNewsPhotoRemoved = false;
+            newsFileInput.value = '';
+            existingNewsImageUrl = item.image || null;
 
             document.getElementById('newsModalTitle').textContent = 'Edit Berita';
             saveNewsText.textContent = 'Perbarui Berita';
@@ -2573,14 +2938,17 @@
             datePreviewText.textContent = item.date || '-';
 
             categoryInput.value = item.category || 'Kegiatan';
-            imageInput.value = item.image || '';
             excerptInput.value = item.excerpt || '';
             contentInput.value = item.content || '';
 
             if (item.image) {
-                imagePreviewBox.innerHTML = `<img src="${escapeHtml(item.image)}" alt="Preview" onerror="this.parentElement.innerHTML='<span>Gagal memuat pratinjau gambar</span>'">`;
+                newsImagePreviewBox.innerHTML = `<img src="${escapeHtml(item.image)}" alt="Sampul Berita" style="width: 100%; height: 100%; object-fit: cover;">`;
+                newsPreviewActions.style.display = 'flex';
+                selectNewsFileBtnText.textContent = 'Ganti Foto';
             } else {
-                imagePreviewBox.innerHTML = '<span>Belum ada URL gambar</span>';
+                newsImagePreviewBox.innerHTML = '<span>Belum ada foto sampul</span>';
+                newsPreviewActions.style.display = 'none';
+                selectNewsFileBtnText.textContent = 'Pilih Foto dari Perangkat';
             }
 
             newsModal.classList.add('active');
@@ -2599,7 +2967,6 @@
             const dateIso = dateInput.value;
             const formattedDate = isoToIndonesian(dateIso);
             const category = categoryInput.value;
-            const image = imageInput.value.trim();
             const excerpt = excerptInput.value.trim();
             const content = contentInput.value.trim();
 
@@ -2609,6 +2976,31 @@
             }
 
             saveNewsBtn.disabled = true;
+
+            // Handle Photo Upload to Supabase Storage ('berita' folder)
+            let finalImageUrl = existingNewsImageUrl;
+            if (selectedNewsFile) {
+                saveNewsText.textContent = 'Mengupload foto...';
+                try {
+                    finalImageUrl = await uploadImageToStorage(selectedNewsFile, 'berita');
+                } catch (uploadErr) {
+                    console.error('Upload news photo error:', uploadErr);
+                    showToast(uploadErr.message || 'Gagal mengupload foto sampul.', 'error');
+                    saveNewsBtn.disabled = false;
+                    saveNewsText.textContent = isEditingNews ? 'Perbarui Berita' : 'Simpan Berita';
+                    return;
+                }
+            } else if (isNewsPhotoRemoved) {
+                finalImageUrl = null;
+            }
+
+            if (!finalImageUrl) {
+                showToast('Mohon pilih foto sampul untuk berita.', 'error');
+                saveNewsBtn.disabled = false;
+                saveNewsText.textContent = isEditingNews ? 'Perbarui Berita' : 'Simpan Berita';
+                return;
+            }
+
             saveNewsText.textContent = 'Menyimpan...';
 
             try {
@@ -2619,7 +3011,7 @@
                         title: title,
                         date: formattedDate,
                         category: category,
-                        image: image || null,
+                        image: finalImageUrl,
                         excerpt: excerpt,
                         content: content,
                         author_id: currentUser ? currentUser.id : null,
@@ -2649,7 +3041,7 @@
                         title: title,
                         date: formattedDate,
                         category: category,
-                        image: image || null,
+                        image: finalImageUrl,
                         excerpt: excerpt,
                         content: content,
                         author_id: currentUser ? currentUser.id : null,
@@ -3258,6 +3650,415 @@
 
         deleteAchModal.addEventListener('click', (e) => {
             if (e.target === deleteAchModal) closeDeleteAchievementModal();
+        });
+
+        // ==========================================
+        // 7. MODUL KELOLA GAMBAR SITUS (MEDIA LIBRARY)
+        // ==========================================
+        let allSiteImagesList = [];
+        let isEditingSiteImage = false;
+        let editingSiteImageId = null;
+        let siteImageToDelete = null;
+        let selectedSiteImageFile = null;
+        let existingSiteImageUrl = null;
+        let isSiteImagePhotoRemoved = false;
+
+        const siteImagesContainer = document.getElementById('siteImagesContainer');
+        const searchSiteImagesInput = document.getElementById('searchSiteImagesInput');
+        const siteImagesCountBadge = document.getElementById('siteImagesCountBadge');
+
+        const siteImageModal = document.getElementById('siteImageModal');
+        const siteImageForm = document.getElementById('siteImageForm');
+        const siteImageModalTitle = document.getElementById('siteImageModalTitle');
+        const siteImageFileInput = document.getElementById('siteImageFileInput');
+        const btnSelectSiteImageFile = document.getElementById('btnSelectSiteImageFile');
+        const selectSiteImageBtnText = document.getElementById('selectSiteImageBtnText');
+        const siteImagePreviewBox = document.getElementById('siteImagePreviewBox');
+        const siteImagePreviewActions = document.getElementById('siteImagePreviewActions');
+        const btnChangeSiteImagePhoto = document.getElementById('btnChangeSiteImagePhoto');
+        const btnRemoveSiteImagePhoto = document.getElementById('btnRemoveSiteImagePhoto');
+        const siteImageLabelInput = document.getElementById('siteImageLabelInput');
+        const siteImageKeyInput = document.getElementById('siteImageKeyInput');
+        const siteImageDescInput = document.getElementById('siteImageDescInput');
+        const saveSiteImageBtn = document.getElementById('saveSiteImageBtn');
+        const saveSiteImageText = document.getElementById('saveSiteImageText');
+
+        const deleteSiteImageModal = document.getElementById('deleteSiteImageModalBackdrop');
+        const deleteSiteImageThumb = document.getElementById('deleteSiteImageThumb');
+        const deleteSiteImageLabelText = document.getElementById('deleteSiteImageLabelText');
+        const confirmDeleteSiteImageBtn = document.getElementById('confirmDeleteSiteImageBtn');
+
+        // File Selection Handlers for Site Images
+        btnSelectSiteImageFile.addEventListener('click', () => {
+            siteImageFileInput.click();
+        });
+
+        btnChangeSiteImagePhoto.addEventListener('click', () => {
+            siteImageFileInput.click();
+        });
+
+        btnRemoveSiteImagePhoto.addEventListener('click', () => {
+            selectedSiteImageFile = null;
+            existingSiteImageUrl = null;
+            isSiteImagePhotoRemoved = true;
+            siteImageFileInput.value = '';
+            siteImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih</span>';
+            siteImagePreviewActions.style.display = 'none';
+            selectSiteImageBtnText.textContent = 'Pilih Foto dari Perangkat';
+        });
+
+        siteImageFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            const maxBytes = 2 * 1024 * 1024;
+            if (file.size > maxBytes) {
+                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
+                siteImageFileInput.value = '';
+                return;
+            }
+
+            selectedSiteImageFile = file;
+            isSiteImagePhotoRemoved = false;
+
+            const previewUrl = URL.createObjectURL(file);
+            siteImagePreviewBox.innerHTML = `<img src="${previewUrl}" alt="Pratinjau Foto" style="width: 100%; height: 100%; object-fit: contain;">`;
+            siteImagePreviewActions.style.display = 'flex';
+            selectSiteImageBtnText.textContent = 'Ganti Foto Terpilih';
+        });
+
+        // Load Site Images List
+        async function loadSiteImagesList() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('site_images')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Error fetching site_images:', error);
+                    siteImagesContainer.innerHTML = `
+                        <div class="empty-placeholder">
+                            <p style="color: var(--color-danger);">Gagal memuat gambar situs: ${escapeHtml(error.message)}</p>
+                            <button type="button" class="btn-cancel" onclick="loadSiteImagesList()" style="margin-top: 1rem;">Coba Lagi</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                allSiteImagesList = data || [];
+                renderSiteImagesGrid();
+            } catch (err) {
+                console.error('Fetch site_images exception:', err);
+                siteImagesContainer.innerHTML = '<div class="empty-placeholder"><p style="color: var(--color-danger);">Terjadi kesalahan koneksi.</p></div>';
+            }
+        }
+
+        // Render Site Images Grid
+        function renderSiteImagesGrid() {
+            const query = (searchSiteImagesInput.value || '').trim().toLowerCase();
+            const filtered = allSiteImagesList.filter(item => {
+                if (!query) return true;
+                const lbl = (item.label || '').toLowerCase();
+                const key = (item.key || '').toLowerCase();
+                const ket = (item.keterangan || '').toLowerCase();
+                return lbl.includes(query) || key.includes(query) || ket.includes(query);
+            });
+
+            siteImagesCountBadge.textContent = query 
+                ? `Menampilkan ${filtered.length} dari ${allSiteImagesList.length} Gambar` 
+                : `Total: ${allSiteImagesList.length} Gambar`;
+
+            if (filtered.length === 0) {
+                if (query) {
+                    siteImagesContainer.innerHTML = `
+                        <div class="empty-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <h3>Tidak ada gambar ditemukan</h3>
+                            <p>Tidak ada aset yang cocok dengan kata kunci "${escapeHtml(query)}".</p>
+                        </div>
+                    `;
+                } else {
+                    siteImagesContainer.innerHTML = `
+                        <div class="empty-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                            <h3>Belum Ada Gambar Situs</h3>
+                            <p>Mulai tambahkan aset visual yang terhubung ke website Anda.</p>
+                            <button type="button" class="btn-primary-action" onclick="openSiteImageModal()" style="margin-top: 1rem;">
+                                Tambah Gambar Pertama
+                            </button>
+                        </div>
+                    `;
+                }
+                return;
+            }
+
+            let html = '<div class="site-images-grid">';
+            filtered.forEach(img => {
+                const labelText = escapeHtml(img.label || 'Tanpa Label');
+                const keyText = img.key ? escapeHtml(img.key) : '';
+                const descText = img.keterangan ? escapeHtml(img.keterangan) : '';
+                const safeUrl = escapeHtml(img.image_url || '');
+
+                html += `
+                    <div class="site-image-card" data-id="${img.id}">
+                        <div class="site-image-media">
+                            <img src="${safeUrl}" alt="${labelText}" loading="lazy" onerror="this.src='../assets/img/placeholder.svg';">
+                        </div>
+                        <div class="site-image-body">
+                            <div class="site-image-title">${labelText}</div>
+                            ${keyText ? `<div class="badge-key-tag">🔑 ${keyText}</div>` : ''}
+                            ${descText ? `<div class="site-image-desc">${descText}</div>` : '<div class="site-image-desc" style="color:#9CA3AF; font-style:italic;">Tidak ada catatan tambahan.</div>'}
+                            <div class="site-image-actions">
+                                <span style="font-size: 0.725rem; color: #9CA3AF;">ID: #${String(img.id).slice(-4)}</span>
+                                <div style="display: flex; gap: 0.4rem;">
+                                    <button type="button" class="btn-action-icon" onclick="openEditSiteImageModal('${img.id}')" title="Edit Gambar">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                    </button>
+                                    <button type="button" class="btn-action-icon btn-action-danger" onclick="openDeleteSiteImageModal('${img.id}')" title="Hapus Gambar">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+
+            siteImagesContainer.innerHTML = html;
+        }
+
+        searchSiteImagesInput.addEventListener('input', renderSiteImagesGrid);
+
+        // Open Modal Add
+        function openSiteImageModal() {
+            isEditingSiteImage = false;
+            editingSiteImageId = null;
+            selectedSiteImageFile = null;
+            existingSiteImageUrl = null;
+            isSiteImagePhotoRemoved = false;
+            siteImageFileInput.value = '';
+            siteImageForm.reset();
+
+            siteImageModalTitle.textContent = 'Tambah Gambar Situs';
+            saveSiteImageText.textContent = 'Simpan Gambar';
+
+            siteImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih</span>';
+            siteImagePreviewActions.style.display = 'none';
+            selectSiteImageBtnText.textContent = 'Pilih Foto dari Perangkat';
+
+            siteImageModal.classList.add('active');
+        }
+
+        // Open Modal Edit
+        function openEditSiteImageModal(id) {
+            const item = allSiteImagesList.find(i => String(i.id) === String(id));
+            if (!item) return;
+
+            isEditingSiteImage = true;
+            editingSiteImageId = item.id;
+            selectedSiteImageFile = null;
+            isSiteImagePhotoRemoved = false;
+            siteImageFileInput.value = '';
+            existingSiteImageUrl = item.image_url || null;
+
+            siteImageModalTitle.textContent = 'Edit Gambar Situs';
+            saveSiteImageText.textContent = 'Perbarui Gambar';
+
+            siteImageLabelInput.value = item.label || '';
+            siteImageKeyInput.value = item.key || '';
+            siteImageDescInput.value = item.keterangan || '';
+
+            if (item.image_url) {
+                siteImagePreviewBox.innerHTML = `<img src="${escapeHtml(item.image_url)}" alt="Foto Situs" style="width: 100%; height: 100%; object-fit: contain;">`;
+                siteImagePreviewActions.style.display = 'flex';
+                selectSiteImageBtnText.textContent = 'Ganti Foto';
+            } else {
+                siteImagePreviewBox.innerHTML = '<span>Belum ada foto</span>';
+                siteImagePreviewActions.style.display = 'none';
+                selectSiteImageBtnText.textContent = 'Pilih Foto dari Perangkat';
+            }
+
+            siteImageModal.classList.add('active');
+        }
+
+        function closeSiteImageModal() {
+            siteImageModal.classList.remove('active');
+        }
+
+        // Form Submit: Site Image
+        siteImageForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const label = siteImageLabelInput.value.trim();
+            const key = siteImageKeyInput.value.trim();
+            const keterangan = siteImageDescInput.value.trim();
+
+            if (!label) {
+                showToast('Label gambar wajib diisi.', 'error');
+                return;
+            }
+
+            saveSiteImageBtn.disabled = true;
+
+            // Handle Photo Upload (folder: 'situs')
+            let finalImageUrl = existingSiteImageUrl;
+            if (selectedSiteImageFile) {
+                saveSiteImageText.textContent = 'Mengupload foto...';
+                try {
+                    finalImageUrl = await uploadImageToStorage(selectedSiteImageFile, 'situs');
+                } catch (uploadErr) {
+                    console.error('Upload site image error:', uploadErr);
+                    showToast(uploadErr.message || 'Gagal mengupload foto situs.', 'error');
+                    saveSiteImageBtn.disabled = false;
+                    saveSiteImageText.textContent = isEditingSiteImage ? 'Perbarui Gambar' : 'Simpan Gambar';
+                    return;
+                }
+            } else if (isSiteImagePhotoRemoved) {
+                finalImageUrl = null;
+            }
+
+            if (!finalImageUrl) {
+                showToast('Mohon unggah foto gambar situs.', 'error');
+                saveSiteImageBtn.disabled = false;
+                saveSiteImageText.textContent = isEditingSiteImage ? 'Perbarui Gambar' : 'Simpan Gambar';
+                return;
+            }
+
+            saveSiteImageText.textContent = 'Menyimpan...';
+
+            try {
+                if (!isEditingSiteImage) {
+                    // INSERT
+                    const payload = {
+                        image_url: finalImageUrl,
+                        label: label,
+                        key: key || null,
+                        keterangan: keterangan || null,
+                        created_at: new Date().toISOString()
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('site_images')
+                        .insert([payload])
+                        .select();
+
+                    if (error) {
+                        showToast(`Gagal menambahkan gambar situs: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    showToast('Gambar situs berhasil ditambahkan!');
+                    closeSiteImageModal();
+                    loadSiteImagesList();
+                } else {
+                    // UPDATE
+                    const payload = {
+                        image_url: finalImageUrl,
+                        label: label,
+                        key: key || null,
+                        keterangan: keterangan || null
+                    };
+
+                    const { data, error } = await supabaseClient
+                        .from('site_images')
+                        .update(payload)
+                        .eq('id', editingSiteImageId)
+                        .select();
+
+                    if (error) {
+                        showToast(`Gagal memperbarui gambar situs: ${error.message}`, 'error');
+                        return;
+                    }
+
+                    showToast('Gambar situs berhasil diperbarui!');
+                    closeSiteImageModal();
+                    loadSiteImagesList();
+                }
+            } catch (err) {
+                console.error('Save site image error:', err);
+                showToast('Terjadi kesalahan saat menyimpan data gambar situs.', 'error');
+            } finally {
+                saveSiteImageBtn.disabled = false;
+                saveSiteImageText.textContent = isEditingSiteImage ? 'Perbarui Gambar' : 'Simpan Gambar';
+            }
+        });
+
+        // Delete Site Image
+        function openDeleteSiteImageModal(id) {
+            const item = allSiteImagesList.find(i => String(i.id) === String(id));
+            if (!item) return;
+
+            siteImageToDelete = item;
+            deleteSiteImageThumb.src = item.image_url || '../assets/img/placeholder.svg';
+            deleteSiteImageLabelText.textContent = `"${item.label || 'Gambar Situs'}"${item.key ? ` (Key: ${item.key})` : ''}`;
+            deleteSiteImageModal.classList.add('active');
+        }
+
+        function closeDeleteSiteImageModal() {
+            deleteSiteImageModal.classList.remove('active');
+            siteImageToDelete = null;
+        }
+
+        confirmDeleteSiteImageBtn.addEventListener('click', async () => {
+            if (!siteImageToDelete) return;
+
+            confirmDeleteSiteImageBtn.disabled = true;
+            confirmDeleteSiteImageBtn.textContent = 'Menghapus...';
+
+            try {
+                // 1. Delete physical file from Supabase Storage (site-media)
+                const storagePath = getStoragePathFromUrl(siteImageToDelete.image_url, 'site-media');
+                if (storagePath) {
+                    try {
+                        const { error: storageErr } = await supabaseClient.storage
+                            .from('site-media')
+                            .remove([storagePath]);
+                        if (storageErr) {
+                            console.warn('Storage file deletion warning:', storageErr);
+                        }
+                    } catch (sErr) {
+                        console.warn('Storage delete exception:', sErr);
+                    }
+                }
+
+                // 2. Delete row from site_images table
+                const { error: dbErr } = await supabaseClient
+                    .from('site_images')
+                    .delete()
+                    .eq('id', siteImageToDelete.id);
+
+                if (dbErr) {
+                    showToast(`Gagal menghapus gambar dari database: ${dbErr.message}`, 'error');
+                    return;
+                }
+
+                showToast('Gambar situs berhasil dihapus.');
+                closeDeleteSiteImageModal();
+                loadSiteImagesList();
+            } catch (err) {
+                console.error('Delete site image exception:', err);
+                showToast('Terjadi kesalahan saat menghapus gambar.', 'error');
+            } finally {
+                confirmDeleteSiteImageBtn.disabled = false;
+                confirmDeleteSiteImageBtn.textContent = 'Hapus Gambar';
+            }
+        });
+
+        // Backdrop click listeners
+        siteImageModal.addEventListener('click', (e) => {
+            if (e.target === siteImageModal) closeSiteImageModal();
+        });
+
+        deleteSiteImageModal.addEventListener('click', (e) => {
+            if (e.target === deleteSiteImageModal) closeDeleteSiteImageModal();
         });
 
         // Run Auth Check

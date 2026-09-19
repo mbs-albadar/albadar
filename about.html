@@ -763,5 +763,31 @@
     </a>
 
     <script src="assets/js/main.js"></script>
+    <!-- Supabase JS Client & Config for Dynamic Institutional Image -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-config.js"></script>
+    <script>
+        // Sambungkan foto dinamis lingkungan sekolah dari site_images
+        (async function() {
+            try {
+                if (typeof supabaseClient !== 'undefined') {
+                    const { data, error } = await supabaseClient
+                        .from('site_images')
+                        .select('image_url')
+                        .eq('key', 'lingkungan-sekolah')
+                        .maybeSingle();
+
+                    if (!error && data && data.image_url) {
+                        const targetImg = document.querySelector('.editorial-image-box img');
+                        if (targetImg) {
+                            targetImg.src = data.image_url;
+                        }
+                    }
+                }
+            } catch (err) {
+                console.warn('Gagal memuat foto dinamis lingkungan sekolah:', err);
+            }
+        })();
+    </script>
 </body>
 </html>
