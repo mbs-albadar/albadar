@@ -196,6 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Dynamic News Loader (Sequential Staggered Fade) - preview berita di beranda
     let allNews = [];
 
+    // Foto stok (Unsplash) dan gambar kosong ditampilkan sebagai panel merek,
+    // bukan foto yang menyesatkan. Foto asli yang diunggah admin tetap dipakai.
+    function newsImage(url) {
+        return (!url || /images\.unsplash\.com/i.test(url)) ? 'assets/img/placeholder.svg' : url;
+    }
+
     function updateNewsCard(cardId, newsItem) {
         const card = document.getElementById(cardId);
         if (!card || !newsItem) return;
@@ -206,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
             card.href = "berita-detail.html?id=" + encodeURIComponent(newsItem.id);
             const imgEl = card.querySelector('.news-img-wrap img');
             if (imgEl) {
-                imgEl.src = newsItem.image;
+                imgEl.src = newsImage(newsItem.image);
                 imgEl.alt = newsItem.title;
             }
             const tagEl = card.querySelector('.news-tag-lux');
@@ -286,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "13 Juli 2026",
                 category: "Kegiatan",
                 excerpt: "Kegiatan penyerahan dan penerimaan santri baru angkatan pertama dilaksanakan secara khidmat di lingkungan kampus SMP MBS Al Badar Prambanan.",
-                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "fortasi-taaruf-santri",
@@ -294,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "16 Juli 2026",
                 category: "Kegiatan",
                 excerpt: "Forum Orientasi dan Taaruf Santri (FORTASI) berlangsung selama 3 hari mengenalkan budaya pesantren, kurikulum ISMUBA, Koding & AI, serta pembiasaan adab digital.",
-                image: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "hari-anak-nasional-prambanan",
@@ -302,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "22 Juli 2026",
                 category: "Prestasi",
                 excerpt: "Siswa kelas 7 SMP MBS Al Badar ikut serta dalam peringatan Hari Anak Nasional (HAN) 2026 di Kompleks Candi Prambanan dan meraih sejumlah penghargaan apresiasi.",
-                image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "bimtek-ksp-guru",
@@ -310,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "29 Juli 2026",
                 category: "Pengumuman",
                 excerpt: "Guru dan tenaga kependidikan mengikuti bimbingan teknis penyusunan KSP untuk memastikan kualitas pembelajaran yang terstandarisasi dan optimal.",
-                image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "albadar-camp-perdana",
@@ -318,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "16 Agustus 2026",
                 category: "Kegiatan",
                 excerpt: "Kegiatan malam bina iman dan taqwa (MABIT) bulanan dari Sabtu siang hingga Ahad pagi untuk memperkuat ibadah, qiyamul lail, dan kebersamaan santri.",
-                image: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "muhadhoroh-tiga-bahasa",
@@ -326,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "28 Agustus 2026",
                 category: "Kegiatan",
                 excerpt: "Santriwan dan santriwati menampilkan orasi dakwah dalam bahasa Arab, Inggris, dan Indonesia sebagai unjuk kemampuan public speaking internasional.",
-                image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "prestasi-tahfidz-musabaqah",
@@ -334,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "05 September 2026",
                 category: "Prestasi",
                 excerpt: "Prestasi gemilang diraih santri dalam ajang Musabaqah Hifdzil Qur'an (MHQ) berkat ketekunan murojaah dan bimbingan musyrif bersanad.",
-                image: "https://images.unsplash.com/photo-1584697964190-705b89368d83?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "ppdb-gelombang-pertama",
@@ -342,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "15 September 2026",
                 category: "Pengumuman",
                 excerpt: "SMP MBS Al Badar resmi membuka pendaftaran santri baru untuk program Boarding dan Full Day School dengan sistem layanan verifikasi cepat 2 Week Service.",
-                image: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?q=80&w=600&auto=format&fit=crop"
+                image: ""
             },
             {
                 id: "prestasi-koding-robotik",
@@ -350,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 date: "02 Oktober 2026",
                 category: "Prestasi",
                 excerpt: "Integrasi kurikulum Koding & Kecerdasan Artifisial (KKA) berhasil mengantarkan santri meraih medali pada kejuaraan inovasi teknologi tingkat SMP.",
-                image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop"
+                image: ""
             }
         ];
 
@@ -370,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newsGridContainer.innerHTML = filtered.map(function(item) {
                 return '<a href="berita-detail.html?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
-                        '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
+                        '<img src="' + newsImage(item.image) + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
                     '</div>' +
                     '<div class="news-content-lux">' +
                         '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">' +
@@ -458,14 +464,21 @@ document.addEventListener('DOMContentLoaded', function() {
             const ogDesc = document.querySelector('meta[property="og:description"]');
             if (ogDesc) ogDesc.setAttribute('content', item.excerpt || item.title);
             const ogImage = document.querySelector('meta[property="og:image"]');
-            if (ogImage && item.image) ogImage.setAttribute('content', item.image);
+            if (ogImage && item.image && newsImage(item.image) === item.image) ogImage.setAttribute('content', item.image);
 
-            const paragraphs = String(item.content || item.excerpt || '')
-                .split(/\n+/)
-                .map(function(p) { return p.trim(); })
-                .filter(Boolean)
-                .map(function(p) { return '<p>' + escapeHtml(p) + '</p>'; })
-                .join('');
+            const rawContent = String(item.content || item.excerpt || '');
+            const isRichHtml = /<[a-z][\s\S]*>/i.test(rawContent);
+            let bodyHtml;
+            if (isRichHtml) {
+                bodyHtml = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(rawContent) : rawContent;
+            } else {
+                bodyHtml = rawContent
+                    .split(/\n+/)
+                    .map(function(p) { return p.trim(); })
+                    .filter(Boolean)
+                    .map(function(p) { return '<p>' + escapeHtml(p) + '</p>'; })
+                    .join('');
+            }
 
             articleContainer.innerHTML =
                 '<div class="article-meta">' +
@@ -474,9 +487,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 '</div>' +
                 '<h1 class="article-title">' + escapeHtml(item.title) + '</h1>' +
                 '<div class="article-cover">' +
-                    '<img src="' + item.image + '" alt="' + escapeHtml(item.title) + '" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
+                    '<img src="' + newsImage(item.image) + '" alt="' + escapeHtml(item.title) + '" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
                 '</div>' +
-                '<div class="article-body">' + paragraphs + '</div>';
+                '<div class="article-body">' + bodyHtml + '</div>';
         }
 
         function renderNotFound() {

@@ -4142,13 +4142,19 @@ body.menu-open .menu-bar {
 
 }
 
-/* Kartu besar "Keseimbangan Pendidikan": ruang kosongnya diisi pola geometris
-   yang sama dengan hero, agar tampak disengaja dan menyatu dengan identitas sekolah. */
-.about-bento .bento-card-lux-dark.large::before {
+/* Pola geometris (Rub el Hizb), dipakai sebagai isi kartu besar di About dan Prestasi. */
+:root {
+    --pattern-geometric: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D4B582' stroke-width='0.75' stroke-opacity='0.35'%3E%3Crect x='28' y='28' width='24' height='24' /%3E%3Crect x='28' y='28' width='24' height='24' transform='rotate(45 40 40)' /%3E%3Cpolygon points='40,8 72,40 40,72 8,40' stroke-opacity='0.25' /%3E%3Cline x1='0' y1='0' x2='80' y2='80' stroke-opacity='0.2' /%3E%3Cline x1='0' y1='80' x2='80' y2='0' stroke-opacity='0.2' /%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke='%2311366E' stroke-opacity='0.25' stroke-dasharray='2 3' /%3E%3Cline x1='40' y1='0' x2='40' y2='80' stroke='%2311366E' stroke-opacity='0.25' stroke-dasharray='2 3' /%3E%3Crect x='-12' y='-12' width='24' height='24' /%3E%3Crect x='-12' y='-12' width='24' height='24' transform='rotate(45 0 0)' /%3E%3Crect x='68' y='-12' width='24' height='24' /%3E%3Crect x='68' y='-12' width='24' height='24' transform='rotate(45 80 0)' /%3E%3Crect x='-12' y='68' width='24' height='24' /%3E%3Crect x='-12' y='68' width='24' height='24' transform='rotate(45 0 80)' /%3E%3Crect x='68' y='68' width='24' height='24' /%3E%3Crect x='68' y='68' width='24' height='24' transform='rotate(45 80 80)' /%3E%3Ccircle cx='40' cy='40' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='0' cy='0' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='80' cy='0' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='0' cy='80' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='80' cy='80' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Kartu besar tanpa foto: ruang kosongnya diisi pola yang sama dengan hero,
+   agar tampak disengaja dan menyatu dengan identitas sekolah. */
+.about-bento .bento-card-lux-dark.large::before,
+.prestasi-bento .bento-card-lux.large::before {
     content: "";
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%23D4B582' stroke-width='0.75' stroke-opacity='0.35'%3E%3Crect x='28' y='28' width='24' height='24' /%3E%3Crect x='28' y='28' width='24' height='24' transform='rotate(45 40 40)' /%3E%3Cpolygon points='40,8 72,40 40,72 8,40' stroke-opacity='0.25' /%3E%3Cline x1='0' y1='0' x2='80' y2='80' stroke-opacity='0.2' /%3E%3Cline x1='0' y1='80' x2='80' y2='0' stroke-opacity='0.2' /%3E%3Cline x1='0' y1='40' x2='80' y2='40' stroke='%2311366E' stroke-opacity='0.25' stroke-dasharray='2 3' /%3E%3Cline x1='40' y1='0' x2='40' y2='80' stroke='%2311366E' stroke-opacity='0.25' stroke-dasharray='2 3' /%3E%3Crect x='-12' y='-12' width='24' height='24' /%3E%3Crect x='-12' y='-12' width='24' height='24' transform='rotate(45 0 0)' /%3E%3Crect x='68' y='-12' width='24' height='24' /%3E%3Crect x='68' y='-12' width='24' height='24' transform='rotate(45 80 0)' /%3E%3Crect x='-12' y='68' width='24' height='24' /%3E%3Crect x='-12' y='68' width='24' height='24' transform='rotate(45 0 80)' /%3E%3Crect x='68' y='68' width='24' height='24' /%3E%3Crect x='68' y='68' width='24' height='24' transform='rotate(45 80 80)' /%3E%3Ccircle cx='40' cy='40' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='0' cy='0' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='80' cy='0' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='0' cy='80' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3Ccircle cx='80' cy='80' r='1.5' fill='%23D4B582' fill-opacity='0.5' stroke='none' /%3E%3C/g%3E%3C/svg%3E");
+    background-image: var(--pattern-geometric);
     background-size: 80px 80px;
     opacity: 0.55;
     -webkit-mask-image: linear-gradient(to bottom left, #000 0%, transparent 62%);
@@ -4156,15 +4162,58 @@ body.menu-open .menu-bar {
     pointer-events: none;
 }
 
-.about-bento .bento-card-lux-dark.large .bento-content {
-    position: relative;
-}
-
-.about-bento .bento-card-lux-dark.large h3 {
+.about-bento .bento-card-lux-dark.large h3,
+.prestasi-bento .bento-card-lux.large h3 {
     font-size: clamp(1.5rem, 2.4vw, 2rem);
 }
 
-.about-bento .bento-card-lux-dark.large p {
+.about-bento .bento-card-lux-dark.large p,
+.prestasi-bento .bento-card-lux.large p {
     max-width: 46ch;
     font-size: 1.05rem;
+}
+
+.article-body h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    line-height: 1.3;
+    color: var(--lux-dark);
+    margin: 2rem 0 1rem;
+}
+
+.article-body h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    line-height: 1.3;
+    color: var(--lux-dark);
+    margin: 1.75rem 0 0.75rem;
+}
+
+.article-body img {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin: 1.5rem 0;
+    display: block;
+}
+
+.article-body blockquote {
+    border-left: 3px solid var(--lux-gold);
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+    background: rgba(212, 181, 130, 0.1);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.article-body ul,
+.article-body ol {
+    margin: 0 0 1.25rem 1.5rem;
+    color: var(--color-text);
+    line-height: 1.8;
+}
+
+.article-body strong {
+    color: var(--lux-dark);
 }
