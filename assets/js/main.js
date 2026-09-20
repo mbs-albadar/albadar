@@ -193,59 +193,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Dynamic News Loader (Sequential Staggered Fade)
-    const allNews = [
-        { tag: "Boarding Experience", title: "Albadar Camp (ABC) Perdana", excerpt: "15-16 Agustus 2026 - Kegiatan malam bina iman dan taqwa (MABIT) bulanan dari Sabtu siang hingga Ahad pagi...", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=600&auto=format&fit=crop" },
-        { tag: "Pengembangan Guru", title: "Bimbingan Teknis Kurikulum Satuan Pendidikan (KSP)", excerpt: "Rabu, 29 Juli 2026 - Guru dan tenaga kependidikan mengikuti bimbingan teknis penyusunan dan evaluasi...", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" },
-        { tag: "Event Nasional", title: "Partisipasi Santri dalam Peringatan Hari Anak Nasional", excerpt: "Rabu, 22 Juli 2026 - Siswa kelas 7 mengikuti rangkaian HAN 2026 di Kompleks Candi Prambanan. Beberapa santri...", img: "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop" },
-        { tag: "Orientasi", title: "FORTASI: Forum Orientasi dan Taaruf Santri", excerpt: "14-16 Juli 2026 - Kegiatan orientasi selama 3 hari untuk mengenalkan budaya pesantren, kurikulum,...", img: "https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop" },
-        { tag: "Kegiatan Santri", title: "Penyerahan Resmi Santri Baru Angkatan Pertama", excerpt: "Senin, 13 Juli 2026 - Kegiatan penyerahan dan penerimaan santri baru dilaksanakan secara khidmat...", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600&auto=format&fit=crop" }
-    ];
+    // Dynamic News Loader (Sequential Staggered Fade) - preview berita di beranda
+    let allNews = [];
 
     function updateNewsCard(cardId, newsItem) {
         const card = document.getElementById(cardId);
-        if (!card) return;
+        if (!card || !newsItem) return;
 
-        // 1. Fade out
         card.style.opacity = '0';
 
-        // 2. After 500ms, change content and fade back in
         setTimeout(() => {
-            card.href = "news.html"; // Keep link
+            card.href = "berita-detail.html?id=" + encodeURIComponent(newsItem.id);
             const imgEl = card.querySelector('.news-img-wrap img');
             if (imgEl) {
-                imgEl.src = newsItem.img;
+                imgEl.src = newsItem.image;
                 imgEl.alt = newsItem.title;
             }
             const tagEl = card.querySelector('.news-tag-lux');
-            if (tagEl) tagEl.textContent = newsItem.tag;
+            if (tagEl) tagEl.textContent = newsItem.category;
             const titleEl = card.querySelector('.news-title-lux');
             if (titleEl) titleEl.textContent = newsItem.title;
             const excerptEl = card.querySelector('.news-excerpt-lux');
             if (excerptEl) excerptEl.textContent = newsItem.excerpt;
 
-            // 3. Fade in
             card.style.opacity = '1';
         }, 500);
     }
 
-    // Initial Load
-    if (document.getElementById('newsCard1')) {
+    function initHomeNewsPreview() {
+        if (!document.getElementById('newsCard1') || !allNews.length) return;
+
         updateNewsCard('newsCard1', allNews[0]);
         updateNewsCard('newsCard2', allNews[1]);
         updateNewsCard('newsCard3', allNews[2]);
-        
-        let currentCard = 1; // Start with Card 1
-        let newsOffset = 3; // Start from the 4th item (since 1,2,3 are loaded initially)
 
-        // Auto-rotate: each card updates sequentially every 5 seconds
+        if (allNews.length <= 3) return;
+
+        let currentCard = 1;
+        let newsOffset = 3;
+
         setInterval(() => {
             const cardId = 'newsCard' + currentCard;
             updateNewsCard(cardId, allNews[newsOffset % allNews.length]);
-            
             newsOffset++;
-            currentCard = (currentCard % 3) + 1; // Loop: 1 -> 2 -> 3 -> 1
-        }, 5000); // 5 seconds interval
+            currentCard = (currentCard % 3) + 1;
+        }, 5000);
+    }
+
+    if (document.getElementById('newsCard1')) {
+        if (typeof supabaseClient !== 'undefined') {
+            supabaseClient
+                .from('news')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .then(function(res) {
+                    if (res.error) throw res.error;
+                    if (Array.isArray(res.data) && res.data.length > 0) {
+                        allNews = res.data;
+                        initHomeNewsPreview();
+                        return;
+                    }
+                    throw new Error('No news returned from Supabase');
+                })
+                .catch(function() {
+                    fetch('assets/data/news.json')
+                        .then(r => r.json())
+                        .then(data => { allNews = data; initHomeNewsPreview(); })
+                        .catch(() => {});
+                });
+        } else {
+            fetch('assets/data/news.json')
+                .then(r => r.json())
+                .then(data => { allNews = data; initHomeNewsPreview(); })
+                .catch(() => {});
+        }
     }
 
     // ==========================================================================
@@ -347,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             newsGridContainer.innerHTML = filtered.map(function(item) {
-                return '<article class="news-card-lux lux-img-zoom">' +
+                return '<a href="berita-detail.html?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
                         '<img src="' + item.image + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
                     '</div>' +
@@ -358,8 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         '</div>' +
                         '<h3 class="news-title-lux">' + item.title + '</h3>' +
                         '<p class="news-excerpt-lux">' + item.excerpt + '</p>' +
+                        '<span class="news-read-lux">Baca Selengkapnya</span>' +
                     '</div>' +
-                '</article>';
+                '</a>';
             }).join('');
         }
 
@@ -418,7 +440,87 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Berita Detail Page Logic (berita-detail.html)
+    const articleContainer = document.getElementById('berita-detail-container');
+    if (articleContainer) {
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
 
+        function renderArticle(item) {
+            document.title = item.title + ' | SMP MBS Al Badar Prambanan';
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', item.excerpt || item.title);
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', item.title);
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', item.excerpt || item.title);
+            const ogImage = document.querySelector('meta[property="og:image"]');
+            if (ogImage && item.image) ogImage.setAttribute('content', item.image);
+
+            const paragraphs = String(item.content || item.excerpt || '')
+                .split(/\n+/)
+                .map(function(p) { return p.trim(); })
+                .filter(Boolean)
+                .map(function(p) { return '<p>' + escapeHtml(p) + '</p>'; })
+                .join('');
+
+            articleContainer.innerHTML =
+                '<div class="article-meta">' +
+                    '<span class="news-tag-lux">' + escapeHtml(item.category) + '</span>' +
+                    '<span class="news-date" style="color: var(--color-text-muted); font-size: 0.8rem; font-weight: 500;">' + escapeHtml(item.date) + '</span>' +
+                '</div>' +
+                '<h1 class="article-title">' + escapeHtml(item.title) + '</h1>' +
+                '<div class="article-cover">' +
+                    '<img src="' + item.image + '" alt="' + escapeHtml(item.title) + '" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
+                '</div>' +
+                '<div class="article-body">' + paragraphs + '</div>';
+        }
+
+        function renderNotFound() {
+            articleContainer.innerHTML =
+                '<div class="article-not-found">' +
+                    '<p>Berita yang kamu cari tidak ditemukan atau sudah dihapus.</p>' +
+                    '<a href="news.html" class="btn btn-outline btn-sm" style="margin-top: 1rem; display: inline-block;">Kembali ke Semua Berita</a>' +
+                '</div>';
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        const newsId = params.get('id');
+
+        if (!newsId) {
+            renderNotFound();
+        } else if (typeof supabaseClient !== 'undefined') {
+            supabaseClient
+                .from('news')
+                .select('*')
+                .eq('id', newsId)
+                .maybeSingle()
+                .then(function(res) {
+                    if (res.error || !res.data) throw new Error('not found in Supabase');
+                    renderArticle(res.data);
+                })
+                .catch(function() {
+                    fetch('assets/data/news.json')
+                        .then(r => r.json())
+                        .then(function(data) {
+                            const found = data.find(function(n) { return n.id === newsId; });
+                            if (found) renderArticle(found); else renderNotFound();
+                        })
+                        .catch(renderNotFound);
+                });
+        } else {
+            fetch('assets/data/news.json')
+                .then(r => r.json())
+                .then(function(data) {
+                    const found = data.find(function(n) { return n.id === newsId; });
+                    if (found) renderArticle(found); else renderNotFound();
+                })
+                .catch(renderNotFound);
+        }
+    }
 
     // Reveal on Scroll (Must be initialized AFTER news items are injected)
     const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
