@@ -37,70 +37,6 @@
         .main-nav { margin-left: auto; }
         .logo { margin-right: 3rem; }
 
-
-        /* Editorial Intro & Image */
-        .editorial-intro {
-            padding: 5rem 0;
-            background: var(--lux-bg);
-        }
-        .editorial-grid {
-            display: grid;
-            grid-template-columns: 1.15fr 1fr;
-            gap: 4.5rem;
-            align-items: center;
-        }
-        .editorial-desc p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--color-text-muted);
-            margin-bottom: 1.5rem;
-        }
-        .editorial-desc p:last-child {
-            margin-bottom: 0;
-        }
-        .editorial-image-box {
-            margin-top: 4rem;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            background: var(--color-primary);
-        }
-        .editorial-image-box img {
-            width: 100%;
-            height: 440px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.6s ease;
-        }
-        .editorial-image-box:hover img {
-            transform: scale(1.02);
-        }
-        .editorial-img-caption {
-            position: absolute;
-            bottom: 1.25rem;
-            left: 1.25rem;
-            background: rgba(5, 5, 5, 0.75);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: #ffffff;
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(212, 181, 130, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .editorial-img-caption .caption-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--lux-gold);
-            display: inline-block;
-        }
-
         /* Manifesto Visi & Misi (Dark Luxury) */
         .manifesto-section {
             background: linear-gradient(180deg, #050505 0%, #0c1412 100%);
@@ -122,18 +58,13 @@
             position: relative;
             backdrop-filter: blur(8px);
         }
-        .manifesto-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .manifesto-label {
+            margin: 0 0 1.25rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0;
             color: var(--lux-gold);
-            background: rgba(212, 181, 130, 0.12);
-            border: 1px solid rgba(212, 181, 130, 0.25);
-            padding: 0.35rem 0.9rem;
-            border-radius: 20px;
-            margin-bottom: 1.5rem;
         }
         .manifesto-quote {
             font-family: var(--font-heading);
@@ -215,7 +146,7 @@
         .bento-card-lux-dark {
             background: linear-gradient(145deg, #0d1e19 0%, #04473a 100%);
             border: 1px solid rgba(212, 181, 130, 0.3);
-            border-radius: 20px;
+            border-radius: var(--radius-lg);
             padding: 2.5rem;
             display: flex;
             flex-direction: column;
@@ -223,13 +154,13 @@
             transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow-md);
             color: #ffffff;
         }
         .bento-card-lux-dark:hover {
             transform: translateY(-6px);
             border-color: var(--lux-gold);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25), 0 0 30px rgba(212, 181, 130, 0.2);
+            box-shadow: var(--shadow-lg), 0 0 30px rgba(212, 181, 130, 0.2);
         }
         .bento-card-lux-dark.blue-card {
             background: linear-gradient(145deg, #0d2142 0%, var(--color-secondary) 100%);
@@ -254,7 +185,7 @@
             justify-content: center;
             width: 56px;
             height: 56px;
-            border-radius: 14px;
+            border-radius: var(--radius-md);
             background: rgba(212, 181, 130, 0.12);
             border: 1px solid rgba(212, 181, 130, 0.25);
             margin-bottom: 1.25rem;
@@ -297,10 +228,10 @@
         .profile-card-lux {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.06);
-            border-radius: 16px;
+            border-radius: var(--radius-md);
             padding: 2.25rem 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            box-shadow: var(--shadow-sm);
             transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
             display: flex;
             flex-direction: column;
@@ -309,7 +240,7 @@
         }
         .profile-card-lux:hover {
             transform: translateY(-6px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow-md);
             border-color: rgba(212, 181, 130, 0.5);
         }
         .profile-card-lux .profile-icon-lux {
@@ -351,10 +282,6 @@
 
         /* Responsive Layout Tweaks */
         @media (max-width: 1024px) {
-            .editorial-grid {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
             .manifesto-grid {
                 grid-template-columns: 1fr;
                 gap: 2.5rem;
@@ -383,9 +310,6 @@
             }
             .cards-grid.grid-4 {
                 grid-template-columns: 1fr;
-            }
-            .editorial-image-box img {
-                height: 280px;
             }
         }
     </style>
@@ -455,26 +379,44 @@
             </div>
         </section>
 
-        <!-- B. SEJARAH & LOKASI (Editorial Layout) -->
-        <section class="section editorial-intro">
+        <!-- B. SEJARAH, LOKASI & DATA SEKOLAH -->
+        <section class="section about-intro">
             <div class="container">
-                <div class="editorial-grid">
-                    <div class="editorial-text fade-in">
-                        <h2 class="section-title-lux editorial-title-lg">Lingkungan Kondusif untuk <em>Tafaqquh Fiddin</em></h2>
-                    </div>
-                    <div class="editorial-desc fade-in">
-                        <p>Perjalanan sekolah dimulai sebagai PPM TahfizhMu Al Badar pada tahun 2019. Pada tahun 2026, sekolah berafiliasi resmi dengan Muhammadiyah Boarding School (MBS) menjadi SMP MBS Al Badar Prambanan dan menghadirkan program Full Day melengkapi program Boarding. Sekolah resmi menyelenggarakan kegiatan pendidikan dengan 16 Peserta Didik Kelas 7 (total 35 santri boarding/mukim) serta diampu oleh 22 Tenaga Pendidik &amp; Karyawan (GTK). Berlokasi di Jamusan, Bokoharjo, Prambanan, Kabupaten Sleman, sekolah ini hadir di lingkungan pedesaan yang asri, dikelilingi persawahan, sejuk, dan jauh dari kebisingan kota.</p>
+                <div class="about-split fade-in">
+                    <div class="about-split-head">
+                        <h2 class="about-heading">Lingkungan Kondusif untuk <em>Tafaqquh Fiddin</em></h2>
+                        <p class="about-lead">Berlokasi di Jamusan, Bokoharjo, Prambanan, Kabupaten Sleman, sekolah ini hadir di lingkungan pedesaan yang asri, dikelilingi persawahan, sejuk, dan jauh dari kebisingan kota.</p>
                         <p>Dengan dua pilihan program (Boarding &amp; Full Day), kami menerapkan sistem pemisahan kelas putra dan putri. Dengan beban pembelajaran 57 jam pelajaran per minggu (Senin–Sabtu), sekolah memadukan akademik unggul, ISMUBA, Tahfidz (target 15 Juz Boarding / 4 Juz Full Day), Koding &amp; AI (KKA), STEM, dan pembiasaan Adab Digital serta Fiqih Informasi (Adab Digital).</p>
                     </div>
+                    <ol class="about-timeline">
+                        <li class="about-timeline-item">
+                            <span class="about-timeline-when">2019</span>
+                            <p>Perjalanan sekolah dimulai sebagai PPM TahfizhMu Al Badar.</p>
+                        </li>
+                        <li class="about-timeline-item">
+                            <span class="about-timeline-when">2026</span>
+                            <p>Sekolah berafiliasi resmi dengan Muhammadiyah Boarding School (MBS) dan menjadi SMP MBS Al Badar Prambanan.</p>
+                        </li>
+                        <li class="about-timeline-item">
+                            <span class="about-timeline-when">Tahun ajaran 2026/2027</span>
+                            <p>Program Full Day hadir melengkapi program Boarding.</p>
+                        </li>
+                    </ol>
                 </div>
 
-                <!-- Large Institutional Image -->
-                <div class="editorial-image-box fade-in">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Suasana Lingkungan Asri Kampus Pesantren SMP MBS Al Badar Prambanan Sleman" class="editorial-img" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
-                    <div class="editorial-img-caption">
-                        <span class="caption-dot"></span> Suasana Asri Kampus Pesantren SMP MBS Al Badar di Prambanan, Sleman
-                    </div>
-                </div>
+                <dl class="about-facts fade-in">
+                    <div class="about-fact"><dt>Peserta didik kelas 7</dt><dd>16</dd></div>
+                    <div class="about-fact"><dt>Santri boarding/mukim</dt><dd>35</dd></div>
+                    <div class="about-fact"><dt>Tenaga pendidik &amp; karyawan</dt><dd>22</dd></div>
+                    <div class="about-fact"><dt>Jam pelajaran per minggu</dt><dd>57</dd></div>
+                    <div class="about-fact"><dt>Target tahfidz Boarding</dt><dd>15 juz</dd></div>
+                    <div class="about-fact"><dt>Target tahfidz Full Day</dt><dd>4 juz</dd></div>
+                </dl>
+
+                <figure class="about-photo fade-in">
+                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Suasana Lingkungan Asri Kampus Pesantren SMP MBS Al Badar Prambanan Sleman" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
+                    <figcaption><span class="caption-dot"></span> Suasana Asri Kampus Pesantren SMP MBS Al Badar di Prambanan, Sleman</figcaption>
+                </figure>
             </div>
         </section>
 
@@ -485,16 +427,14 @@
                     <h2 class="section-title-lux">Visi &amp; Misi Al Badar</h2>
                 </div>
                 <div class="manifesto-grid fade-in">
-                    <!-- Manifesto Visi (Massive Elegant Quote) -->
                     <div class="manifesto-visi">
-                        <span class="manifesto-tag">Visi Institusi</span>
+                        <h3 class="manifesto-label">Visi</h3>
                         <blockquote class="manifesto-quote">
                             "Terwujudnya generasi rabbani yang cerdas, berdaya saing, dan berakhlak Qur’ani melalui pembinaan intensif di lingkungan pesantren."
                         </blockquote>
                     </div>
-                    <!-- Manifesto Misi (Clean List with Gold Numbers) -->
                     <div class="manifesto-misi">
-                        <span class="manifesto-tag">Misi Utama</span>
+                        <h3 class="manifesto-label">Misi</h3>
                         <ul class="luxury-misi-list">
                             <li class="luxury-misi-item">
                                 <span class="misi-num">01</span>
@@ -527,7 +467,7 @@
         </section>
 
         <!-- D. KEUNGGULAN / NILAI UTAMA (Bento Grid Lux) -->
-        <section class="section bento-section-lux">
+        <section class="section bento-section-lux about-bento">
             <div class="container">
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Apa yang Membedakan Kami</h2>
@@ -739,7 +679,7 @@
                         .maybeSingle();
 
                     if (!error && data && data.image_url) {
-                        const targetImg = document.querySelector('.editorial-image-box img');
+                        const targetImg = document.querySelector('.about-photo img');
                         if (targetImg) {
                             targetImg.src = data.image_url;
                         }
