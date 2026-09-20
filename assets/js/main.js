@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.preventDefault(); // Prevent navigating to href (about.html, student-life.html, news.html)
                 
                 // Only perform accordion toggle on mobile / drawer navigation
-                if (window.innerWidth <= 768) {
+                if (navList && navList.classList.contains('active')) {
                     const isOpen = item.classList.contains('open');
                     dropdownItems.forEach(d => {
                         if (d !== item) d.classList.remove('open');
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close mobile dropdowns when clicking outside
     document.addEventListener('click', function(e) {
-        if (!e.target.closest('.nav-item.dropdown') && window.innerWidth <= 768) {
+        if (!e.target.closest('.nav-item.dropdown') && navList && navList.classList.contains('active')) {
             dropdownItems.forEach(d => d.classList.remove('open'));
         }
     });
