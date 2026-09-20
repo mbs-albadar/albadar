@@ -29,7 +29,7 @@
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     
     <!-- Inline CSS Overrides for About Page -->
@@ -37,45 +37,6 @@
         .main-nav { margin-left: auto; }
         .logo { margin-right: 3rem; }
 
-        /* Page Hero Institutional Styling */
-        .page-hero.bg-emerald {
-            background: linear-gradient(145deg, #022a22 0%, var(--color-primary) 100%);
-            min-height: 70vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 8rem 0 4rem;
-            position: relative;
-            border-bottom: 1px solid rgba(212, 181, 130, 0.2);
-        }
-        .page-hero.bg-emerald::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 50% 30%, rgba(212, 181, 130, 0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .page-hero .page-title {
-            font-family: var(--font-heading);
-            font-size: clamp(2.2rem, 5vw, 3.5rem);
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-            line-height: 1.15;
-            margin-bottom: 1.25rem;
-        }
-        .page-hero .page-title .text-gold {
-            color: var(--lux-gold);
-        }
-        .page-hero .page-subtitle {
-            font-size: clamp(1.05rem, 2vw, 1.25rem);
-            line-height: 1.7;
-            max-width: 780px;
-            margin: 0 auto;
-            color: rgba(255, 255, 255, 0.88);
-            font-weight: 300;
-        }
 
         /* Editorial Intro & Image */
         .editorial-intro {
@@ -489,7 +450,7 @@
         <!-- A. PAGE HERO (Dark Institutional) -->
         <section class="page-hero bg-emerald">
             <div class="container">
-                <h1 class="page-title">Mengenal Lebih Dekat Al Badar</h1>
+                <h1 class="page-title">Mengenal Lebih Dekat <em>Al Badar</em></h1>
                 <p class="page-subtitle">Sebuah lembaga pendidikan Islam fullday berbasis pesantren yang berkomitmen membentuk generasi Rabbani yang cerdas dan berakhlak Qur'ani.</p>
             </div>
         </section>
