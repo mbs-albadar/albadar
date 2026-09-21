@@ -1699,6 +1699,14 @@ section.luxury-steps-section,
     color: #ffffff;
 }
 
+.bg-lux-dark .step-card-lux p {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.bg-lux-dark .section-lead-lux {
+    color: rgba(255, 255, 255, 0.78);
+}
+
 .step-card-lux:hover h3 {
     color: var(--lux-gold);
 }

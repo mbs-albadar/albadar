@@ -133,7 +133,7 @@
             font-size: 1.05rem;
         }
         .compare-card.card-gold .compare-features li::before {
-            color: var(--lux-gold);
+            color: #9A772C;
         }
         .compare-card.card-blue .compare-features li::before {
             color: var(--color-secondary);
@@ -154,8 +154,19 @@
             background: var(--color-primary);
             box-shadow: 0 6px 18px rgba(17, 54, 110, 0.25);
         }
-        .compare-card .btn-gold-lux {
+        .compare-card .btn-lux,
+        .compare-card .compare-btn-blue,
+        .compare-card .btn-outline {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
             width: 100%;
+            min-height: 3.5rem;
+            padding: 0 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.2;
             text-align: center;
         }
 
@@ -292,7 +303,7 @@
             position: absolute;
             left: 0;
             top: 0;
-            color: var(--lux-gold);
+            color: #9A772C;
             font-weight: 700;
             font-size: 0.9rem;
         }
@@ -311,6 +322,15 @@
             font-size: 1.05rem;
             line-height: 1.7;
             color: var(--color-text);
+        }
+
+        @media (min-width: 1025px) {
+            .cards-grid.grid-4 .feature-card h3 {
+                min-height: 2.4em;
+            }
+        }
+        .section-header-lux.center .section-title-lux {
+            text-wrap: balance;
         }
 
         @media (max-width: 1024px) {
@@ -416,7 +436,7 @@
                                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"></path><path d="M12 5c-3.5 0-6 2.5-6 6v10h12V11c0-3.5-2.5-6-6-6Z"></path><path d="M9 21v-4a3 3 0 0 1 6 0v4"></path><path d="M4 11h2v10H4z"></path><path d="M18 11h2v10h-2z"></path></svg>
                             </div>
                             <h3 class="compare-title">SMP Boarding School</h3>
-                            <p class="compare-tagline">"Kurikulum Pesantren &amp; Karakter 24 Jam"</p>
+                            <p class="compare-tagline">“Kurikulum Pesantren &amp; Karakter 24 Jam”</p>
                         </div>
                         <ul class="compare-features">
                             <li>Kurikulum Diniyah &amp; Diknas</li>
@@ -428,7 +448,7 @@
                             <li>Zero Personal Smartphone</li>
                         </ul>
                         <div class="btn-group-column">
-                            <a href="#detail-boarding" class="btn-lux btn-gold-lux">Detail Kegiatan Boarding ↓</a>
+                            <a href="#detail-boarding" class="btn-lux btn-gold-lux">Detail Kegiatan Boarding</a>
                             <a href="ppdb.html" class="btn btn-outline text-center">Daftar Boarding</a>
                         </div>
                     </div>
@@ -440,7 +460,7 @@
                                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                             </div>
                             <h3 class="compare-title">SMP Full Day School</h3>
-                            <p class="compare-tagline">"Kurikulum Pesantren &amp; Sinergi Keluarga"</p>
+                            <p class="compare-tagline">“Kurikulum Pesantren &amp; Sinergi Keluarga”</p>
                         </div>
                         <ul class="compare-features">
                             <li>Kurikulum Diniyah &amp; Diknas</li>
@@ -452,7 +472,7 @@
                             <li>Zero Personal Smartphone di Sekolah</li>
                         </ul>
                         <div class="btn-group-column">
-                            <a href="#detail-fullday" class="compare-btn-blue">Detail Kegiatan Full Day ↓</a>
+                            <a href="#detail-fullday" class="compare-btn-blue">Detail Kegiatan Full Day</a>
                             <a href="ppdb.html" class="btn btn-outline text-center">Daftar Full Day</a>
                         </div>
                     </div>
@@ -466,7 +486,7 @@
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Aktivitas &amp; Program Boarding School</h2>
                 </div>
-                <div class="program-detail-intro text-center fade-in">
+                <div class="program-detail-intro fade-in">
                     <p>Di SMP MBS Al Badar, asrama bukan sekadar tempat tinggal, melainkan <strong>laboratorium kehidupan 24 jam</strong> di mana santri belajar manajemen waktu, adab mandiri, empati sosial, dan pembiasaan ibadah istiqomah dengan asrama putra-putri terpisah penuh.</p>
                 </div>
 
@@ -513,7 +533,7 @@
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Aktivitas &amp; Program Full Day School</h2>
                 </div>
-                <div class="program-detail-intro text-center fade-in">
+                <div class="program-detail-intro fade-in">
                     <p>Program Full Day diselenggarakan <strong>6 hari (Senin–Sabtu) dengan total 57 Jam Pelajaran</strong>. Siswa mengikuti KBM terpadu hingga Sholat Ashar berjamaah dan membaca Al-Ma'tsurat (Dzikir Sore) di sekolah sebelum kepulangan, dengan opsi melanjutkan kegiatan ekstrakurikuler pilihan.</p>
                 </div>
 
