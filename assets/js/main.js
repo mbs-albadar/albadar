@@ -1,4 +1,34 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Analytics Tracking (kunjungan halaman & klik penting)
+    if (typeof supabaseClient !== 'undefined') {
+        supabaseClient
+            .from('analytics_events')
+            .insert([{ event_type: 'page_view', page_path: window.location.pathname }])
+            .then(function() {})
+            .catch(function() {});
+
+        document.addEventListener('click', function(e) {
+            const waLink = e.target.closest('.wa-float-btn, a[href*="wa.me"]');
+            if (waLink) {
+                supabaseClient.from('analytics_events').insert([{ event_type: 'click_wa', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                return;
+            }
+
+            const ppdbLink = e.target.closest('a[href*="ppdb.html"]');
+            if (ppdbLink) {
+                supabaseClient.from('analytics_events').insert([{ event_type: 'click_ppdb', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                return;
+            }
+
+            const brosurLink = e.target.closest('.ppdb-doc-card');
+            if (brosurLink) {
+                const labelEl = brosurLink.querySelector('.ppdb-doc-label');
+                const detailText = labelEl ? labelEl.textContent : null;
+                supabaseClient.from('analytics_events').insert([{ event_type: 'click_brosur', page_path: window.location.pathname, detail: detailText }]).then(function() {}).catch(function() {});
+            }
+        });
+    }
+
     // Header Scroll
     const header = document.getElementById('siteHeader');
     if (header) {
