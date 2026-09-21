@@ -2545,6 +2545,7 @@
                         <div>
                             <div class="stat-val" id="statPpdbClicks">...</div>
                             <div class="stat-lbl">Klik Menu PPDB</div>
+                            <div class="stat-conversion" id="statPpdbConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
                         </div>
                     </div>
 
@@ -2555,6 +2556,7 @@
                         <div>
                             <div class="stat-val" id="statBrosurClicks">...</div>
                             <div class="stat-lbl">Klik Unduh Brosur</div>
+                            <div class="stat-conversion" id="statBrosurConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
                         </div>
                     </div>
 
@@ -2565,7 +2567,36 @@
                         <div>
                             <div class="stat-val" id="statWaClicks">...</div>
                             <div class="stat-lbl">Klik Tombol WhatsApp</div>
+                            <div class="stat-conversion" id="statWaConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Tren Kunjungan Harian -->
+                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 17 9 11 13 15 21 7"></polyline>
+                                    <polyline points="14 7 21 7 21 14"></polyline>
+                                </svg>
+                                Tren Kunjungan Harian (30 Hari Terakhir)
+                            </h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Jumlah kunjungan halaman per hari.</p>
+                        </div>
+                        <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">30 Hari</span>
+                    </div>
+
+                    <div id="dailyVisitsChartWrapper" style="position: relative; width: 100%; height: 260px;">
+                        <canvas id="dailyVisitsChart"></canvas>
+                    </div>
+
+                    <div id="dailyVisitsChartEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; display: block; opacity: 0.6;">
+                            <polyline points="3 17 9 11 13 15 21 7"></polyline>
+                        </svg>
+                        <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan untuk ditampilkan</p>
                     </div>
                 </div>
 
@@ -2575,27 +2606,20 @@
                         <div>
                             <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="18" y1="20" x2="18" y2="10"></line>
-                                    <line x1="12" y1="20" x2="12" y2="4"></line>
-                                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                                    <path d="M3 3v18h18"></path>
+                                    <path d="M18 17V9"></path>
+                                    <path d="M13 17V5"></path>
+                                    <path d="M8 17v-3"></path>
                                 </svg>
-                                Halaman Paling Sering Dikunjungi (30 Hari Terakhir)
+                                Halaman Paling Sering Dikunjungi
                             </h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Grafik halaman dengan jumlah kunjungan terbanyak.</p>
+                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Ranking 5 halaman teratas dalam 30 hari terakhir.</p>
                         </div>
-                        <span class="counter-badge" id="pageViewsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">30 Hari</span>
                     </div>
 
-                    <div id="pageViewsChartWrapper" style="position: relative; width: 100%; height: 260px;">
-                        <canvas id="pageViewsChart"></canvas>
-                    </div>
+                    <div id="topPagesList"></div>
 
-                    <div id="pageViewsChartEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; display: block; opacity: 0.6;">
-                            <line x1="18" y1="20" x2="18" y2="10"></line>
-                            <line x1="12" y1="20" x2="12" y2="4"></line>
-                            <line x1="6" y1="20" x2="6" y2="14"></line>
-                        </svg>
+                    <div id="topPagesEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
                         <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan untuk ditampilkan</p>
                     </div>
                 </div>
@@ -3813,7 +3837,7 @@
         let isSlugManual = false;
         let newsIdToDelete = null;
         let newsTrendChart = null;
-        let pageViewsChart = null;
+        let dailyVisitsChart = null;
         let allAchievementsList = [];
         let isEditingAchievement = false;
         let editingAchievementId = null;
@@ -4507,13 +4531,14 @@
 
                 const { data, error } = await supabaseClient
                     .from('analytics_events')
-                    .select('event_type, page_path')
+                    .select('event_type, page_path, created_at')
                     .gte('created_at', sinceIso);
 
                 if (error) {
                     console.warn('Error loading analytics_events:', error);
                     setAnalyticsStatCards(0, 0, 0, 0);
-                    renderPageViewsChart([]);
+                    renderDailyVisitsChart([]);
+                    renderTopPagesList([]);
                     return;
                 }
 
@@ -4532,16 +4557,34 @@
                         pageCounts[key] = (pageCounts[key] || 0) + 1;
                     }
                 });
-
                 const topPages = Object.entries(pageCounts)
                     .sort((a, b) => b[1] - a[1])
-                    .slice(0, 6);
+                    .slice(0, 5);
+                renderTopPagesList(topPages);
 
-                renderPageViewsChart(topPages);
+                const dayMap = {};
+                const dailyData = [];
+                for (let i = 29; i >= 0; i--) {
+                    const d = new Date();
+                    d.setDate(d.getDate() - i);
+                    const key = d.toISOString().slice(0, 10);
+                    const label = `${d.getDate()}/${d.getMonth() + 1}`;
+                    const entry = { key, label, count: 0 };
+                    dailyData.push(entry);
+                    dayMap[key] = entry;
+                }
+                rows.forEach(r => {
+                    if (r.event_type === 'page_view' && r.created_at) {
+                        const key = String(r.created_at).slice(0, 10);
+                        if (dayMap[key]) dayMap[key].count++;
+                    }
+                });
+                renderDailyVisitsChart(dailyData);
             } catch (err) {
                 console.error('Exception loading visitor analytics:', err);
                 setAnalyticsStatCards(0, 0, 0, 0);
-                renderPageViewsChart([]);
+                renderDailyVisitsChart([]);
+                renderTopPagesList([]);
             }
         }
 
@@ -4554,24 +4597,32 @@
             if (elPpdb) elPpdb.textContent = ppdb;
             if (elBrosur) elBrosur.textContent = brosur;
             if (elWa) elWa.textContent = wa;
+
+            const pct = (n) => views > 0 ? Math.round((n / views) * 100) : 0;
+            const elPpdbConv = document.getElementById('statPpdbConversion');
+            const elBrosurConv = document.getElementById('statBrosurConversion');
+            const elWaConv = document.getElementById('statWaConversion');
+            if (elPpdbConv) elPpdbConv.textContent = `${pct(ppdb)}% dari kunjungan`;
+            if (elBrosurConv) elBrosurConv.textContent = `${pct(brosur)}% dari kunjungan`;
+            if (elWaConv) elWaConv.textContent = `${pct(wa)}% dari kunjungan`;
         }
 
-        function renderPageViewsChart(topPages) {
-            const canvas = document.getElementById('pageViewsChart');
-            const wrapper = document.getElementById('pageViewsChartWrapper');
-            const emptyMsg = document.getElementById('pageViewsChartEmptyMessage');
-            const badge = document.getElementById('pageViewsTotalBadge');
+        function renderDailyVisitsChart(dailyData) {
+            const canvas = document.getElementById('dailyVisitsChart');
+            const wrapper = document.getElementById('dailyVisitsChartWrapper');
+            const emptyMsg = document.getElementById('dailyVisitsChartEmptyMessage');
+            const badge = document.getElementById('dailyVisitsTotalBadge');
             if (!canvas || !wrapper || !emptyMsg) return;
 
-            const totalViews = topPages.reduce((sum, entry) => sum + entry[1], 0);
+            const totalViews = dailyData.reduce((sum, d) => sum + d.count, 0);
             if (badge) badge.textContent = `Total: ${totalViews} Kunjungan`;
 
-            if (!topPages || topPages.length === 0) {
+            if (totalViews === 0) {
                 wrapper.style.display = 'none';
                 emptyMsg.style.display = 'block';
-                if (pageViewsChart) {
-                    pageViewsChart.destroy();
-                    pageViewsChart = null;
+                if (dailyVisitsChart) {
+                    dailyVisitsChart.destroy();
+                    dailyVisitsChart = null;
                 }
                 return;
             }
@@ -4580,47 +4631,49 @@
             emptyMsg.style.display = 'none';
 
             if (typeof Chart === 'undefined') {
-                setTimeout(() => renderPageViewsChart(topPages), 150);
+                setTimeout(() => renderDailyVisitsChart(dailyData), 150);
                 return;
             }
 
-            if (pageViewsChart) {
-                pageViewsChart.destroy();
-                pageViewsChart = null;
+            if (dailyVisitsChart) {
+                dailyVisitsChart.destroy();
+                dailyVisitsChart = null;
             }
 
-            const labels = topPages.map(entry => entry[0]);
-            const dataValues = topPages.map(entry => entry[1]);
+            const labels = dailyData.map(d => d.label);
+            const dataValues = dailyData.map(d => d.count);
 
             const ctx = canvas.getContext('2d');
-            let bgFill = 'rgba(4, 71, 58, 0.85)';
+            let fillGradient = 'rgba(4, 71, 58, 0.15)';
             try {
-                const gradient = ctx.createLinearGradient(0, 0, 220, 0);
-                gradient.addColorStop(0, 'rgba(4, 71, 58, 0.92)');
-                gradient.addColorStop(1, 'rgba(4, 71, 58, 0.55)');
-                bgFill = gradient;
+                const gradient = ctx.createLinearGradient(0, 0, 0, 240);
+                gradient.addColorStop(0, 'rgba(4, 71, 58, 0.35)');
+                gradient.addColorStop(1, 'rgba(4, 71, 58, 0.02)');
+                fillGradient = gradient;
             } catch (e) {
                 // Fallback to solid rgba
             }
 
-            pageViewsChart = new Chart(ctx, {
-                type: 'bar',
+            dailyVisitsChart = new Chart(ctx, {
+                type: 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Kunjungan',
                         data: dataValues,
-                        backgroundColor: bgFill,
-                        hoverBackgroundColor: '#04473A',
                         borderColor: '#04473A',
-                        borderWidth: 1.5,
-                        borderRadius: 6,
-                        borderSkipped: false,
-                        maxBarThickness: 32
+                        backgroundColor: fillGradient,
+                        fill: true,
+                        tension: 0.35,
+                        pointRadius: 3,
+                        pointBackgroundColor: '#04473A',
+                        pointBorderColor: '#FFFFFF',
+                        pointBorderWidth: 1.5,
+                        pointHoverRadius: 5,
+                        borderWidth: 2
                     }]
                 },
                 options: {
-                    indexAxis: 'y',
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
@@ -4636,13 +4689,13 @@
                             displayColors: false,
                             callbacks: {
                                 label: function(context) {
-                                    return `${context.parsed.x} kunjungan`;
+                                    return `${context.parsed.y} kunjungan`;
                                 }
                             }
                         }
                     },
                     scales: {
-                        x: {
+                        y: {
                             beginAtZero: true,
                             ticks: {
                                 precision: 0,
@@ -4652,16 +4705,57 @@
                             },
                             grid: { color: '#F0F2F5', drawBorder: false }
                         },
-                        y: {
+                        x: {
                             ticks: {
                                 color: '#6B7280',
-                                font: { family: "'Inter', sans-serif", size: 11, weight: '500' }
+                                font: { family: "'Inter', sans-serif", size: 11 },
+                                maxRotation: 0,
+                                autoSkip: true,
+                                maxTicksLimit: 8
                             },
                             grid: { display: false }
                         }
                     }
                 }
             });
+        }
+
+        function renderTopPagesList(topPages) {
+            const container = document.getElementById('topPagesList');
+            const emptyMsg = document.getElementById('topPagesEmptyMessage');
+            if (!container || !emptyMsg) return;
+
+            if (!topPages || topPages.length === 0) {
+                container.style.display = 'none';
+                emptyMsg.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            emptyMsg.style.display = 'none';
+
+            const maxCount = topPages[0][1] || 1;
+
+            container.innerHTML = topPages.map((entry, index) => {
+                const path = escapeHtml(entry[0]);
+                const count = entry[1];
+                const pct = Math.max(6, Math.round((count / maxCount) * 100));
+                const borderStyle = index < topPages.length - 1 ? 'border-bottom: 1px solid var(--color-border);' : '';
+                return `
+                    <div style="display: flex; align-items: center; gap: 0.9rem; padding: 0.75rem 0; ${borderStyle}">
+                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center;">${index + 1}</div>
+                        <div style="flex: 1; min-width: 0;">
+                            <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.3rem;">
+                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--lux-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${path}</span>
+                                <span style="font-size: 0.8rem; color: var(--color-text-muted); flex-shrink: 0;">${count} kunjungan</span>
+                            </div>
+                            <div style="height: 6px; background: #F0F2F5; border-radius: 999px; overflow: hidden;">
+                                <div style="height: 100%; width: ${pct}%; background: var(--color-primary); border-radius: 999px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         // 5. BERITA MODULE (CRUD)
