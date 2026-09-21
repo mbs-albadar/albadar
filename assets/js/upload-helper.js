@@ -52,7 +52,44 @@ function getStoragePathFromUrl(url, bucket = 'site-media') {
   return null;
 }
 
+async function uploadDocumentToStorage(file, folder = 'ppdb') {
+  if (!file) {
+    throw new Error('Tidak ada file yang dipilih');
+  }
+
+  const fileExt = file.name.split('.').pop().toLowerCase();
+  const allowedExt = ['pdf', 'jpg', 'jpeg', 'png', 'webp'];
+  if (!allowedExt.includes(fileExt)) {
+    throw new Error('Format file harus PDF, JPG, PNG, atau WebP');
+  }
+
+  // Catatan: tidak ada batas ukuran file dari kode ini.
+  // Supabase Storage sendiri membatasi maksimal 50MB per file di paket Free.
+  const safeExt = fileExt.replace(/[^a-z0-9]/g, '');
+  const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2)}.${safeExt}`;
+
+  const { data, error } = await supabaseClient.storage
+    .from('site-media')
+    .upload(fileName, file, {
+      cacheControl: '3600',
+      upsert: false
+    });
+
+  if (error) throw error;
+
+  const { data: urlData } = supabaseClient.storage
+    .from('site-media')
+    .getPublicUrl(fileName);
+
+  if (!urlData || !urlData.publicUrl) {
+    throw new Error('Gagal mendapatkan URL publik dari storage');
+  }
+
+  return urlData.publicUrl;
+}
+
 if (typeof window !== 'undefined') {
   window.uploadImageToStorage = uploadImageToStorage;
   window.getStoragePathFromUrl = getStoragePathFromUrl;
+  window.uploadDocumentToStorage = uploadDocumentToStorage;
 }

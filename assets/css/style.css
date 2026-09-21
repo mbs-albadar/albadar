@@ -4224,3 +4224,51 @@ body.menu-open .menu-bar {
 .article-body strong {
     color: var(--lux-dark);
 }
+
+.ppdb-docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+}
+
+.ppdb-doc-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: #FFFFFF;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ppdb-doc-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.ppdb-doc-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: rgba(4, 71, 58, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+}
+
+.ppdb-doc-label {
+    font-weight: 600;
+    color: var(--lux-dark);
+    margin-bottom: 0.15rem;
+}
+
+.ppdb-doc-action {
+    font-size: 0.8rem;
+    color: var(--color-primary);
+    font-weight: 600;
+}

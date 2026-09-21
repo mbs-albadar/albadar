@@ -535,6 +535,54 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // PPDB Brosur & Flyer Download Section
+    const ppdbDocsContainer = document.getElementById('ppdbDocsContainer');
+    if (ppdbDocsContainer) {
+        const ppdbDocsSection = document.getElementById('ppdbDocsSection');
+
+        function escapePpdbLabel(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
+
+        function renderPpdbDocsPublic(docs) {
+            if (!docs || docs.length === 0) {
+                if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+                return;
+            }
+            if (ppdbDocsSection) ppdbDocsSection.style.display = '';
+
+            const fileIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>';
+
+            ppdbDocsContainer.innerHTML = docs.map(function(doc) {
+                return '<a href="' + doc.file_url + '" target="_blank" rel="noopener" class="ppdb-doc-card">' +
+                    '<div class="ppdb-doc-icon">' + fileIcon + '</div>' +
+                    '<div>' +
+                        '<div class="ppdb-doc-label">' + escapePpdbLabel(doc.label) + '</div>' +
+                        '<div class="ppdb-doc-action">Unduh Berkas</div>' +
+                    '</div>' +
+                '</a>';
+            }).join('');
+        }
+
+        if (typeof supabaseClient !== 'undefined') {
+            supabaseClient
+                .from('ppdb_documents')
+                .select('*')
+                .order('display_order', { ascending: true })
+                .then(function(res) {
+                    if (res.error) throw res.error;
+                    renderPpdbDocsPublic(res.data || []);
+                })
+                .catch(function() {
+                    if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+                });
+        } else {
+            if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+        }
+    }
+
     // Reveal on Scroll (Must be initialized AFTER news items are injected)
     const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
     if (revealElements.length > 0) {

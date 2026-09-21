@@ -2393,6 +2393,14 @@
                 Gambar Situs
             </button>
 
+            <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-ppdb-docs">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
+                Brosur PPDB
+            </button>
+
             <button type="button" class="sidebar-item role-super-admin-only" data-target="sec-setting">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
@@ -2885,6 +2893,30 @@
                     <div class="admin-loading-state">
                         <div class="loading-spinner"></div>
                         Memuat gambar situs...
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6B. SECTION BROSUR & FLYER PPDB (SUPER ADMIN ONLY) -->
+            <section class="tab-section role-super-admin-only" id="sec-ppdb-docs">
+                <div class="section-header-bar">
+                    <div>
+                        <h2 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.5rem;">Brosur &amp; Flyer PPDB</h2>
+                        <p style="color: var(--color-text-muted); font-size: 0.875rem;">Kelola file brosur/flyer PPDB yang bisa diunduh pengunjung di halaman PPDB.</p>
+                    </div>
+                    <button type="button" class="btn-primary-action" onclick="openPpdbDocModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Tambah Dokumen Baru
+                    </button>
+                </div>
+
+                <div id="ppdbDocsAdminContainer">
+                    <div class="admin-loading-state">
+                        <div class="loading-spinner"></div>
+                        Memuat dokumen PPDB...
                     </div>
                 </div>
             </section>
@@ -3388,6 +3420,85 @@
         </div>
     </div>
 
+    <!-- MODAL TAMBAH/EDIT BROSUR PPDB -->
+    <div class="modal-backdrop" id="ppdbDocModal">
+        <div class="modal-box" style="max-width: 520px;">
+            <div class="modal-header">
+                <div>
+                    <h3 class="modal-title" id="ppdbDocModalTitle">Tambah Dokumen PPDB</h3>
+                    <p class="modal-subtitle">Unggah brosur atau flyer PPDB dalam format PDF atau gambar.</p>
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closePpdbDocModal()" aria-label="Tutup">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+
+            <form id="ppdbDocForm">
+                <div class="modal-body">
+                    <div class="form-group-admin">
+                        <label>File Brosur/Flyer *</label>
+                        <input type="file" id="ppdbDocFileInput" accept=".pdf,.jpg,.jpeg,.png,.webp" style="display: none;">
+                        <div class="file-upload-zone">
+                            <button type="button" class="btn-select-file" id="btnSelectPpdbDocFile">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                <span id="selectPpdbDocBtnText">Pilih File dari Perangkat</span>
+                            </button>
+                            <span class="file-size-info">Format: PDF, JPG, PNG, WebP (tanpa batas ukuran dari sistem kita)</span>
+                        </div>
+                        <div id="ppdbDocFileNameDisplay" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-text-muted);"></div>
+                        <div class="form-help">Wajib saat menambah dokumen baru. Disimpan di Supabase Storage (folder: ppdb).</div>
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="ppdbDocLabelInput">Nama Dokumen *</label>
+                        <input type="text" id="ppdbDocLabelInput" required placeholder="Contoh: Brosur PPDB 2027/2028">
+                    </div>
+
+                    <div class="form-group-admin">
+                        <label for="ppdbDocOrderInput">Urutan Tampil</label>
+                        <input type="number" id="ppdbDocOrderInput" value="0" min="0" step="1">
+                        <div class="form-help">Angka lebih kecil tampil lebih dulu di halaman publik.</div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closePpdbDocModal()">Batal</button>
+                    <button type="submit" id="savePpdbDocBtn" class="btn-primary-action">
+                        <span id="savePpdbDocText">Simpan Dokumen</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS DOKUMEN PPDB -->
+    <div class="modal-backdrop" id="deletePpdbDocModalBackdrop">
+        <div class="modal-box confirm-box" style="max-width: 440px;">
+            <div class="confirm-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                    <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title">Hapus Dokumen PPDB?</h3>
+            <p class="confirm-desc">
+                Dokumen: <br><strong id="deletePpdbDocLabelText" style="color: var(--color-text-main);">...</strong><br>
+                File di penyimpanan Supabase Storage dan data di sistem akan dihapus permanen.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" onclick="closeDeletePpdbDocModal()">Batal</button>
+                <button type="button" class="btn-danger-action" id="confirmDeletePpdbDocBtn">Hapus Dokumen</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL TAMBAH/EDIT DATA SISWA -->
     <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
         <div class="modal-card" style="max-width: 580px;">
@@ -3802,6 +3913,7 @@
                     loadStudentsList();
                     loadTeachersList();
                     loadSiteImagesList();
+                    loadPpdbDocsList();
                     loadSettingsData();
                 }
 
@@ -3822,13 +3934,14 @@
             'sec-siswa': 'Data Siswa',
             'sec-guru': 'Data Guru',
             'sec-site-images': 'Kelola Gambar Situs',
+            'sec-ppdb-docs': 'Brosur & Flyer PPDB',
             'sec-setting': 'Pengaturan Sistem'
         };
 
         function switchTab(targetSectionId) {
             // Check super_admin restriction
             if (currentProfile && currentProfile.role !== 'super_admin') {
-                const superAdminSections = ['sec-siswa', 'sec-guru', 'sec-site-images', 'sec-setting'];
+                const superAdminSections = ['sec-siswa', 'sec-guru', 'sec-site-images', 'sec-ppdb-docs', 'sec-setting'];
                 if (superAdminSections.includes(targetSectionId)) {
                     targetSectionId = 'sec-beranda';
                 }
@@ -3873,6 +3986,8 @@
                 loadStudentsList();
             } else if (targetSectionId === 'sec-guru' && allTeachersList.length === 0) {
                 loadTeachersList();
+            } else if (targetSectionId === 'sec-ppdb-docs' && allPpdbDocsList.length === 0) {
+                loadPpdbDocsList();
             } else if (targetSectionId === 'sec-setting') {
                 loadSettingsData();
             }
@@ -5884,6 +5999,276 @@
 
         deleteSiteImageModal.addEventListener('click', (e) => {
             if (e.target === deleteSiteImageModal) closeDeleteSiteImageModal();
+        });
+
+        // ==========================================
+        // MODUL BROSUR & FLYER PPDB (SUPER ADMIN ONLY)
+        // ==========================================
+        let allPpdbDocsList = [];
+        let isEditingPpdbDoc = false;
+        let editingPpdbDocId = null;
+        let ppdbDocToDelete = null;
+        let selectedPpdbDocFile = null;
+        let existingPpdbDocFileUrl = null;
+
+        const ppdbDocsAdminContainer = document.getElementById('ppdbDocsAdminContainer');
+        const ppdbDocModal = document.getElementById('ppdbDocModal');
+        const ppdbDocForm = document.getElementById('ppdbDocForm');
+        const ppdbDocModalTitle = document.getElementById('ppdbDocModalTitle');
+        const ppdbDocFileInput = document.getElementById('ppdbDocFileInput');
+        const btnSelectPpdbDocFile = document.getElementById('btnSelectPpdbDocFile');
+        const selectPpdbDocBtnText = document.getElementById('selectPpdbDocBtnText');
+        const ppdbDocFileNameDisplay = document.getElementById('ppdbDocFileNameDisplay');
+        const ppdbDocLabelInput = document.getElementById('ppdbDocLabelInput');
+        const ppdbDocOrderInput = document.getElementById('ppdbDocOrderInput');
+        const savePpdbDocBtn = document.getElementById('savePpdbDocBtn');
+        const savePpdbDocText = document.getElementById('savePpdbDocText');
+
+        const deletePpdbDocModal = document.getElementById('deletePpdbDocModalBackdrop');
+        const deletePpdbDocLabelText = document.getElementById('deletePpdbDocLabelText');
+        const confirmDeletePpdbDocBtn = document.getElementById('confirmDeletePpdbDocBtn');
+
+        btnSelectPpdbDocFile.addEventListener('click', () => ppdbDocFileInput.click());
+
+        ppdbDocFileInput.addEventListener('change', (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            selectedPpdbDocFile = file;
+            const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+            ppdbDocFileNameDisplay.textContent = `File terpilih: ${file.name} (${sizeMb} MB)`;
+            selectPpdbDocBtnText.textContent = 'Ganti File Terpilih';
+        });
+
+        async function loadPpdbDocsList() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('ppdb_documents')
+                    .select('*')
+                    .order('display_order', { ascending: true })
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Error fetching ppdb_documents:', error);
+                    ppdbDocsAdminContainer.innerHTML = `<div class="empty-placeholder"><p style="color: var(--color-danger);">Gagal memuat dokumen: ${escapeHtml(error.message)}</p></div>`;
+                    return;
+                }
+
+                allPpdbDocsList = data || [];
+                renderPpdbDocsAdminList();
+            } catch (err) {
+                console.error('Fetch ppdb_documents exception:', err);
+                ppdbDocsAdminContainer.innerHTML = '<div class="empty-placeholder"><p style="color: var(--color-danger);">Terjadi kesalahan koneksi.</p></div>';
+            }
+        }
+
+        function renderPpdbDocsAdminList() {
+            if (allPpdbDocsList.length === 0) {
+                ppdbDocsAdminContainer.innerHTML = `
+                    <div class="empty-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        <h3>Belum Ada Brosur/Flyer</h3>
+                        <p>Tambahkan file PDF atau gambar brosur PPDB untuk ditampilkan di halaman publik.</p>
+                        <button type="button" class="btn-primary-action" onclick="openPpdbDocModal()" style="margin-top: 1rem;">Tambah Dokumen Pertama</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '<div class="site-images-grid">';
+            allPpdbDocsList.forEach(doc => {
+                const labelText = escapeHtml(doc.label || 'Tanpa Label');
+                const safeUrl = escapeHtml(doc.file_url || '');
+                const ext = (doc.file_url || '').split('.').pop().toUpperCase().slice(0, 4);
+                html += `
+                    <div class="site-image-card" data-id="${doc.id}">
+                        <div class="site-image-body">
+                            <div class="badge-key-tag">${ext || 'FILE'}</div>
+                            <div class="site-image-title">${labelText}</div>
+                            <div class="site-image-desc"><a href="${safeUrl}" target="_blank" rel="noopener" style="color: var(--color-primary); font-weight: 600;">Lihat / Unduh File</a></div>
+                            <div class="site-image-actions">
+                                <span style="font-size: 0.725rem; color: #9CA3AF;">Urutan: ${doc.display_order ?? 0}</span>
+                                <div style="display: flex; gap: 0.4rem;">
+                                    <button type="button" class="btn-action-icon" onclick="openEditPpdbDocModal('${doc.id}')" title="Edit">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    </button>
+                                    <button type="button" class="btn-action-icon btn-action-danger" onclick="openDeletePpdbDocModal('${doc.id}')" title="Hapus">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            ppdbDocsAdminContainer.innerHTML = html;
+        }
+
+        function openPpdbDocModal() {
+            isEditingPpdbDoc = false;
+            editingPpdbDocId = null;
+            selectedPpdbDocFile = null;
+            existingPpdbDocFileUrl = null;
+            ppdbDocFileInput.value = '';
+            ppdbDocForm.reset();
+            ppdbDocFileNameDisplay.textContent = '';
+            selectPpdbDocBtnText.textContent = 'Pilih File dari Perangkat';
+            ppdbDocModalTitle.textContent = 'Tambah Dokumen PPDB';
+            savePpdbDocText.textContent = 'Simpan Dokumen';
+            ppdbDocModal.classList.add('active');
+        }
+
+        function openEditPpdbDocModal(id) {
+            const item = allPpdbDocsList.find(i => String(i.id) === String(id));
+            if (!item) return;
+
+            isEditingPpdbDoc = true;
+            editingPpdbDocId = item.id;
+            selectedPpdbDocFile = null;
+            existingPpdbDocFileUrl = item.file_url || null;
+            ppdbDocFileInput.value = '';
+
+            ppdbDocModalTitle.textContent = 'Edit Dokumen PPDB';
+            savePpdbDocText.textContent = 'Perbarui Dokumen';
+
+            ppdbDocLabelInput.value = item.label || '';
+            ppdbDocOrderInput.value = item.display_order ?? 0;
+            ppdbDocFileNameDisplay.textContent = item.file_url ? `File saat ini: ${item.file_url.split('/').pop()}` : '';
+            selectPpdbDocBtnText.textContent = 'Ganti File';
+
+            ppdbDocModal.classList.add('active');
+        }
+
+        function closePpdbDocModal() {
+            ppdbDocModal.classList.remove('active');
+        }
+
+        ppdbDocForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const label = ppdbDocLabelInput.value.trim();
+            const displayOrder = parseInt(ppdbDocOrderInput.value, 10) || 0;
+
+            if (!label) {
+                showToast('Nama dokumen wajib diisi.', 'error');
+                return;
+            }
+
+            savePpdbDocBtn.disabled = true;
+
+            let finalFileUrl = existingPpdbDocFileUrl;
+            if (selectedPpdbDocFile) {
+                savePpdbDocText.textContent = 'Mengupload file...';
+                try {
+                    finalFileUrl = await uploadDocumentToStorage(selectedPpdbDocFile, 'ppdb');
+                } catch (uploadErr) {
+                    console.error('Upload ppdb doc error:', uploadErr);
+                    showToast(uploadErr.message || 'Gagal mengupload file.', 'error');
+                    savePpdbDocBtn.disabled = false;
+                    savePpdbDocText.textContent = isEditingPpdbDoc ? 'Perbarui Dokumen' : 'Simpan Dokumen';
+                    return;
+                }
+            }
+
+            if (!finalFileUrl) {
+                showToast('Mohon unggah file brosur/flyer.', 'error');
+                savePpdbDocBtn.disabled = false;
+                savePpdbDocText.textContent = isEditingPpdbDoc ? 'Perbarui Dokumen' : 'Simpan Dokumen';
+                return;
+            }
+
+            savePpdbDocText.textContent = 'Menyimpan...';
+
+            try {
+                if (!isEditingPpdbDoc) {
+                    const { error } = await supabaseClient
+                        .from('ppdb_documents')
+                        .insert([{ label, file_url: finalFileUrl, display_order: displayOrder }]);
+
+                    if (error) {
+                        showToast(`Gagal menambahkan dokumen: ${error.message}`, 'error');
+                        return;
+                    }
+                    showToast('Dokumen PPDB berhasil ditambahkan!');
+                } else {
+                    const { error } = await supabaseClient
+                        .from('ppdb_documents')
+                        .update({ label, file_url: finalFileUrl, display_order: displayOrder })
+                        .eq('id', editingPpdbDocId);
+
+                    if (error) {
+                        showToast(`Gagal memperbarui dokumen: ${error.message}`, 'error');
+                        return;
+                    }
+                    showToast('Dokumen PPDB berhasil diperbarui!');
+                }
+                closePpdbDocModal();
+                loadPpdbDocsList();
+            } catch (err) {
+                console.error('Save ppdb doc error:', err);
+                showToast('Terjadi kesalahan saat menyimpan dokumen.', 'error');
+            } finally {
+                savePpdbDocBtn.disabled = false;
+                savePpdbDocText.textContent = isEditingPpdbDoc ? 'Perbarui Dokumen' : 'Simpan Dokumen';
+            }
+        });
+
+        function openDeletePpdbDocModal(id) {
+            const item = allPpdbDocsList.find(i => String(i.id) === String(id));
+            if (!item) return;
+            ppdbDocToDelete = item;
+            deletePpdbDocLabelText.textContent = item.label || 'Dokumen PPDB';
+            deletePpdbDocModal.classList.add('active');
+        }
+
+        function closeDeletePpdbDocModal() {
+            deletePpdbDocModal.classList.remove('active');
+            ppdbDocToDelete = null;
+        }
+
+        confirmDeletePpdbDocBtn.addEventListener('click', async () => {
+            if (!ppdbDocToDelete) return;
+            confirmDeletePpdbDocBtn.disabled = true;
+            confirmDeletePpdbDocBtn.textContent = 'Menghapus...';
+
+            try {
+                const storagePath = getStoragePathFromUrl(ppdbDocToDelete.file_url, 'site-media');
+                if (storagePath) {
+                    try {
+                        await supabaseClient.storage.from('site-media').remove([storagePath]);
+                    } catch (sErr) {
+                        console.warn('Storage delete exception:', sErr);
+                    }
+                }
+
+                const { error: dbErr } = await supabaseClient
+                    .from('ppdb_documents')
+                    .delete()
+                    .eq('id', ppdbDocToDelete.id);
+
+                if (dbErr) {
+                    showToast(`Gagal menghapus dokumen: ${dbErr.message}`, 'error');
+                    return;
+                }
+
+                showToast('Dokumen PPDB berhasil dihapus.');
+                closeDeletePpdbDocModal();
+                loadPpdbDocsList();
+            } catch (err) {
+                console.error('Delete ppdb doc exception:', err);
+                showToast('Terjadi kesalahan saat menghapus dokumen.', 'error');
+            } finally {
+                confirmDeletePpdbDocBtn.disabled = false;
+                confirmDeletePpdbDocBtn.textContent = 'Hapus Dokumen';
+            }
+        });
+
+        ppdbDocModal.addEventListener('click', (e) => {
+            if (e.target === ppdbDocModal) closePpdbDocModal();
+        });
+
+        deletePpdbDocModal.addEventListener('click', (e) => {
+            if (e.target === deletePpdbDocModal) closeDeletePpdbDocModal();
         });
 
         // ==========================================
