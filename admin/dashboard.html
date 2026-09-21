@@ -1752,6 +1752,102 @@
             margin-bottom: 0.35rem;
         }
 
+        /* Panel slot foto situs */
+        .slot-panel {
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: 1.25rem 1.5rem 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .slot-panel-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .slot-panel-head h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            color: var(--lux-dark);
+            margin: 0 0 0.25rem;
+        }
+        .slot-panel-head p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            max-width: 62ch;
+        }
+        .slot-group-title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            margin: 1.1rem 0 0.3rem;
+        }
+        .slot-row {
+            display: grid;
+            grid-template-columns: 72px 1fr auto;
+            gap: 0.9rem;
+            align-items: center;
+            padding: 0.7rem 0;
+            border-top: 1px solid var(--color-border-light);
+        }
+        .slot-thumb {
+            width: 72px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: var(--color-border-light);
+            overflow: hidden;
+        }
+        .slot-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .slot-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text-main);
+        }
+        .slot-hint {
+            margin-top: 0.15rem;
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+        }
+        .slot-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.55rem;
+            border-radius: var(--radius-pill);
+        }
+        .slot-status.is-filled {
+            background: var(--color-success-bg);
+            color: var(--color-success);
+        }
+        .slot-status.is-empty {
+            background: #FFF7ED;
+            color: #B45309;
+        }
+        .slot-btn {
+            padding: 0.45rem 0.95rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        @media (max-width: 640px) {
+            .slot-row { grid-template-columns: 56px 1fr; }
+            .slot-thumb { width: 56px; height: 40px; }
+            .slot-row .slot-btn { grid-column: 1 / -1; }
+        }
+
         .badge-key-tag {
             display: inline-flex;
             align-items: center;
@@ -2760,6 +2856,18 @@
                     </button>
                 </div>
 
+                <!-- Slot Foto di Halaman Situs -->
+                <div class="slot-panel">
+                    <div class="slot-panel-head">
+                        <div>
+                            <h3>Slot Foto di Halaman Situs</h3>
+                            <p>Setiap slot adalah satu tempat foto di website. Slot yang belum diisi masih memakai tampilan bawaan. Pilih slot lalu unggah fotonya, dan foto akan tampil otomatis.</p>
+                        </div>
+                        <span class="count-badge" id="siteSlotsSummary">Memuat...</span>
+                    </div>
+                    <div id="siteSlotsList"></div>
+                </div>
+
                 <!-- Filter & Search Bar -->
                 <div class="filter-card">
                     <div class="search-input-wrap" style="flex: 1; max-width: 420px;">
@@ -3231,9 +3339,9 @@
 
                     <!-- Key -->
                     <div class="form-group-admin">
-                        <label for="siteImageKeyInput">Key Teknis (Opsional)</label>
-                        <input type="text" id="siteImageKeyInput" placeholder="Contoh: lingkungan-sekolah">
-                        <div class="form-help">Digunakan untuk menyambungkan foto ini ke halaman website tertentu (huruf kecil, tanpa spasi). Boleh dikosongkan jika hanya arsip.</div>
+                        <label for="siteImageKeyInput">Tempat Foto di Website (Slot)</label>
+                        <select id="siteImageKeyInput"></select>
+                        <div class="form-help" id="siteImageKeyHint">Pilih tempat foto ini akan tampil. Pilih "Tanpa slot" jika foto hanya disimpan di perpustakaan.</div>
                     </div>
 
                     <!-- Keterangan -->
@@ -5329,6 +5437,116 @@
         });
 
         // Load Site Images List
+        // ==== Slot foto situs ====
+        // Setiap slot = satu tempat foto di website. Kunci (key) harus sama dengan atribut
+        // data-site-image di halaman publik (dimuat oleh assets/js/site-images.js).
+        // Untuk menambah tempat foto baru: tambahkan satu baris di sini dan pasang
+        // data-site-image="kunci" pada elemen gambar di halaman terkait.
+        const SITE_IMAGE_SLOTS = [
+            { key: 'hero-beranda', page: 'Beranda', label: 'Foto utama beranda (hero)', hint: 'Lanskap lebar, minimal 1920 px. Objek utama di tengah; foto diberi lapisan hijau gelap.' },
+            { key: 'lingkungan-sekolah', page: 'Tentang Kami', label: 'Foto lingkungan sekolah', hint: 'Lanskap atau panorama, minimal 1600 px. Bagian atas dan bawah bisa terpotong, taruh objek utama di tengah.' },
+            { key: 'fasilitas-masjid', page: 'Student Life', label: 'Masjid sekolah & pusat ibadah', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'fasilitas-kelas', page: 'Student Life', label: 'Kelas full AC & Smart TV', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'fasilitas-lapangan', page: 'Student Life', label: 'Lapangan olahraga terbuka', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'fasilitas-ajs', page: 'Student Life', label: 'Antar jemput sekolah (AJS)', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'fasilitas-perpustakaan', page: 'Student Life', label: 'Perpustakaan & taman baca', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'fasilitas-lab-komputer', page: 'Student Life', label: 'Lab komputer & Chromebook', hint: 'Lanskap 4:3, minimal 1200 px. Tampil samar di belakang teks kartu.' },
+            { key: 'prestasi-stem', page: 'Prestasi', label: 'Kartu Akademik & Sains (STEM)', hint: 'Foto kegiatan sains, STEM, atau lomba. Lanskap, minimal 1200 px. Tampil samar di belakang teks kartu.' }
+        ];
+
+        function getSiteImageSlot(key) {
+            return SITE_IMAGE_SLOTS.find(s => s.key === key) || null;
+        }
+
+        // Foto yang sudah memakai slot tertentu (abaikan entri yang sedang diedit)
+        function findSiteImageBySlot(key, exceptId) {
+            return allSiteImagesList.find(i => i.key === key && i.image_url && String(i.id) !== String(exceptId || '')) || null;
+        }
+
+        function populateSiteImageKeySelect(selectedKey, editingId) {
+            let html = '<option value="">Tanpa slot (hanya simpan di perpustakaan)</option>';
+            const pages = [];
+            SITE_IMAGE_SLOTS.forEach(s => { if (!pages.includes(s.page)) pages.push(s.page); });
+
+            pages.forEach(page => {
+                html += `<optgroup label="${escapeHtml(page)}">`;
+                SITE_IMAGE_SLOTS.filter(s => s.page === page).forEach(s => {
+                    const taken = findSiteImageBySlot(s.key, editingId);
+                    const status = taken ? 'sudah terisi, edit foto yang ada' : 'belum diisi';
+                    html += `<option value="${s.key}"${taken ? ' disabled' : ''}>${escapeHtml(s.label)} (${status})</option>`;
+                });
+                html += '</optgroup>';
+            });
+
+            // Key lama yang bukan slot resmi tetap bisa dipertahankan
+            if (selectedKey && !getSiteImageSlot(selectedKey)) {
+                html += `<optgroup label="Key lama"><option value="${escapeHtml(selectedKey)}">${escapeHtml(selectedKey)}</option></optgroup>`;
+            }
+
+            siteImageKeyInput.innerHTML = html;
+            siteImageKeyInput.value = selectedKey || '';
+            updateSiteImageKeyHint();
+        }
+
+        function updateSiteImageKeyHint() {
+            const slot = getSiteImageSlot(siteImageKeyInput.value);
+            const hintEl = document.getElementById('siteImageKeyHint');
+            hintEl.textContent = slot
+                ? `Rekomendasi foto: ${slot.hint}`
+                : 'Pilih tempat foto ini akan tampil. Pilih "Tanpa slot" jika foto hanya disimpan di perpustakaan.';
+        }
+
+        siteImageKeyInput.addEventListener('change', () => {
+            updateSiteImageKeyHint();
+            const slot = getSiteImageSlot(siteImageKeyInput.value);
+            if (slot && !siteImageLabelInput.value.trim()) {
+                siteImageLabelInput.value = slot.label;
+            }
+        });
+
+        function renderSiteSlots() {
+            const listEl = document.getElementById('siteSlotsList');
+            const summaryEl = document.getElementById('siteSlotsSummary');
+            if (!listEl || !summaryEl) return;
+
+            const filledCount = SITE_IMAGE_SLOTS.filter(s => findSiteImageBySlot(s.key)).length;
+            summaryEl.textContent = `${filledCount} dari ${SITE_IMAGE_SLOTS.length} slot terisi`;
+
+            const pages = [];
+            SITE_IMAGE_SLOTS.forEach(s => { if (!pages.includes(s.page)) pages.push(s.page); });
+
+            let html = '';
+            pages.forEach(page => {
+                const slots = SITE_IMAGE_SLOTS.filter(s => s.page === page);
+                const pageFilled = slots.filter(s => findSiteImageBySlot(s.key)).length;
+                html += `<div class="slot-group-title"><span>${escapeHtml(page)}</span><span>${pageFilled}/${slots.length} terisi</span></div>`;
+                slots.forEach(s => {
+                    const img = findSiteImageBySlot(s.key);
+                    html += `
+                        <div class="slot-row">
+                            <div class="slot-thumb">${img ? `<img src="${escapeHtml(img.image_url)}" alt="" loading="lazy">` : ''}</div>
+                            <div>
+                                <div class="slot-title">${escapeHtml(s.label)}
+                                    <span class="slot-status ${img ? 'is-filled' : 'is-empty'}">${img ? 'Terisi' : 'Belum diisi'}</span>
+                                </div>
+                                <div class="slot-hint">${escapeHtml(s.hint)}</div>
+                            </div>
+                            <button type="button" class="${img ? 'btn-cancel' : 'btn-primary-action'} slot-btn" onclick="openSiteSlot('${s.key}')">${img ? 'Ganti foto' : 'Tambah foto'}</button>
+                        </div>`;
+                });
+            });
+            listEl.innerHTML = html;
+        }
+
+        function openSiteSlot(key) {
+            const existing = findSiteImageBySlot(key);
+            if (existing) {
+                openEditSiteImageModal(existing.id);
+            } else {
+                openSiteImageModal(key);
+            }
+        }
+
         async function loadSiteImagesList() {
             try {
                 const { data, error } = await supabaseClient
@@ -5348,6 +5566,7 @@
                 }
 
                 allSiteImagesList = data || [];
+                renderSiteSlots();
                 renderSiteImagesGrid();
             } catch (err) {
                 console.error('Fetch site_images exception:', err);
@@ -5397,7 +5616,8 @@
             let html = '<div class="site-images-grid">';
             filtered.forEach(img => {
                 const labelText = escapeHtml(img.label || 'Tanpa Label');
-                const keyText = img.key ? escapeHtml(img.key) : '';
+                const slotInfo = img.key ? getSiteImageSlot(img.key) : null;
+                const keyText = img.key ? escapeHtml(slotInfo ? `${slotInfo.page}: ${slotInfo.label}` : img.key) : '';
                 const descText = img.keterangan ? escapeHtml(img.keterangan) : '';
                 const safeUrl = escapeHtml(img.image_url || '');
 
@@ -5408,7 +5628,7 @@
                         </div>
                         <div class="site-image-body">
                             <div class="site-image-title">${labelText}</div>
-                            ${keyText ? `<div class="badge-key-tag">🔑 ${keyText}</div>` : ''}
+                            ${keyText ? `<div class="badge-key-tag">📍 ${keyText}</div>` : ''}
                             ${descText ? `<div class="site-image-desc">${descText}</div>` : '<div class="site-image-desc" style="color:#9CA3AF; font-style:italic;">Tidak ada catatan tambahan.</div>'}
                             <div class="site-image-actions">
                                 <span style="font-size: 0.725rem; color: #9CA3AF;">ID: #${String(img.id).slice(-4)}</span>
@@ -5439,7 +5659,7 @@
         searchSiteImagesInput.addEventListener('input', renderSiteImagesGrid);
 
         // Open Modal Add
-        function openSiteImageModal() {
+        function openSiteImageModal(presetKey) {
             isEditingSiteImage = false;
             editingSiteImageId = null;
             selectedSiteImageFile = null;
@@ -5450,6 +5670,10 @@
 
             siteImageModalTitle.textContent = 'Tambah Gambar Situs';
             saveSiteImageText.textContent = 'Simpan Gambar';
+
+            populateSiteImageKeySelect(presetKey || '', null);
+            const presetSlot = getSiteImageSlot(presetKey);
+            if (presetSlot) siteImageLabelInput.value = presetSlot.label;
 
             siteImagePreviewBox.innerHTML = '<span>Belum ada foto yang dipilih</span>';
             siteImagePreviewActions.style.display = 'none';
@@ -5474,7 +5698,7 @@
             saveSiteImageText.textContent = 'Perbarui Gambar';
 
             siteImageLabelInput.value = item.label || '';
-            siteImageKeyInput.value = item.key || '';
+            populateSiteImageKeySelect(item.key || '', item.id);
             siteImageDescInput.value = item.keterangan || '';
 
             if (item.image_url) {

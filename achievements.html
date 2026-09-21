@@ -251,7 +251,7 @@
         </section>
 
         <!-- BENTO GRID TARGET & KELEMBAGAAN PRESTASI -->
-        <section class="section bento-section-lux bg-lux-bg">
+        <section class="section bento-section-lux bg-lux-bg prestasi-bento">
             <div class="container">
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Bidang Pengembangan Prestasi Santri</h2>
@@ -259,12 +259,12 @@
                 <div class="bento-grid-lux fade-in">
                     <!-- Large Card (Akademik & Sains / STEM) -->
                     <div class="bento-card-lux large">
+                        <img class="bento-bg-img" data-site-image="prestasi-stem" alt="Kegiatan sains dan STEM santri SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <div class="bento-icon"><svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45.99-.99 1.01A5 5 0 0 0 4 22"></path><path d="M14 14.66V17c0 .55.45.99.99 1.01A5 5 0 0 1 20 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg></div>
                             <h3>Akademik &amp; Sains (STEM)</h3>
                             <p>Pembinaan intensif menuju Olimpiade Sains Nasional (OSN), Olimpiade Matematika, serta kompetisi karya ilmiah remaja dan inovasi STEAM.</p>
                         </div>
-                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&amp;w=800&amp;auto=format&amp;fit=crop" alt="Praktikum Sains dan Eksperimen STEM Siswa SMP MBS Al Badar" class="bento-bg-img" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
                     </div>
                     <!-- Blue Card (Digital & AI) -->
                     <div class="bento-card-lux blue">
@@ -373,6 +373,7 @@
     <script src="assets/js/achievement-icons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>
+    <script src="assets/js/site-images.js"></script>
     <script>
         (async function() {
             const container = document.getElementById('achievementsContainer');

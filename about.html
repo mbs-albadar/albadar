@@ -413,8 +413,8 @@
                     <div class="about-fact"><dt>Target tahfidz Full Day</dt><dd>4 juz</dd></div>
                 </dl>
 
-                <figure class="about-photo fade-in">
-                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&amp;w=1200&amp;auto=format&amp;fit=crop" alt="Suasana Lingkungan Asri Kampus Pesantren SMP MBS Al Badar Prambanan Sleman" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
+                <figure class="about-photo fade-in" data-site-image-wrap hidden>
+                    <img data-site-image="lingkungan-sekolah" alt="Suasana Lingkungan Asri Kampus Pesantren SMP MBS Al Badar Prambanan Sleman" loading="lazy" hidden>
                     <figcaption><span class="caption-dot"></span> Suasana Asri Kampus Pesantren SMP MBS Al Badar di Prambanan, Sleman</figcaption>
                 </figure>
             </div>
@@ -667,28 +667,6 @@
     <!-- Supabase JS Client & Config for Dynamic Institutional Image -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>
-    <script>
-        // Sambungkan foto dinamis lingkungan sekolah dari site_images
-        (async function() {
-            try {
-                if (typeof supabaseClient !== 'undefined') {
-                    const { data, error } = await supabaseClient
-                        .from('site_images')
-                        .select('image_url')
-                        .eq('key', 'lingkungan-sekolah')
-                        .maybeSingle();
-
-                    if (!error && data && data.image_url) {
-                        const targetImg = document.querySelector('.about-photo img');
-                        if (targetImg) {
-                            targetImg.src = data.image_url;
-                        }
-                    }
-                }
-            } catch (err) {
-                console.warn('Gagal memuat foto dinamis lingkungan sekolah:', err);
-            }
-        })();
-    </script>
+    <script src="assets/js/site-images.js"></script>
 </body>
 </html>

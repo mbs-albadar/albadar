@@ -399,7 +399,7 @@
     <main>
         <!-- CINEMATIC HERO (Green-Blue Blend) -->
         <section class="hero-lux">
-            <div class="hero-bg-image" style="background-image: url('https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=2070&auto=format&fit=crop');"></div>
+            <div class="hero-bg-image" data-site-image="hero-beranda" data-site-image-mode="background" style="background-image: url('https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=2070&auto=format&fit=crop');"></div>
             <div class="hero-overlay-lux"></div>
             <div class="container hero-lux-content">
                 <div class="hero-badge-lux reveal-stagger">
@@ -594,7 +594,7 @@
                 </div>
                 <div class="news-grid-lux fade-in" id="newsContainer">
                     <a href="news.html" class="news-card-lux" id="newsCard1">
-                        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?q=80&w=600&auto=format&fit=crop" alt="Albadar Camp (ABC) Perdana"></div>
+                        <div class="news-img-wrap"><img src="assets/img/placeholder.svg" alt="Albadar Camp (ABC) Perdana"></div>
                         <div class="news-content-lux">
                             <span class="news-tag-lux">Boarding Experience</span>
                             <h3 class="news-title-lux">Albadar Camp (ABC) Perdana</h3>
@@ -603,7 +603,7 @@
                         </div>
                     </a>
                     <a href="news.html" class="news-card-lux" id="newsCard2">
-                        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop" alt="Bimbingan Teknis Kurikulum Satuan Pendidikan (KSP)"></div>
+                        <div class="news-img-wrap"><img src="assets/img/placeholder.svg" alt="Bimbingan Teknis Kurikulum Satuan Pendidikan (KSP)"></div>
                         <div class="news-content-lux">
                             <span class="news-tag-lux">Pengembangan Guru</span>
                             <h3 class="news-title-lux">Bimbingan Teknis Kurikulum Satuan Pendidikan (KSP)</h3>
@@ -612,7 +612,7 @@
                         </div>
                     </a>
                     <a href="news.html" class="news-card-lux" id="newsCard3">
-                        <div class="news-img-wrap"><img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop" alt="Partisipasi Santri dalam Peringatan Hari Anak Nasional"></div>
+                        <div class="news-img-wrap"><img src="assets/img/placeholder.svg" alt="Partisipasi Santri dalam Peringatan Hari Anak Nasional"></div>
                         <div class="news-content-lux">
                             <span class="news-tag-lux">Event Nasional</span>
                             <h3 class="news-title-lux">Partisipasi Santri dalam Peringatan Hari Anak Nasional</h3>
@@ -865,6 +865,7 @@
     <!-- Supabase JS Client & Config for Dynamic Hero Statistics -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>
+    <script src="assets/js/site-images.js"></script>
     <script>
         (function() {
             // Default fallback targets matching hardcoded HTML
@@ -1033,6 +1034,11 @@
                     return d.innerHTML;
                 }
 
+                // Foto stok (Unsplash) dan gambar kosong tampil sebagai panel merek
+                function newsImage(url) {
+                    return (!url || /images\.unsplash\.com/i.test(url)) ? 'assets/img/placeholder.svg' : url;
+                }
+
                 try {
                     const { data, error } = await supabaseClient
                         .from('news')
@@ -1044,7 +1050,7 @@
                         container.innerHTML = data.map(item => `
                             <a href="news.html" class="news-card-lux">
                                 <div class="news-img-wrap">
-                                    <img src="${escapeHtml(item.image || 'assets/img/placeholder.svg')}" alt="${escapeHtml(item.title || 'Berita')}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
+                                    <img src="${escapeHtml(newsImage(item.image))}" alt="${escapeHtml(item.title || 'Berita')}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
                                 </div>
                                 <div class="news-content-lux">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
