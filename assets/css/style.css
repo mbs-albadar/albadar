@@ -4165,7 +4165,8 @@ body.menu-open .menu-bar {
 /* Kartu besar tanpa foto: ruang kosongnya diisi pola yang sama dengan hero,
    agar tampak disengaja dan menyatu dengan identitas sekolah. */
 .about-bento .bento-card-lux-dark.large::before,
-.prestasi-bento .bento-card-lux.large::before {
+.prestasi-bento .bento-card-lux.large::before,
+.student-life-bento .bento-card-lux-dark.large::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -4178,12 +4179,14 @@ body.menu-open .menu-bar {
 }
 
 .about-bento .bento-card-lux-dark.large h3,
-.prestasi-bento .bento-card-lux.large h3 {
+.prestasi-bento .bento-card-lux.large h3,
+.student-life-bento .bento-card-lux-dark.large h3 {
     font-size: clamp(1.5rem, 2.4vw, 2rem);
 }
 
 .about-bento .bento-card-lux-dark.large p,
-.prestasi-bento .bento-card-lux.large p {
+.prestasi-bento .bento-card-lux.large p,
+.student-life-bento .bento-card-lux-dark.large p {
     max-width: 46ch;
     font-size: 1.05rem;
 }
@@ -4279,4 +4282,11 @@ body.menu-open .menu-bar {
     font-size: 0.8rem;
     color: var(--color-primary);
     font-weight: 600;
+}
+
+/* Saat foto asli sudah diunggah (bento-bg-img tidak lagi hidden), pola geometris
+   disembunyikan supaya tidak bertumpuk dengan foto (foto tampil di opacity rendah). */
+.prestasi-bento .bento-card-lux.large:has(.bento-bg-img:not([hidden]))::before,
+.student-life-bento .bento-card-lux-dark.large:has(.bento-bg-img:not([hidden]))::before {
+    display: none;
 }
