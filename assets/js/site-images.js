@@ -47,12 +47,17 @@
 
             els.forEach(function (el) {
                 const url = urls[el.getAttribute('data-site-image')];
-                if (!url) return;
 
                 if (el.getAttribute('data-site-image-mode') === 'background') {
-                    el.style.backgroundImage = 'url("' + url.replace(/"/g, '%22') + '")';
+                    const finalUrl = url || el.getAttribute('data-fallback-bg');
+                    if (finalUrl) {
+                        el.style.backgroundImage = 'url("' + finalUrl.replace(/"/g, '%22') + '")';
+                        el.classList.add('is-loaded');
+                    }
                     return;
                 }
+
+                if (!url) return;
 
                 el.addEventListener('error', function () { conceal(el); }, { once: true });
                 reveal(el);
@@ -60,6 +65,15 @@
             });
         } catch (err) {
             console.warn('Gagal memuat foto situs:', err);
+            els.forEach(function (el) {
+                if (el.getAttribute('data-site-image-mode') === 'background') {
+                    const fallback = el.getAttribute('data-fallback-bg');
+                    if (fallback) {
+                        el.style.backgroundImage = 'url("' + fallback.replace(/"/g, '%22') + '")';
+                        el.classList.add('is-loaded');
+                    }
+                }
+            });
         }
     }
 

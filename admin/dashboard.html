@@ -4720,6 +4720,28 @@
             });
         }
 
+        const PAGE_NAME_MAP = {
+            '/': 'Beranda',
+            '/index.html': 'Beranda',
+            '/about.html': 'Tentang Kami',
+            '/programs.html': 'Program Pendidikan',
+            '/student-life.html': 'Kehidupan Siswa',
+            '/achievements.html': 'Prestasi',
+            '/news.html': 'Berita',
+            '/berita-detail.html': 'Detail Berita',
+            '/ppdb.html': 'PPDB',
+            '/contact.html': 'Kontak',
+            '/faq.html': 'FAQ',
+            '/privacy-policy.html': 'Kebijakan Privasi',
+            '/404.html': 'Halaman Tidak Ditemukan'
+        };
+
+        function getFriendlyPageName(path) {
+            if (!path) return '(tidak diketahui)';
+            const cleanPath = path.split('?')[0].split('#')[0];
+            return PAGE_NAME_MAP[cleanPath] || cleanPath;
+        }
+
         function renderTopPagesList(topPages) {
             const container = document.getElementById('topPagesList');
             const emptyMsg = document.getElementById('topPagesEmptyMessage');
@@ -4737,7 +4759,7 @@
             const maxCount = topPages[0][1] || 1;
 
             container.innerHTML = topPages.map((entry, index) => {
-                const path = escapeHtml(entry[0]);
+                const path = escapeHtml(getFriendlyPageName(entry[0]));
                 const count = entry[1];
                 const pct = Math.max(6, Math.round((count / maxCount) * 100));
                 const borderStyle = index < topPages.length - 1 ? 'border-bottom: 1px solid var(--color-border);' : '';
