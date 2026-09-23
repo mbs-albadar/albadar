@@ -294,6 +294,77 @@
             line-height: 1.65;
             margin: 0;
         }
+
+        /* Kartu fasilitas dengan foto asli: foto memenuhi kartu, judul di bawah, deskripsi muncul saat hover/tap */
+        .bento-card-lux-dark[data-site-image-wrap] {
+            position: relative;
+        }
+        .bento-card-lux-dark[data-site-image-wrap] .bento-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible {
+            padding: 0;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(4, 20, 16, 0.85) 0%, rgba(4, 20, 16, 0) 38%);
+            z-index: 1;
+            transition: background 0.4s ease;
+            pointer-events: none;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible .bento-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            padding: 1.75rem;
+            justify-content: flex-end;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible .card-status-badge,
+        .bento-card-lux-dark[data-site-image-wrap].is-visible .bento-icon {
+            display: none;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible h3 {
+            margin-bottom: 0;
+            transition: margin-bottom 0.35s ease;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible p {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            margin-top: 0;
+            transition: opacity 0.35s ease, max-height 0.35s ease, margin-top 0.35s ease;
+        }
+        @media (hover: hover) {
+            .bento-card-lux-dark[data-site-image-wrap].is-visible:hover::after {
+                background: rgba(4, 20, 16, 0.82);
+            }
+            .bento-card-lux-dark[data-site-image-wrap].is-visible:hover h3 {
+                margin-bottom: 0.4rem;
+            }
+            .bento-card-lux-dark[data-site-image-wrap].is-visible:hover p {
+                opacity: 1;
+                max-height: 200px;
+                margin-top: 0.6rem;
+            }
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible.desc-open::after {
+            background: rgba(4, 20, 16, 0.82);
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible.desc-open h3 {
+            margin-bottom: 0.4rem;
+        }
+        .bento-card-lux-dark[data-site-image-wrap].is-visible.desc-open p {
+            opacity: 1;
+            max-height: 200px;
+            margin-top: 0.6rem;
+        }
         .card-status-badge {
             display: inline-block;
             font-size: 0.7rem;
@@ -662,7 +733,7 @@
                 </div>
                 <div class="bento-grid-lux fade-in student-life-bento">
                     <!-- 1. Masjid Sekolah (Large Card) -->
-                    <div class="bento-card-lux bento-card-lux-dark large">
+                    <div class="bento-card-lux bento-card-lux-dark large" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-masjid" alt="Masjid sekolah SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-ready">Tersedia</span>
@@ -675,7 +746,7 @@
                     </div>
 
                     <!-- 2. Kelas Full AC & Smart TV -->
-                    <div class="bento-card-lux bento-card-lux-dark blue-card">
+                    <div class="bento-card-lux bento-card-lux-dark blue-card" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-kelas" alt="Ruang kelas SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-ready">Tersedia</span>
@@ -688,7 +759,7 @@
                     </div>
 
                     <!-- 3. Lapangan Olahraga -->
-                    <div class="bento-card-lux bento-card-lux-dark dark-card">
+                    <div class="bento-card-lux bento-card-lux-dark dark-card" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-lapangan" alt="Lapangan olahraga SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-ready">Tersedia</span>
@@ -701,7 +772,7 @@
                     </div>
 
                     <!-- 4. Antar Jemput Sekolah (AJS) -->
-                    <div class="bento-card-lux bento-card-lux-dark blue-card">
+                    <div class="bento-card-lux bento-card-lux-dark blue-card" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-ajs" alt="Layanan antar jemput SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-ready">Tersedia</span>
@@ -714,7 +785,7 @@
                     </div>
 
                     <!-- 5. Perpustakaan & Taman Baca (Dalam Proses) -->
-                    <div class="bento-card-lux bento-card-lux-dark">
+                    <div class="bento-card-lux bento-card-lux-dark" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-perpustakaan" alt="Perpustakaan dan taman baca SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-process">Dalam Proses</span>
@@ -727,7 +798,7 @@
                     </div>
 
                     <!-- 6. Lab Komputer & Chromebook (Dalam Proses) -->
-                    <div class="bento-card-lux bento-card-lux-dark dark-card">
+                    <div class="bento-card-lux bento-card-lux-dark dark-card" data-site-image-wrap>
                         <img class="bento-bg-img" data-site-image="fasilitas-lab-komputer" alt="Lab komputer SMP MBS Al Badar" loading="lazy" hidden>
                         <div class="bento-content">
                             <span class="card-status-badge status-process">Dalam Proses</span>
@@ -811,5 +882,30 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>
     <script src="assets/js/site-images.js"></script>
+    <script>
+        // Tap-to-reveal deskripsi kartu fasilitas berfoto, khusus perangkat tanpa hover (HP/tablet)
+        (function () {
+            if (!window.matchMedia('(hover: none)').matches) return;
+
+            var cards = Array.prototype.slice.call(
+                document.querySelectorAll('.student-life-bento .bento-card-lux-dark[data-site-image-wrap]')
+            );
+            if (!cards.length) return;
+
+            cards.forEach(function (card) {
+                card.addEventListener('click', function () {
+                    var alreadyOpen = card.classList.contains('desc-open');
+                    cards.forEach(function (c) { c.classList.remove('desc-open'); });
+                    if (!alreadyOpen) card.classList.add('desc-open');
+                });
+            });
+
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.student-life-bento .bento-card-lux-dark[data-site-image-wrap]')) {
+                    cards.forEach(function (c) { c.classList.remove('desc-open'); });
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
