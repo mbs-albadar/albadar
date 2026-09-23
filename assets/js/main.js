@@ -565,11 +565,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // PPDB Brosur & Flyer Download Section
+    // PPDB Brosur & Flyer: baris tautan ringkas di hero (bukan section penuh)
     const ppdbDocsContainer = document.getElementById('ppdbDocsContainer');
     if (ppdbDocsContainer) {
-        const ppdbDocsSection = document.getElementById('ppdbDocsSection');
-
         function escapePpdbLabel(str) {
             const div = document.createElement('div');
             div.textContent = str == null ? '' : String(str);
@@ -578,22 +576,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function renderPpdbDocsPublic(docs) {
             if (!docs || docs.length === 0) {
-                if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+                ppdbDocsContainer.hidden = true;
                 return;
             }
-            if (ppdbDocsSection) ppdbDocsSection.style.display = '';
+            ppdbDocsContainer.hidden = false;
 
-            const fileIcon = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>';
+            const fileIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>';
 
-            ppdbDocsContainer.innerHTML = docs.map(function(doc) {
-                return '<a href="' + doc.file_url + '" target="_blank" rel="noopener" class="ppdb-doc-card">' +
-                    '<div class="ppdb-doc-icon">' + fileIcon + '</div>' +
-                    '<div>' +
-                        '<div class="ppdb-doc-label">' + escapePpdbLabel(doc.label) + '</div>' +
-                        '<div class="ppdb-doc-action">Unduh Berkas</div>' +
-                    '</div>' +
-                '</a>';
-            }).join('');
+            ppdbDocsContainer.innerHTML = '<span class="ppdb-docs-inline-label">Unduh Berkas:</span>' +
+                docs.map(function(doc) {
+                    return '<a href="' + doc.file_url + '" target="_blank" rel="noopener" class="ppdb-doc-link">' +
+                        fileIcon + escapePpdbLabel(doc.label) +
+                    '</a>';
+                }).join('');
         }
 
         if (typeof supabaseClient !== 'undefined') {
@@ -606,10 +601,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderPpdbDocsPublic(res.data || []);
                 })
                 .catch(function() {
-                    if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+                    ppdbDocsContainer.hidden = true;
                 });
         } else {
-            if (ppdbDocsSection) ppdbDocsSection.style.display = 'none';
+            ppdbDocsContainer.hidden = true;
         }
     }
 

@@ -2371,9 +2371,13 @@ section.luxury-steps-section,
     line-height: 1;
 }
 
-/* Floating effect on Focus or when containing text (placeholder not shown) */
+/* Floating effect on Focus or when containing text (placeholder not shown).
+   :placeholder-shown tidak berlaku untuk <select>, jadi baris kedua di bawah
+   sengaja mengecualikan .form-select-lux -- tanpa pengecualian ini, label
+   sebuah <select> akan selalu tampak "terisi" walau belum ada pilihan,
+   karena :not(:placeholder-shown) otomatis selalu true untuk elemen select. */
 .form-input-lux:focus ~ .form-label-lux,
-.form-input-lux:not(:placeholder-shown) ~ .form-label-lux,
+.form-input-lux:not(.form-select-lux):not(:placeholder-shown) ~ .form-label-lux,
 .form-select-lux:focus ~ .form-label-lux,
 .form-select-lux:valid ~ .form-label-lux {
     transform: translateY(-0.85rem) scale(0.82);
@@ -4236,52 +4240,53 @@ body.menu-open .menu-bar {
     color: var(--lux-dark);
 }
 
-.ppdb-docs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.25rem;
-}
-
-.ppdb-doc-card {
+/* Unduh brosur/flyer PPDB: dulu section penuh dengan judul sendiri, sekarang
+   baris tautan ringkas di bawah tombol hero -- brosur bersifat pelengkap,
+   bukan langkah utama, jadi tidak perlu seukuran section sendiri. */
+.ppdb-docs-inline {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 1rem;
-    padding: 1.25rem;
-    background: #FFFFFF;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    text-decoration: none;
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    gap: 0.6rem 0.75rem;
+    margin-top: 1.75rem;
 }
 
-.ppdb-doc-card:hover {
-    box-shadow: var(--shadow-md);
+.ppdb-docs-inline-label {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+/* Diberi bentuk pil dengan latar dan garis tipis supaya jelas terlihat sebagai
+   tautan yang bisa diklik di atas hero gelap, bukan tenggelam sebagai teks biasa. */
+.ppdb-doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(212, 181, 130, 0.4);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ppdb-doc-link svg {
+    flex-shrink: 0;
+    color: var(--lux-gold);
+}
+
+.ppdb-doc-link:hover {
+    background: var(--lux-gold);
+    border-color: var(--lux-gold);
+    color: var(--color-primary);
     transform: translateY(-2px);
 }
 
-.ppdb-doc-icon {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-sm);
-    background: rgba(4, 71, 58, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.ppdb-doc-link:hover svg {
     color: var(--color-primary);
-}
-
-.ppdb-doc-label {
-    font-weight: 600;
-    color: var(--lux-dark);
-    margin-bottom: 0.15rem;
-}
-
-.ppdb-doc-action {
-    font-size: 0.8rem;
-    color: var(--color-primary);
-    font-weight: 600;
 }
 
 /* Saat foto asli sudah diunggah (bento-bg-img tidak lagi hidden), pola geometris
