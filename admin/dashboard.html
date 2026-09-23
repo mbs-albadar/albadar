@@ -2581,11 +2581,11 @@
                                     <polyline points="3 17 9 11 13 15 21 7"></polyline>
                                     <polyline points="14 7 21 7 21 14"></polyline>
                                 </svg>
-                                Tren Kunjungan Harian (30 Hari Terakhir)
+                                <span id="dailyVisitsChartHeading">Tren Kunjungan</span>
                             </h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Jumlah kunjungan halaman per hari.</p>
+                            <p id="dailyVisitsChartSubheading" style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Memuat data kunjungan...</p>
                         </div>
-                        <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">30 Hari</span>
+                        <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">...</span>
                     </div>
 
                     <div id="dailyVisitsChartWrapper" style="position: relative; width: 100%; height: 260px;">
@@ -4525,24 +4525,28 @@
 
         async function loadVisitorAnalytics() {
             try {
-                const thirtyDaysAgo = new Date();
-                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-                const sinceIso = thirtyDaysAgo.toISOString();
+                const now = new Date();
 
                 const { data, error } = await supabaseClient
                     .from('analytics_events')
                     .select('event_type, page_path, created_at')
-                    .gte('created_at', sinceIso);
+                    .order('created_at', { ascending: true });
 
                 if (error) {
                     console.warn('Error loading analytics_events:', error);
                     setAnalyticsStatCards(0, 0, 0, 0);
-                    renderDailyVisitsChart([]);
+                    renderVisitsTrendChart([], 'daily', now);
                     renderTopPagesList([]);
                     return;
                 }
 
-                const rows = data || [];
+                const allRows = data || [];
+
+                // Kartu statistik & ranking halaman: tetap lingkup 30 hari terakhir
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+                const rows = allRows.filter(r => r.created_at && new Date(r.created_at) >= thirtyDaysAgo);
+
                 const totalPageViews = rows.filter(r => r.event_type === 'page_view').length;
                 const totalPpdbClicks = rows.filter(r => r.event_type === 'click_ppdb').length;
                 const totalBrosurClicks = rows.filter(r => r.event_type === 'click_brosur').length;
@@ -4562,28 +4566,61 @@
                     .slice(0, 5);
                 renderTopPagesList(topPages);
 
-                const dayMap = {};
-                const dailyData = [];
-                for (let i = 29; i >= 0; i--) {
-                    const d = new Date();
-                    d.setDate(d.getDate() - i);
-                    const key = d.toISOString().slice(0, 10);
-                    const label = `${d.getDate()}/${d.getMonth() + 1}`;
-                    const entry = { key, label, count: 0 };
-                    dailyData.push(entry);
-                    dayMap[key] = entry;
+                // Grafik tren: granularitas menyesuaikan rentang data yang BENAR-BENAR ada,
+                // supaya tidak pernah menampilkan bulan kosong palsu sebelum pelacakan dimulai
+                const pageViewRows = allRows.filter(r => r.event_type === 'page_view' && r.created_at);
+
+                if (pageViewRows.length === 0) {
+                    renderVisitsTrendChart([], 'daily', now);
+                    return;
                 }
-                rows.forEach(r => {
-                    if (r.event_type === 'page_view' && r.created_at) {
+
+                const earliestDate = new Date(pageViewRows[0].created_at);
+                const spansMultipleMonths = earliestDate.getFullYear() !== now.getFullYear() || earliestDate.getMonth() !== now.getMonth();
+
+                if (!spansMultipleMonths) {
+                    // Semua data masih dalam bulan berjalan -> tampilkan tren harian bulan ini
+                    const daysInMonthSoFar = now.getDate();
+                    const dailyData = [];
+                    const dayMap = {};
+                    for (let day = 1; day <= daysInMonthSoFar; day++) {
+                        const d = new Date(now.getFullYear(), now.getMonth(), day);
+                        const key = d.toISOString().slice(0, 10);
+                        const entry = { key, label: String(day), count: 0 };
+                        dailyData.push(entry);
+                        dayMap[key] = entry;
+                    }
+                    pageViewRows.forEach(r => {
                         const key = String(r.created_at).slice(0, 10);
                         if (dayMap[key]) dayMap[key].count++;
+                    });
+                    renderVisitsTrendChart(dailyData, 'daily', now);
+                } else {
+                    // Data sudah lintas bulan kalender -> tampilkan tren bulanan sejak bulan pertama tercatat
+                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                    const monthlyData = [];
+                    const monthMap = {};
+                    let cursor = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1);
+                    const endCursor = new Date(now.getFullYear(), now.getMonth(), 1);
+                    while (cursor <= endCursor) {
+                        const key = `${cursor.getFullYear()}-${cursor.getMonth()}`;
+                        const label = monthNames[cursor.getMonth()] + (cursor.getFullYear() !== now.getFullYear() ? ` '${String(cursor.getFullYear()).slice(2)}` : '');
+                        const entry = { key, label, count: 0 };
+                        monthlyData.push(entry);
+                        monthMap[key] = entry;
+                        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
                     }
-                });
-                renderDailyVisitsChart(dailyData);
+                    pageViewRows.forEach(r => {
+                        const d = new Date(r.created_at);
+                        const key = `${d.getFullYear()}-${d.getMonth()}`;
+                        if (monthMap[key]) monthMap[key].count++;
+                    });
+                    renderVisitsTrendChart(monthlyData, 'monthly', now);
+                }
             } catch (err) {
                 console.error('Exception loading visitor analytics:', err);
                 setAnalyticsStatCards(0, 0, 0, 0);
-                renderDailyVisitsChart([]);
+                renderVisitsTrendChart([], 'daily', new Date());
                 renderTopPagesList([]);
             }
         }
@@ -4607,17 +4644,28 @@
             if (elWaConv) elWaConv.textContent = `${pct(wa)}% dari kunjungan`;
         }
 
-        function renderDailyVisitsChart(dailyData) {
+        function renderVisitsTrendChart(chartData, mode, referenceDate) {
             const canvas = document.getElementById('dailyVisitsChart');
             const wrapper = document.getElementById('dailyVisitsChartWrapper');
             const emptyMsg = document.getElementById('dailyVisitsChartEmptyMessage');
             const badge = document.getElementById('dailyVisitsTotalBadge');
+            const heading = document.getElementById('dailyVisitsChartHeading');
+            const subheading = document.getElementById('dailyVisitsChartSubheading');
             if (!canvas || !wrapper || !emptyMsg) return;
 
-            const totalViews = dailyData.reduce((sum, d) => sum + d.count, 0);
-            if (badge) badge.textContent = `Total: ${totalViews} Kunjungan`;
+            const monthNamesFull = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
-            if (totalViews === 0) {
+            if (heading) heading.textContent = mode === 'monthly' ? 'Tren Kunjungan Bulanan' : 'Tren Kunjungan Harian';
+            if (subheading) {
+                subheading.textContent = mode === 'monthly'
+                    ? 'Jumlah kunjungan halaman per bulan, sejak data mulai tercatat.'
+                    : `Jumlah kunjungan halaman per hari, bulan ${monthNamesFull[referenceDate.getMonth()]} ${referenceDate.getFullYear()}.`;
+            }
+
+            const totalViews = chartData.reduce((sum, d) => sum + d.count, 0);
+            if (badge) badge.textContent = mode === 'monthly' ? `Total: ${totalViews} Kunjungan` : `Total: ${totalViews} Bulan Ini`;
+
+            if (totalViews === 0 || chartData.length === 0) {
                 wrapper.style.display = 'none';
                 emptyMsg.style.display = 'block';
                 if (dailyVisitsChart) {
@@ -4631,7 +4679,7 @@
             emptyMsg.style.display = 'none';
 
             if (typeof Chart === 'undefined') {
-                setTimeout(() => renderDailyVisitsChart(dailyData), 150);
+                setTimeout(() => renderVisitsTrendChart(chartData, mode, referenceDate), 150);
                 return;
             }
 
@@ -4640,8 +4688,8 @@
                 dailyVisitsChart = null;
             }
 
-            const labels = dailyData.map(d => d.label);
-            const dataValues = dailyData.map(d => d.count);
+            const labels = chartData.map(d => d.label);
+            const dataValues = chartData.map(d => d.count);
 
             const ctx = canvas.getContext('2d');
             let fillGradient = 'rgba(4, 71, 58, 0.15)';
