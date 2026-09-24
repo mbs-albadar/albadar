@@ -263,8 +263,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateNewsCard('newsCard2', allNews[1]);
         updateNewsCard('newsCard3', allNews[2]);
 
-        if (allNews.length <= 3) return;
-
         let currentCard = 1;
         let newsOffset = 3;
 
@@ -273,7 +271,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateNewsCard(cardId, allNews[newsOffset % allNews.length]);
             newsOffset++;
             currentCard = (currentCard % 3) + 1;
-        }, 5000);
+        }, 4000);
     }
 
     if (document.getElementById('newsCard1')) {

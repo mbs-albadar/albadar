@@ -861,7 +861,7 @@
         </svg>
     </a>
 
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/main.js?v=2"></script>
     <!-- Supabase JS Client & Config for Dynamic Hero Statistics -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>
@@ -1022,56 +1022,7 @@
                 }
             }
 
-            // 3. Dynamic News Preview (3 Latest News)
-            async function loadHomeNewsPreview() {
-                const container = document.getElementById('newsContainer');
-                if (!container || typeof supabaseClient === 'undefined') return;
-
-                function escapeHtml(text) {
-                    if (!text) return '';
-                    const d = document.createElement('div');
-                    d.textContent = text;
-                    return d.innerHTML;
-                }
-
-                // Foto stok (Unsplash) dan gambar kosong tampil sebagai panel merek
-                function newsImage(url) {
-                    return (!url || /images\.unsplash\.com/i.test(url)) ? 'assets/img/placeholder.svg' : url;
-                }
-
-                try {
-                    const { data, error } = await supabaseClient
-                        .from('news')
-                        .select('id, title, date, category, excerpt, image, created_at')
-                        .order('created_at', { ascending: false })
-                        .limit(3);
-
-                    if (!error && Array.isArray(data) && data.length > 0) {
-                        container.innerHTML = data.map(item => `
-                            <a href="news.html" class="news-card-lux">
-                                <div class="news-img-wrap">
-                                    <img src="${escapeHtml(newsImage(item.image))}" alt="${escapeHtml(item.title || 'Berita')}" loading="lazy" onerror="this.onerror=null;this.src='assets/img/placeholder.svg';">
-                                </div>
-                                <div class="news-content-lux">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                        <span class="news-tag-lux">${escapeHtml(item.category || 'Berita')}</span>
-                                        <span class="news-date" style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 500;">${escapeHtml(item.date || '')}</span>
-                                    </div>
-                                    <h3 class="news-title-lux">${escapeHtml(item.title || '')}</h3>
-                                    <p class="news-excerpt-lux">${escapeHtml(item.excerpt || '')}</p>
-                                    <span class="news-read-lux">Baca Selengkapnya</span>
-                                </div>
-                            </a>
-                        `).join('');
-                    }
-                } catch (err) {
-                    console.warn('Gagal memuat preview berita beranda dari Supabase:', err);
-                    // Fallback: the 3 hardcoded cards remain intact in HTML
-                }
-            }
-
             fetchRealStats();
-            loadHomeNewsPreview();
         })();
     </script>
 </body>
