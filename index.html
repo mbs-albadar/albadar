@@ -401,6 +401,7 @@
         <section class="hero-lux">
             <div class="hero-bg-image" data-site-image="hero-beranda" data-site-image-mode="background" data-fallback-bg="https://images.unsplash.com/photo-1564981797816-1043664bf78d?q=80&w=2070&auto=format&fit=crop"></div>
             <div class="hero-overlay-lux"></div>
+            <div class="hero-cursor-glow"></div>
             <div class="container hero-lux-content">
                 <div class="hero-badge-lux reveal-stagger">
                     <span class="pulse-dot"></span> PPDB Tahun Ajaran 2027/2028 Dibuka
@@ -1023,6 +1024,24 @@
             }
 
             fetchRealStats();
+        })();
+
+        // Glow lembut mengikuti kursor di hero — hanya di perangkat dengan
+        // mouse asli. Tanpa listener sama sekali di HP (hemat, tidak perlu).
+        (function () {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+            const hero = document.querySelector('.hero-lux');
+            const glow = document.querySelector('.hero-cursor-glow');
+            if (!hero || !glow) return;
+
+            hero.addEventListener('mousemove', function (e) {
+                const rect = hero.getBoundingClientRect();
+                const xPercent = ((e.clientX - rect.left) / rect.width) * 100;
+                const yPercent = ((e.clientY - rect.top) / rect.height) * 100;
+                glow.style.setProperty('--mx', xPercent + '%');
+                glow.style.setProperty('--my', yPercent + '%');
+            });
         })();
     </script>
 </body>

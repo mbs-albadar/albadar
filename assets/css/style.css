@@ -968,6 +968,27 @@ p {
     z-index: -1;
 }
 
+/* Glow lembut yang mengikuti kursor — cuma aktif di desktop (lihat JS),
+   ngasih kesan "hidup" tanpa mengganggu keterbacaan teks di atasnya. */
+.hero-cursor-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 35%), rgba(212, 181, 130, 0.16), transparent 60%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.hero-lux:hover .hero-cursor-glow {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-cursor-glow {
+        display: none;
+    }
+}
+
 .hero-lux-content {
     max-width: 850px;
     margin: 0 auto;
