@@ -1232,6 +1232,329 @@ p {
     margin-bottom: 1.25rem;
 }
 
+/* === RITME HARIAN: 2 Jam Analog + Akordeon (student-life.html) ===
+   Dua jam 12-jam (00.00-12.00 dan 12.00-24.00) memakai conic-gradient
+   murni CSS untuk menandai 4 blok aktivitas sebagai busur berwarna sesuai
+   suhu cahaya sungguhan di jam tersebut. Nama kegiatan selalu terlihat di
+   daftar akordeon di bawahnya; deskripsi baru tampil saat baris di-tap
+   (progressive disclosure, bukan menyembunyikan info penting). Jarum jam
+   menunjuk jam device pengunjung secara real-time (dihitung ulang tiap
+   menit, bukan animasi berjalan terus). Lihat inline script di bagian
+   bawah student-life.html untuk logikanya. */
+:root {
+    --tl-dawn: #333a72;
+    --tl-day: var(--color-secondary);
+    --tl-golden: var(--lux-gold);
+    --tl-maghrib: #c1622f;
+    --tl-dusk: #3a2a5c;
+    --ritme-track: transparent;
+}
+
+.ritme-clocks {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-bottom: 3.5rem;
+}
+
+.ritme-clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ritme-clock-face-wrap {
+    position: relative;
+    width: clamp(160px, 24vw, 236px);
+    height: clamp(160px, 24vw, 236px);
+}
+
+/* Wajah jam: cincin warna jadwal DI BAWAH (disc conic-gradient penuh),
+   ditutup lingkaran putih lebih kecil di atasnya — teknik tumpuk biasa,
+   tanpa CSS mask (supaya tidak ada risiko gagal render lintas browser). */
+.ritme-clock-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow:
+        0 14px 28px rgba(4, 71, 58, 0.16),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.ritme-clock-face-1 {
+    background: conic-gradient(
+        from 0deg,
+        var(--ritme-track) 0deg 105deg,
+        var(--tl-dawn) 105deg 180deg,
+        var(--ritme-track) 180deg 210deg,
+        var(--tl-day) 210deg 360deg
+    );
+}
+
+.ritme-clock-face-2 {
+    background: conic-gradient(
+        from 0deg,
+        var(--tl-day) 0deg 90deg,
+        var(--ritme-track) 90deg 105deg,
+        var(--tl-golden) 105deg 165deg,
+        var(--tl-maghrib) 165deg 202.5deg,
+        var(--tl-dusk) 202.5deg 285deg,
+        var(--ritme-track) 285deg 360deg
+    );
+}
+
+.ritme-clock-ring {
+    position: absolute;
+    inset: 0;
+}
+
+/* Wajah putih di atas cincin warna, dengan tekstur guilloché halus
+   (garis-garis radial tipis khas wajah arloji presisi) */
+.ritme-clock-ring::before {
+    content: "";
+    position: absolute;
+    top: 13%;
+    left: 13%;
+    right: 13%;
+    bottom: 13%;
+    border-radius: 50%;
+    background:
+        repeating-conic-gradient(from 0deg, rgba(4, 71, 58, 0.12) 0deg 0.5deg, transparent 0.5deg 6deg),
+        #fdfcf9;
+    box-shadow: inset 0 1px 3px rgba(4, 71, 58, 0.06);
+}
+
+/* Cincin emas tipis persis di batas antara warna jadwal & wajah jam */
+.ritme-clock-ring::after {
+    content: "";
+    position: absolute;
+    top: 13%;
+    left: 13%;
+    right: 13%;
+    bottom: 13%;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 181, 130, 0.5);
+}
+
+/* Kilau kaca lembut di kuadran kiri-atas, di atas semua lapisan */
+.ritme-clock-face-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 32% 26%, rgba(255, 255, 255, 0.4), transparent 55%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Tanda kecil untuk 8 jam selain 12/3/6/9 */
+.ritme-clock-tick {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 2px;
+    height: 34%;
+    margin-left: -1px;
+    transform-origin: top center;
+}
+
+.ritme-clock-tick::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    height: 6px;
+    border-radius: 1px;
+    background: rgba(4, 71, 58, 0.3);
+}
+
+.ritme-clock-mark {
+    position: absolute;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--lux-dark);
+    z-index: 2;
+}
+
+.mark-12 { top: 22%; left: 50%; transform: translate(-50%, -50%); }
+.mark-3 { top: 50%; right: 22%; transform: translate(50%, -50%); }
+.mark-6 { bottom: 22%; left: 50%; transform: translate(-50%, 50%); }
+.mark-9 { top: 50%; left: 22%; transform: translate(-50%, -50%); }
+
+.ritme-clock-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -5px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 3px #fdfcf9, 0 0 0 4px rgba(212, 181, 130, 0.45);
+    z-index: 3;
+}
+
+/* Jarum meruncing seperti jarum jam asli, bukan garis lurus */
+.ritme-clock-hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    width: 7px;
+    height: 34%;
+    margin-left: -3.5px;
+    background: var(--color-primary);
+    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+    transform-origin: bottom center;
+    filter: drop-shadow(0 2px 2px rgba(4, 71, 58, 0.25));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+}
+
+.ritme-clock-hand.is-active {
+    opacity: 1;
+}
+
+.ritme-clock-label {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.3rem 0.95rem;
+    border-radius: var(--radius-pill);
+    background: rgba(4, 71, 58, 0.06);
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+}
+
+/* --- Daftar akordeon --- */
+.ritme-list {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.ritme-note {
+    max-width: 780px;
+    margin: 1rem auto 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.ritme-row {
+    border-radius: var(--radius-md);
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+    border-left: 4px solid var(--color-primary);
+    overflow: hidden;
+    transition: box-shadow 0.25s ease;
+}
+
+.ritme-row.ritme-dawn { border-left-color: var(--tl-dawn); }
+.ritme-row.ritme-day { border-left-color: var(--tl-day); }
+.ritme-row.ritme-golden { border-left-color: var(--tl-golden); }
+.ritme-row.ritme-maghrib { border-left-color: var(--tl-maghrib); }
+.ritme-row.ritme-dusk { border-left-color: var(--tl-dusk); }
+
+.ritme-row.is-now {
+    box-shadow: var(--shadow-md);
+}
+
+.ritme-row-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+
+.ritme-chip {
+    flex-shrink: 0;
+    min-width: 118px;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    color: var(--lux-dark);
+}
+
+.ritme-row-title {
+    flex: 1;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.ritme-row-now {
+    display: none;
+    flex-shrink: 0;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: var(--color-primary);
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-pill);
+}
+
+.ritme-row.is-now .ritme-row-now {
+    display: inline-block;
+}
+
+.ritme-row-chevron {
+    flex-shrink: 0;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--color-text-muted);
+    border-bottom: 2px solid var(--color-text-muted);
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.ritme-row.is-open .ritme-row-chevron {
+    transform: rotate(-135deg);
+}
+
+.ritme-row-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+}
+
+.ritme-row-desc {
+    margin: 0;
+    padding: 0 1.4rem 1.3rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .ritme-row-head {
+        flex-wrap: wrap;
+    }
+    .ritme-chip {
+        min-width: auto;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ritme-row-panel,
+    .ritme-row-chevron {
+        transition: none;
+    }
+}
+
 /* === BENTO GRID & KURIKULUM OPERASIONAL === */
 .bento-section-lux {
     padding: 8rem 0;
