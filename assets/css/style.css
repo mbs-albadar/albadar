@@ -49,6 +49,12 @@ html {
     width: 100%;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--lux-bg);
@@ -936,6 +942,23 @@ p {
 
 .hero-bg-image.is-loaded {
     opacity: 1;
+}
+
+/* Parallax halus: foto hero bergerak lebih lambat dari konten saat discroll.
+   Cuma untuk perangkat dengan mouse asli (desktop) — background-attachment:
+   fixed dikenal bermasalah di Safari iOS, dan parallax di layar sentuh
+   sering terasa janggal/boros baterai, jadi mobile sengaja dibiarkan
+   default (scroll biasa, sudah stabil). */
+@media (hover: hover) and (pointer: fine) {
+    .hero-bg-image {
+        background-attachment: fixed;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-bg-image {
+        background-attachment: scroll;
+    }
 }
 
 .hero-overlay-lux {
