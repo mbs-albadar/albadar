@@ -91,6 +91,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         if (d !== item) d.classList.remove('open');
                     });
                     item.classList.toggle('open', !isOpen);
+
+                    // Pastikan submenu yang baru dibuka benar-benar kelihatan —
+                    // penting di layar pendek (HP landscape), karena drawer bisa
+                    // discroll dan submenu bisa jatuh di luar area yang terlihat
+                    // tanpa ini.
+                    if (!isOpen) {
+                        const submenu = item.querySelector('.dropdown-menu');
+                        if (submenu) {
+                            // Tunggu transisi max-height selesai baru scroll,
+                            // supaya posisi akhir submenu sudah pasti.
+                            setTimeout(() => {
+                                submenu.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                            }, 320);
+                        }
+                    }
                 }
             });
         }
