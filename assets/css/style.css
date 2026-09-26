@@ -501,6 +501,8 @@ p {
 .site-header.scrolled .main-nav a.nav-cta:hover {
     background-color: var(--color-secondary);
     color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(17, 54, 110, 0.25);
 }
 
 .main-nav a.nav-cta:active,
@@ -524,6 +526,8 @@ p {
 .site-header .main-nav a.nav-cta-secondary:hover {
     background: rgba(212, 181, 130, 0.15);
     color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(212, 181, 130, 0.2);
 }
 
 .site-header.scrolled .main-nav a.nav-cta-secondary,
