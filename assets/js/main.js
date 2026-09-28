@@ -363,44 +363,27 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
 
-        let slideIndex = 0;
-        let slideTimer = null;
-
         function initHomePrestasiCarousel(items) {
-            const pageSize = 3;
-            const pages = [];
-            for (let i = 0; i < items.length; i += pageSize) {
-                pages.push(items.slice(i, i + pageSize));
-            }
+            // Tampilkan 3 prestasi terbaru, statis (tanpa geser/rotasi otomatis)
+            const latest = items.slice(0, 3);
 
-            track.innerHTML = pages.map(pageItems => `
+            track.innerHTML = `
                 <div class="cards-grid grid-3 prestasi-carousel-page">
-                    ${pageItems.map(renderPrestasiCard).join('')}
+                    ${latest.map(renderPrestasiCard).join('')}
                 </div>
-            `).join('');
+            `;
 
             track.querySelectorAll('.fade-stagger').forEach((el, i) => {
-                el.style.transitionDelay = `${(i % pageSize) * 70}ms`;
+                el.style.transitionDelay = `${i * 70}ms`;
                 requestAnimationFrame(() => el.classList.add('is-visible'));
             });
-
-            if (slideTimer) clearInterval(slideTimer);
-            slideIndex = 0;
-            track.style.transform = 'translateX(0)';
-
-            if (pages.length > 1) {
-                slideTimer = setInterval(() => {
-                    slideIndex = (slideIndex + 1) % pages.length;
-                    track.style.transform = `translateX(-${slideIndex * 100}%)`;
-                }, 5000);
-            }
         }
 
         supabaseClient
             .from('achievements')
             .select('*')
             .order('created_at', { ascending: false })
-            .limit(9)
+            .limit(3)
             .then(function(res) {
                 if (res.error) throw res.error;
                 if (Array.isArray(res.data) && res.data.length > 0) {
