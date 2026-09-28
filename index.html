@@ -248,6 +248,48 @@
         .tag-green { background: rgba(4, 71, 58, 0.1); color: var(--color-primary); }
         .tag-blue { background: rgba(17, 54, 110, 0.1); color: var(--color-secondary); }
 
+        /* Prestasi Beranda: Carousel Geser + Kartu Link + Media Foto */
+        .prestasi-carousel-viewport {
+            overflow: hidden;
+            width: 100%;
+        }
+        .prestasi-carousel-track {
+            display: flex;
+            transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .prestasi-carousel-page {
+            flex: 0 0 100%;
+            min-width: 0;
+        }
+        .feature-card-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .prestasi-home-media {
+            position: relative;
+            width: calc(100% + 3.6rem);
+            margin: -2.2rem -1.8rem 1.25rem -1.8rem;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: var(--radius-md) var(--radius-md) 0 0;
+        }
+        .prestasi-home-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.35s ease;
+        }
+        .feature-card-link:hover .prestasi-home-media img {
+            transform: scale(1.05);
+        }
+        @media (max-width: 768px) {
+            .prestasi-carousel-page {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* Premium Advantage Cards (Keunggulan Sekolah) */
         .premium-advantage {
             background: #ffffff;
@@ -560,27 +602,29 @@
                 <div class="section-header-lux center fade-in">
                     <h2 class="section-title-lux">Bukti Dedikasi &amp; Potensi Siswa</h2>
                 </div>
-                <div class="cards-grid grid-3">
-                    <!-- Card 1 -->
-                    <div class="feature-card fade-stagger">
-                        <span class="card-tag tag-gold">OPI</span>
-                        <div class="card-icon">🏅</div>
-                        <h3 class="card-title-custom">Olimpiade Pelajar Indonesia</h3>
-                        <p class="card-desc-custom">Meraih medali Perak dan Perunggu pada ajang olimpiade tingkat nasional.</p>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="feature-card fade-stagger">
-                        <span class="card-tag tag-green">Kompas</span>
-                        <div class="card-icon">🥇</div>
-                        <h3 class="card-title-custom">Kompetisi Pelajar Ambis</h3>
-                        <p class="card-desc-custom">Mengharumkan nama sekolah dengan raihan medali Emas, Perak, dan Perunggu.</p>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="feature-card fade-stagger">
-                        <span class="card-tag tag-blue">Mendatang</span>
-                        <div class="card-icon">☪️</div>
-                        <h3 class="card-title-custom">Olimnus Islamic</h3>
-                        <p class="card-desc-custom">Bersiap menghadapi kompetisi diniyah tingkat nasional dalam waktu dekat.</p>
+                <div class="prestasi-carousel-viewport">
+                    <div class="prestasi-carousel-track" id="prestasiCarouselTrack">
+                        <div class="cards-grid grid-3 prestasi-carousel-page">
+                            <!-- Fallback (tampil sebelum data database dimuat) -->
+                            <div class="feature-card fade-stagger">
+                                <span class="card-tag tag-gold">OPI</span>
+                                <div class="card-icon-wrap"></div>
+                                <h3 class="card-title-custom">Olimpiade Pelajar Indonesia</h3>
+                                <p class="card-desc-custom">Meraih medali Perak dan Perunggu pada ajang olimpiade tingkat nasional.</p>
+                            </div>
+                            <div class="feature-card fade-stagger">
+                                <span class="card-tag tag-green">Kompas</span>
+                                <div class="card-icon-wrap"></div>
+                                <h3 class="card-title-custom">Kompetisi Pelajar Ambis</h3>
+                                <p class="card-desc-custom">Mengharumkan nama sekolah dengan raihan medali Emas, Perak, dan Perunggu.</p>
+                            </div>
+                            <div class="feature-card fade-stagger">
+                                <span class="card-tag tag-blue">Mendatang</span>
+                                <div class="card-icon-wrap"></div>
+                                <h3 class="card-title-custom">Olimnus Islamic</h3>
+                                <p class="card-desc-custom">Bersiap menghadapi kompetisi diniyah tingkat nasional dalam waktu dekat.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center fade-in mt-xl">
@@ -880,7 +924,8 @@
         </svg>
     </a>
 
-    <script src="assets/js/main.js?v=2"></script>
+    <script src="assets/js/achievement-icons.js"></script>
+    <script src="assets/js/main.js?v=3"></script>
     <!-- Supabase JS Client & Config for Dynamic Hero Statistics -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="assets/js/supabase-config.js"></script>

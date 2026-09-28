@@ -350,10 +350,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 mediaHtml = `<div class="card-icon-wrap">${iconSvg}</div>`;
             }
 
+            const tagHtml = `<span class="card-tag tag-${badgeColor}">${badgeLabel}</span>`;
+            // Foto tampil paling atas kartu; ikon tampil di bawah label
+            const topHtml = item.image_url ? mediaHtml + tagHtml : tagHtml + mediaHtml;
+
             return `
                 <a href="achievements.html#ach-${achId}" class="feature-card feature-card-link fade-stagger">
-                    <span class="card-tag tag-${badgeColor}">${badgeLabel}</span>
-                    ${mediaHtml}
+                    ${topHtml}
                     <h3 class="card-title-custom">${title}</h3>
                     <p class="card-desc-custom">${description}</p>
                 </a>
@@ -375,6 +378,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${pageItems.map(renderPrestasiCard).join('')}
                 </div>
             `).join('');
+
+            track.querySelectorAll('.fade-stagger').forEach((el, i) => {
+                el.style.transitionDelay = `${(i % pageSize) * 70}ms`;
+                requestAnimationFrame(() => el.classList.add('is-visible'));
+            });
 
             if (slideTimer) clearInterval(slideTimer);
             slideIndex = 0;

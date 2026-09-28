@@ -149,6 +149,15 @@
             margin-bottom: 0;
         }
         
+        .achievement-highlight-flash {
+            animation: achievementFlash 2.2s ease;
+        }
+        @keyframes achievementFlash {
+            0%   { box-shadow: 0 0 0 0 rgba(212, 181, 130, 0.0); }
+            20%  { box-shadow: 0 0 0 6px rgba(212, 181, 130, 0.55), 0 0 32px rgba(212, 181, 130, 0.5); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 181, 130, 0.0); }
+        }
+
         .achievement-detail-list {
             list-style: none;
             padding: 0;
@@ -479,7 +488,7 @@
                     }
 
                     return `
-                        <div class="feature-card fade-stagger ${item.image_url ? 'has-media' : ''}">
+                        <div id="ach-${escapeHtml(String(item.id))}" class="feature-card fade-stagger ${item.image_url ? 'has-media' : ''}">
                             ${mediaHtml}
                             <div class="achievement-badges-wrap">
                                 <span class="achievement-badge badge-${escapeHtml(badgeColor)}">${escapeHtml(badgeLabel)}</span>
@@ -498,6 +507,18 @@
                 newCards.forEach((c, idx) => {
                     setTimeout(() => c.classList.add('is-visible'), idx * 80);
                 });
+
+                // Lompat & sorot otomatis jika datang dari link beranda (contoh: achievements.html#ach-123)
+                if (location.hash) {
+                    const target = document.querySelector(location.hash);
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            target.classList.add('achievement-highlight-flash');
+                            setTimeout(() => target.classList.remove('achievement-highlight-flash'), 2200);
+                        }, 300);
+                    }
+                }
 
             } catch (err) {
                 console.error('Gagal memuat data prestasi dari Supabase:', err);
