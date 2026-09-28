@@ -5068,3 +5068,13 @@ body.menu-open .menu-bar {
         top: 5.5rem;
     }
 }
+
+/* HP: sembunyikan garis progres bercahaya */
+@media (max-width: 899px) {
+    .scrolly-rail {
+        display: none;
+    }
+    .scrolly-caption-col {
+        padding-left: 0;
+    }
+}

@@ -830,6 +830,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let railTicking = false;
         const updateRail = () => {
+            // HP: garis disembunyikan lewat CSS, tidak perlu dihitung
+            if (window.innerWidth < 900) {
+                railTicking = false;
+                return;
+            }
             const rect = captionCol.getBoundingClientRect();
             const y = Math.min(Math.max(getReadingLine() - rect.top, 0), rect.height);
             const progress = rect.height > 0 ? y / rect.height : 0;
