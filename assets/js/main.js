@@ -683,6 +683,48 @@ document.addEventListener('DOMContentLoaded', function() {
         fadeStaggerElements.forEach(el => fadeStaggerObserver.observe(el));
     }
 
+    // PPDB Scrollytelling: sinkronkan slide gambar & progress dot dengan caption yang PALING DEKAT ke tengah layar
+    const scrollyCaptions = document.querySelectorAll('.scrolly-caption');
+    if (scrollyCaptions.length > 0) {
+        const scrollyMediaFrame = document.querySelector('.scrolly-media-frame');
+        const scrollySlides = document.querySelectorAll('.scrolly-media-slide');
+        const scrollyDots = document.querySelectorAll('.scrolly-progress-dot');
+
+        const setActiveStep = (step) => {
+            scrollySlides.forEach(el => el.classList.toggle('is-active', el.dataset.step === step));
+            scrollyDots.forEach(el => el.classList.toggle('is-active', el.dataset.step === step));
+            if (scrollyMediaFrame) scrollyMediaFrame.dataset.activeStep = step;
+        };
+
+        let scrollyTicking = false;
+        const updateActiveCaption = () => {
+            const viewportCenter = window.innerHeight / 2;
+            let closest = null;
+            let closestDist = Infinity;
+            scrollyCaptions.forEach((cap) => {
+                const rect = cap.getBoundingClientRect();
+                const capCenter = rect.top + rect.height / 2;
+                const dist = Math.abs(capCenter - viewportCenter);
+                if (dist < closestDist) {
+                    closestDist = dist;
+                    closest = cap;
+                }
+            });
+            scrollyCaptions.forEach((cap) => cap.classList.toggle('is-active', cap === closest));
+            if (closest) setActiveStep(closest.dataset.step);
+            scrollyTicking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!scrollyTicking) {
+                window.requestAnimationFrame(updateActiveCaption);
+                scrollyTicking = true;
+            }
+        }, { passive: true });
+        window.addEventListener('resize', updateActiveCaption);
+        updateActiveCaption();
+    }
+
     // Parallax Geometric Pattern (Islamic Rub el Hizb)
     const parallaxPatterns = document.querySelectorAll('.parallax-pattern');
     if (parallaxPatterns.length > 0) {
