@@ -5003,3 +5003,59 @@ body.menu-open .menu-bar {
 /* === Pangkas jarak antar section "Info Portal" & "Langkah-Langkah" === */
 .section.editorial-intro { padding-bottom: 1.5rem; }
 .section.timeline-section { padding-top: 1.5rem; }
+
+/* === PPDB Scrollytelling: garis progres + cahaya yang mengikuti scroll === */
+.scrolly-caption-col {
+    position: relative;
+    padding-left: 1.75rem;
+}
+
+.scrolly-rail {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 2px;
+    background: var(--color-border);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.scrolly-rail-fill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, var(--color-primary, #04473A), #C5A059);
+    border-radius: 2px;
+    transform-origin: top;
+    transform: scaleY(0);
+    will-change: transform;
+}
+
+.scrolly-rail-glow {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -5px 0 0 -5px;
+    border-radius: 50%;
+    background: #C5A059;
+    box-shadow: 0 0 10px 3px rgba(197, 160, 89, 0.55), 0 0 22px 8px rgba(197, 160, 89, 0.25);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scrolly-rail-glow {
+        display: none;
+    }
+}
+
+/* garis disisipkan sebagai elemen pertama, jadi langkah 1 butuh aturan sendiri */
+@media (min-width: 900px) {
+    .scrolly-rail + .scrolly-caption {
+        min-height: 34vh;
+        min-height: 34dvh;
+    }
+}

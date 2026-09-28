@@ -725,6 +725,53 @@ document.addEventListener('DOMContentLoaded', function() {
         updateActiveCaption();
     }
 
+    // PPDB Scrollytelling: garis progres + cahaya yang mengikuti posisi baca
+    ;(() => {
+        const captionCol = document.querySelector('.scrolly-caption-col');
+        if (!captionCol) return;
+
+        const rail = document.createElement('div');
+        rail.className = 'scrolly-rail';
+        rail.setAttribute('aria-hidden', 'true');
+        const railFill = document.createElement('span');
+        railFill.className = 'scrolly-rail-fill';
+        const railGlow = document.createElement('span');
+        railGlow.className = 'scrolly-rail-glow';
+        rail.appendChild(railFill);
+        rail.appendChild(railGlow);
+        captionCol.insertBefore(rail, captionCol.firstChild);
+
+        // Garis acuan "posisi baca": tengah layar; di HP tidak boleh lebih tinggi dari dasar panel gambar
+        const getReadingLine = () => {
+            let line = window.innerHeight / 2;
+            const mediaCol = document.querySelector('.scrolly-media-col');
+            if (mediaCol && window.innerWidth < 900) {
+                line = Math.max(line, mediaCol.getBoundingClientRect().bottom + 24);
+            }
+            return line;
+        };
+
+        let railTicking = false;
+        const updateRail = () => {
+            const rect = captionCol.getBoundingClientRect();
+            const y = Math.min(Math.max(getReadingLine() - rect.top, 0), rect.height);
+            const progress = rect.height > 0 ? y / rect.height : 0;
+            railFill.style.transform = 'scaleY(' + progress + ')';
+            railGlow.style.transform = 'translateY(' + y + 'px)';
+            railGlow.style.opacity = (y > 0 && y < rect.height) ? '1' : '0';
+            railTicking = false;
+        };
+
+        window.addEventListener('scroll', () => {
+            if (!railTicking) {
+                window.requestAnimationFrame(updateRail);
+                railTicking = true;
+            }
+        }, { passive: true });
+        window.addEventListener('resize', updateRail);
+        updateRail();
+    })();
+
     // Parallax Geometric Pattern (Islamic Rub el Hizb)
     const parallaxPatterns = document.querySelectorAll('.parallax-pattern');
     if (parallaxPatterns.length > 0) {
