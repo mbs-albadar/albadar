@@ -317,6 +317,92 @@ document.addEventListener('DOMContentLoaded', function() {
                 .catch(() => {});
         }
     }
+    // ==========================================================================
+    // Home Prestasi Carousel (index.html) - geser otomatis dari tabel `achievements`
+    // ==========================================================================
+    (function() {
+        const track = document.getElementById('prestasiCarouselTrack');
+        if (!track || typeof supabaseClient === 'undefined') return;
+
+        function escapeHtmlPrestasi(str) {
+            const div = document.createElement('div');
+            div.textContent = str == null ? '' : String(str);
+            return div.innerHTML;
+        }
+
+        function renderPrestasiCard(item) {
+            const badgeColor = escapeHtmlPrestasi(item.badge_color || 'gold');
+            const badgeLabel = escapeHtmlPrestasi(item.badge_label || 'Prestasi');
+            const title = escapeHtmlPrestasi(item.title || '');
+            const description = escapeHtmlPrestasi(item.description || '');
+            const achId = escapeHtmlPrestasi(String(item.id));
+
+            let mediaHtml;
+            if (item.image_url) {
+                mediaHtml = `
+                    <div class="prestasi-home-media">
+                        <img src="${escapeHtmlPrestasi(item.image_url)}" alt="${title}" loading="lazy" onerror="this.parentElement.style.display='none'">
+                    </div>
+                `;
+            } else {
+                const iconKey = item.icon || 'umum';
+                const iconSvg = (window.ACHIEVEMENT_ICONS && window.ACHIEVEMENT_ICONS[iconKey]) || '';
+                mediaHtml = `<div class="card-icon-wrap">${iconSvg}</div>`;
+            }
+
+            return `
+                <a href="achievements.html#ach-${achId}" class="feature-card feature-card-link fade-stagger">
+                    <span class="card-tag tag-${badgeColor}">${badgeLabel}</span>
+                    ${mediaHtml}
+                    <h3 class="card-title-custom">${title}</h3>
+                    <p class="card-desc-custom">${description}</p>
+                </a>
+            `;
+        }
+
+        let slideIndex = 0;
+        let slideTimer = null;
+
+        function initHomePrestasiCarousel(items) {
+            const pageSize = 3;
+            const pages = [];
+            for (let i = 0; i < items.length; i += pageSize) {
+                pages.push(items.slice(i, i + pageSize));
+            }
+
+            track.innerHTML = pages.map(pageItems => `
+                <div class="cards-grid grid-3 prestasi-carousel-page">
+                    ${pageItems.map(renderPrestasiCard).join('')}
+                </div>
+            `).join('');
+
+            if (slideTimer) clearInterval(slideTimer);
+            slideIndex = 0;
+            track.style.transform = 'translateX(0)';
+
+            if (pages.length > 1) {
+                slideTimer = setInterval(() => {
+                    slideIndex = (slideIndex + 1) % pages.length;
+                    track.style.transform = `translateX(-${slideIndex * 100}%)`;
+                }, 5000);
+            }
+        }
+
+        supabaseClient
+            .from('achievements')
+            .select('*')
+            .order('created_at', { ascending: false })
+            .limit(9)
+            .then(function(res) {
+                if (res.error) throw res.error;
+                if (Array.isArray(res.data) && res.data.length > 0) {
+                    initHomePrestasiCarousel(res.data);
+                }
+            })
+            .catch(function(err) {
+                console.warn('Gagal memuat prestasi beranda:', err);
+            });
+    })();
 
     // ==========================================================================
     // Scalable News Portal Logic (news.html)
@@ -770,6 +856,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
         window.addEventListener('resize', updateRail);
         updateRail();
+    })();
+
+    // PPDB Scrollytelling: di HP, turunkan panel gambar agar tidak tertutup header
+    ;(() => {
+        const mediaCol = document.querySelector('.scrolly-media-col');
+        if (!mediaCol) return;
+        const header = Array.from(document.querySelectorAll('header')).find((el) => {
+            const pos = window.getComputedStyle(el).position;
+            return pos === 'fixed' || pos === 'sticky';
+        });
+        if (!header) return;
+
+        const applyOffset = () => {
+            if (window.innerWidth < 900) {
+                mediaCol.style.top = (header.getBoundingClientRect().height + 8) + 'px';
+            } else {
+                mediaCol.style.top = '';
+            }
+        };
+        window.addEventListener('resize', applyOffset);
+        window.addEventListener('load', applyOffset);
+        applyOffset();
     })();
 
     // Parallax Geometric Pattern (Islamic Rub el Hizb)

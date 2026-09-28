@@ -5061,3 +5061,10 @@ body.menu-open .menu-bar {
         min-height: 34dvh;
     }
 }
+
+/* HP: beri jarak dari header agar panel gambar tidak tertutup */
+@media (max-width: 899px) {
+    .scrolly-media-col {
+        top: 5.5rem;
+    }
+}
