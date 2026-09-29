@@ -350,15 +350,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 mediaHtml = `<div class="card-icon-wrap">${iconSvg}</div>`;
             }
 
+            const hasPhoto = !!item.image_url;
             const tagHtml = `<span class="card-tag tag-${badgeColor}">${badgeLabel}</span>`;
             // Foto tampil paling atas kartu; ikon tampil di bawah label
-            const topHtml = item.image_url ? mediaHtml + tagHtml : tagHtml + mediaHtml;
+            const topHtml = hasPhoto ? mediaHtml + tagHtml : tagHtml + mediaHtml;
+
+            // Sudah ada foto -> foto & nama kompetisi (badge) sudah cukup, tanpa judul/deskripsi lagi
+            // Belum ada foto -> ikon + judul + deskripsi singkat (maksimal 2 baris) supaya kartu tidak kosong
+            const bodyHtml = hasPhoto
+                ? ''
+                : `
+                    <h3 class="card-title-custom">${title}</h3>
+                    <p class="card-desc-custom card-desc-clamp-2">${description}</p>
+                `;
 
             return `
                 <a href="achievements.html#ach-${achId}" class="feature-card feature-card-link fade-stagger">
                     ${topHtml}
-                    <h3 class="card-title-custom">${title}</h3>
-                    <p class="card-desc-custom">${description}</p>
+                    ${bodyHtml}
                 </a>
             `;
         }
