@@ -125,6 +125,57 @@ main:focus {
     outline: none;
 }
 
+/* Skeleton loading state untuk konten yang diambil dari Supabase (berita,
+   prestasi) — supaya tidak ada jeda kosong sebelum data muncul. Kartu asli
+   menggantikan ini lewat innerHTML setelah data datang, jadi skeleton ini
+   tidak perlu dihapus manual. */
+.skeleton-news-card {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #fff;
+    box-shadow: var(--shadow-sm);
+}
+
+.skeleton-img,
+.skeleton-line {
+    background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+.skeleton-img {
+    height: 240px;
+}
+
+.skeleton-line {
+    height: 0.9rem;
+    margin: 1rem 1.25rem 0;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-line-title {
+    height: 1.2rem;
+    width: 70%;
+}
+
+.skeleton-line-short {
+    width: 45%;
+    margin-bottom: 1.25rem;
+}
+
+@keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skeleton-img,
+    .skeleton-line {
+        animation: none;
+        background: #ececec;
+    }
+}
+
 /* === LAYOUT CONTAINERS & UTILITIES === */
 .container {
     width: 100%;
