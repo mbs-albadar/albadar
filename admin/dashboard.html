@@ -858,6 +858,21 @@
             letter-spacing: 0.5px;
         }
 
+        /* Kolom Aksi menempel di kanan agar tombol Edit selalu terlihat tanpa perlu geser (HP) */
+        .data-table th:last-child,
+        .data-table td:last-child {
+            position: sticky;
+            right: 0;
+            z-index: 1;
+        }
+        .data-table th:last-child {
+            background: #F9FAFB;
+        }
+        .data-table td:last-child {
+            background: var(--color-surface, #ffffff);
+            box-shadow: -6px 0 6px -6px rgba(0, 0, 0, 0.18);
+        }
+
         .data-table td {
             padding: 1rem 1.25rem;
             border-bottom: 1px solid var(--color-border-light);
@@ -3832,10 +3847,10 @@
 
     <!-- MODAL TAMBAH/EDIT DATA SISWA -->
     <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle">
-        <div class="modal-card" style="max-width: 580px;">
+        <div class="modal-card modal-box" style="max-width: 580px;">
             <div class="modal-header">
                 <h3 id="studentModalTitle">Tambah Data Siswa</h3>
-                <button type="button" class="btn-close-modal" onclick="closeStudentModal()" aria-label="Tutup">
+                <button type="button" class="btn-close-modal modal-close-btn" onclick="closeStudentModal()" aria-label="Tutup">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
@@ -3930,7 +3945,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" onclick="closeStudentModal()">Batal</button>
-                    <button type="submit" class="btn-submit" id="btnSaveStudent">Simpan Siswa</button>
+                    <button type="submit" class="btn-submit btn-primary-action" id="btnSaveStudent">Simpan Siswa</button>
                 </div>
             </form>
         </div>
@@ -3962,10 +3977,10 @@
 
     <!-- MODAL TAMBAH/EDIT DATA GURU -->
     <div class="modal-backdrop" id="teacherModal" role="dialog" aria-modal="true" aria-labelledby="teacherModalTitle">
-        <div class="modal-card" style="max-width: 600px;">
+        <div class="modal-card modal-box" style="max-width: 600px;">
             <div class="modal-header">
                 <h3 id="teacherModalTitle">Tambah Data Guru</h3>
-                <button type="button" class="btn-close-modal" onclick="closeTeacherModal()" aria-label="Tutup">
+                <button type="button" class="btn-close-modal modal-close-btn" onclick="closeTeacherModal()" aria-label="Tutup">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 </button>
             </div>
@@ -4047,7 +4062,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn-cancel" onclick="closeTeacherModal()">Batal</button>
-                    <button type="submit" class="btn-submit" id="btnSaveTeacher">Simpan Guru</button>
+                    <button type="submit" class="btn-submit btn-primary-action" id="btnSaveTeacher">Simpan Guru</button>
                 </div>
             </form>
         </div>
