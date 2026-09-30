@@ -5129,3 +5129,47 @@ body.menu-open .menu-bar {
         padding-left: 0;
     }
 }
+
+/* Profil Lulusan: tag mengalir + daftar definisi (pengganti grid kartu ikon) */
+.profil-lulusan-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin: 0 auto 2.5rem;
+    max-width: 720px;
+}
+
+.profil-lulusan-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.1rem 2.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.profil-lulusan-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0.5rem 1.25rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.profil-lulusan-item dt {
+    font-weight: 600;
+    color: var(--lux-dark, var(--color-primary));
+}
+
+.profil-lulusan-item dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .profil-lulusan-item {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+}
