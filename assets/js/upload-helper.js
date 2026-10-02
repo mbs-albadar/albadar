@@ -3,26 +3,89 @@
  * SMP MBS Al Badar Prambanan
  */
 
+/**
+ * Mengecilkan & mengompres foto secara otomatis di browser sebelum diunggah.
+ * Foto diperkecil maksimal 1920px pada sisi terpanjang dan disimpan sebagai JPEG
+ * kualitas 85% - cukup untuk tampilan web, jauh lebih ringan dari foto kamera asli.
+ */
+function compressImage(file, maxDimension = 1920, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+
+      let { width, height } = img;
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round(height * (maxDimension / width));
+          width = maxDimension;
+        } else {
+          width = Math.round(width * (maxDimension / height));
+          height = maxDimension;
+        }
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (!blob) {
+            reject(new Error('Gagal memproses gambar'));
+            return;
+          }
+          resolve(blob);
+        },
+        'image/jpeg',
+        quality
+      );
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error('Gagal membaca gambar, format mungkin tidak didukung'));
+    };
+
+    img.src = objectUrl;
+  });
+}
+
 async function uploadImageToStorage(file, folder = 'general') {
   if (!file) {
     throw new Error('Tidak ada file yang dipilih');
   }
 
-  // Max size check: 2MB
-  const maxBytes = 2 * 1024 * 1024;
+  // Batas kewajaran murni (bukan batas ketat) - mencegah file yang jelas bukan foto biasa
+  const maxBytes = 25 * 1024 * 1024; // 25MB
   if (file.size > maxBytes) {
-    throw new Error('Ukuran foto maksimal 2MB, silakan kompres dulu');
+    throw new Error('Ukuran file terlalu besar (maksimal 25MB)');
   }
 
-  const fileExt = file.name.split('.').pop().toLowerCase();
+  let uploadBlob = file;
+  let fileExt = file.name.split('.').pop().toLowerCase();
+
+  try {
+    uploadBlob = await compressImage(file, 1920, 0.85);
+    fileExt = 'jpg';
+  } catch (compressErr) {
+    console.warn('Kompresi otomatis gagal, lanjut unggah file asli:', compressErr);
+    uploadBlob = file;
+  }
+
   const safeExt = fileExt.replace(/[^a-z0-9]/g, '') || 'jpg';
   const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2)}.${safeExt}`;
 
   const { data, error } = await supabaseClient.storage
     .from('site-media')
-    .upload(fileName, file, {
+    .upload(fileName, uploadBlob, {
       cacheControl: '3600',
-      upsert: false
+      upsert: false,
+      contentType: uploadBlob.type || 'image/jpeg'
     });
 
   if (error) throw error;

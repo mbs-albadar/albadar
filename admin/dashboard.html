@@ -3407,7 +3407,7 @@
                                 </svg>
                                 <span id="selectNewsFileBtnText">Pilih Foto dari Perangkat</span>
                             </button>
-                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (ukuran otomatis dioptimalkan)</span>
                         </div>
 
                         <!-- Live Preview Box & Actions -->
@@ -3559,7 +3559,7 @@
                                 </svg>
                                 <span id="selectFileBtnText">Pilih Foto dari Perangkat</span>
                             </button>
-                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (ukuran otomatis dioptimalkan)</span>
                         </div>
 
                         <!-- Live Preview Box & Actions -->
@@ -3679,7 +3679,7 @@
                                 </svg>
                                 <span id="selectSiteImageBtnText">Pilih Foto dari Perangkat</span>
                             </button>
-                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (ukuran otomatis dioptimalkan)</span>
                         </div>
 
                         <!-- Live Preview Box & Actions -->
@@ -4026,7 +4026,7 @@
                                 </svg>
                                 <span id="selectTeacherFileBtnText">Pilih Foto dari Perangkat</span>
                             </button>
-                            <span class="file-size-info">Format: JPG, PNG, WebP (Maksimal 2MB)</span>
+                            <span class="file-size-info">Format: JPG, PNG, WebP (ukuran otomatis dioptimalkan)</span>
                         </div>
 
                         <div class="image-preview-wrapper" id="teacherPreviewWrapper">
@@ -5331,14 +5331,6 @@
             const file = e.target.files && e.target.files[0];
             if (!file) return;
 
-            // 2MB Validation
-            const maxBytes = 2 * 1024 * 1024;
-            if (file.size > maxBytes) {
-                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
-                newsFileInput.value = '';
-                return;
-            }
-
             selectedNewsFile = file;
             isNewsPhotoRemoved = false;
 
@@ -5850,14 +5842,6 @@
             const file = e.target.files && e.target.files[0];
             if (!file) return;
 
-            // 2MB Validation
-            const maxBytes = 2 * 1024 * 1024;
-            if (file.size > maxBytes) {
-                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
-                achFileInput.value = '';
-                return;
-            }
-
             selectedAchievementFile = file;
             isPhotoRemoved = false;
 
@@ -6186,13 +6170,6 @@
         siteImageFileInput.addEventListener('change', (e) => {
             const file = e.target.files && e.target.files[0];
             if (!file) return;
-
-            const maxBytes = 2 * 1024 * 1024;
-            if (file.size > maxBytes) {
-                showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
-                siteImageFileInput.value = '';
-                return;
-            }
 
             selectedSiteImageFile = file;
             isSiteImagePhotoRemoved = false;
@@ -7361,13 +7338,6 @@
             teacherFileInput.addEventListener('change', (e) => {
                 const file = e.target.files && e.target.files[0];
                 if (!file) return;
-
-                const maxBytes = 2 * 1024 * 1024;
-                if (file.size > maxBytes) {
-                    showToast('Ukuran foto maksimal 2MB, silakan kompres dulu', 'error');
-                    teacherFileInput.value = '';
-                    return;
-                }
 
                 selectedTeacherFile = file;
                 isTeacherPhotoRemoved = false;
