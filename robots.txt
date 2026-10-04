@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://albadar-psi.vercel.app/sitemap.xml
+Sitemap: https://smpalbadar.sch.id/sitemap.xml

@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             const searchQuery = searchInput.value.trim();
             if (searchQuery) {
-                const googleSearchUrl = 'https://www.google.com/search?q=site:albadar-psi.vercel.app/+' + encodeURIComponent(searchQuery);
+                const googleSearchUrl = 'https://www.google.com/search?q=site:smpalbadar.sch.id/+' + encodeURIComponent(searchQuery);
                 window.location.href = googleSearchUrl;
             }
         });
