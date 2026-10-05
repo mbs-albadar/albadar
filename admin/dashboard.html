@@ -4196,7 +4196,7 @@
             try {
                 const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
                 if (sessionError || !session || !session.user) {
-                    window.location.replace('login.html');
+                    window.location.replace('index.html');
                     return;
                 }
 
@@ -4211,7 +4211,7 @@
 
                 if (profileError || !profile) {
                     await supabaseClient.auth.signOut();
-                    window.location.replace('login.html');
+                    window.location.replace('index.html');
                     return;
                 }
 
@@ -4269,7 +4269,7 @@
 
             } catch (err) {
                 console.error('Auth verification error:', err);
-                window.location.replace('login.html');
+                window.location.replace('index.html');
             }
         }
 
@@ -4386,7 +4386,7 @@
                 } catch (err) {
                     console.error('Logout error:', err);
                 } finally {
-                    window.location.replace('login.html');
+                    window.location.replace('index.html');
                 }
             }
         });
