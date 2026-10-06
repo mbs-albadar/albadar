@@ -305,7 +305,7 @@
                         .single();
 
                     if (profile && !error) {
-                        window.location.replace('dashboard.html');
+                        window.location.replace('/admin/dashboard.html');
                     }
                 }
             } catch (err) {
@@ -361,7 +361,7 @@
                 }
 
                 // 3. Success: redirect to dashboard
-                window.location.replace('dashboard.html');
+                window.location.replace('/admin/dashboard.html');
             } catch (err) {
                 console.error('Login error:', err);
                 showError('Terjadi kesalahan koneksi. Silakan coba lagi.');
