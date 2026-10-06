@@ -312,7 +312,19 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border-radius: 50%;
+        }
+        .card-icon-wrap.logo-plain {
+            background: none;
+            border: none;
+            box-shadow: none;
+            width: 56px;
+            height: 56px;
+        }
+        .curriculum-cat-card:hover .card-icon-wrap.logo-plain {
+            background: none;
+            border-color: transparent;
+            box-shadow: none;
+            transform: scale(1.08);
         }
         .curriculum-card-title {
             font-family: var(--font-heading);
@@ -634,8 +646,8 @@
                     <!-- Card 1: Kurikulum Diniyah (Pesantren & Al-Islam) -->
                     <div class="curriculum-cat-card green-top">
                         <div class="curriculum-card-header">
-                            <div class="card-icon-wrap">
-                                <img src="assets/img/logo-ppm-mbs.png" alt="Logo PPM MBS Yogyakarta">
+                            <div class="card-icon-wrap logo-plain">
+                                <img src="assets/img/logo-mbs-boarding-school.png" alt="Logo Muhammadiyah Boarding School Yogyakarta">
                             </div>
                             <h3 class="curriculum-card-title">Kurikulum Diniyah (Pesantren)</h3>
                         </div>
@@ -651,8 +663,8 @@
                     <!-- Card 2: Program Tahfidz Unggulan -->
                     <div class="curriculum-cat-card green-top">
                         <div class="curriculum-card-header">
-                            <div class="card-icon-wrap">
-                                <img src="assets/img/logo-ppm-tahfidzmu-albadar.png" alt="Logo PPM Tahfidzmu Al Badar">
+                            <div class="card-icon-wrap logo-plain">
+                                <img src="assets/img/logo-tahfidzmu-albadar-hijau.png" alt="Logo PPM Tahfidzmu Al Badar">
                             </div>
                             <h3 class="curriculum-card-title">Program Tahfidz Unggulan</h3>
                         </div>
@@ -667,7 +679,7 @@
                     <!-- Card 3: Kurikulum Terpadu Nasional (Diknas) -->
                     <div class="curriculum-cat-card gold-top">
                         <div class="curriculum-card-header">
-                            <div class="card-icon-wrap">
+                            <div class="card-icon-wrap logo-plain">
                                 <img src="assets/img/logo-tutwuri-handayani.png" alt="Logo Tut Wuri Handayani">
                             </div>
                             <h3 class="curriculum-card-title">Kurikulum Nasional (Diknas)</h3>
