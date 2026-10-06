@@ -1,0 +1,101 @@
+{
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/about.html",
+      "destination": "/sekolah-kami",
+      "permanent": true
+    },
+    {
+      "source": "/programs.html",
+      "destination": "/program",
+      "permanent": true
+    },
+    {
+      "source": "/student-life.html",
+      "destination": "/kehidupan-santri",
+      "permanent": true
+    },
+    {
+      "source": "/ppdb.html",
+      "destination": "/ppdb",
+      "permanent": true
+    },
+    {
+      "source": "/news.html",
+      "destination": "/berita",
+      "permanent": true
+    },
+    {
+      "source": "/berita-detail.html",
+      "destination": "/berita/artikel",
+      "permanent": true
+    },
+    {
+      "source": "/achievements.html",
+      "destination": "/prestasi",
+      "permanent": true
+    },
+    {
+      "source": "/faq.html",
+      "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/kontak",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy.html",
+      "destination": "/kebijakan-privasi",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/sekolah-kami",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/program",
+      "destination": "/programs.html"
+    },
+    {
+      "source": "/kehidupan-santri",
+      "destination": "/student-life.html"
+    },
+    {
+      "source": "/ppdb",
+      "destination": "/ppdb.html"
+    },
+    {
+      "source": "/berita",
+      "destination": "/news.html"
+    },
+    {
+      "source": "/berita/artikel",
+      "destination": "/berita-detail.html"
+    },
+    {
+      "source": "/prestasi",
+      "destination": "/achievements.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/kontak",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/kebijakan-privasi",
+      "destination": "/privacy-policy.html"
+    }
+  ]
+}

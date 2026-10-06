@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const ppdbLink = e.target.closest('a[href*="ppdb.html"]');
+            const ppdbLink = e.target.closest('a[href*="ppdb"]');
             if (ppdbLink) {
                 supabaseClient.from('analytics_events').insert([{ event_type: 'click_ppdb', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
                 return;
@@ -130,15 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Comprehensive Site Search Index Array
     const siteSearchIndex = [
-        { keywords: 'mbs tentang, profil, sejarah, visi, misi, tentang mbs', title: 'Tentang MBS Al Badar', url: 'about.html' },
-        { keywords: 'mbs program, kurikulum, akademik, mata pelajaran, program mbs', title: 'Program & Kurikulum MBS', url: 'programs.html' },
-        { keywords: 'mbs boarding, asrama, santri, boarding mbs', title: 'Program Boarding MBS', url: 'programs.html#boarding' },
-        { keywords: 'mbs fullday, harian, non boarding, fullday mbs', title: 'Program Full Day MBS', url: 'programs.html#fullday' },
-        { keywords: 'mbs ppdb, pendaftaran, psb, daftar mbs, ppdb mbs', title: 'Panduan PPDB MBS', url: 'ppdb.html' },
-        { keywords: 'mbs kegiatan, siswa, ekstrakurikuler, fasilitas, kehidupan mbs, agenda periodik, muhadhoroh, muhadatsah, kajian tematik', title: 'Kehidupan Siswa & Agenda Periodik MBS', url: 'student-life.html' },
-        { keywords: 'mbs berita, kabar, pengumuman, info mbs', title: 'Berita & Info MBS', url: 'news.html' },
-        { keywords: 'mbs kontak, alamat, telepon, wa, email, kontak mbs', title: 'Kontak MBS', url: 'contact.html' },
-        { keywords: 'mbs faq, tanya, jawab, bantuan', title: 'FAQ MBS', url: 'faq.html' }
+        { keywords: 'mbs tentang, profil, sejarah, visi, misi, tentang mbs', title: 'Tentang MBS Al Badar', url: '/sekolah-kami' },
+        { keywords: 'mbs program, kurikulum, akademik, mata pelajaran, program mbs', title: 'Program & Kurikulum MBS', url: '/program' },
+        { keywords: 'mbs boarding, asrama, santri, boarding mbs', title: 'Program Boarding MBS', url: '/program#boarding' },
+        { keywords: 'mbs fullday, harian, non boarding, fullday mbs', title: 'Program Full Day MBS', url: '/program#fullday' },
+        { keywords: 'mbs ppdb, pendaftaran, psb, daftar mbs, ppdb mbs', title: 'Panduan PPDB MBS', url: '/ppdb' },
+        { keywords: 'mbs kegiatan, siswa, ekstrakurikuler, fasilitas, kehidupan mbs, agenda periodik, muhadhoroh, muhadatsah, kajian tematik', title: 'Kehidupan Siswa & Agenda Periodik MBS', url: '/kehidupan-santri' },
+        { keywords: 'mbs berita, kabar, pengumuman, info mbs', title: 'Berita & Info MBS', url: '/berita' },
+        { keywords: 'mbs kontak, alamat, telepon, wa, email, kontak mbs', title: 'Kontak MBS', url: '/kontak' },
+        { keywords: 'mbs faq, tanya, jawab, bantuan', title: 'FAQ MBS', url: '/faq' }
     ];
 
     // Search Bar & Autocomplete Logic
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.opacity = '0';
 
         setTimeout(() => {
-            card.href = "berita-detail.html?id=" + encodeURIComponent(newsItem.id);
+            card.href = "/berita/artikel?id=" + encodeURIComponent(newsItem.id);
             const imgEl = card.querySelector('.news-img-wrap img');
             if (imgEl) {
                 imgEl.src = newsImage(newsItem.image);
@@ -365,7 +365,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
 
             return `
-                <a href="achievements.html#ach-${achId}" class="feature-card feature-card-link fade-stagger">
+                <a href="/prestasi#ach-${achId}" class="feature-card feature-card-link fade-stagger">
                     ${topHtml}
                     ${bodyHtml}
                 </a>
@@ -503,7 +503,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             newsGridContainer.innerHTML = filtered.map(function(item) {
-                return '<a href="berita-detail.html?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
+                return '<a href="/berita/artikel?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
                         '<img src="' + newsImage(item.image) + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
                     '</div>' +
@@ -625,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function() {
             articleContainer.innerHTML =
                 '<div class="article-not-found">' +
                     '<p>Berita yang kamu cari tidak ditemukan atau sudah dihapus.</p>' +
-                    '<a href="news.html" class="btn btn-outline btn-sm" style="margin-top: 1rem; display: inline-block;">Kembali ke Semua Berita</a>' +
+                    '<a href="/berita" class="btn btn-outline btn-sm" style="margin-top: 1rem; display: inline-block;">Kembali ke Semua Berita</a>' +
                 '</div>';
         }
 
