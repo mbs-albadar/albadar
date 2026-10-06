@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
-Sitemap: https://smpalbadar.sch.id/sitemap.xml
+Sitemap: https://www.smpalbadar.sch.id/sitemap.xml
