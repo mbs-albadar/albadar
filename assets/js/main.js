@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Foto stok (Unsplash) dan gambar kosong ditampilkan sebagai panel merek,
     // bukan foto yang menyesatkan. Foto asli yang diunggah admin tetap dipakai.
     function newsImage(url) {
-        return (!url || /images\.unsplash\.com/i.test(url)) ? 'assets/img/placeholder.svg' : url;
+        return (!url || /images\.unsplash\.com/i.test(url)) ? '/assets/img/placeholder.svg' : url;
     }
 
     function updateNewsCard(cardId, newsItem) {
@@ -305,13 +305,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('No news returned from Supabase');
                 })
                 .catch(function() {
-                    fetch('assets/data/news.json')
+                    fetch('/assets/data/news.json')
                         .then(r => r.json())
                         .then(data => { allNews = data; initHomeNewsPreview(); })
                         .catch(() => {});
                 });
         } else {
-            fetch('assets/data/news.json')
+            fetch('/assets/data/news.json')
                 .then(r => r.json())
                 .then(data => { allNews = data; initHomeNewsPreview(); })
                 .catch(() => {});
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
             newsGridContainer.innerHTML = filtered.map(function(item) {
                 return '<a href="/berita/artikel?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
-                        '<img src="' + newsImage(item.image) + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
+                        '<img src="' + newsImage(item.image) + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'/assets/img/placeholder.svg\';">' +
                     '</div>' +
                     '<div class="news-content-lux">' +
                         '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">' +
@@ -546,7 +546,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function fallbackToNewsJson() {
-            fetch('assets/data/news.json')
+            fetch('/assets/data/news.json')
                 .then(function(response) {
                     if (!response.ok) throw new Error('HTTP status ' + response.status);
                     return response.json();
@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 '</div>' +
                 '<h1 class="article-title">' + escapeHtml(item.title) + '</h1>' +
                 '<div class="article-cover">' +
-                    '<img src="' + newsImage(item.image) + '" alt="' + escapeHtml(item.title) + '" onerror="this.onerror=null;this.src=\'assets/img/placeholder.svg\';">' +
+                    '<img src="' + newsImage(item.image) + '" alt="' + escapeHtml(item.title) + '" onerror="this.onerror=null;this.src=\'/assets/img/placeholder.svg\';">' +
                 '</div>' +
                 '<div class="article-body">' + bodyHtml + '</div>';
         }
@@ -645,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     renderArticle(res.data);
                 })
                 .catch(function() {
-                    fetch('assets/data/news.json')
+                    fetch('/assets/data/news.json')
                         .then(r => r.json())
                         .then(function(data) {
                             const found = data.find(function(n) { return n.id === newsId; });
@@ -654,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         .catch(renderNotFound);
                 });
         } else {
-            fetch('assets/data/news.json')
+            fetch('/assets/data/news.json')
                 .then(r => r.json())
                 .then(function(data) {
                     const found = data.find(function(n) { return n.id === newsId; });
