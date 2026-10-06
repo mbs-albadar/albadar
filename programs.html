@@ -74,8 +74,8 @@
         .compare-card-media {
             position: relative;
             width: calc(100% + 4.5rem);
-            margin: -2.75rem -2.25rem 1.5rem -2.25rem;
-            aspect-ratio: 4 / 3;
+            margin: -2.75rem -2.25rem 1.25rem -2.25rem;
+            aspect-ratio: 16 / 9;
             overflow: hidden;
             border-radius: 20px 20px 0 0;
         }
@@ -101,6 +101,20 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1rem;
+        }
+        .compare-icon-floating {
+            position: absolute;
+            left: 1.25rem;
+            bottom: 1rem;
+            margin-bottom: 0;
+            z-index: 2;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        .card-gold .compare-icon-floating {
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .card-blue .compare-icon-floating {
+            background: rgba(255, 255, 255, 0.95);
         }
         .card-gold .compare-icon-box {
             background: rgba(212, 181, 130, 0.18);
@@ -373,6 +387,10 @@
             .compare-card {
                 padding: 2rem 1.5rem;
             }
+            .compare-card-media {
+                width: calc(100% + 3rem);
+                margin: -2rem -1.5rem 1.25rem -1.5rem;
+            }
         }
     </style>
 </head>
@@ -453,11 +471,11 @@
                     <div class="compare-card card-gold" id="boarding">
                         <div class="compare-card-media">
                             <img src="assets/img/program/boarding-school.jpg" alt="Gerbang Pondok Pesantren Modern Al Badar Prambanan" loading="lazy">
-                        </div>
-                        <div class="compare-header">
-                            <div class="compare-icon-box">
+                            <div class="compare-icon-box compare-icon-floating">
                                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v3"></path><path d="M12 5c-3.5 0-6 2.5-6 6v10h12V11c0-3.5-2.5-6-6-6Z"></path><path d="M9 21v-4a3 3 0 0 1 6 0v4"></path><path d="M4 11h2v10H4z"></path><path d="M18 11h2v10h-2z"></path></svg>
                             </div>
+                        </div>
+                        <div class="compare-header">
                             <h3 class="compare-title">SMP Boarding School</h3>
                             <p class="compare-tagline">“Kurikulum Pesantren &amp; Karakter 24 Jam”</p>
                         </div>
@@ -480,11 +498,11 @@
                     <div class="compare-card card-blue" id="fullday">
                         <div class="compare-card-media">
                             <img src="assets/img/program/fullday-school.jpg" alt="Gedung SMP MBS Al Badar Prambanan" loading="lazy">
-                        </div>
-                        <div class="compare-header">
-                            <div class="compare-icon-box">
+                            <div class="compare-icon-box compare-icon-floating">
                                 <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
                             </div>
+                        </div>
+                        <div class="compare-header">
                             <h3 class="compare-title">SMP Full Day School</h3>
                             <p class="compare-tagline">“Kurikulum Pesantren &amp; Sinergi Keluarga”</p>
                         </div>
