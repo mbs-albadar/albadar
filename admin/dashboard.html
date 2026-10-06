@@ -3276,16 +3276,6 @@
                         </div>
                         <div class="setting-param-item">
                             <div class="setting-param-info">
-                                <span class="setting-param-label">Facebook</span>
-                                <span class="setting-param-key">key: social_facebook</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialFacebookInput" class="setting-param-input-wide" placeholder="https://facebook.com/namaHalaman">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_facebook', 'socialFacebookInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
                                 <span class="setting-param-label">TikTok</span>
                                 <span class="setting-param-key">key: social_tiktok</span>                            </div>
                             <div class="setting-param-control">
@@ -3314,6 +3304,27 @@
                             </div>
                         </div>
                         <div class="form-help" style="margin-top: 0.5rem;">Format nomor WhatsApp: kode negara tanpa tanda + atau angka 0 di depan (contoh: 6281234567890).</div>
+
+                        <div class="setting-param-item">
+                            <div class="setting-param-info">
+                                <span class="setting-param-label">Email Resmi</span>
+                                <span class="setting-param-key">key: social_email</span>
+                            </div>
+                            <div class="setting-param-control">
+                                <input type="text" id="socialEmailInput" class="setting-param-input-wide" placeholder="nama@sekolah.sch.id">
+                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_email', 'socialEmailInput')">Simpan</button>
+                            </div>
+                        </div>
+                        <div class="setting-param-item">
+                            <div class="setting-param-info">
+                                <span class="setting-param-label">Alamat Sekolah</span>
+                                <span class="setting-param-key">key: school_address</span>
+                            </div>
+                            <div class="setting-param-control">
+                                <input type="text" id="schoolAddressInput" class="setting-param-input-wide" placeholder="Jl. ...">
+                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('school_address', 'schoolAddressInput')">Simpan</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -7802,7 +7813,7 @@
             if (!container) return;
 
             // Key-key ini sudah punya kartu khusus "Sosial Media & Kontak", jangan dobel di sini
-            const socialKeys = ['social_instagram', 'social_facebook', 'social_tiktok', 'social_youtube', 'whatsapp_number'];
+            const socialKeys = ['social_instagram', 'social_facebook', 'social_tiktok', 'social_youtube', 'whatsapp_number', 'social_email', 'school_address'];
             const generalSettings = allSchoolSettings.filter(item => !socialKeys.includes(item.key));
 
             if (generalSettings.length === 0) {
@@ -7893,10 +7904,11 @@
         function populateSocialInputs() {
             const map = {
                 'social_instagram': 'socialInstagramInput',
-                'social_facebook': 'socialFacebookInput',
                 'social_tiktok': 'socialTiktokInput',
                 'social_youtube': 'socialYoutubeInput',
-                'whatsapp_number': 'socialWhatsappInput'
+                'whatsapp_number': 'socialWhatsappInput',
+                'social_email': 'socialEmailInput',
+                'school_address': 'schoolAddressInput'
             };
             Object.keys(map).forEach(key => {
                 const item = allSchoolSettings.find(s => s.key === key);

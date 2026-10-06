@@ -1084,3 +1084,72 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileStickyCTA();
 });
 
+
+// ==========================================================================
+// Info Kontak & Sosial Media Dinamis (dari tabel school_settings)
+// Elemen ditandai lewat atribut data-dynamic di HTML. Kalau Supabase gagal
+// diakses, nilai hardcode yang sudah ada di HTML tetap tampil (fallback).
+// ==========================================================================
+if (typeof supabaseClient !== 'undefined') {
+    supabaseClient
+        .from('school_settings')
+        .select('key,value')
+        .then(function (res) {
+            if (res.error) throw res.error;
+            var settings = {};
+            (res.data || []).forEach(function (row) {
+                settings[row.key] = row.value;
+            });
+
+            function setVisibleText(el, value) {
+                var textNode = null;
+                el.childNodes.forEach(function (n) {
+                    if (!textNode && n.nodeType === Node.TEXT_NODE && n.textContent.trim() !== '') {
+                        textNode = n;
+                    }
+                });
+                if (textNode) textNode.textContent = value;
+            }
+
+            function updateWhatsappHref(el, number) {
+                var href = el.getAttribute('href') || '';
+                var match = href.match(/^https:\/\/wa\.me\/(\d+)(.*)$/);
+                el.setAttribute('href', match ? ('https://wa.me/' + number + match[2]) : ('https://wa.me/' + number));
+            }
+
+            if (settings.social_instagram) {
+                document.querySelectorAll('[data-dynamic="social-instagram"]').forEach(function (el) {
+                    el.setAttribute('href', settings.social_instagram);
+                });
+            }
+            if (settings.social_tiktok) {
+                document.querySelectorAll('[data-dynamic="social-tiktok"]').forEach(function (el) {
+                    el.setAttribute('href', settings.social_tiktok);
+                });
+            }
+            if (settings.social_youtube) {
+                document.querySelectorAll('[data-dynamic="social-youtube"]').forEach(function (el) {
+                    el.setAttribute('href', settings.social_youtube);
+                });
+            }
+            if (settings.whatsapp_number) {
+                document.querySelectorAll('[data-dynamic="whatsapp-link"]').forEach(function (el) {
+                    updateWhatsappHref(el, settings.whatsapp_number);
+                });
+            }
+            if (settings.social_email) {
+                document.querySelectorAll('[data-dynamic="contact-email"]').forEach(function (el) {
+                    el.setAttribute('href', 'mailto:' + settings.social_email);
+                    setVisibleText(el, settings.social_email);
+                });
+            }
+            if (settings.school_address) {
+                document.querySelectorAll('[data-dynamic="school-address"]').forEach(function (el) {
+                    el.textContent = settings.school_address;
+                });
+            }
+        })
+        .catch(function (err) {
+            console.warn('Gagal memuat info kontak dinamis, memakai nilai statis halaman:', err);
+        });
+}
