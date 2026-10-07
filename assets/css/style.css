@@ -3273,9 +3273,10 @@ section.luxury-steps-section,
 }
 
 .wa-float-btn .wa-float-icon {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
 
 
@@ -4012,8 +4013,8 @@ body.menu-open .menu-bar {
     a.wa-float-btn .wa-float-icon,
     body .wa-float-btn .wa-float-icon,
     .wa-float-btn .wa-float-icon {
-        width: 28px;
-        height: 28px;
+        width: 100%;
+        height: 100%;
     }
 
     /* Mobile Body bottom padding to ensure sticky bar does not cover content */
