@@ -3272,6 +3272,12 @@ section.luxury-steps-section,
     fill: #ffffff;
 }
 
+.wa-float-btn .wa-float-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
 
 /* === MOBILE MENU OVERLAY & TOGGLE === */
 .menu-overlay {
@@ -4001,6 +4007,13 @@ body.menu-open .menu-bar {
     .wa-float-btn svg {
         width: 26px;
         height: 26px;
+    }
+
+    a.wa-float-btn .wa-float-icon,
+    body .wa-float-btn .wa-float-icon,
+    .wa-float-btn .wa-float-icon {
+        width: 28px;
+        height: 28px;
     }
 
     /* Mobile Body bottom padding to ensure sticky bar does not cover content */
