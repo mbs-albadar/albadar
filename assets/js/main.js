@@ -502,6 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            newsGridContainer.classList.add('is-visible');
             newsGridContainer.innerHTML = filtered.map(function(item) {
                 return '<a href="/berita/artikel?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
