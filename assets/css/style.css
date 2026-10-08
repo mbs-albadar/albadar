@@ -5187,3 +5187,19 @@ body.menu-open .menu-bar {
         gap: 0.3rem;
     }
 }
+
+/* Fix: pangkas jarak antar section (sebelumnya 5rem atas + 5rem bawah = 10rem) */
+.section {
+    padding: 3rem 0;
+}
+.compact-section {
+    padding: 2.5rem 0 !important;
+}
+@media (max-width: 899px) {
+    .section {
+        padding: 2.25rem 0;
+    }
+    .compact-section {
+        padding: 2rem 0 !important;
+    }
+}
