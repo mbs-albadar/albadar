@@ -12,6 +12,7 @@ Dokumentasi arsitektur, filosofi desain, struktur file, dan pedoman konten resmi
 - **Hosting**: **Vercel** (project `albadar`, team `mbs-albadar`). URL produksi: `https://albadar-psi.vercel.app`. Auto-deploy dari push ke branch `main`.
 - **Repo**: `github.com/mbs-albadar/albadar` (GitHub Organization `mbs-albadar`).
 - **Backend — SUDAH LIVE, bukan rencana masa depan**: **Supabase** (Postgres + Auth + Storage), project `albadar-cms`. Diakses langsung dari browser via `@supabase/supabase-js` CDN, konfigurasi di `assets/js/supabase-config.js`. Ada **dashboard admin** (`/admin/login.html`, `/admin/dashboard.html`) untuk kelola berita, prestasi, data guru/siswa, dan media — SPA sederhana dengan hash routing.
+- **Alamat utama**: Website memakai `https://smpalbadar.sch.id` (tanpa www); pengalihan www ke tanpa www diatur di Vercel (Settings > Domains), bukan di kode.
 - **Design Philosophy**: **Premium, Luxury, Institutional, Islamic**. Menghadirkan citra pesantren modern yang berwibawa, elegan, tertib, dan berstandar internasional. **Hindari pola template generik AI** (label eyebrow all-caps, panah di akhir tombol, animasi scroll-reveal seragam tanpa variasi) — tapi juga jangan overcorrect ke nol animasi; motion dipakai selektif dan harus punya alasan (bukan dekorasi kosong).
 
 ---
