@@ -2491,6 +2491,119 @@
                 justify-content: center;
             }
         }
+
+        /* =========================================================
+           Tren Kunjungan - Segmented Range Toggle & Summary Metrics
+           ========================================================= */
+        .visits-range-toggle {
+            display: inline-flex;
+            align-items: center;
+            background: #F3F4F6;
+            border-radius: var(--radius-pill);
+            padding: 3px;
+            gap: 2px;
+            max-width: 100%;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .visits-range-toggle::-webkit-scrollbar {
+            display: none;
+        }
+        .visits-range-btn {
+            border: none;
+            background: transparent;
+            color: var(--color-text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding: 0.3rem 0.75rem;
+            border-radius: var(--radius-pill);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .visits-range-btn:hover:not(.active) {
+            color: var(--color-primary);
+            background: rgba(4, 71, 58, 0.06);
+        }
+        .visits-range-btn.active {
+            background: var(--color-primary);
+            color: #FFFFFF;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(4, 71, 58, 0.2);
+        }
+        .visits-metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .visit-metric-card {
+            background: #FAFBFC;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 0.7rem 0.85rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .visit-metric-card:hover {
+            border-color: rgba(4, 71, 58, 0.25);
+            box-shadow: var(--shadow-sm);
+        }
+        .visit-metric-label {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .visit-metric-val {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--lux-dark);
+            margin-top: 0.2rem;
+            font-family: var(--font-heading);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            line-height: 1.2;
+        }
+        .visit-metric-sub {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+            margin-top: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        #dailyVisitsChartWrapper {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        @media (max-width: 900px) {
+            .visits-metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 640px) {
+            #dailyVisitsChartWrapper {
+                height: 240px;
+            }
+        }
+        @media (max-width: 480px) {
+            .visits-metrics-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+            .visit-metric-card {
+                padding: 0.6rem 0.7rem;
+            }
+            .visit-metric-val {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2798,9 +2911,9 @@
                     </div>
                 </div>
 
-                <!-- Tren Kunjungan Harian -->
+                <!-- Tren Kunjungan Harian & Bulanan -->
                 <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
                         <div>
                             <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -2811,10 +2924,47 @@
                             </h3>
                             <p id="dailyVisitsChartSubheading" style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Memuat data kunjungan...</p>
                         </div>
-                        <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">...</span>
+                        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                            <div class="visits-range-toggle" id="visitsRangeToggle" role="group" aria-label="Rentang Waktu Kunjungan">
+                                <button type="button" class="visits-range-btn" data-range="7d" onclick="setVisitsTrendRange('7d')">7 Hari</button>
+                                <button type="button" class="visits-range-btn active" data-range="30d" onclick="setVisitsTrendRange('30d')">30 Hari</button>
+                                <button type="button" class="visits-range-btn" data-range="90d" onclick="setVisitsTrendRange('90d')">90 Hari</button>
+                                <button type="button" class="visits-range-btn" data-range="monthly" onclick="setVisitsTrendRange('monthly')">Bulanan</button>
+                            </div>
+                            <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">...</span>
+                        </div>
                     </div>
 
-                    <div id="dailyVisitsChartWrapper" style="position: relative; width: 100%; height: 260px;">
+                    <!-- Baris Ringkasan 4 Metrik Tren Kunjungan -->
+                    <div class="visits-metrics-grid" id="visitsMetricsGrid">
+                        <div class="visit-metric-card">
+                            <div class="visit-metric-label" id="visitMetricTotalLabel">Total Kunjungan</div>
+                            <div class="visit-metric-val" id="visitMetricTotalVal" style="color: var(--color-primary);">-</div>
+                            <div class="visit-metric-sub" id="visitMetricTotalSub">30 hari terakhir</div>
+                        </div>
+
+                        <div class="visit-metric-card">
+                            <div class="visit-metric-label" id="visitMetricAvgLabel">Rata-rata / Hari</div>
+                            <div class="visit-metric-val" id="visitMetricAvgVal">-</div>
+                            <div class="visit-metric-sub" id="visitMetricAvgSub">Kunjungan per hari</div>
+                        </div>
+
+                        <div class="visit-metric-card">
+                            <div class="visit-metric-label" id="visitMetricPeakLabel">Hari Tertinggi</div>
+                            <div class="visit-metric-val" id="visitMetricPeakVal">-</div>
+                            <div class="visit-metric-sub" id="visitMetricPeakSub">Puncak kunjungan</div>
+                        </div>
+
+                        <div class="visit-metric-card">
+                            <div class="visit-metric-label" id="visitMetricGrowthLabel">Perubahan Tren</div>
+                            <div class="visit-metric-val" id="visitMetricGrowthVal">
+                                <span style="color: var(--color-text-muted);">-</span>
+                            </div>
+                            <div class="visit-metric-sub" id="visitMetricGrowthSub">vs Periode sebelumnya</div>
+                        </div>
+                    </div>
+
+                    <div id="dailyVisitsChartWrapper">
                         <canvas id="dailyVisitsChart"></canvas>
                     </div>
 
@@ -4856,29 +5006,98 @@
             });
         }
 
+        /* =========================================================
+           Visitor Analytics & Trend Chart (Chart.js 4, Supabase)
+           ========================================================= */
+        const JAKARTA_DATE_FMT = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Asia/Jakarta',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        });
+
+        function getJakartaDateKey(dateInput) {
+            if (!dateInput) return '';
+            const d = (dateInput instanceof Date) ? dateInput : new Date(dateInput);
+            if (isNaN(d.getTime())) return '';
+            return JAKARTA_DATE_FMT.format(d);
+        }
+
+        function getJakartaDateOffset(baseJakartaStr, dayOffset) {
+            if (!baseJakartaStr) return '';
+            const [y, m, d] = baseJakartaStr.split('-').map(Number);
+            const dt = new Date(Date.UTC(y, m - 1, d + dayOffset, 5, 0, 0));
+            return JAKARTA_DATE_FMT.format(dt);
+        }
+
+        const INDO_DAY_NAMES = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+        function formatJakartaShortDate(dateStr) {
+            if (!dateStr) return '';
+            const [y, m, d] = dateStr.split('-').map(Number);
+            return `${d} ${INDO_SHORT_MONTHS[m - 1]}`;
+        }
+
+        function formatJakartaFullDate(dateStr) {
+            if (!dateStr) return '';
+            const [y, m, d] = dateStr.split('-').map(Number);
+            const dt = new Date(Date.UTC(y, m - 1, d, 5, 0, 0));
+            return `${INDO_DAY_NAMES[dt.getUTCDay()]}, ${d} ${INDO_MONTHS[m - 1]} ${y}`;
+        }
+
+        let currentVisitsTrendRange = '30d';
+        let cachedPageViewEvents = [];
+
+        async function fetchAllRows(queryBuilderFn, pageSize = 1000) {
+            let from = 0;
+            const allRows = [];
+            while (true) {
+                const { data, error } = await queryBuilderFn(from, from + pageSize - 1);
+                if (error) {
+                    console.warn('Error fetching paginated rows:', error);
+                    if (allRows.length > 0) return allRows;
+                    throw error;
+                }
+                if (!data || data.length === 0) break;
+                allRows.push(...data);
+                if (data.length < pageSize) break;
+                from += pageSize;
+            }
+            return allRows;
+        }
+
+        async function fetchAllPageViewEvents() {
+            return fetchAllRows((from, to) =>
+                supabaseClient
+                    .from('analytics_events')
+                    .select('created_at')
+                    .eq('event_type', 'page_view')
+                    .order('created_at', { ascending: true })
+                    .range(from, to)
+            );
+        }
+
         async function loadVisitorAnalytics() {
             try {
-                const now = new Date();
-
-                const { data, error } = await supabaseClient
-                    .from('analytics_events')
-                    .select('event_type, page_path, created_at')
-                    .order('created_at', { ascending: true });
-
-                if (error) {
-                    console.warn('Error loading analytics_events:', error);
-                    setAnalyticsStatCards(0, 0, 0, 0);
-                    renderVisitsTrendChart([], 'daily', now);
-                    renderTopPagesList([]);
-                    return;
-                }
-
-                const allRows = data || [];
-
-                // Kartu statistik & ranking halaman: tetap lingkup 30 hari terakhir
+                // 1. Data untuk kartu statistik & ranking halaman: lingkup 30 hari terakhir dengan filter server & pagination
                 const thirtyDaysAgo = new Date();
                 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-                const rows = allRows.filter(r => r.created_at && new Date(r.created_at) >= thirtyDaysAgo);
+
+                let statRows = [];
+                try {
+                    statRows = await fetchAllRows((from, to) =>
+                        supabaseClient
+                            .from('analytics_events')
+                            .select('event_type, page_path, created_at')
+                            .gte('created_at', thirtyDaysAgo.toISOString())
+                            .order('created_at', { ascending: true })
+                            .range(from, to)
+                    );
+                } catch (statError) {
+                    console.warn('Error loading analytics_events for stats:', statError);
+                }
+
+                const rows = statRows.filter(r => r.created_at && new Date(r.created_at) >= thirtyDaysAgo);
 
                 const totalPageViews = rows.filter(r => r.event_type === 'page_view').length;
                 const totalPpdbClicks = rows.filter(r => r.event_type === 'click_ppdb').length;
@@ -4899,62 +5118,22 @@
                     .slice(0, 5);
                 renderTopPagesList(topPages);
 
-                // Grafik tren: granularitas menyesuaikan rentang data yang BENAR-BENAR ada,
-                // supaya tidak pernah menampilkan bulan kosong palsu sebelum pelacakan dimulai
-                const pageViewRows = allRows.filter(r => r.event_type === 'page_view' && r.created_at);
-
-                if (pageViewRows.length === 0) {
-                    renderVisitsTrendChart([], 'daily', now);
-                    return;
+                // 2. Data page_view dengan pagination loop (.range) untuk grafik tren kunjungan
+                let pageViewRows = [];
+                try {
+                    pageViewRows = await fetchAllPageViewEvents();
+                } catch (pvErr) {
+                    console.warn('Exception loading page view events:', pvErr);
                 }
 
-                const earliestDate = new Date(pageViewRows[0].created_at);
-                const spansMultipleMonths = earliestDate.getFullYear() !== now.getFullYear() || earliestDate.getMonth() !== now.getMonth();
-
-                if (!spansMultipleMonths) {
-                    // Semua data masih dalam bulan berjalan -> tampilkan tren harian bulan ini
-                    const daysInMonthSoFar = now.getDate();
-                    const dailyData = [];
-                    const dayMap = {};
-                    for (let day = 1; day <= daysInMonthSoFar; day++) {
-                        const d = new Date(now.getFullYear(), now.getMonth(), day);
-                        const key = d.toISOString().slice(0, 10);
-                        const entry = { key, label: String(day), count: 0 };
-                        dailyData.push(entry);
-                        dayMap[key] = entry;
-                    }
-                    pageViewRows.forEach(r => {
-                        const key = String(r.created_at).slice(0, 10);
-                        if (dayMap[key]) dayMap[key].count++;
-                    });
-                    renderVisitsTrendChart(dailyData, 'daily', now);
-                } else {
-                    // Data sudah lintas bulan kalender -> tampilkan tren bulanan sejak bulan pertama tercatat
-                    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-                    const monthlyData = [];
-                    const monthMap = {};
-                    let cursor = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1);
-                    const endCursor = new Date(now.getFullYear(), now.getMonth(), 1);
-                    while (cursor <= endCursor) {
-                        const key = `${cursor.getFullYear()}-${cursor.getMonth()}`;
-                        const label = monthNames[cursor.getMonth()] + (cursor.getFullYear() !== now.getFullYear() ? ` '${String(cursor.getFullYear()).slice(2)}` : '');
-                        const entry = { key, label, count: 0 };
-                        monthlyData.push(entry);
-                        monthMap[key] = entry;
-                        cursor = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 1);
-                    }
-                    pageViewRows.forEach(r => {
-                        const d = new Date(r.created_at);
-                        const key = `${d.getFullYear()}-${d.getMonth()}`;
-                        if (monthMap[key]) monthMap[key].count++;
-                    });
-                    renderVisitsTrendChart(monthlyData, 'monthly', now);
-                }
+                cachedPageViewEvents = pageViewRows;
+                applyVisitsTrendRange(currentVisitsTrendRange || '30d');
             } catch (err) {
                 console.error('Exception loading visitor analytics:', err);
                 setAnalyticsStatCards(0, 0, 0, 0);
-                renderVisitsTrendChart([], 'daily', new Date());
                 renderTopPagesList([]);
+                cachedPageViewEvents = [];
+                applyVisitsTrendRange(currentVisitsTrendRange || '30d');
             }
         }
 
@@ -4977,7 +5156,251 @@
             if (elWaConv) elWaConv.textContent = `${pct(wa)}% dari kunjungan`;
         }
 
-        function renderVisitsTrendChart(chartData, mode, referenceDate) {
+        function setVisitsTrendRange(rangeKey) {
+            currentVisitsTrendRange = rangeKey;
+            const buttons = document.querySelectorAll('.visits-range-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('data-range') === rangeKey) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            applyVisitsTrendRange(rangeKey);
+        }
+        window.setVisitsTrendRange = setVisitsTrendRange;
+
+        function updateVisitsSummaryMetrics(metrics) {
+            const elTotalVal = document.getElementById('visitMetricTotalVal');
+            const elTotalSub = document.getElementById('visitMetricTotalSub');
+            const elAvgLabel = document.getElementById('visitMetricAvgLabel');
+            const elAvgVal = document.getElementById('visitMetricAvgVal');
+            const elAvgSub = document.getElementById('visitMetricAvgSub');
+            const elPeakLabel = document.getElementById('visitMetricPeakLabel');
+            const elPeakVal = document.getElementById('visitMetricPeakVal');
+            const elPeakSub = document.getElementById('visitMetricPeakSub');
+            const elGrowthVal = document.getElementById('visitMetricGrowthVal');
+            const elGrowthSub = document.getElementById('visitMetricGrowthSub');
+
+            if (!elTotalVal) return;
+
+            const { total, avg, peak, growthPct, hasComparison, isMonthly, rangeLabel, prevTotal } = metrics;
+
+            // 1. Total kunjungan periode
+            elTotalVal.textContent = total.toLocaleString('id-ID');
+            if (elTotalSub) elTotalSub.textContent = rangeLabel || 'Periode terpilih';
+
+            // 2. Rata-rata per hari / per bulan
+            if (elAvgLabel) elAvgLabel.textContent = isMonthly ? 'Rata-rata / Bulan' : 'Rata-rata / Hari';
+            if (elAvgVal) {
+                elAvgVal.textContent = (typeof avg === 'number' && !isNaN(avg))
+                    ? avg.toLocaleString('id-ID', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+                    : '0';
+            }
+            if (elAvgSub) elAvgSub.textContent = isMonthly ? 'Kunjungan per bulan' : 'Kunjungan per hari';
+
+            // 3. Hari / Bulan tertinggi
+            if (elPeakLabel) elPeakLabel.textContent = isMonthly ? 'Bulan Tertinggi' : 'Hari Tertinggi';
+            if (elPeakVal) {
+                if (peak && peak.count > 0) {
+                    elPeakVal.textContent = `${peak.label} (${peak.count.toLocaleString('id-ID')})`;
+                } else {
+                    elPeakVal.textContent = '-';
+                }
+            }
+            if (elPeakSub) {
+                elPeakSub.textContent = (peak && peak.count > 0)
+                    ? (isMonthly ? 'Tertinggi tercatat' : 'Puncak kunjungan')
+                    : 'Belum ada kunjungan';
+            }
+
+            // 4. Perubahan vs periode sebelumnya (persen: hijau naik, merah turun, abu-abu jika kosong)
+            if (elGrowthVal) {
+                if (!hasComparison || growthPct === null || isNaN(growthPct)) {
+                    elGrowthVal.innerHTML = '<span style="color: var(--color-text-muted); font-size: 1.15rem; font-weight: 600;">-</span>';
+                    if (elGrowthSub) elGrowthSub.textContent = 'Data pembanding kosong';
+                } else {
+                    const formattedPct = Math.abs(growthPct).toFixed(1) + '%';
+                    const prevFmt = (prevTotal || 0).toLocaleString('id-ID');
+                    if (growthPct > 0) {
+                        elGrowthVal.innerHTML = `
+                            <span style="color: var(--color-success); font-weight: 700; display: inline-flex; align-items: center; gap: 0.2rem;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                +${formattedPct}
+                            </span>`;
+                        if (elGrowthSub) elGrowthSub.textContent = isMonthly ? `vs bulan lalu (${prevFmt})` : `vs periode lalu (${prevFmt})`;
+                    } else if (growthPct < 0) {
+                        elGrowthVal.innerHTML = `
+                            <span style="color: var(--color-danger); font-weight: 700; display: inline-flex; align-items: center; gap: 0.2rem;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                -${formattedPct}
+                            </span>`;
+                        if (elGrowthSub) elGrowthSub.textContent = isMonthly ? `vs bulan lalu (${prevFmt})` : `vs periode lalu (${prevFmt})`;
+                    } else {
+                        elGrowthVal.innerHTML = '<span style="color: var(--color-text-muted); font-weight: 600;">0.0%</span>';
+                        if (elGrowthSub) elGrowthSub.textContent = isMonthly ? 'Sama dengan bulan lalu' : 'Sama dengan periode lalu';
+                    }
+                }
+            }
+        }
+
+        function applyVisitsTrendRange(rangeKey) {
+            const now = new Date();
+            const todayJakarta = getJakartaDateKey(now);
+            const currentYearMonth = todayJakarta.slice(0, 7);
+
+            // Bangun map kunjungan per hari zona Asia/Jakarta (WIB)
+            const dailyCountsMap = {};
+            let earliestDateKey = todayJakarta;
+            cachedPageViewEvents.forEach(r => {
+                if (!r.created_at) return;
+                const dKey = getJakartaDateKey(r.created_at);
+                if (dKey) {
+                    dailyCountsMap[dKey] = (dailyCountsMap[dKey] || 0) + 1;
+                    if (dKey < earliestDateKey) {
+                        earliestDateKey = dKey;
+                    }
+                }
+            });
+
+            if (rangeKey === 'monthly') {
+                // Mode Bulanan: Batang (bar) dengan sudut atas membulat
+                const [startYear, startMonth] = (earliestDateKey ? earliestDateKey.slice(0, 7) : currentYearMonth).split('-').map(Number);
+                const [endYear, endMonth] = currentYearMonth.split('-').map(Number);
+
+                const chartData = [];
+                let curY = startYear;
+                let curM = startMonth;
+                while (curY < endYear || (curY === endYear && curM <= endMonth)) {
+                    const ymKey = `${curY}-${String(curM).padStart(2, '0')}`;
+                    let count = 0;
+                    Object.keys(dailyCountsMap).forEach(dKey => {
+                        if (dKey.startsWith(ymKey)) {
+                            count += dailyCountsMap[dKey];
+                        }
+                    });
+                    const isCurrent = (ymKey === currentYearMonth);
+                    const label = INDO_SHORT_MONTHS[curM - 1] + (curY !== now.getFullYear() ? ` '${String(curY).slice(2)}` : '');
+                    const fullLabel = `${INDO_MONTHS[curM - 1]} ${curY}`;
+
+                    chartData.push({
+                        key: ymKey,
+                        label,
+                        fullLabel,
+                        isCurrent,
+                        count
+                    });
+
+                    curM++;
+                    if (curM > 12) {
+                        curM = 1;
+                        curY++;
+                    }
+                }
+
+                const totalViews = chartData.reduce((sum, d) => sum + d.count, 0);
+                const avgViews = chartData.length > 0 ? (totalViews / chartData.length) : 0;
+                let peakEntry = null;
+                chartData.forEach(d => {
+                    if (!peakEntry || d.count > peakEntry.count) peakEntry = d;
+                });
+
+                let hasComparison = false;
+                let growthPct = null;
+                let prevTotal = 0;
+                if (chartData.length >= 2) {
+                    const currentMonthEntry = chartData[chartData.length - 1];
+                    const prevMonthEntry = chartData[chartData.length - 2];
+                    prevTotal = prevMonthEntry.count;
+                    if (prevTotal > 0) {
+                        hasComparison = true;
+                        growthPct = ((currentMonthEntry.count - prevTotal) / prevTotal) * 100;
+                    }
+                }
+
+                updateVisitsSummaryMetrics({
+                    total: totalViews,
+                    avg: avgViews,
+                    peak: peakEntry,
+                    growthPct,
+                    hasComparison,
+                    prevTotal,
+                    isMonthly: true,
+                    rangeLabel: `${chartData.length} bulan tercatat`
+                });
+
+                renderVisitsTrendChart(chartData, 'monthly', now, {
+                    rangeKey: 'monthly',
+                    totalViews
+                });
+            } else {
+                // Mode Harian: 7 Hari, 30 Hari, 90 Hari
+                const dayCount = rangeKey === '7d' ? 7 : (rangeKey === '90d' ? 90 : 30);
+                const chartData = [];
+
+                for (let offset = -(dayCount - 1); offset <= 0; offset++) {
+                    const dateKey = getJakartaDateOffset(todayJakarta, offset);
+                    const count = dailyCountsMap[dateKey] || 0;
+                    chartData.push({
+                        key: dateKey,
+                        label: formatJakartaShortDate(dateKey),
+                        fullDate: formatJakartaFullDate(dateKey),
+                        shortLabel: formatJakartaShortDate(dateKey),
+                        count: count
+                    });
+                }
+
+                // Rata-rata bergerak 7 hari (SMA 7-hari)
+                const movingAverages = chartData.map(d => {
+                    let sum7 = 0;
+                    for (let k = -6; k <= 0; k++) {
+                        const pastKey = getJakartaDateOffset(d.key, k);
+                        sum7 += (dailyCountsMap[pastKey] || 0);
+                    }
+                    return Math.round((sum7 / 7) * 10) / 10;
+                });
+
+                const totalViews = chartData.reduce((sum, d) => sum + d.count, 0);
+                const avgViews = totalViews / dayCount;
+                let peakEntry = null;
+                chartData.forEach(d => {
+                    if (!peakEntry || d.count > peakEntry.count) peakEntry = d;
+                });
+
+                // Perbandingan periode sebelumnya (N hari sebelumnya)
+                let prevPeriodTotal = 0;
+                for (let offset = -(2 * dayCount - 1); offset <= -dayCount; offset++) {
+                    const prevKey = getJakartaDateOffset(todayJakarta, offset);
+                    prevPeriodTotal += (dailyCountsMap[prevKey] || 0);
+                }
+
+                let hasComparison = false;
+                let growthPct = null;
+                if (prevPeriodTotal > 0) {
+                    hasComparison = true;
+                    growthPct = ((totalViews - prevPeriodTotal) / prevPeriodTotal) * 100;
+                }
+
+                updateVisitsSummaryMetrics({
+                    total: totalViews,
+                    avg: avgViews,
+                    peak: peakEntry,
+                    growthPct,
+                    hasComparison,
+                    prevTotal: prevPeriodTotal,
+                    isMonthly: false,
+                    rangeLabel: `${dayCount} hari terakhir`
+                });
+
+                renderVisitsTrendChart(chartData, 'daily', now, {
+                    rangeKey,
+                    movingAverages,
+                    totalViews
+                });
+            }
+        }
+
+        function renderVisitsTrendChart(chartData, mode, referenceDate, extraOpts = {}) {
             const canvas = document.getElementById('dailyVisitsChart');
             const wrapper = document.getElementById('dailyVisitsChartWrapper');
             const emptyMsg = document.getElementById('dailyVisitsChartEmptyMessage');
@@ -4986,17 +5409,39 @@
             const subheading = document.getElementById('dailyVisitsChartSubheading');
             if (!canvas || !wrapper || !emptyMsg) return;
 
-            const monthNamesFull = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const rangeKey = extraOpts.rangeKey || (mode === 'monthly' ? 'monthly' : '30d');
+            const totalViews = (typeof extraOpts.totalViews === 'number')
+                ? extraOpts.totalViews
+                : chartData.reduce((sum, d) => sum + d.count, 0);
 
-            if (heading) heading.textContent = mode === 'monthly' ? 'Tren Kunjungan Bulanan' : 'Tren Kunjungan Harian';
-            if (subheading) {
-                subheading.textContent = mode === 'monthly'
-                    ? 'Jumlah kunjungan halaman per bulan, sejak data mulai tercatat.'
-                    : `Jumlah kunjungan halaman per hari, bulan ${monthNamesFull[referenceDate.getMonth()]} ${referenceDate.getFullYear()}.`;
+            if (heading) {
+                if (rangeKey === '7d') heading.textContent = 'Tren Kunjungan (7 Hari Terakhir)';
+                else if (rangeKey === '90d') heading.textContent = 'Tren Kunjungan (90 Hari Terakhir)';
+                else if (rangeKey === 'monthly') heading.textContent = 'Tren Kunjungan Bulanan';
+                else heading.textContent = 'Tren Kunjungan (30 Hari Terakhir)';
             }
 
-            const totalViews = chartData.reduce((sum, d) => sum + d.count, 0);
-            if (badge) badge.textContent = mode === 'monthly' ? `Total: ${totalViews} Kunjungan` : `Total: ${totalViews} Bulan Ini`;
+            if (subheading) {
+                if (mode === 'monthly') {
+                    subheading.textContent = 'Jumlah kunjungan halaman per bulan sejak data mulai tercatat (WIB).';
+                } else {
+                    subheading.textContent = 'Jumlah kunjungan halaman per hari dan rata-rata bergerak 7 hari (WIB).';
+                }
+            }
+
+            if (badge) {
+                if (totalViews === 0) {
+                    badge.textContent = '0 Kunjungan';
+                } else if (rangeKey === '7d') {
+                    badge.textContent = `Total: ${totalViews.toLocaleString('id-ID')} (7 Hari)`;
+                } else if (rangeKey === '90d') {
+                    badge.textContent = `Total: ${totalViews.toLocaleString('id-ID')} (90 Hari)`;
+                } else if (rangeKey === 'monthly') {
+                    badge.textContent = `Total: ${totalViews.toLocaleString('id-ID')} Kunjungan`;
+                } else {
+                    badge.textContent = `Total: ${totalViews.toLocaleString('id-ID')} (30 Hari)`;
+                }
+            }
 
             if (totalViews === 0 || chartData.length === 0) {
                 wrapper.style.display = 'none';
@@ -5012,7 +5457,7 @@
             emptyMsg.style.display = 'none';
 
             if (typeof Chart === 'undefined') {
-                setTimeout(() => renderVisitsTrendChart(chartData, mode, referenceDate), 150);
+                setTimeout(() => renderVisitsTrendChart(chartData, mode, referenceDate, extraOpts), 150);
                 return;
             }
 
@@ -5023,82 +5468,211 @@
 
             const labels = chartData.map(d => d.label);
             const dataValues = chartData.map(d => d.count);
-
             const ctx = canvas.getContext('2d');
-            let fillGradient = 'rgba(4, 71, 58, 0.15)';
-            try {
-                const gradient = ctx.createLinearGradient(0, 0, 0, 240);
-                gradient.addColorStop(0, 'rgba(4, 71, 58, 0.35)');
-                gradient.addColorStop(1, 'rgba(4, 71, 58, 0.02)');
-                fillGradient = gradient;
-            } catch (e) {
-                // Fallback to solid rgba
-            }
 
-            dailyVisitsChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Kunjungan',
-                        data: dataValues,
-                        borderColor: '#04473A',
-                        backgroundColor: fillGradient,
-                        fill: true,
-                        tension: 0.35,
-                        pointRadius: 3,
-                        pointBackgroundColor: '#04473A',
-                        pointBorderColor: '#FFFFFF',
-                        pointBorderWidth: 1.5,
-                        pointHoverRadius: 5,
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#04473A',
-                            titleColor: '#FFFFFF',
-                            bodyColor: '#FBF7F0',
-                            borderColor: 'rgba(212, 181, 130, 0.4)',
-                            borderWidth: 1,
-                            padding: { top: 8, bottom: 8, left: 12, right: 12 },
-                            cornerRadius: 8,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.parsed.y} kunjungan`;
+            if (mode === 'monthly') {
+                // Grafik Batang Bulanan: Sudut membulat, highlight bulan berjalan, maxBarThickness rapi
+                const barColors = chartData.map(d => d.isCurrent ? 'rgba(4, 71, 58, 0.55)' : '#04473A');
+                const hoverColors = chartData.map(d => d.isCurrent ? 'rgba(4, 71, 58, 0.75)' : '#03382D');
+
+                dailyVisitsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Kunjungan',
+                            data: dataValues,
+                            backgroundColor: barColors,
+                            hoverBackgroundColor: hoverColors,
+                            borderRadius: { topLeft: 6, topRight: 6, bottomLeft: 0, bottomRight: 0 },
+                            borderSkipped: 'bottom',
+                            maxBarThickness: 48
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 600,
+                            easing: 'easeOutQuart'
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#04473A',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#FBF7F0',
+                                borderColor: 'rgba(212, 181, 130, 0.4)',
+                                borderWidth: 1,
+                                padding: { top: 8, bottom: 8, left: 12, right: 12 },
+                                cornerRadius: 8,
+                                displayColors: false,
+                                callbacks: {
+                                    title: function(items) {
+                                        if (!items || !items.length) return '';
+                                        const item = chartData[items[0].dataIndex];
+                                        return (item?.fullLabel || items[0].label) + (item?.isCurrent ? ' (berjalan)' : '');
+                                    },
+                                    label: function(context) {
+                                        return `${context.parsed.y.toLocaleString('id-ID')} kunjungan`;
+                                    }
                                 }
                             }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                precision: 0,
-                                stepSize: 1,
-                                color: '#6B7280',
-                                font: { family: "'Inter', sans-serif", size: 11 }
-                            },
-                            grid: { color: '#F0F2F5', drawBorder: false }
                         },
-                        x: {
-                            ticks: {
-                                color: '#6B7280',
-                                font: { family: "'Inter', sans-serif", size: 11 },
-                                maxRotation: 0,
-                                autoSkip: true,
-                                maxTicksLimit: 8
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0,
+                                    color: '#6B7280',
+                                    font: { family: "'Inter', sans-serif", size: 11 }
+                                },
+                                grid: { color: '#F0F2F5' },
+                                border: { display: false }
                             },
-                            grid: { display: false }
+                            x: {
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: { family: "'Inter', sans-serif", size: 11 },
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: (typeof window !== 'undefined' && window.innerWidth < 640) ? 6 : ((typeof window !== 'undefined' && window.innerWidth < 1024) ? 10 : 14)
+                                },
+                                grid: { display: false },
+                                border: { display: false }
+                            }
                         }
                     }
-                }
-            });
+                });
+            } else {
+                // Grafik Garis Harian: Garis Kunjungan + Garis Putus-putus Emas MA 7-Hari
+                const movingAvgValues = extraOpts.movingAverages || chartData.map(() => 0);
+
+                dailyVisitsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Kunjungan',
+                                data: dataValues,
+                                borderColor: '#04473A',
+                                backgroundColor: function(context) {
+                                    const chart = context.chart;
+                                    const { ctx: cCtx, chartArea } = chart;
+                                    if (!chartArea) return 'rgba(4, 71, 58, 0.15)';
+                                    const gradient = cCtx.createLinearGradient(0, chartArea.top, 0, chartArea.bottom);
+                                    gradient.addColorStop(0, 'rgba(4, 71, 58, 0.25)');
+                                    gradient.addColorStop(1, 'rgba(4, 71, 58, 0.00)');
+                                    return gradient;
+                                },
+                                fill: true,
+                                tension: 0.35,
+                                borderWidth: 2,
+                                pointRadius: 0,
+                                pointHoverRadius: 5,
+                                pointBackgroundColor: '#04473A',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                order: 2
+                            },
+                            {
+                                label: 'Rata-rata 7 Hari',
+                                data: movingAvgValues,
+                                borderColor: '#D4B582',
+                                borderDash: [5, 5],
+                                borderWidth: 2,
+                                tension: 0.35,
+                                fill: false,
+                                pointRadius: 0,
+                                pointHoverRadius: 4,
+                                pointBackgroundColor: '#D4B582',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                order: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 600,
+                            easing: 'easeOutQuart'
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                align: 'end',
+                                labels: {
+                                    boxWidth: 14,
+                                    boxHeight: 3,
+                                    usePointStyle: false,
+                                    color: '#6B7280',
+                                    font: { family: "'Inter', sans-serif", size: 11, weight: '500' },
+                                    padding: 10
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: '#04473A',
+                                titleColor: '#FFFFFF',
+                                bodyColor: '#FBF7F0',
+                                borderColor: 'rgba(212, 181, 130, 0.4)',
+                                borderWidth: 1,
+                                padding: { top: 8, bottom: 8, left: 12, right: 12 },
+                                cornerRadius: 8,
+                                displayColors: true,
+                                callbacks: {
+                                    title: function(items) {
+                                        if (!items || !items.length) return '';
+                                        const idx = items[0].dataIndex;
+                                        return chartData[idx]?.fullDate || items[0].label;
+                                    },
+                                    label: function(context) {
+                                        const val = context.parsed.y;
+                                        if (context.datasetIndex === 1) {
+                                            return `Rata-rata 7 Hari: ${val.toLocaleString('id-ID')} kunjungan`;
+                                        }
+                                        return `Kunjungan: ${val.toLocaleString('id-ID')} kunjungan`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0,
+                                    color: '#6B7280',
+                                    font: { family: "'Inter', sans-serif", size: 11 }
+                                },
+                                grid: { color: '#F0F2F5' },
+                                border: { display: false }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6B7280',
+                                    font: { family: "'Inter', sans-serif", size: 11 },
+                                    maxRotation: 0,
+                                    autoSkip: true,
+                                    maxTicksLimit: (typeof window !== 'undefined' && window.innerWidth < 640) ? 6 : ((typeof window !== 'undefined' && window.innerWidth < 1024) ? 10 : 14)
+                                },
+                                grid: { display: false },
+                                border: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
         }
 
         const PAGE_NAME_MAP = {
