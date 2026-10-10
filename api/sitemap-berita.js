@@ -38,6 +38,22 @@ function getIsoDate(item) {
     return null;
 }
 
+async function readProjectFile(relativePath) {
+    const candidates = [
+        path.join(process.cwd(), relativePath),
+        path.join(__dirname, '..', relativePath),
+        path.join(__dirname, relativePath)
+    ];
+    for (const p of candidates) {
+        try {
+            return await fs.promises.readFile(p, 'utf8');
+        } catch (e) {
+            // try next candidate
+        }
+    }
+    throw new Error(`File not found: ${relativePath}`);
+}
+
 async function fetchAllNews() {
     try {
         const endpoint = `${SUPABASE_URL}/rest/v1/news?select=*&order=created_at.desc`;
@@ -58,8 +74,7 @@ async function fetchAllNews() {
     }
 
     try {
-        const filePath = path.join(process.cwd(), 'assets', 'data', 'news.json');
-        const content = await fs.promises.readFile(filePath, 'utf8');
+        const content = await readProjectFile(path.join('assets', 'data', 'news.json'));
         const data = JSON.parse(content);
         if (Array.isArray(data)) return data;
     } catch (err) {
@@ -97,7 +112,7 @@ module.exports = async function handler(req, res) {
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-        res.setHeader('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+        res.setHeader('Cache-Control', 's-maxage=3600');
         res.end(xml);
     } catch (err) {
         console.error('Error generating /api/sitemap-berita:', err);

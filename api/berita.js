@@ -55,6 +55,22 @@ function getIsoDate(item) {
     return null;
 }
 
+async function readProjectFile(relativePath) {
+    const candidates = [
+        path.join(process.cwd(), relativePath),
+        path.join(__dirname, '..', relativePath),
+        path.join(__dirname, relativePath)
+    ];
+    for (const p of candidates) {
+        try {
+            return await fs.promises.readFile(p, 'utf8');
+        } catch (e) {
+            // try next candidate
+        }
+    }
+    throw new Error(`File not found: ${relativePath}`);
+}
+
 async function fetchFromSupabase(id) {
     try {
         const endpoint = `${SUPABASE_URL}/rest/v1/news?id=eq.${encodeURIComponent(id)}&select=*`;
@@ -77,8 +93,7 @@ async function fetchFromSupabase(id) {
 
 async function fetchFromNewsJson(id) {
     try {
-        const filePath = path.join(process.cwd(), 'assets', 'data', 'news.json');
-        const content = await fs.promises.readFile(filePath, 'utf8');
+        const content = await readProjectFile(path.join('assets', 'data', 'news.json'));
         const list = JSON.parse(content);
         if (Array.isArray(list)) {
             return list.find(item => item && String(item.id) === String(id)) || null;
@@ -97,11 +112,11 @@ function renderNotFoundPage(template) {
         '</div>';
 
     let html = template;
-    html = html.replace(/<title>[^<]*<\/title>/i, '<title>Berita Tidak Ditemukan | SMP MBS Al Badar Prambanan</title>');
-    html = html.replace(/<meta\s+name="description"\s+content="[^"]*"/i, '<meta name="description" content="Berita tidak ditemukan"');
-    html = html.replace(/<meta\s+name="robots"\s+content="[^"]*"/i, '<meta name="robots" content="noindex, follow"');
+    html = html.replace(/<title>[^<]*<\/title>/i, () => '<title>Berita Tidak Ditemukan | SMP MBS Al Badar Prambanan</title>');
+    html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, () => '<meta name="description" content="Berita tidak ditemukan">');
+    html = html.replace(/<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/i, () => '<meta name="robots" content="noindex, follow">');
     html = html.replace(/<div\s+class="article-detail-wrap"\s+id="berita-detail-container"[^>]*>[\s\S]*?<\/div>/i,
-        `<div class="article-detail-wrap" id="berita-detail-container" data-prerendered="1">${notFoundBody}</div>`
+        () => `<div class="article-detail-wrap" id="berita-detail-container" data-prerendered="1">${notFoundBody}</div>`
     );
     return html;
 }
@@ -121,12 +136,12 @@ module.exports = async function handler(req, res) {
         id = id ? String(id).trim() : '';
         slug = slug ? decodeURIComponent(String(slug).trim()) : '';
 
-        const templatePath = path.join(process.cwd(), 'berita-detail.html');
-        const template = await fs.promises.readFile(templatePath, 'utf8');
+        const template = await readProjectFile('berita-detail.html');
 
         if (!id) {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
             return res.end(renderNotFoundPage(template));
         }
 
@@ -138,6 +153,7 @@ module.exports = async function handler(req, res) {
         if (!item) {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
             return res.end(renderNotFoundPage(template));
         }
 
@@ -224,22 +240,22 @@ module.exports = async function handler(req, res) {
         const jsonLdScript = `    <script type="application/ld+json">${jsonLdSafe}</script>\n`;
 
         let html = template;
-        html = html.replace(/<title>[^<]*<\/title>/i, `<title>${titleText} | SMP MBS Al Badar Prambanan</title>`);
-        html = html.replace(/<meta\s+name="description"\s+content="[^"]*"/i, `<meta name="description" content="${excerptText}"`);
-        html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"/i, `<link rel="canonical" href="${canonicalAttr}"`);
-        html = html.replace(/<meta\s+property="og:url"\s+content="[^"]*"/i, `<meta property="og:url" content="${canonicalAttr}"`);
-        html = html.replace(/<meta\s+property="og:title"\s+content="[^"]*"/i, `<meta property="og:title" content="${titleText}"`);
-        html = html.replace(/<meta\s+property="og:description"\s+content="[^"]*"/i, `<meta property="og:description" content="${excerptText}"`);
-        html = html.replace(/<meta\s+property="og:image"\s+content="[^"]*"/i, `<meta property="og:image" content="${imageAttr}"`);
-        html = html.replace(/<meta\s+name="twitter:title"\s+content="[^"]*"/i, `<meta name="twitter:title" content="${titleText}"`);
-        html = html.replace(/<meta\s+name="twitter:description"\s+content="[^"]*"/i, `<meta name="twitter:description" content="${excerptText}"`);
-        html = html.replace(/<meta\s+name="twitter:image"\s+content="[^"]*"/i, `<meta name="twitter:image" content="${imageAttr}"`);
+        html = html.replace(/<title>[^<]*<\/title>/i, () => `<title>${titleText} | SMP MBS Al Badar Prambanan</title>`);
+        html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, () => `<meta name="description" content="${excerptText}">`);
+        html = html.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, () => `<link rel="canonical" href="${canonicalAttr}">`);
+        html = html.replace(/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, () => `<meta property="og:url" content="${canonicalAttr}">`);
+        html = html.replace(/<meta\s+property="og:title"\s+content="[^"]*"\s*\/?>/i, () => `<meta property="og:title" content="${titleText}">`);
+        html = html.replace(/<meta\s+property="og:description"\s+content="[^"]*"\s*\/?>/i, () => `<meta property="og:description" content="${excerptText}">`);
+        html = html.replace(/<meta\s+property="og:image"\s+content="[^"]*"\s*\/?>/i, () => `<meta property="og:image" content="${imageAttr}">`);
+        html = html.replace(/<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/?>/i, () => `<meta name="twitter:title" content="${titleText}">`);
+        html = html.replace(/<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/?>/i, () => `<meta name="twitter:description" content="${excerptText}">`);
+        html = html.replace(/<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i, () => `<meta name="twitter:image" content="${imageAttr}">`);
 
         html = html.replace(/<div\s+class="article-detail-wrap"\s+id="berita-detail-container"[^>]*>[\s\S]*?<\/div>/i,
-            `<div class="article-detail-wrap" id="berita-detail-container" data-prerendered="1">${articleHtml}</div>`
+            () => `<div class="article-detail-wrap" id="berita-detail-container" data-prerendered="1">${articleHtml}</div>`
         );
 
-        html = html.replace(/<\/head>/i, `${jsonLdScript}</head>`);
+        html = html.replace(/<\/head>/i, () => `${jsonLdScript}</head>`);
 
         res.statusCode = 200;
         res.setHeader('Content-Type', 'text/html; charset=utf-8');
