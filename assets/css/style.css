@@ -3652,6 +3652,16 @@ body.menu-open .menu-bar {
         padding-left: 1.25rem;
         font-size: 0.9rem;
     }
+    /* Ikon pencarian di drawer mobile: drawer berlatar putih, jadi ikon harus gelap
+       (sebelumnya putih dan baru gelap setelah header .scrolled) */
+    .site-header .search-toggle-btn,
+    .site-header.scrolled .search-toggle-btn {
+        color: var(--lux-dark);
+    }
+    .site-header .search-toggle-btn:hover,
+    .site-header.scrolled .search-toggle-btn:hover {
+        color: var(--lux-gold);
+    }
     .nav-search {
         width: 100%;
         margin: 0.5rem 0;
