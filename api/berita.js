@@ -161,16 +161,22 @@ module.exports = async function handler(req, res) {
         const urlObj = req.url ? new URL(req.url, 'http://localhost') : null;
 
         let rawLegacy = query.legacy;
+        let rawHasQueryId = query.hasqueryid;
+        let rawQueryId = query.queryid;
         let rawId = query.id;
         let rawSlug = query.slug;
 
         if (urlObj) {
             if (!rawLegacy) rawLegacy = urlObj.searchParams.get('legacy');
+            if (!rawHasQueryId) rawHasQueryId = urlObj.searchParams.get('hasqueryid');
+            if (!rawQueryId) rawQueryId = urlObj.searchParams.get('queryid');
             if (!rawId) rawId = urlObj.searchParams.get('id');
             if (!rawSlug) rawSlug = urlObj.searchParams.get('slug');
         }
 
         const legacy = Array.isArray(rawLegacy) ? rawLegacy[0] : rawLegacy;
+        const hasQueryId = Array.isArray(rawHasQueryId) ? rawHasQueryId[0] : rawHasQueryId;
+        const queryId = Array.isArray(rawQueryId) ? rawQueryId[0] : rawQueryId;
         const idVal = Array.isArray(rawId) ? rawId[0] : rawId;
         const id = idVal ? String(idVal).trim() : '';
         const slug = rawSlug ? decodeURIComponent(String(Array.isArray(rawSlug) ? rawSlug[0] : rawSlug).trim()) : '';
@@ -196,24 +202,9 @@ module.exports = async function handler(req, res) {
 
         // 2. Tambahan: jika request ke /berita/{id} membawa query string "id" yang sama persis
         // dengan id di path (sisa dari redirect lama), balas 301 ke /berita/{id} bersih.
-        let pathHasSameQueryId = false;
-        if (urlObj && urlObj.searchParams.has('id')) {
-            const queryIdVal = urlObj.searchParams.get('id');
-            const pathClean = decodeURIComponent(urlObj.pathname || '');
-            if (pathClean === `/berita/${id}` && queryIdVal === id) {
-                pathHasSameQueryId = true;
-            }
-        }
+        const isResidualQueryId = (hasQueryId === '1' || hasQueryId === 1) && String(queryId).trim() === id;
 
-        const allIds = urlObj ? urlObj.searchParams.getAll('id') : [];
-        if (Array.isArray(query.id)) {
-            for (const v of query.id) {
-                if (!allIds.includes(v)) allIds.push(v);
-            }
-        }
-        const hasDuplicateQueryId = allIds.length > 1 && allIds.some(v => String(v).trim() === id);
-
-        if (id && (pathHasSameQueryId || hasDuplicateQueryId)) {
+        if (id && isResidualQueryId) {
             res.statusCode = 301;
             res.setHeader('Location', `/berita/${encodeURIComponent(id)}`);
             res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');

@@ -88,6 +88,11 @@
     },
     {
       "source": "/berita/:id",
+      "has": [{ "type": "query", "key": "id", "value": "(?<queryid>.+)" }],
+      "destination": "/api/berita?id=:id&hasqueryid=1&queryid=:queryid"
+    },
+    {
+      "source": "/berita/:id",
       "destination": "/api/berita?id=:id"
     },
     {
