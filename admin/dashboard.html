@@ -364,6 +364,7 @@
         /* CONTENT SECTIONS */
         .admin-content {
             padding: 1.75rem;
+            padding-bottom: 5.5rem;
             flex: 1;
             max-width: 1400px;
             width: 100%;
@@ -510,7 +511,7 @@
         /* KPI CARD COMPONENT */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 1.25rem;
             margin-bottom: 2rem;
             align-items: stretch;
@@ -711,96 +712,234 @@
             }
         }
 
-        /* KONTAK & MEDIA SOSIAL CARD */
-        .contact-social-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.85rem;
+        /* FLOATING CONTACT SCRIM */
+        .floating-contact-scrim {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 71, 58, 0.12);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            z-index: 84;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
         }
 
-        .contact-social-row {
+        .floating-contact-scrim.is-open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* FLOATING CONTACT WIDGET */
+        .floating-contact-wrap {
+            position: fixed;
+            bottom: 1.25rem;
+            right: 1.25rem;
+            z-index: 85;
+            font-family: var(--font-body);
+            display: none;
+            flex-direction: column;
+            align-items: flex-end;
+            pointer-events: none;
+        }
+
+        .floating-contact-wrap.is-ready {
             display: flex;
-            align-items: center;
-            gap: 0.85rem;
-            padding: 0.85rem 1rem;
+        }
+
+        .floating-contact-menu {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: flex-end;
+            gap: 0.6rem;
+            margin-bottom: 0.75rem;
+            margin-right: 0;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 4px 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: visibility 0s linear 0.22s;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+
+        .floating-contact-wrap.is-open .floating-contact-menu {
+            visibility: visible;
+            pointer-events: auto;
+            transition-delay: 0s;
+        }
+
+        .floating-contact-item {
             background: #FFFFFF;
             border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            color: inherit;
-            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .contact-social-row:hover {
-            border-color: var(--lux-gold);
-            transform: translateY(-1px);
+            border-radius: var(--radius-pill);
             box-shadow: var(--shadow-sm);
+            padding: 0.35rem 0.85rem 0.35rem 0.4rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.65rem;
+            text-decoration: none;
+            color: var(--lux-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+            width: 200px;
+            min-width: 200px;
+            box-sizing: border-box;
+            margin-right: 0;
+            pointer-events: auto;
+            opacity: 0;
+            transform: translateY(12px) scale(0.96);
+            transform-origin: right center;
+            transition: opacity 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.14s cubic-bezier(0.16, 1, 0.3, 1),
+                        border-color 0.15s ease,
+                        box-shadow 0.15s ease;
         }
 
-        .contact-social-row:focus-visible {
+        .floating-contact-wrap.is-open .floating-contact-item {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Stagger animation HANYA saat membuka */
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(1) { transition-delay: 0ms; }
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(2) { transition-delay: 30ms; }
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(3) { transition-delay: 60ms; }
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(4) { transition-delay: 90ms; }
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(5) { transition-delay: 120ms; }
+        .floating-contact-wrap.is-open .floating-contact-item:nth-child(6) { transition-delay: 150ms; }
+
+        /* Hover lift 2px + border emas ditaruh SETELAH nth-child agar menang spesifisitas */
+        .floating-contact-item:hover,
+        .floating-contact-wrap.is-open .floating-contact-item:hover {
+            border-color: var(--lux-gold);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+            transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+            transition-delay: 0ms;
+        }
+
+        .floating-contact-item:focus-visible {
             outline: 2px solid var(--lux-gold);
             outline-offset: 2px;
         }
 
-        .contact-social-icon {
+        .floating-contact-chip {
             width: 36px;
             height: 36px;
-            border-radius: 8px;
+            border-radius: 50%;
             background: rgba(4, 71, 58, 0.08);
             color: var(--color-primary);
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
 
-        .contact-social-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .contact-social-name {
-            font-size: 0.875rem;
-            font-weight: 600;
+        .floating-contact-label {
+            font-size: 0.85rem;
             color: var(--lux-dark);
-            line-height: 1.25;
+            font-weight: 600;
+            flex: 1;
+            text-align: left;
         }
 
-        .contact-social-val {
-            font-size: 0.78rem;
+        .floating-contact-arrow {
             color: var(--color-text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 0.15rem;
-        }
-
-        .contact-social-arrow {
-            color: var(--color-text-muted);
-            opacity: 0.6;
-            transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
-            display: flex;
-            align-items: center;
             flex-shrink: 0;
+            margin-left: auto;
+            transition: transform 0.2s ease, color 0.2s ease;
         }
 
-        .contact-social-row:hover .contact-social-arrow {
-            opacity: 1;
+        .floating-contact-item:hover .floating-contact-arrow {
             color: var(--color-primary);
-            transform: translate(2px, -2px);
+            transform: translate(1px, -1px);
         }
 
-        /* RESPONSIVE BREAKPOINTS FOR BERANDA */
-        @media (max-width: 900px) {
-            .kpi-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 0.85rem;
-            }
+        .floating-contact-launcher {
+            height: 48px;
+            padding: 0 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            background: var(--color-primary);
+            color: #FFFFFF;
+            border: none;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+            user-select: none;
+            pointer-events: auto;
+            margin-right: 0;
+        }
+
+        .floating-contact-launcher:hover {
+            background: #065b4a;
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-1px);
+        }
+
+        .floating-contact-launcher:focus-visible {
+            outline: 2px solid var(--lux-gold);
+            outline-offset: 2px;
+        }
+
+        .floating-contact-plus {
+            transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: center;
+        }
+
+        .floating-contact-wrap.is-open .floating-contact-plus {
+            transform: rotate(45deg);
         }
 
         @media (max-width: 640px) {
-            .contact-social-grid {
-                grid-template-columns: 1fr;
+            .floating-contact-wrap {
+                bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+                right: 1rem;
+            }
+            .floating-contact-item {
+                width: 200px;
+                min-width: 200px;
+                max-width: calc(100vw - 2rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .floating-contact-menu,
+            .floating-contact-item,
+            .floating-contact-plus,
+            .floating-contact-scrim {
+                transition: none !important;
+                transform: none !important;
+            }
+            .floating-contact-wrap.is-open .floating-contact-plus {
+                transform: rotate(45deg) !important;
+            }
+        }
+
+        @media print {
+            .floating-contact-wrap,
+            .floating-contact-scrim {
+                display: none !important;
+            }
+        }
+
+        /* RESPONSIVE BREAKPOINTS FOR BERANDA */
+        @media (max-width: 640px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
             }
         }
 
@@ -2598,25 +2737,7 @@
             border-color: var(--color-primary);
         }
 
-        /* ====== SOSIAL MEDIA & EXPORT DATA ====== */
-        .setting-param-input-wide {
-            flex: 1;
-            min-width: 200px;
-            padding: 0.55rem 0.75rem;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--lux-dark);
-            text-align: left;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .setting-param-input-wide:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px rgba(4, 71, 58, 0.1);
-        }
+        /* ====== EXPORT DATA ====== */
 
         .export-actions-grid {
             display: grid;
@@ -3082,7 +3203,7 @@
                 <div class="kpi-grid">
                     <a href="#berita" class="kpi-card" onclick="switchTab('sec-berita'); return false;">
                         <div class="kpi-top">
-                            <span class="kpi-label">Total Berita &amp; Artikel</span>
+                            <span class="kpi-label">Berita &amp; Artikel</span>
                             <div class="kpi-icon-chip" aria-hidden="true">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
@@ -3096,14 +3217,14 @@
                             <div class="kpi-value is-loading" id="statNewsCount">0</div>
                         </div>
                         <div class="kpi-footer">
-                            <span class="kpi-sub">Total publikasi</span>
+                            <span class="kpi-sub">Publikasi</span>
                             <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </a>
 
                     <a href="#prestasi" class="kpi-card" onclick="switchTab('sec-prestasi'); return false;">
                         <div class="kpi-top">
-                            <span class="kpi-label">Total Prestasi Siswa</span>
+                            <span class="kpi-label">Prestasi Siswa</span>
                             <div class="kpi-icon-chip" aria-hidden="true">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <circle cx="12" cy="8" r="6"></circle>
@@ -3115,7 +3236,7 @@
                             <div class="kpi-value is-loading" id="statAchieveCount">0</div>
                         </div>
                         <div class="kpi-footer">
-                            <span class="kpi-sub">Prestasi kejuaraan</span>
+                            <span class="kpi-sub">Kejuaraan</span>
                             <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </a>
@@ -3136,7 +3257,7 @@
                             <div class="kpi-value is-loading" id="statStudentCount">0</div>
                         </div>
                         <div class="kpi-footer">
-                            <span class="kpi-sub">Siswa terdaftar</span>
+                            <span class="kpi-sub">Terdaftar</span>
                             <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </div>
@@ -3156,7 +3277,7 @@
                             <div class="kpi-value is-loading" id="statTeacherCount">0</div>
                         </div>
                         <div class="kpi-footer">
-                            <span class="kpi-sub">Tenaga pendidik</span>
+                            <span class="kpi-sub">Pendidik</span>
                             <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </div>
@@ -3225,7 +3346,7 @@
 
                     <div class="kpi-card">
                         <div class="kpi-top">
-                            <span class="kpi-label">Klik Unduh Brosur</span>
+                            <span class="kpi-label">Klik Brosur</span>
                             <div class="kpi-icon-chip" aria-hidden="true">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -3247,7 +3368,7 @@
 
                     <div class="kpi-card">
                         <div class="kpi-top">
-                            <span class="kpi-label">Klik Tombol WhatsApp</span>
+                            <span class="kpi-label">Klik WhatsApp</span>
                             <div class="kpi-icon-chip" aria-hidden="true">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
@@ -3453,105 +3574,6 @@
                             </div>
                             <span>Kelola Gambar Situs</span>
                         </button>
-                    </div>
-                </div>
-
-                <!-- Kontak & Media Sosial -->
-                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
-                        <div>
-                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
-                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
-                                </svg>
-                                Kontak &amp; Media Sosial
-                            </h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">Tautan kanal komunikasi publik dan profil resmi sekolah.</p>
-                        </div>
-                    </div>
-
-                    <div class="contact-social-grid">
-                        <a href="https://www.instagram.com/mbsalbadar/" target="_blank" rel="noopener" class="contact-social-row">
-                            <div class="contact-social-icon" aria-hidden="true">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                                </svg>
-                            </div>
-                            <div class="contact-social-info">
-                                <div class="contact-social-name">Instagram</div>
-                                <div class="contact-social-val">@mbsalbadar</div>
-                            </div>
-                            <div class="contact-social-arrow" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </div>
-                        </a>
-
-                        <a href="https://www.tiktok.com/@mbsalbadar" target="_blank" rel="noopener" class="contact-social-row">
-                            <div class="contact-social-icon" aria-hidden="true">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 18V5l12-2v13"></path>
-                                    <circle cx="6" cy="18" r="3"></circle>
-                                    <circle cx="18" cy="16" r="3"></circle>
-                                </svg>
-                            </div>
-                            <div class="contact-social-info">
-                                <div class="contact-social-name">TikTok</div>
-                                <div class="contact-social-val">@mbsalbadar</div>
-                            </div>
-                            <div class="contact-social-arrow" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </div>
-                        </a>
-
-                        <a href="https://wa.me/6285729348915" target="_blank" rel="noopener" class="contact-social-row">
-                            <div class="contact-social-icon" aria-hidden="true">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                                </svg>
-                            </div>
-                            <div class="contact-social-info">
-                                <div class="contact-social-name">WhatsApp</div>
-                                <div class="contact-social-val">+62 857-2934-8915</div>
-                            </div>
-                            <div class="contact-social-arrow" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </div>
-                        </a>
-
-                        <a href="https://maps.google.com/maps?q=SMP%20MBS%20Al%20Badar%20Prambanan%20Jl.%20Opak%20V,%20Jamusan,%20Bokoharjo,%20Prambanan,%20Sleman" target="_blank" rel="noopener" class="contact-social-row">
-                            <div class="contact-social-icon" aria-hidden="true">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                            </div>
-                            <div class="contact-social-info">
-                                <div class="contact-social-name">Alamat Kampus</div>
-                                <div class="contact-social-val">Buka di Google Maps</div>
-                            </div>
-                            <div class="contact-social-arrow" aria-hidden="true">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                    <polyline points="15 3 21 3 21 9"></polyline>
-                                    <line x1="10" y1="14" x2="21" y2="3"></line>
-                                </svg>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </section>
@@ -3903,80 +3925,7 @@
                     </div>
                 </div>
 
-                <!-- Bagian 3: Kelola Sosial Media & Kontak -->
-                <div class="setting-section-card">
-                    <div class="setting-card-header">
-                        <div>
-                            <h3>Sosial Media &amp; Kontak</h3>
-                            <p>Kelola tautan media sosial dan nomor kontak resmi sekolah.</p>
-                        </div>
-                    </div>
-                    <div class="setting-card-body">
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">Instagram</span>
-                                <span class="setting-param-key">key: social_instagram</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialInstagramInput" class="setting-param-input-wide" placeholder="https://instagram.com/namaAkun">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_instagram', 'socialInstagramInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">TikTok</span>
-                                <span class="setting-param-key">key: social_tiktok</span>                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialTiktokInput" class="setting-param-input-wide" placeholder="https://tiktok.com/@namaAkun">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_tiktok', 'socialTiktokInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">YouTube</span>
-                                <span class="setting-param-key">key: social_youtube</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialYoutubeInput" class="setting-param-input-wide" placeholder="https://youtube.com/@namaChannel">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_youtube', 'socialYoutubeInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">Nomor WhatsApp Kontak</span>
-                                <span class="setting-param-key">key: whatsapp_number</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialWhatsappInput" class="setting-param-input-wide" placeholder="6281234567890">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('whatsapp_number', 'socialWhatsappInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="form-help" style="margin-top: 0.5rem;">Format nomor WhatsApp: kode negara tanpa tanda + atau angka 0 di depan (contoh: 6281234567890).</div>
-
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">Email Resmi</span>
-                                <span class="setting-param-key">key: social_email</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="socialEmailInput" class="setting-param-input-wide" placeholder="nama@sekolah.sch.id">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('social_email', 'socialEmailInput')">Simpan</button>
-                            </div>
-                        </div>
-                        <div class="setting-param-item">
-                            <div class="setting-param-info">
-                                <span class="setting-param-label">Alamat Sekolah</span>
-                                <span class="setting-param-key">key: school_address</span>
-                            </div>
-                            <div class="setting-param-control">
-                                <input type="text" id="schoolAddressInput" class="setting-param-input-wide" placeholder="Jl. ...">
-                                <button type="button" class="btn-primary-action" style="padding: 0.55rem 1.15rem; font-size: 0.85rem;" onclick="saveSocialSetting('school_address', 'schoolAddressInput')">Simpan</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bagian 4: Backup & Export Data -->
+                <!-- Bagian 3: Backup & Export Data -->
                 <div class="setting-section-card">
                     <div class="setting-card-header">
                         <div>
@@ -4751,6 +4700,107 @@
         </div>
     </div>
 
+    <!-- Scrim di belakang floating contact menu saat terbuka -->
+    <div class="floating-contact-scrim" id="floatingContactScrim" aria-hidden="true"></div>
+
+    <!-- Widget Kontak Mengambang -->
+    <div class="floating-contact-wrap" id="floatingContactWrap">
+        <div class="floating-contact-menu" id="floatingContactMenu" aria-label="Daftar kontak" aria-hidden="true" role="region">
+            <a href="https://wa.me/6285729348915" target="_blank" rel="noopener" class="floating-contact-item" id="floatLinkWa" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">WhatsApp</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+            <a href="https://www.instagram.com/mbsalbadar/" target="_blank" rel="noopener" class="floating-contact-item" id="floatLinkIg" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">Instagram</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+            <a href="https://www.tiktok.com/@mbsalbadar" target="_blank" rel="noopener" class="floating-contact-item" id="floatLinkTiktok" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 18V5l12-2v13"></path>
+                        <circle cx="6" cy="18" r="3"></circle>
+                        <circle cx="18" cy="16" r="3"></circle>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">TikTok</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+            <a href="https://www.youtube.com/@SMPMBSALBADARPRAMBANAN" target="_blank" rel="noopener" class="floating-contact-item" id="floatLinkYt" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">YouTube</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+            <a href="https://maps.google.com/maps?q=SMP%20MBS%20Al%20Badar%20Prambanan%20Jl.%20Opak%20V,%20Jamusan,%20Bokoharjo,%20Prambanan,%20Sleman" target="_blank" rel="noopener" class="floating-contact-item" id="floatLinkLoc" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                        <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">Lokasi Sekolah</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+            <a href="mailto:smpmbs.albadar@gmail.com" class="floating-contact-item" id="floatLinkEmail" tabindex="-1">
+                <span class="floating-contact-chip">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </span>
+                <span class="floating-contact-label">Email</span>
+                <svg class="floating-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+        </div>
+        <button type="button" class="floating-contact-launcher" id="floatingContactLauncher" aria-expanded="false" aria-controls="floatingContactMenu" aria-label="Buka menu kontak">
+            <span>Kontak</span>
+            <svg class="floating-contact-plus" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </button>
+    </div>
+
     <!-- Achievement Duotone Icons & Storage Upload Helper -->
     <script src="../assets/js/achievement-icons.js"></script>
     <script src="../assets/js/upload-helper.js"></script>
@@ -4935,6 +4985,15 @@
                 // Hide Loading Screen
                 document.getElementById('authOverlay').style.display = 'none';
 
+                // Tampilkan dan inisialisasi floating contact widget
+                const floatingWrap = document.getElementById('floatingContactWrap');
+                if (floatingWrap) {
+                    floatingWrap.style.display = 'flex';
+                    floatingWrap.classList.add('is-ready');
+                    initFloatingContact();
+                    loadFloatingContactSettings();
+                }
+
                 // Initial Load Data
                 loadDashboardStats();
                 loadVisitorAnalytics();
@@ -5053,6 +5112,9 @@
         function openMobileSidebar() {
             sidebar.classList.add('open');
             overlay.classList.add('active');
+            if (typeof window.closeFloatingContact === 'function') {
+                window.closeFloatingContact();
+            }
         }
 
         function closeMobileSidebar() {
@@ -8956,7 +9018,7 @@
 
                 allSchoolSettings = data || [];
                 renderSchoolSettings();
-                populateSocialInputs();
+                applyContactLinkOverrides(allSchoolSettings);
             } catch (err) {
                 console.error('Exception loading school settings:', err);
             }
@@ -8966,7 +9028,7 @@
             const container = document.getElementById('schoolSettingsContainer');
             if (!container) return;
 
-            // Key-key ini sudah punya kartu khusus "Sosial Media & Kontak", jangan dobel di sini
+            // Filter key-key sosial media dan kontak agar tidak tampil di daftar parameter umum sekolah
             const socialKeys = ['social_instagram', 'social_facebook', 'social_tiktok', 'social_youtube', 'whatsapp_number', 'social_email', 'school_address'];
             const generalSettings = allSchoolSettings.filter(item => !socialKeys.includes(item.key));
 
@@ -9055,49 +9117,150 @@
             }
         }
 
-        function populateSocialInputs() {
-            const map = {
-                'social_instagram': 'socialInstagramInput',
-                'social_tiktok': 'socialTiktokInput',
-                'social_youtube': 'socialYoutubeInput',
-                'whatsapp_number': 'socialWhatsappInput',
-                'social_email': 'socialEmailInput',
-                'school_address': 'schoolAddressInput'
-            };
-            Object.keys(map).forEach(key => {
-                const item = allSchoolSettings.find(s => s.key === key);
-                const input = document.getElementById(map[key]);
-                if (input && item) input.value = item.value || '';
+        // ==========================================
+        // FLOATING CONTACT WIDGET LOGIC
+        // ==========================================
+        function applyContactLinkOverrides(settingsList) {
+            if (!Array.isArray(settingsList) || settingsList.length === 0) return;
+            const settingsMap = {};
+            settingsList.forEach(item => {
+                if (item && item.key && item.value !== null && item.value !== undefined) {
+                    const trimmed = String(item.value).trim();
+                    if (trimmed) settingsMap[item.key] = trimmed;
+                }
             });
+
+            const linkWa = document.getElementById('floatLinkWa');
+            const linkIg = document.getElementById('floatLinkIg');
+            const linkTiktok = document.getElementById('floatLinkTiktok');
+            const linkYt = document.getElementById('floatLinkYt');
+            const linkLoc = document.getElementById('floatLinkLoc');
+            const linkEmail = document.getElementById('floatLinkEmail');
+
+            if (linkWa && settingsMap['whatsapp_number']) {
+                const digits = settingsMap['whatsapp_number'].replace(/\D/g, '');
+                if (digits) linkWa.href = `https://wa.me/${digits}`;
+            }
+            if (linkIg && settingsMap['social_instagram']) {
+                linkIg.href = settingsMap['social_instagram'];
+            }
+            if (linkTiktok && settingsMap['social_tiktok']) {
+                linkTiktok.href = settingsMap['social_tiktok'];
+            }
+            if (linkYt && settingsMap['social_youtube']) {
+                linkYt.href = settingsMap['social_youtube'];
+            }
+            if (linkLoc) {
+                if (settingsMap['school_address_map']) {
+                    linkLoc.href = settingsMap['school_address_map'];
+                } else if (settingsMap['school_address']) {
+                    linkLoc.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settingsMap['school_address'])}`;
+                }
+            }
+            if (linkEmail && settingsMap['social_email']) {
+                linkEmail.href = `mailto:${settingsMap['social_email']}`;
+            }
         }
 
-        async function saveSocialSetting(key, inputId) {
-            const input = document.getElementById(inputId);
-            if (!input) return;
-            const newVal = input.value.trim();
-            const btn = input.closest('.setting-param-control').querySelector('button');
-            const originalText = btn.textContent;
-            btn.disabled = true;
-            btn.textContent = 'Menyimpan...';
-
+        async function loadFloatingContactSettings() {
             try {
-                const { error } = await supabaseClient
+                if (typeof supabaseClient === 'undefined') return;
+                const { data, error } = await supabaseClient
                     .from('school_settings')
-                    .update({ value: newVal, updated_at: new Date().toISOString() })
-                    .eq('key', key);
-
-                if (error) throw error;
-
-                showToast('Pengaturan berhasil diperbarui.', 'success');
-                const item = allSchoolSettings.find(s => s.key === key);
-                if (item) item.value = newVal;
+                    .select('key, value');
+                if (!error && Array.isArray(data)) {
+                    applyContactLinkOverrides(data);
+                }
             } catch (err) {
-                console.error('Error saving social setting:', err);
-                showToast(`Gagal menyimpan: ${err.message}`, 'error');
-            } finally {
-                btn.disabled = false;
-                btn.textContent = originalText;
+                console.warn('Gagal memuat kontak dari school_settings:', err);
             }
+        }
+
+        function initFloatingContact() {
+            const wrap = document.getElementById('floatingContactWrap');
+            const launcher = document.getElementById('floatingContactLauncher');
+            const menu = document.getElementById('floatingContactMenu');
+            const scrim = document.getElementById('floatingContactScrim');
+            if (!wrap || !launcher || !menu || wrap.dataset.contactBound) return;
+            wrap.dataset.contactBound = 'true';
+
+            function openMenu() {
+                wrap.classList.add('is-open');
+                if (scrim) scrim.classList.add('is-open');
+                launcher.setAttribute('aria-expanded', 'true');
+                menu.setAttribute('aria-hidden', 'false');
+                menu.querySelectorAll('.floating-contact-item').forEach(item => {
+                    item.setAttribute('tabindex', '0');
+                });
+            }
+
+            function closeMenu() {
+                wrap.classList.remove('is-open');
+                if (scrim) scrim.classList.remove('is-open');
+                launcher.setAttribute('aria-expanded', 'false');
+                menu.setAttribute('aria-hidden', 'true');
+                menu.querySelectorAll('.floating-contact-item').forEach(item => {
+                    item.setAttribute('tabindex', '-1');
+                });
+            }
+
+            // Inisialisasi tabindex tertutup untuk aksesibilitas keyboard
+            menu.querySelectorAll('.floating-contact-item').forEach(item => {
+                item.setAttribute('tabindex', '-1');
+            });
+
+            launcher.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (wrap.classList.contains('is-open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            if (scrim) {
+                scrim.addEventListener('click', () => {
+                    closeMenu();
+                });
+            }
+
+            // Tutup saat klik di luar
+            document.addEventListener('click', (e) => {
+                if (wrap.classList.contains('is-open') && !wrap.contains(e.target)) {
+                    closeMenu();
+                }
+            });
+
+            // Tutup saat tombol Escape & kembalikan fokus ke launcher
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && wrap.classList.contains('is-open')) {
+                    e.preventDefault();
+                    closeMenu();
+                    launcher.focus();
+                }
+            });
+
+            // Tutup saat item diklik
+            menu.querySelectorAll('.floating-contact-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    closeMenu();
+                });
+            });
+
+            // Global helper untuk menutup saat modal atau sidebar mobile terbuka
+            window.closeFloatingContact = closeMenu;
+
+            // MutationObserver untuk menutup otomatis saat modal/sidebar aktif
+            try {
+                const observer = new MutationObserver(() => {
+                    if (wrap.classList.contains('is-open')) {
+                        if (document.querySelector('.modal-backdrop.active, .admin-sidebar.open')) {
+                            closeMenu();
+                        }
+                    }
+                });
+                observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+            } catch (obsErr) {}
         }
         function downloadFile(filename, content, mime) {
             const blob = new Blob([content], { type: mime });
