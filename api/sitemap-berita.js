@@ -14,20 +14,6 @@ function escapeXml(str) {
         .replace(/'/g, '&apos;');
 }
 
-function generateSlug(title) {
-    if (!title) return '';
-    const normalized = String(title)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .trim()
-        .replace(/[\s_]+/g, '-')
-        .replace(/-+/g, '-');
-    let slug = normalized.slice(0, 60);
-    return slug.replace(/-+$/, '');
-}
-
 function getIsoDate(item) {
     const candidates = [item.updated_at, item.created_at, item.date_published, item.published_at];
     for (const c of candidates) {
@@ -91,10 +77,7 @@ module.exports = async function handler(req, res) {
         let urlsXml = '';
         for (const item of newsList) {
             if (!item || !item.id) continue;
-            const slug = generateSlug(item.title);
-            const canonicalUrl = slug
-                ? `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}/${slug}`
-                : `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}`;
+            const canonicalUrl = `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}`;
 
             const isoDate = getIsoDate(item);
             urlsXml += '  <url>\n';

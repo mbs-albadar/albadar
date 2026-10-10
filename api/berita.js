@@ -1,6 +1,24 @@
 const fs = require('fs');
 const path = require('path');
-const sanitizeHtml = require('sanitize-html');
+
+let sanitizeHtmlFn = null;
+async function getSanitizeHtml() {
+    if (sanitizeHtmlFn) return sanitizeHtmlFn;
+    try {
+        const htmlparser = await import('htmlparser2');
+        const resolved = require.resolve('htmlparser2');
+        require.cache[resolved] = {
+            id: resolved,
+            filename: resolved,
+            loaded: true,
+            exports: htmlparser
+        };
+    } catch (e) {
+        // htmlparser2 might already be CJS or handled
+    }
+    sanitizeHtmlFn = require('sanitize-html');
+    return sanitizeHtmlFn;
+}
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://lnrhpocorltzctjnsdfj.supabase.co';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxucmhwb2Nvcmx0emN0am5zZGZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODk2MDg4NTAsImV4cCI6MjEwNTE4NDg1MH0.1zFpGG-xyiWpkRxaI4TCLqoRgLV1JztJ5SBcspK2o7s';
@@ -31,20 +49,6 @@ function getAbsoluteImageUrl(image) {
     return 'https://smpalbadar.sch.id' + cleanPath;
 }
 
-function generateSlug(title) {
-    if (!title) return '';
-    const normalized = String(title)
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, '')
-        .trim()
-        .replace(/[\s_]+/g, '-')
-        .replace(/-+/g, '-');
-    let slug = normalized.slice(0, 60);
-    return slug.replace(/-+$/, '');
-}
-
 function getIsoDate(item) {
     const candidates = [item.created_at, item.updated_at, item.date_published, item.published_at];
     for (const c of candidates) {
@@ -72,22 +76,35 @@ async function readProjectFile(relativePath) {
 }
 
 async function fetchFromSupabase(id) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
     try {
         const endpoint = `${SUPABASE_URL}/rest/v1/news?id=eq.${encodeURIComponent(id)}&select=*`;
         const res = await fetch(endpoint, {
+            signal: controller.signal,
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
                 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
             }
         });
-        if (!res.ok) return null;
-        const data = await res.json();
-        if (Array.isArray(data) && data.length > 0) {
-            return data[0];
+        clearTimeout(timeout);
+
+        if (!res.ok) {
+            return { status: 'error', statusCode: res.status };
         }
-        return null;
+
+        const data = await res.json();
+        if (Array.isArray(data)) {
+            if (data.length > 0) {
+                return { status: 'found', data: data[0] };
+            }
+            return { status: 'not_found' };
+        }
+        return { status: 'error', message: 'Invalid response format' };
     } catch (err) {
-        return null;
+        clearTimeout(timeout);
+        return { status: 'error', error: err };
     }
 }
 
@@ -121,6 +138,23 @@ function renderNotFoundPage(template) {
     return html;
 }
 
+function renderServiceUnavailablePage(template) {
+    const errorBody =
+        '<div class="article-not-found">' +
+            '<p>Layanan sedang mengalami gangguan sementara. Silakan coba beberapa saat lagi.</p>' +
+            '<a href="/berita" class="btn btn-outline btn-sm" style="margin-top: 1rem; display: inline-block;">Kembali ke Semua Berita</a>' +
+        '</div>';
+
+    let html = template;
+    html = html.replace(/<title>[^<]*<\/title>/i, () => '<title>Layanan Tidak Tersedia | SMP MBS Al Badar Prambanan</title>');
+    html = html.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/?>/i, () => '<meta name="description" content="Layanan sedang mengalami gangguan sementara.">');
+    html = html.replace(/<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/i, () => '<meta name="robots" content="noindex, nofollow">');
+    html = html.replace(/<div\s+class="article-detail-wrap"\s+id="berita-detail-container"[^>]*>[\s\S]*?<\/div>/i,
+        () => `<div class="article-detail-wrap" id="berita-detail-container" data-prerendered="1">${errorBody}</div>`
+    );
+    return html;
+}
+
 module.exports = async function handler(req, res) {
     try {
         const query = req.query || {};
@@ -141,30 +175,47 @@ module.exports = async function handler(req, res) {
         if (!id) {
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Cache-Control', 'no-store');
             return res.end(renderNotFoundPage(template));
         }
 
-        let item = await fetchFromSupabase(id);
+        let item = null;
+        let supabaseSuccess = false;
+
+        const sbResult = await fetchFromSupabase(id);
+        if (sbResult.status === 'found') {
+            item = sbResult.data;
+            supabaseSuccess = true;
+        } else if (sbResult.status === 'not_found') {
+            supabaseSuccess = true;
+        } else {
+            supabaseSuccess = false;
+        }
+
         if (!item) {
             item = await fetchFromNewsJson(id);
         }
 
         if (!item) {
-            res.statusCode = 404;
-            res.setHeader('Content-Type', 'text/html; charset=utf-8');
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-            return res.end(renderNotFoundPage(template));
+            if (supabaseSuccess) {
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-store');
+                return res.end(renderNotFoundPage(template));
+            } else {
+                res.statusCode = 503;
+                res.setHeader('Retry-After', '120');
+                res.setHeader('Cache-Control', 'no-store');
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                return res.end(renderServiceUnavailablePage(template));
+            }
         }
 
-        const correctSlug = generateSlug(item.title);
-        const canonicalUrl = correctSlug
-            ? `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}/${correctSlug}`
-            : `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}`;
+        const canonicalUrl = `https://smpalbadar.sch.id/berita/${encodeURIComponent(item.id)}`;
 
-        if (slug !== correctSlug) {
+        if (slug) {
             res.statusCode = 301;
-            res.setHeader('Location', canonicalUrl);
+            res.setHeader('Location', `/berita/${encodeURIComponent(item.id)}`);
             res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
             return res.end();
         }
@@ -179,6 +230,7 @@ module.exports = async function handler(req, res) {
         const isRichHtml = /<[a-z][\s\S]*>/i.test(rawContent);
         let bodyHtml;
         if (isRichHtml) {
+            const sanitizeHtml = await getSanitizeHtml();
             bodyHtml = sanitizeHtml(rawContent, {
                 allowedTags: [
                     'p', 'br', 'strong', 'b', 'em', 'i', 'u',
