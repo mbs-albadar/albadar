@@ -1,0 +1,7 @@
+{
+  "name": "albadar",
+  "private": true,
+  "dependencies": {
+    "sanitize-html": "^2"
+  }
+}

@@ -79,7 +79,29 @@
     },
     {
       "source": "/berita/artikel",
+      "has": [{ "type": "query", "key": "id", "value": "(?<legacyid>.+)" }],
+      "destination": "/api/berita?legacy=1&id=:legacyid"
+    },
+    {
+      "source": "/berita/artikel",
       "destination": "/berita-detail.html"
+    },
+    {
+      "source": "/berita/:id",
+      "has": [{ "type": "query", "key": "id", "value": "(?<queryid>.+)" }],
+      "destination": "/api/berita?id=:id&hasqueryid=1&queryid=:queryid"
+    },
+    {
+      "source": "/berita/:id",
+      "destination": "/api/berita?id=:id"
+    },
+    {
+      "source": "/berita/:id/:slug",
+      "destination": "/api/berita?id=:id&slug=:slug"
+    },
+    {
+      "source": "/sitemap-berita.xml",
+      "destination": "/api/sitemap-berita"
     },
     {
       "source": "/prestasi",
@@ -97,5 +119,13 @@
       "source": "/kebijakan-privasi",
       "destination": "/privacy-policy.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/berita.js": {
+      "includeFiles": "{berita-detail.html,assets/data/news.json}"
+    },
+    "api/sitemap-berita.js": {
+      "includeFiles": "{berita-detail.html,assets/data/news.json}"
+    }
+  }
 }

@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Sitemap: https://smpalbadar.sch.id/sitemap.xml
+Sitemap: https://smpalbadar.sch.id/sitemap-berita.xml
