@@ -578,7 +578,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Berita Detail Page Logic (berita-detail.html)
     const articleContainer = document.getElementById('berita-detail-container');
-    if (articleContainer) {
+    if (articleContainer && !articleContainer.hasAttribute('data-prerendered')) {
         function escapeHtml(str) {
             const div = document.createElement('div');
             div.textContent = str == null ? '' : String(str);

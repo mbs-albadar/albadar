@@ -82,6 +82,18 @@
       "destination": "/berita-detail.html"
     },
     {
+      "source": "/berita/:id",
+      "destination": "/api/berita?id=:id"
+    },
+    {
+      "source": "/berita/:id/:slug",
+      "destination": "/api/berita?id=:id&slug=:slug"
+    },
+    {
+      "source": "/sitemap-berita.xml",
+      "destination": "/api/sitemap-berita"
+    },
+    {
       "source": "/prestasi",
       "destination": "/achievements.html"
     },
@@ -97,5 +109,13 @@
       "source": "/kebijakan-privasi",
       "destination": "/privacy-policy.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/berita.js": {
+      "includeFiles": "{berita-detail.html,assets/data/news.json}"
+    },
+    "api/sitemap-berita.js": {
+      "includeFiles": "{berita-detail.html,assets/data/news.json}"
+    }
+  }
 }
