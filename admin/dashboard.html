@@ -429,8 +429,8 @@
             background: linear-gradient(135deg, var(--color-primary) 0%, #065F46 100%);
             color: #FFFFFF;
             border-radius: var(--radius-md);
-            padding: 2rem;
-            margin-bottom: 1.75rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
             box-shadow: var(--shadow-md);
             position: relative;
             overflow: hidden;
@@ -449,94 +449,401 @@
 
         .welcome-card h1 {
             font-family: var(--font-heading);
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.35rem;
+            line-height: 1.25;
+            color: #FFFFFF;
         }
 
         .welcome-card p {
-            font-size: 0.95rem;
-            opacity: 0.88;
+            font-size: 0.9rem;
+            opacity: 0.9;
             max-width: 600px;
-            line-height: 1.5;
+            line-height: 1.45;
+            margin: 0;
+            color: #FFFFFF;
         }
 
-        .stats-grid {
+        /* SECTION HEADING COMPONENT */
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .section-heading-title {
+            font-family: var(--font-heading);
+            color: var(--lux-dark);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.25;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-heading-sub {
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            margin: 0.25rem 0 0 0;
+            line-height: 1.4;
+        }
+
+        .section-heading-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.65rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            background: rgba(4, 71, 58, 0.08);
+            color: var(--color-primary);
+            border: 1px solid rgba(4, 71, 58, 0.15);
+            white-space: nowrap;
+        }
+
+        /* KPI CARD COMPONENT */
+        .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.25rem;
             margin-bottom: 2rem;
+            align-items: stretch;
         }
 
-        .stat-box {
+        .kpi-card {
             background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-md);
-            padding: 1.5rem;
+            padding: 1.25rem;
             box-shadow: var(--shadow-sm);
             display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            transition: all 0.2s ease;
-            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
             text-decoration: none;
             color: inherit;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
 
-        .stat-box:hover {
+        /* Top accent border on hover */
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--lux-gold);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .kpi-card:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-md);
             border-color: var(--lux-gold);
         }
 
-        .stat-icon-wrap {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-sm);
+        .kpi-card:hover::before {
+            opacity: 1;
+        }
+
+        .kpi-card:focus-visible {
+            outline: 2px solid var(--lux-gold);
+            outline-offset: 2px;
+        }
+
+        /* Static / Disabled KPI card */
+        .kpi-card.is-static {
+            cursor: default !important;
+        }
+
+        .kpi-card.is-static:hover {
+            transform: none !important;
+            box-shadow: var(--shadow-sm) !important;
+            border-color: var(--color-border) !important;
+        }
+
+        .kpi-card.is-static::before {
+            opacity: 0 !important;
+        }
+
+        .kpi-card.is-static .kpi-link-text {
+            display: none !important;
+        }
+
+        /* Subtle emphasis for total pageviews card */
+        .kpi-card-emphasis {
+            background: linear-gradient(180deg, rgba(4, 71, 58, 0.04) 0%, rgba(4, 71, 58, 0.01) 100%), var(--color-surface);
+            border-color: rgba(4, 71, 58, 0.2);
+        }
+
+        .kpi-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .kpi-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .kpi-icon-chip {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(4, 71, 58, 0.08);
+            color: var(--color-primary);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
 
-        .stat-icon-green {
-            background: rgba(4, 71, 58, 0.1);
-            color: var(--color-primary);
+        .kpi-body {
+            margin: 0.65rem 0 0.5rem 0;
         }
 
-        .stat-icon-gold {
-            background: rgba(212, 181, 130, 0.2);
-            color: #92400E;
-        }
-
-        .stat-icon-blue {
-            background: rgba(17, 54, 110, 0.1);
-            color: var(--color-secondary);
-        }
-
-        .stat-icon-cyan {
-            background: rgba(8, 145, 178, 0.12);
-            color: #0E7490;
-        }
-
-        .stat-icon-purple {
-            background: rgba(124, 58, 237, 0.12);
-            color: #6D28D9;
-        }
-
-        .stat-val {
+        .kpi-value {
             font-family: var(--font-heading);
-            font-size: 1.85rem;
+            font-size: 2rem;
             font-weight: 700;
             color: var(--lux-dark);
+            font-variant-numeric: tabular-nums;
             line-height: 1.1;
         }
 
-        .stat-lbl {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            margin-top: 0.25rem;
-            font-weight: 500;
+        .kpi-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            min-height: 1.25rem;
         }
+
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .kpi-link-text {
+            font-size: 0.75rem;
+            color: var(--color-primary);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .kpi-card:hover .kpi-link-text {
+            transform: translateX(2px);
+        }
+
+        .kpi-meta-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.15rem 0.55rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--color-primary);
+            background: rgba(4, 71, 58, 0.08);
+            border-radius: 9999px;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+
+        /* SKELETON SHIMMER LOADING */
+        .kpi-value.is-loading,
+        .kpi-meta-pill.is-loading {
+            position: relative;
+            color: transparent !important;
+            background: linear-gradient(90deg, #f0f2f5 25%, #e6efe9 50%, #f0f2f5 75%);
+            background-size: 200% 100%;
+            animation: kpiShimmer 1.5s infinite;
+            border-radius: var(--radius-sm);
+            user-select: none;
+            display: inline-block;
+        }
+
+        .kpi-value.is-loading {
+            min-width: 60px;
+            height: 2rem;
+        }
+
+        .kpi-meta-pill.is-loading {
+            min-width: 75px;
+            height: 1.15rem;
+        }
+
+        @keyframes kpiShimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .kpi-value.is-loading,
+            .kpi-meta-pill.is-loading {
+                animation: none;
+                background: #f0f2f5;
+            }
+        }
+
+        /* KONTAK & MEDIA SOSIAL CARD */
+        .contact-social-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.85rem;
+        }
+
+        .contact-social-row {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1rem;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: inherit;
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .contact-social-row:hover {
+            border-color: var(--lux-gold);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-social-row:focus-visible {
+            outline: 2px solid var(--lux-gold);
+            outline-offset: 2px;
+        }
+
+        .contact-social-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(4, 71, 58, 0.08);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-social-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .contact-social-name {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--lux-dark);
+            line-height: 1.25;
+        }
+
+        .contact-social-val {
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 0.15rem;
+        }
+
+        .contact-social-arrow {
+            color: var(--color-text-muted);
+            opacity: 0.6;
+            transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .contact-social-row:hover .contact-social-arrow {
+            opacity: 1;
+            color: var(--color-primary);
+            transform: translate(2px, -2px);
+        }
+
+        /* RESPONSIVE BREAKPOINTS FOR BERANDA */
+        @media (max-width: 900px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.85rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .contact-social-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-card {
+                padding: 1.25rem 1.25rem;
+            }
+            .welcome-card h1 {
+                font-size: 1.3rem;
+            }
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.65rem;
+            }
+            .kpi-card {
+                padding: 0.85rem;
+            }
+            .kpi-value {
+                font-size: 1.5rem;
+            }
+            .kpi-icon-chip {
+                width: 32px;
+                height: 32px;
+            }
+            .kpi-icon-chip svg {
+                width: 16px;
+                height: 16px;
+            }
+            .kpi-label {
+                font-size: 0.68rem;
+            }
+            .kpi-sub {
+                font-size: 0.7rem;
+            }
+            .kpi-link-text {
+                font-size: 0.7rem;
+            }
+            .kpi-meta-pill {
+                font-size: 0.68rem;
+                padding: 0.1rem 0.4rem;
+            }
+        }
+
 
         /* RECENT ACTIVITIES (BERANDA) */
         .recent-activities-list {
@@ -2756,157 +3063,203 @@
                     <p id="welcomeSub">Sistem Informasi Administrasi dan Pengelolaan Konten SMP MBS Al Badar Prambanan.</p>
                 </div>
 
-                <div class="stats-grid">
-                    <a href="#berita" class="stat-box" onclick="switchTab('sec-berita'); return false;">
-                        <div class="stat-icon-wrap stat-icon-green">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
-                                <path d="M18 14h-8"></path>
-                                <path d="M15 18h-5"></path>
-                                <path d="M10 6h8v4h-8V6Z"></path>
+                <!-- Ringkasan Section -->
+                <div class="section-heading">
+                    <div>
+                        <h3 class="section-heading-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
                             </svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" id="statNewsCount">...</div>
-                            <div class="stat-lbl">Total Berita & Artikel</div>
-                        </div>
-                    </a>
-
-                    <a href="#prestasi" class="stat-box" onclick="switchTab('sec-prestasi'); return false;">
-                        <div class="stat-icon-wrap stat-icon-gold">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="8" r="6"></circle>
-                                <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" id="statAchieveCount">...</div>
-                            <div class="stat-lbl">Total Prestasi Siswa</div>
-                        </div>
-                    </a>
-
-                    <div class="stat-box" id="cardStatSiswa" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-siswa');">
-                        <div class="stat-icon-wrap stat-icon-cyan">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" id="statStudentCount">...</div>
-                            <div class="stat-lbl">Jumlah Siswa</div>
-                        </div>
+                            Ringkasan Konten &amp; Akademik
+                        </h3>
+                        <p class="section-heading-sub">Ikhtisar data publikasi informasi dan sivitas sekolah.</p>
                     </div>
-
-                    <div class="stat-box" id="cardStatGuru" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-guru');">
-                        <div class="stat-icon-wrap stat-icon-purple">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="8.5" cy="7" r="4"></circle>
-                                <polyline points="17 11 19 13 23 9"></polyline>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" id="statTeacherCount">...</div>
-                            <div class="stat-lbl">Jumlah Guru</div>
-                        </div>
-                    </div>
-
                 </div>
 
-                <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.05rem; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
-                    Info Kontak Cepat
-                </h3>
-                <div class="stats-grid" style="margin-bottom: 1.5rem;">
-                    <a href="https://www.instagram.com/mbsalbadar/" target="_blank" rel="noopener" class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-purple">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                <div class="kpi-grid">
+                    <a href="#berita" class="kpi-card" onclick="switchTab('sec-berita'); return false;">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Total Berita &amp; Artikel</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                    <path d="M18 14h-8"></path>
+                                    <path d="M15 18h-5"></path>
+                                    <path d="M10 6h8v4h-8V6Z"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" style="font-size: 1rem;">Instagram</div>
-                            <div class="stat-lbl">@mbsalbadar</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statNewsCount">0</div>
                         </div>
-                    </a>
-
-                    <a href="https://www.tiktok.com/@mbsalbadar" target="_blank" rel="noopener" class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-cyan">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" style="font-size: 1rem;">TikTok</div>
-                            <div class="stat-lbl">@mbsalbadar</div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Total publikasi</span>
+                            <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </a>
 
-                    <a href="https://wa.me/6285729348915" target="_blank" rel="noopener" class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-green">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <a href="#prestasi" class="kpi-card" onclick="switchTab('sec-prestasi'); return false;">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Total Prestasi Siswa</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="8" r="6"></circle>
+                                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" style="font-size: 1rem;">WhatsApp</div>
-                            <div class="stat-lbl">+62 857-2934-8915</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statAchieveCount">0</div>
+                        </div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Prestasi kejuaraan</span>
+                            <span class="kpi-link-text">Lihat semua &rarr;</span>
                         </div>
                     </a>
 
-                    <a href="https://maps.google.com/maps?q=SMP%20MBS%20Al%20Badar%20Prambanan%20Jl.%20Opak%20V,%20Jamusan,%20Bokoharjo,%20Prambanan,%20Sleman" target="_blank" rel="noopener" class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-gold">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <div class="kpi-card" id="cardStatSiswa" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-siswa');">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Jumlah Siswa</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" style="font-size: 1rem;">Alamat</div>
-                            <div class="stat-lbl">Buka di Google Maps</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statStudentCount">0</div>
                         </div>
-                    </a>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Siswa terdaftar</span>
+                            <span class="kpi-link-text">Lihat semua &rarr;</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card" id="cardStatGuru" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-guru');">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Jumlah Guru</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statTeacherCount">0</div>
+                        </div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Tenaga pendidik</span>
+                            <span class="kpi-link-text">Lihat semua &rarr;</span>
+                        </div>
+                    </div>
                 </div>
 
-                <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.05rem; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem;">
-                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    Statistik Pengunjung (30 Hari Terakhir)
-                </h3>
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-green">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                <!-- Statistik Pengunjung Section -->
+                <div class="section-heading">
+                    <div>
+                        <h3 class="section-heading-title">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            Statistik Pengunjung
+                        </h3>
+                        <p class="section-heading-sub">Ringkasan performa kunjungan website dan aksi interaksi.</p>
+                    </div>
+                    <span class="section-heading-pill">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        30 hari terakhir
+                    </span>
+                </div>
+
+                <div class="kpi-grid">
+                    <div class="kpi-card kpi-card-emphasis">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Total Kunjungan</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" id="statPageViews">...</div>
-                            <div class="stat-lbl">Total Kunjungan Halaman</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statPageViews">0</div>
+                        </div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Total pageview website</span>
                         </div>
                     </div>
 
-                    <div class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-gold">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21V9"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect></svg>
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Klik Menu PPDB</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21V9"></path>
+                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" id="statPpdbClicks">...</div>
-                            <div class="stat-lbl">Klik Menu PPDB</div>
-                            <div class="stat-conversion" id="statPpdbConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statPpdbClicks">0</div>
                         </div>
-                    </div>
-
-                    <div class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-cyan">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </div>
-                        <div>
-                            <div class="stat-val" id="statBrosurClicks">...</div>
-                            <div class="stat-lbl">Klik Unduh Brosur</div>
-                            <div class="stat-conversion" id="statBrosurConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Konversi</span>
+                            <span class="kpi-meta-pill is-loading" id="statPpdbConversion">0% dari kunjungan</span>
                         </div>
                     </div>
 
-                    <div class="stat-box">
-                        <div class="stat-icon-wrap stat-icon-purple">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Klik Unduh Brosur</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="12" y1="18" x2="12" y2="12"></line>
+                                    <line x1="9" y1="15" x2="12" y2="18"></line>
+                                    <line x1="15" y1="15" x2="12" y2="18"></line>
+                                </svg>
+                            </div>
                         </div>
-                        <div>
-                            <div class="stat-val" id="statWaClicks">...</div>
-                            <div class="stat-lbl">Klik Tombol WhatsApp</div>
-                            <div class="stat-conversion" id="statWaConversion" style="font-size: 0.72rem; color: var(--color-primary); font-weight: 600; margin-top: 0.15rem;">...</div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statBrosurClicks">0</div>
+                        </div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Konversi</span>
+                            <span class="kpi-meta-pill is-loading" id="statBrosurConversion">0% dari kunjungan</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-top">
+                            <span class="kpi-label">Klik Tombol WhatsApp</span>
+                            <div class="kpi-icon-chip" aria-hidden="true">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="kpi-body">
+                            <div class="kpi-value is-loading" id="statWaClicks">0</div>
+                        </div>
+                        <div class="kpi-footer">
+                            <span class="kpi-sub">Konversi</span>
+                            <span class="kpi-meta-pill is-loading" id="statWaConversion">0% dari kunjungan</span>
                         </div>
                     </div>
                 </div>
@@ -3024,7 +3377,7 @@
                 </div>
 
                 <!-- Quick Action Bar -->
-                <div class="card-container" style="padding: 1.5rem;">
+                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
                     <div style="margin-bottom: 1rem;">
                         <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -3100,6 +3453,105 @@
                             </div>
                             <span>Kelola Gambar Situs</span>
                         </button>
+                    </div>
+                </div>
+
+                <!-- Kontak & Media Sosial -->
+                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
+                        <div>
+                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                                </svg>
+                                Kontak &amp; Media Sosial
+                            </h3>
+                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem; margin-bottom: 0;">Tautan kanal komunikasi publik dan profil resmi sekolah.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-social-grid">
+                        <a href="https://www.instagram.com/mbsalbadar/" target="_blank" rel="noopener" class="contact-social-row">
+                            <div class="contact-social-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <div class="contact-social-info">
+                                <div class="contact-social-name">Instagram</div>
+                                <div class="contact-social-val">@mbsalbadar</div>
+                            </div>
+                            <div class="contact-social-arrow" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@mbsalbadar" target="_blank" rel="noopener" class="contact-social-row">
+                            <div class="contact-social-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 18V5l12-2v13"></path>
+                                    <circle cx="6" cy="18" r="3"></circle>
+                                    <circle cx="18" cy="16" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-social-info">
+                                <div class="contact-social-name">TikTok</div>
+                                <div class="contact-social-val">@mbsalbadar</div>
+                            </div>
+                            <div class="contact-social-arrow" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <a href="https://wa.me/6285729348915" target="_blank" rel="noopener" class="contact-social-row">
+                            <div class="contact-social-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="contact-social-info">
+                                <div class="contact-social-name">WhatsApp</div>
+                                <div class="contact-social-val">+62 857-2934-8915</div>
+                            </div>
+                            <div class="contact-social-arrow" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <a href="https://maps.google.com/maps?q=SMP%20MBS%20Al%20Badar%20Prambanan%20Jl.%20Opak%20V,%20Jamusan,%20Bokoharjo,%20Prambanan,%20Sleman" target="_blank" rel="noopener" class="contact-social-row">
+                            <div class="contact-social-icon" aria-hidden="true">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-social-info">
+                                <div class="contact-social-name">Alamat Kampus</div>
+                                <div class="contact-social-val">Buka di Google Maps</div>
+                            </div>
+                            <div class="contact-social-arrow" aria-hidden="true">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -4439,20 +4891,46 @@
                 if (statUserRoleEl) statUserRoleEl.textContent = role.toUpperCase();
 
                 // Role Permissions: Hide super_admin only elements for regular admin
+                const cardSiswa = document.getElementById('cardStatSiswa');
+                const cardGuru = document.getElementById('cardStatGuru');
+
                 if (role !== 'super_admin') {
                     document.querySelectorAll('.role-super-admin-only').forEach(el => {
                         el.style.display = 'none';
                     });
-                    const cardSiswa = document.getElementById('cardStatSiswa');
-                    const cardGuru = document.getElementById('cardStatGuru');
-                    if (cardSiswa) cardSiswa.style.cursor = 'default';
-                    if (cardGuru) cardGuru.style.cursor = 'default';
+                    if (cardSiswa) {
+                        cardSiswa.classList.add('is-static');
+                        cardSiswa.setAttribute('aria-disabled', 'true');
+                    }
+                    if (cardGuru) {
+                        cardGuru.classList.add('is-static');
+                        cardGuru.setAttribute('aria-disabled', 'true');
+                    }
                 } else {
-                    const cardSiswa = document.getElementById('cardStatSiswa');
-                    const cardGuru = document.getElementById('cardStatGuru');
-                    if (cardSiswa) cardSiswa.style.cursor = 'pointer';
-                    if (cardGuru) cardGuru.style.cursor = 'pointer';
+                    if (cardSiswa) {
+                        cardSiswa.classList.remove('is-static');
+                        cardSiswa.removeAttribute('aria-disabled');
+                    }
+                    if (cardGuru) {
+                        cardGuru.classList.remove('is-static');
+                        cardGuru.removeAttribute('aria-disabled');
+                    }
                 }
+
+                // Keyboard accessibility for interactive KPI cards
+                [cardSiswa, cardGuru].forEach(cardEl => {
+                    if (cardEl && !cardEl.dataset.kpiKeyBound) {
+                        cardEl.dataset.kpiKeyBound = 'true';
+                        cardEl.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                if (currentProfile && currentProfile.role === 'super_admin') {
+                                    switchTab(cardEl.id === 'cardStatSiswa' ? 'sec-siswa' : 'sec-guru');
+                                }
+                            }
+                        });
+                    }
+                });
 
                 // Hide Loading Screen
                 document.getElementById('authOverlay').style.display = 'none';
@@ -4606,44 +5084,79 @@
                     .from('news')
                     .select('*', { count: 'exact', head: true });
 
-                document.getElementById('statNewsCount').textContent = newsErr ? '0' : (newsCount ?? 0);
+                const elNews = document.getElementById('statNewsCount');
+                if (elNews) {
+                    const count = newsErr ? 0 : (newsCount ?? 0);
+                    elNews.textContent = Number(count).toLocaleString('id-ID');
+                    elNews.classList.remove('is-loading');
+                }
 
                 // 2. Achievements Count
                 const { count: achCount, error: achErr } = await supabaseClient
                     .from('achievements')
                     .select('*', { count: 'exact', head: true });
 
-                document.getElementById('statAchieveCount').textContent = achErr ? '0' : (achCount ?? 0);
+                const elAch = document.getElementById('statAchieveCount');
+                if (elAch) {
+                    const count = achErr ? 0 : (achCount ?? 0);
+                    elAch.textContent = Number(count).toLocaleString('id-ID');
+                    elAch.classList.remove('is-loading');
+                }
 
                 // 3. Students Count (via RPC get_student_stats to respect RLS across all roles)
+                const elStudent = document.getElementById('statStudentCount');
                 try {
                     const { data: studentStats, error: studentErr } = await supabaseClient.rpc('get_student_stats');
                     if (studentErr || !Array.isArray(studentStats)) {
                         console.warn('Error loading student stats RPC:', studentErr);
-                        document.getElementById('statStudentCount').textContent = '0';
+                        if (elStudent) {
+                            elStudent.textContent = '0';
+                            elStudent.classList.remove('is-loading');
+                        }
                     } else {
                         const totalStudents = studentStats.reduce((sum, item) => sum + (Number(item.total) || 0), 0);
-                        document.getElementById('statStudentCount').textContent = totalStudents;
+                        if (elStudent) {
+                            elStudent.textContent = Number(totalStudents).toLocaleString('id-ID');
+                            elStudent.classList.remove('is-loading');
+                        }
                     }
                 } catch (rpcErr) {
                     console.warn('Exception running get_student_stats:', rpcErr);
-                    document.getElementById('statStudentCount').textContent = '0';
+                    if (elStudent) {
+                        elStudent.textContent = '0';
+                        elStudent.classList.remove('is-loading');
+                    }
                 }
 
                 // 4. Teachers Count (publicly readable teachers table)
+                const elTeacher = document.getElementById('statTeacherCount');
                 try {
                     const { count: teacherCount, error: teacherErr } = await supabaseClient
                         .from('teachers')
                         .select('*', { count: 'exact', head: true });
 
-                    document.getElementById('statTeacherCount').textContent = teacherErr ? '0' : (teacherCount ?? 0);
+                    if (elTeacher) {
+                        const count = teacherErr ? 0 : (teacherCount ?? 0);
+                        elTeacher.textContent = Number(count).toLocaleString('id-ID');
+                        elTeacher.classList.remove('is-loading');
+                    }
                 } catch (tErr) {
                     console.warn('Exception fetching teachers count:', tErr);
-                    document.getElementById('statTeacherCount').textContent = '0';
+                    if (elTeacher) {
+                        elTeacher.textContent = '0';
+                        elTeacher.classList.remove('is-loading');
+                    }
                 }
 
             } catch (err) {
                 console.error('Error loading stats:', err);
+                ['statNewsCount', 'statAchieveCount', 'statStudentCount', 'statTeacherCount'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.textContent = '0';
+                        el.classList.remove('is-loading');
+                    }
+                });
             }
         }
 
@@ -5142,18 +5655,39 @@
             const elPpdb = document.getElementById('statPpdbClicks');
             const elBrosur = document.getElementById('statBrosurClicks');
             const elWa = document.getElementById('statWaClicks');
-            if (elViews) elViews.textContent = views;
-            if (elPpdb) elPpdb.textContent = ppdb;
-            if (elBrosur) elBrosur.textContent = brosur;
-            if (elWa) elWa.textContent = wa;
+            if (elViews) {
+                elViews.textContent = Number(views || 0).toLocaleString('id-ID');
+                elViews.classList.remove('is-loading');
+            }
+            if (elPpdb) {
+                elPpdb.textContent = Number(ppdb || 0).toLocaleString('id-ID');
+                elPpdb.classList.remove('is-loading');
+            }
+            if (elBrosur) {
+                elBrosur.textContent = Number(brosur || 0).toLocaleString('id-ID');
+                elBrosur.classList.remove('is-loading');
+            }
+            if (elWa) {
+                elWa.textContent = Number(wa || 0).toLocaleString('id-ID');
+                elWa.classList.remove('is-loading');
+            }
 
             const pct = (n) => views > 0 ? Math.round((n / views) * 100) : 0;
             const elPpdbConv = document.getElementById('statPpdbConversion');
             const elBrosurConv = document.getElementById('statBrosurConversion');
             const elWaConv = document.getElementById('statWaConversion');
-            if (elPpdbConv) elPpdbConv.textContent = `${pct(ppdb)}% dari kunjungan`;
-            if (elBrosurConv) elBrosurConv.textContent = `${pct(brosur)}% dari kunjungan`;
-            if (elWaConv) elWaConv.textContent = `${pct(wa)}% dari kunjungan`;
+            if (elPpdbConv) {
+                elPpdbConv.textContent = `${pct(ppdb)}% dari kunjungan`;
+                elPpdbConv.classList.remove('is-loading');
+            }
+            if (elBrosurConv) {
+                elBrosurConv.textContent = `${pct(brosur)}% dari kunjungan`;
+                elBrosurConv.classList.remove('is-loading');
+            }
+            if (elWaConv) {
+                elWaConv.textContent = `${pct(wa)}% dari kunjungan`;
+                elWaConv.classList.remove('is-loading');
+            }
         }
 
         function setVisitsTrendRange(rangeKey) {
