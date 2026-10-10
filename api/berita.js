@@ -157,9 +157,6 @@ function renderServiceUnavailablePage(template) {
 
 module.exports = async function handler(req, res) {
     try {
-        res.setHeader('x-debug-url', String(req.url));
-        res.setHeader('x-debug-keys', Object.keys(req.headers).join(','));
-        res.setHeader('x-debug-forwarded', String(req.headers['x-forwarded-uri'] || req.headers['x-now-route-matches'] || req.headers['x-matched-path'] || 'none'));
         const query = req.query || {};
         const urlObj = req.url ? new URL(req.url, 'http://localhost') : null;
 
@@ -199,25 +196,24 @@ module.exports = async function handler(req, res) {
 
         // 2. Tambahan: jika request ke /berita/{id} membawa query string "id" yang sama persis
         // dengan id di path (sisa dari redirect lama), balas 301 ke /berita/{id} bersih.
+        let pathHasSameQueryId = false;
+        if (urlObj && urlObj.searchParams.has('id')) {
+            const queryIdVal = urlObj.searchParams.get('id');
+            const pathClean = decodeURIComponent(urlObj.pathname || '');
+            if (pathClean === `/berita/${id}` && queryIdVal === id) {
+                pathHasSameQueryId = true;
+            }
+        }
+
         const allIds = urlObj ? urlObj.searchParams.getAll('id') : [];
         if (Array.isArray(query.id)) {
             for (const v of query.id) {
                 if (!allIds.includes(v)) allIds.push(v);
             }
         }
-        const clientUri = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'] || req.headers['x-original-url'] || '';
-        let clientHasQueryId = false;
-        if (clientUri) {
-            try {
-                const parsedClientUri = new URL(clientUri, 'http://localhost');
-                if (parsedClientUri.searchParams.get('id') === id) {
-                    clientHasQueryId = true;
-                }
-            } catch (e) {}
-        }
         const hasDuplicateQueryId = allIds.length > 1 && allIds.some(v => String(v).trim() === id);
 
-        if (id && (clientHasQueryId || hasDuplicateQueryId)) {
+        if (id && (pathHasSameQueryId || hasDuplicateQueryId)) {
             res.statusCode = 301;
             res.setHeader('Location', `/berita/${encodeURIComponent(id)}`);
             res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
