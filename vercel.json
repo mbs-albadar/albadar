@@ -31,12 +31,6 @@
       "permanent": true
     },
     {
-      "source": "/berita/artikel",
-      "has": [{ "type": "query", "key": "id", "value": "(?<id>.+)" }],
-      "destination": "/berita/:id",
-      "permanent": true
-    },
-    {
       "source": "/berita-detail.html",
       "destination": "/berita/artikel",
       "permanent": true
@@ -82,6 +76,11 @@
     {
       "source": "/berita",
       "destination": "/news.html"
+    },
+    {
+      "source": "/berita/artikel",
+      "has": [{ "type": "query", "key": "id", "value": "(?<legacyid>.+)" }],
+      "destination": "/api/berita?legacy=1&id=:legacyid"
     },
     {
       "source": "/berita/artikel",

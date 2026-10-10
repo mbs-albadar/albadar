@@ -158,17 +158,68 @@ function renderServiceUnavailablePage(template) {
 module.exports = async function handler(req, res) {
     try {
         const query = req.query || {};
-        let id = query.id;
-        let slug = query.slug;
+        const urlObj = req.url ? new URL(req.url, 'http://localhost') : null;
 
-        if (!id && req.url) {
-            const urlObj = new URL(req.url, 'http://localhost');
-            id = urlObj.searchParams.get('id');
-            if (!slug) slug = urlObj.searchParams.get('slug');
+        let rawLegacy = query.legacy;
+        let rawId = query.id;
+        let rawSlug = query.slug;
+
+        if (urlObj) {
+            if (!rawLegacy) rawLegacy = urlObj.searchParams.get('legacy');
+            if (!rawId) rawId = urlObj.searchParams.get('id');
+            if (!rawSlug) rawSlug = urlObj.searchParams.get('slug');
         }
 
-        id = id ? String(id).trim() : '';
-        slug = slug ? decodeURIComponent(String(slug).trim()) : '';
+        const legacy = Array.isArray(rawLegacy) ? rawLegacy[0] : rawLegacy;
+        const idVal = Array.isArray(rawId) ? rawId[0] : rawId;
+        const id = idVal ? String(idVal).trim() : '';
+        const slug = rawSlug ? decodeURIComponent(String(Array.isArray(rawSlug) ? rawSlug[0] : rawSlug).trim()) : '';
+
+        // 1. Jika query legacy bernilai "1":
+        // Validasi id: hanya huruf, angka, tanda minus, titik, dan underscore.
+        // Jika tidak valid atau kosong: balas 404 (halaman tidak ditemukan).
+        // Jika valid: balas redirect 301 ke "/berita/" + encodeURIComponent(id).
+        if (legacy === '1' || legacy === 1) {
+            const isValidId = /^[a-zA-Z0-9._-]+$/.test(id);
+            if (!id || !isValidId) {
+                const template = await readProjectFile('berita-detail.html');
+                res.statusCode = 404;
+                res.setHeader('Content-Type', 'text/html; charset=utf-8');
+                res.setHeader('Cache-Control', 'no-store');
+                return res.end(renderNotFoundPage(template));
+            }
+            res.statusCode = 301;
+            res.setHeader('Location', `/berita/${encodeURIComponent(id)}`);
+            res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
+            return res.end();
+        }
+
+        // 2. Tambahan: jika request ke /berita/{id} membawa query string "id" yang sama persis
+        // dengan id di path (sisa dari redirect lama), balas 301 ke /berita/{id} bersih.
+        const allIds = urlObj ? urlObj.searchParams.getAll('id') : [];
+        if (Array.isArray(query.id)) {
+            for (const v of query.id) {
+                if (!allIds.includes(v)) allIds.push(v);
+            }
+        }
+        const clientUri = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'] || req.headers['x-original-url'] || '';
+        let clientHasQueryId = false;
+        if (clientUri) {
+            try {
+                const parsedClientUri = new URL(clientUri, 'http://localhost');
+                if (parsedClientUri.searchParams.get('id') === id) {
+                    clientHasQueryId = true;
+                }
+            } catch (e) {}
+        }
+        const hasDuplicateQueryId = allIds.length > 1 && allIds.some(v => String(v).trim() === id);
+
+        if (id && (clientHasQueryId || hasDuplicateQueryId)) {
+            res.statusCode = 301;
+            res.setHeader('Location', `/berita/${encodeURIComponent(id)}`);
+            res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600');
+            return res.end();
+        }
 
         const template = await readProjectFile('berita-detail.html');
 
