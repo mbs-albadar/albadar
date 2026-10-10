@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
         card.style.opacity = '0';
 
         setTimeout(() => {
-            card.href = "/berita/artikel?id=" + encodeURIComponent(newsItem.id);
+            card.href = "/berita/" + encodeURIComponent(newsItem.id);
             const imgEl = card.querySelector('.news-img-wrap img');
             if (imgEl) {
                 imgEl.src = newsImage(newsItem.image);
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             newsGridContainer.classList.add('is-visible');
             newsGridContainer.innerHTML = filtered.map(function(item) {
-                return '<a href="/berita/artikel?id=' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
+                return '<a href="/berita/' + encodeURIComponent(item.id) + '" class="news-card-lux lux-img-zoom">' +
                     '<div class="news-img-wrap">' +
                         '<img src="' + newsImage(item.image) + '" alt="' + item.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'/assets/img/placeholder.svg\';">' +
                     '</div>' +
