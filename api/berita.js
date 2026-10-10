@@ -157,6 +157,9 @@ function renderServiceUnavailablePage(template) {
 
 module.exports = async function handler(req, res) {
     try {
+        res.setHeader('x-debug-url', String(req.url));
+        res.setHeader('x-debug-keys', Object.keys(req.headers).join(','));
+        res.setHeader('x-debug-forwarded', String(req.headers['x-forwarded-uri'] || req.headers['x-now-route-matches'] || req.headers['x-matched-path'] || 'none'));
         const query = req.query || {};
         const urlObj = req.url ? new URL(req.url, 'http://localhost') : null;
 
