@@ -75,7 +75,7 @@
     },
     {
       "source": "/berita",
-      "destination": "/news.html"
+      "destination": "/api/berita-list"
     },
     {
       "source": "/berita/artikel",
@@ -126,6 +126,9 @@
     },
     "api/sitemap-berita.js": {
       "includeFiles": "{berita-detail.html,assets/data/news.json}"
+    },
+    "api/berita-list.js": {
+      "includeFiles": "{news.html,assets/data/news.json}"
     }
   }
 }
