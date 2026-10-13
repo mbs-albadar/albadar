@@ -3285,6 +3285,81 @@
             box-shadow: var(--shadow-sm);
             margin-bottom: 1.25rem;
         }
+
+        /* Skeleton Shimmer Loaders */
+        .skeleton-bar,
+        .skeleton-box {
+            position: relative;
+            background: linear-gradient(90deg, #f0f2f5 25%, #e6efe9 50%, #f0f2f5 75%);
+            background-size: 200% 100%;
+            animation: kpiShimmer 1.5s infinite;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            vertical-align: middle;
+            user-select: none;
+        }
+
+        .skeleton-row td {
+            padding: 0.85rem 1rem;
+            vertical-align: middle;
+        }
+
+        .skeleton-card {
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .skeleton-bar,
+            .skeleton-box {
+                animation: none;
+                background: #f0f2f5;
+            }
+        }
+
+        /* Enhanced Empty State Helpers */
+        .empty-icon-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: rgba(4, 71, 58, 0.08);
+            color: var(--color-primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .empty-icon-circle.empty-icon-search {
+            background: #F3F4F6;
+            color: var(--color-text-muted);
+        }
+
+        .empty-icon-circle svg {
+            width: 28px;
+            height: 28px;
+            opacity: 1 !important;
+            margin-bottom: 0 !important;
+        }
+
+        .empty-title {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--lux-dark);
+            margin-bottom: 0.35rem;
+        }
+
+        .empty-desc {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            max-width: 440px;
+            margin: 0 auto 1.25rem;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -3869,11 +3944,80 @@
                                     <th class="col-action">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="newsTableBody">
-                                <tr>
-                                    <td colspan="5" class="empty-placeholder">
-                                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
-                                        Memuat data berita...
+                            <tbody id="newsTableBody" aria-busy="true">
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 82%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 45%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 75px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-date"><div class="skeleton-bar" style="width: 80px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 68%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 35%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 75px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-date"><div class="skeleton-bar" style="width: 80px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 90%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 50%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 75px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-date"><div class="skeleton-bar" style="width: 80px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 74%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 40%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 75px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-date"><div class="skeleton-bar" style="width: 80px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 60%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 30%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 75px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-date"><div class="skeleton-bar" style="width: 80px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -3917,10 +4061,81 @@
                 </div>
 
                 <!-- Grid Card Preview -->
-                <div id="achievementsGrid" class="achievement-admin-grid">
-                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
-                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
-                        Memuat data prestasi...
+                <div id="achievementsGrid" class="achievement-admin-grid" aria-busy="true">
+                    <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                        <div class="skeleton-box" style="width: 100%; height: 130px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block;"></div>
+                        <div style="padding: 1.25rem;">
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill); margin-bottom: 12px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 85%; height: 18px; margin-bottom: 8px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 50%; height: 14px; margin-bottom: 16px; display: block;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 12px;">
+                                <div class="skeleton-bar" style="width: 45px; height: 14px;"></div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                        <div class="skeleton-box" style="width: 100%; height: 130px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block;"></div>
+                        <div style="padding: 1.25rem;">
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill); margin-bottom: 12px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 72%; height: 18px; margin-bottom: 8px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 50%; height: 14px; margin-bottom: 16px; display: block;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 12px;">
+                                <div class="skeleton-bar" style="width: 45px; height: 14px;"></div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                        <div class="skeleton-box" style="width: 100%; height: 130px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block;"></div>
+                        <div style="padding: 1.25rem;">
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill); margin-bottom: 12px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 90%; height: 18px; margin-bottom: 8px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 50%; height: 14px; margin-bottom: 16px; display: block;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 12px;">
+                                <div class="skeleton-bar" style="width: 45px; height: 14px;"></div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                        <div class="skeleton-box" style="width: 100%; height: 130px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block;"></div>
+                        <div style="padding: 1.25rem;">
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill); margin-bottom: 12px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 65%; height: 18px; margin-bottom: 8px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 50%; height: 14px; margin-bottom: 16px; display: block;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 12px;">
+                                <div class="skeleton-bar" style="width: 45px; height: 14px;"></div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                        <div class="skeleton-box" style="width: 100%; height: 130px; border-radius: var(--radius-sm) var(--radius-sm) 0 0; display: block;"></div>
+                        <div style="padding: 1.25rem;">
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill); margin-bottom: 12px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 80%; height: 18px; margin-bottom: 8px; display: block;"></div>
+                            <div class="skeleton-bar" style="width: 50%; height: 14px; margin-bottom: 16px; display: block;"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); padding-top: 12px;">
+                                <div class="skeleton-bar" style="width: 45px; height: 14px;"></div>
+                                <div style="display: flex; gap: 6px;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -3971,11 +4186,90 @@
                                     <th class="col-action">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody id="studentTableBody">
-                                <tr>
-                                    <td colspan="7" class="empty-placeholder">
-                                        <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
-                                        Memuat data siswa...
+                            <tbody id="studentTableBody" aria-busy="true">
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-num"><div class="skeleton-bar" style="width: 20px; height: 14px;"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 75%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 40%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 70px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-num"><div class="skeleton-bar" style="width: 20px; height: 14px;"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 85%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 50%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 70px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-num"><div class="skeleton-bar" style="width: 20px; height: 14px;"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 65%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 35%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 70px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-num"><div class="skeleton-bar" style="width: 20px; height: 14px;"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 90%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 45%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 70px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="skeleton-row" aria-hidden="true">
+                                    <td class="col-num"><div class="skeleton-bar" style="width: 20px; height: 14px;"></div></td>
+                                    <td>
+                                        <div class="skeleton-bar" style="width: 70%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 38%; height: 12px; display: block;"></div>
+                                    </td>
+                                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td><div class="skeleton-bar" style="width: 70px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                                    <td class="col-action">
+                                        <div style="display: flex; gap: 6px; justify-content: center;">
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -4012,10 +4306,106 @@
                         <span class="counter-badge" id="teacherCountBadge">0 Guru &amp; GTK</span>
                     </div>
 
-                    <div class="teachers-grid" id="teachersGrid">
-                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
-                            <div class="auth-spinner" style="margin: 0 auto 0.5rem;"></div>
-                            Memuat data guru...
+                    <div class="teachers-grid" id="teachersGrid" aria-busy="true">
+                        <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                            <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                            <div>
+                                <div class="teacher-card-header">
+                                    <div class="skeleton-box" style="width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-bar" style="width: 75%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 55%; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                                    </div>
+                                </div>
+                                <div class="skeleton-bar" style="width: 85%; height: 13px; margin: 12px 0 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: 65%; height: 13px; display: block;"></div>
+                            </div>
+                            <div class="teacher-card-footer" style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: flex; gap: 6px; margin-left: auto;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                            <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                            <div>
+                                <div class="teacher-card-header">
+                                    <div class="skeleton-box" style="width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-bar" style="width: 60%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 50%; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                                    </div>
+                                </div>
+                                <div class="skeleton-bar" style="width: 80%; height: 13px; margin: 12px 0 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: 60%; height: 13px; display: block;"></div>
+                            </div>
+                            <div class="teacher-card-footer" style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: flex; gap: 6px; margin-left: auto;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                            <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                            <div>
+                                <div class="teacher-card-header">
+                                    <div class="skeleton-box" style="width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-bar" style="width: 85%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 55%; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                                    </div>
+                                </div>
+                                <div class="skeleton-bar" style="width: 90%; height: 13px; margin: 12px 0 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: 70%; height: 13px; display: block;"></div>
+                            </div>
+                            <div class="teacher-card-footer" style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: flex; gap: 6px; margin-left: auto;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                            <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                            <div>
+                                <div class="teacher-card-header">
+                                    <div class="skeleton-box" style="width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-bar" style="width: 70%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 50%; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                                    </div>
+                                </div>
+                                <div class="skeleton-bar" style="width: 85%; height: 13px; margin: 12px 0 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: 65%; height: 13px; display: block;"></div>
+                            </div>
+                            <div class="teacher-card-footer" style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: flex; gap: 6px; margin-left: auto;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                            <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                            <div>
+                                <div class="teacher-card-header">
+                                    <div class="skeleton-box" style="width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;"></div>
+                                    <div style="flex: 1;">
+                                        <div class="skeleton-bar" style="width: 80%; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                        <div class="skeleton-bar" style="width: 55%; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                                    </div>
+                                </div>
+                                <div class="skeleton-bar" style="width: 80%; height: 13px; margin: 12px 0 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: 60%; height: 13px; display: block;"></div>
+                            </div>
+                            <div class="teacher-card-footer" style="border-top: 1px solid var(--color-border); padding-top: 12px; margin-top: 12px;">
+                                <div style="display: flex; gap: 6px; margin-left: auto;">
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                    <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4953,6 +5343,27 @@
         </div>
     </div>
 
+    <!-- MODAL KONFIRMASI LOGOUT -->
+    <div class="modal-backdrop" id="logoutModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+        <div class="modal-box confirm-box" style="max-width: 440px;">
+            <div class="confirm-icon" style="background: rgba(4, 71, 58, 0.08); color: var(--color-primary);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+            </div>
+            <h3 class="confirm-title" id="logoutModalTitle">Keluar dari Sistem?</h3>
+            <p class="confirm-desc">
+                Anda perlu masuk kembali untuk mengelola konten.
+            </p>
+            <div style="display: flex; gap: 0.75rem; justify-content: center;">
+                <button type="button" class="btn-cancel" id="cancelLogoutBtn" onclick="closeLogoutModal()">Batal</button>
+                <button type="button" class="btn-primary-action" id="confirmLogoutBtn" style="padding: 0 1.5rem;">Keluar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Scrim di belakang floating contact menu saat terbuka -->
     <div class="floating-contact-scrim" id="floatingContactScrim" aria-hidden="true"></div>
 
@@ -5378,9 +5789,68 @@
         mobileToggle.addEventListener('click', openMobileSidebar);
         overlay.addEventListener('click', closeMobileSidebar);
 
-        // Logout action
-        document.getElementById('sidebarLogoutBtn').addEventListener('click', async () => {
-            if (confirm('Apakah Anda yakin ingin keluar dari sistem admin?')) {
+        // Logout action modal
+        const logoutModalBackdrop = document.getElementById('logoutModalBackdrop');
+        const sidebarLogoutBtn = document.getElementById('sidebarLogoutBtn');
+        const cancelLogoutBtn = document.getElementById('cancelLogoutBtn');
+        const confirmLogoutBtn = document.getElementById('confirmLogoutBtn');
+
+        function openLogoutModal() {
+            closeMobileSidebar();
+            if (typeof window.closeFloatingContact === 'function') {
+                window.closeFloatingContact();
+            }
+            if (logoutModalBackdrop) {
+                logoutModalBackdrop.classList.add('active');
+                if (cancelLogoutBtn) {
+                    cancelLogoutBtn.focus();
+                }
+            }
+        }
+
+        function closeLogoutModal() {
+            if (logoutModalBackdrop) {
+                logoutModalBackdrop.classList.remove('active');
+            }
+            if (sidebarLogoutBtn) {
+                sidebarLogoutBtn.focus();
+            }
+        }
+
+        window.openLogoutModal = openLogoutModal;
+        window.closeLogoutModal = closeLogoutModal;
+
+        if (cancelLogoutBtn) {
+            cancelLogoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeLogoutModal();
+            });
+        }
+
+        if (sidebarLogoutBtn) {
+            sidebarLogoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLogoutModal();
+            });
+        }
+
+        if (logoutModalBackdrop) {
+            logoutModalBackdrop.addEventListener('click', (e) => {
+                if (e.target === logoutModalBackdrop) {
+                    closeLogoutModal();
+                }
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && logoutModalBackdrop && logoutModalBackdrop.classList.contains('active')) {
+                closeLogoutModal();
+            }
+        });
+
+        if (confirmLogoutBtn) {
+            confirmLogoutBtn.addEventListener('click', async () => {
+                confirmLogoutBtn.disabled = true;
                 try {
                     await supabaseClient.auth.signOut();
                 } catch (err) {
@@ -5388,8 +5858,8 @@
                 } finally {
                     window.location.replace('index.html');
                 }
-            }
-        });
+            });
+        }
 
         // 4. BERANDA STATS FETCH
         async function loadDashboardStats() {
@@ -6585,14 +7055,58 @@
         }
 
         // 5. BERITA MODULE (CRUD)
+        function getNewsSkeletonHtml() {
+            const rows = [
+                { w1: '82%', w2: '45%', badge: '75px', date: '80px' },
+                { w1: '68%', w2: '35%', badge: '75px', date: '80px' },
+                { w1: '90%', w2: '50%', badge: '75px', date: '80px' },
+                { w1: '74%', w2: '40%', badge: '75px', date: '80px' },
+                { w1: '80%', w2: '48%', badge: '75px', date: '80px' }
+            ];
+            return rows.map(r => `
+                <tr class="skeleton-row" aria-hidden="true">
+                    <td class="col-thumb"><div class="skeleton-box" style="width: 52px; height: 40px; border-radius: var(--radius-sm);"></div></td>
+                    <td>
+                        <div class="skeleton-bar" style="width: ${r.w1}; height: 16px; margin-bottom: 6px; display: block;"></div>
+                        <div class="skeleton-bar" style="width: ${r.w2}; height: 12px; display: block;"></div>
+                    </td>
+                    <td><div class="skeleton-bar" style="width: ${r.badge}; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                    <td class="col-date"><div class="skeleton-bar" style="width: ${r.date}; height: 14px;"></div></td>
+                    <td class="col-action">
+                        <div style="display: flex; gap: 6px; justify-content: center;">
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderNewsSkeleton() {
+            const tbody = document.getElementById('newsTableBody');
+            if (tbody) {
+                tbody.setAttribute('aria-busy', 'true');
+                tbody.innerHTML = getNewsSkeletonHtml();
+            }
+        }
+
+        window.getNewsSkeletonHtml = getNewsSkeletonHtml;
+        window.renderNewsSkeleton = renderNewsSkeleton;
+
         async function loadNewsList() {
             const tbody = document.getElementById('newsTableBody');
+            if (tbody) {
+                tbody.setAttribute('aria-busy', 'true');
+                tbody.innerHTML = getNewsSkeletonHtml();
+            }
             try {
                 // Query news ordered by created_at desc (or fallback)
                 const { data, error } = await supabaseClient
                     .from('news')
                     .select('*')
                     .order('created_at', { ascending: false });
+
+                if (tbody) tbody.removeAttribute('aria-busy');
 
                 if (error) {
                     console.error('Fetch news error:', error);
@@ -6607,6 +7121,7 @@
                 }
 
                 allNewsList = data || [];
+                window.allNewsList = allNewsList;
                 renderNewsTable(allNewsList);
 
                 // Refresh count on Beranda
@@ -6616,6 +7131,7 @@
                 renderNewsMonthlyChart(allNewsList);
 
             } catch (err) {
+                if (tbody) tbody.removeAttribute('aria-busy');
                 console.error('Error in loadNewsList:', err);
                 tbody.innerHTML = `
                     <tr>
@@ -6629,15 +7145,59 @@
 
         function renderNewsTable(items) {
             const tbody = document.getElementById('newsTableBody');
+            if (!tbody) return;
+            tbody.removeAttribute('aria-busy');
+
             if (!items || items.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="empty-placeholder">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-                            <p>Belum ada data berita yang tersedia.</p>
-                        </td>
-                    </tr>
-                `;
+                const sInput = document.getElementById('newsSearchInput');
+                const cFilter = document.getElementById('newsCategoryFilter');
+                const q = (sInput ? sInput.value.trim() : '');
+                const cat = (cFilter ? cFilter.value : 'all');
+                const totalCount = (window.allNewsList && window.allNewsList.length > 0) ? window.allNewsList.length : allNewsList.length;
+                const isFiltered = (totalCount > 0) && (Boolean(q) || cat !== 'all');
+
+                if (isFiltered) {
+                    const keyword = q || (cat !== 'all' ? cat : '');
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-placeholder">
+                                <div class="empty-icon-circle empty-icon-search">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                </div>
+                                <div class="empty-title">Tidak ada hasil untuk '${escapeHtml(keyword)}'</div>
+                                <p class="empty-desc">Coba gunakan kata kunci lain atau setel ulang filter kategori.</p>
+                                <button type="button" class="btn-cancel" onclick="resetNewsFilter()">Reset pencarian</button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="empty-placeholder">
+                                <div class="empty-icon-circle">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                        <path d="M18 14h-8"></path>
+                                        <path d="M15 18h-5"></path>
+                                        <path d="M10 6h8v4h-8V6Z"></path>
+                                    </svg>
+                                </div>
+                                <div class="empty-title">Belum ada berita</div>
+                                <p class="empty-desc">Belum ada artikel berita yang dipublikasikan. Mulai publikasikan berita madrasah sekarang.</p>
+                                <button type="button" class="btn-primary-action" onclick="openNewsModal()">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Tambah Berita
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
                 return;
             }
 
@@ -6692,8 +7252,9 @@
         function applyNewsFilter() {
             const query = searchInput.value.toLowerCase().trim();
             const cat = categoryFilter.value;
+            const sourceList = (window.allNewsList && window.allNewsList.length > 0) ? window.allNewsList : allNewsList;
 
-            const filtered = allNewsList.filter(item => {
+            const filtered = sourceList.filter(item => {
                 const matchTitle = (item.title || '').toLowerCase().includes(query) || (item.id || '').toLowerCase().includes(query);
                 const matchCat = (cat === 'all') || (item.category === cat);
                 return matchTitle && matchCat;
@@ -6701,6 +7262,14 @@
 
             renderNewsTable(filtered);
         }
+
+        function resetNewsFilter() {
+            if (searchInput) searchInput.value = '';
+            if (categoryFilter) categoryFilter.value = 'all';
+            applyNewsFilter();
+        }
+
+        window.resetNewsFilter = resetNewsFilter;
 
         searchInput.addEventListener('input', applyNewsFilter);
         categoryFilter.addEventListener('change', applyNewsFilter);
@@ -7068,6 +7637,7 @@
         // Close modal on escape key or clicking backdrop
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                closeLogoutModal();
                 closeNewsModal();
                 closeDeleteModal();
                 closeAchievementModal();
@@ -7084,13 +7654,60 @@
         });
 
         // 5b. PRESTASI MODULE (CRUD)
+        function getAchievementsSkeletonHtml() {
+            const cards = [
+                { title: '85%', desc1: '95%', desc2: '70%' },
+                { title: '70%', desc1: '90%', desc2: '60%' },
+                { title: '90%', desc1: '92%', desc2: '75%' },
+                { title: '75%', desc1: '88%', desc2: '65%' },
+                { title: '80%', desc1: '94%', desc2: '55%' }
+            ];
+            return cards.map(c => `
+                <div class="achievement-admin-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                    <div class="achievement-card-top">
+                        <div class="achievement-badges-wrap">
+                            <div class="skeleton-bar" style="width: 70px; height: 20px; border-radius: var(--radius-pill);"></div>
+                            <div class="skeleton-bar" style="width: 80px; height: 20px; border-radius: var(--radius-pill);"></div>
+                        </div>
+                        <div class="table-actions">
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </div>
+                    <div class="achievement-card-icon-wrap" style="background: transparent;">
+                        <div class="skeleton-box" style="width: 44px; height: 44px; border-radius: 50%;"></div>
+                    </div>
+                    <div class="skeleton-bar" style="width: ${c.title}; height: 18px; margin: 10px 0 8px; display: block;"></div>
+                    <div class="skeleton-bar" style="width: ${c.desc1}; height: 14px; margin-bottom: 6px; display: block;"></div>
+                    <div class="skeleton-bar" style="width: ${c.desc2}; height: 14px; display: block;"></div>
+                </div>
+            `).join('');
+        }
+
+        function renderAchievementsSkeleton() {
+            const grid = document.getElementById('achievementsGrid');
+            if (grid) {
+                grid.setAttribute('aria-busy', 'true');
+                grid.innerHTML = getAchievementsSkeletonHtml();
+            }
+        }
+
+        window.getAchievementsSkeletonHtml = getAchievementsSkeletonHtml;
+        window.renderAchievementsSkeleton = renderAchievementsSkeleton;
+
         async function loadAchievementsList() {
             const grid = document.getElementById('achievementsGrid');
+            if (grid) {
+                grid.setAttribute('aria-busy', 'true');
+                grid.innerHTML = getAchievementsSkeletonHtml();
+            }
             try {
                 const { data, error } = await supabaseClient
                     .from('achievements')
                     .select('*')
                     .order('created_at', { ascending: false });
+
+                if (grid) grid.removeAttribute('aria-busy');
 
                 if (error) {
                     console.error('Fetch achievements error:', error);
@@ -7103,12 +7720,14 @@
                 }
 
                 allAchievementsList = data || [];
+                window.allAchievementsList = allAchievementsList;
                 renderAchievementsGrid(allAchievementsList);
 
                 // Refresh count on Beranda
                 document.getElementById('statAchieveCount').textContent = allAchievementsList.length;
 
             } catch (err) {
+                if (grid) grid.removeAttribute('aria-busy');
                 console.error('Unexpected achievements error:', err);
                 grid.innerHTML = `
                     <div class="empty-placeholder" style="grid-column: 1 / -1; color: var(--color-danger);">
@@ -7120,12 +7739,57 @@
 
         function renderAchievementsGrid(list) {
             const grid = document.getElementById('achievementsGrid');
+            if (!grid) return;
+            grid.removeAttribute('aria-busy');
+
             if (!list || list.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
-                        Belum ada data prestasi santri. Klik tombol "+ Tambah Prestasi Baru" di atas untuk menambahkan prestasi pertama.
-                    </div>
-                `;
+                const sInput = document.getElementById('achievementSearchInput');
+                const iFilter = document.getElementById('achievementIconFilter');
+                const q = (sInput ? sInput.value.trim() : '');
+                const iconKey = (iFilter ? iFilter.value : 'all');
+                const totalCount = (window.allAchievementsList && window.allAchievementsList.length > 0) ? window.allAchievementsList.length : allAchievementsList.length;
+                const isFiltered = (totalCount > 0) && (Boolean(q) || iconKey !== 'all');
+
+                if (isFiltered) {
+                    const keyword = q || (iconKey !== 'all' ? iconKey : '');
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                            <div class="empty-icon-circle empty-icon-search">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <div class="empty-title">Tidak ada hasil untuk '${escapeHtml(keyword)}'</div>
+                            <p class="empty-desc">Coba gunakan kata kunci lain atau setel ulang filter prestasi.</p>
+                            <button type="button" class="btn-cancel" onclick="resetAchievementsFilter()">Reset pencarian</button>
+                        </div>
+                    `;
+                } else {
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                            <div class="empty-icon-circle">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                                    <path d="M4 22h16"></path>
+                                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                                </svg>
+                            </div>
+                            <div class="empty-title">Belum ada data prestasi</div>
+                            <p class="empty-desc">Belum ada data pencapaian santri yang dicatat dalam sistem.</p>
+                            <button type="button" class="btn-primary-action" onclick="openAchievementModal()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Tambah Prestasi
+                            </button>
+                        </div>
+                    `;
+                }
                 return;
             }
 
@@ -7226,8 +7890,9 @@
         function applyAchievementsFilter() {
             const query = achSearchInput.value.toLowerCase().trim();
             const iconKey = achIconFilter.value;
+            const sourceList = (window.allAchievementsList && window.allAchievementsList.length > 0) ? window.allAchievementsList : allAchievementsList;
 
-            const filtered = allAchievementsList.filter(item => {
+            const filtered = sourceList.filter(item => {
                 const matchQuery = (item.title || '').toLowerCase().includes(query) ||
                                    (item.badge_label || '').toLowerCase().includes(query) ||
                                    (item.tingkat || '').toLowerCase().includes(query) ||
@@ -7238,6 +7903,14 @@
 
             renderAchievementsGrid(filtered);
         }
+
+        function resetAchievementsFilter() {
+            if (achSearchInput) achSearchInput.value = '';
+            if (achIconFilter) achIconFilter.value = 'all';
+            applyAchievementsFilter();
+        }
+
+        window.resetAchievementsFilter = resetAchievementsFilter;
 
         achSearchInput.addEventListener('input', applyAchievementsFilter);
         achIconFilter.addEventListener('change', applyAchievementsFilter);
@@ -8431,15 +9104,61 @@
             return `Kelas ${kelasSekarang}${student.rombel ? String(student.rombel).trim() : ''}`;
         }
 
+        function getStudentsSkeletonHtml() {
+            const rows = [
+                { name: '75%', ket: '45%' },
+                { name: '85%', ket: '50%' },
+                { name: '65%', ket: '40%' },
+                { name: '80%', ket: '55%' },
+                { name: '70%', ket: '35%' }
+            ];
+            return rows.map((r, idx) => `
+                <tr class="skeleton-row" aria-hidden="true">
+                    <td class="col-num"><div class="skeleton-bar" style="width: 16px; height: 14px;"></div></td>
+                    <td>
+                        <div class="skeleton-bar" style="width: ${r.name}; height: 16px; margin-bottom: 6px; display: block;"></div>
+                        <div class="skeleton-bar" style="width: ${r.ket}; height: 12px; display: block;"></div>
+                    </td>
+                    <td><div class="skeleton-bar" style="width: 55px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                    <td><div class="skeleton-bar" style="width: 50px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                    <td><div class="skeleton-bar" style="width: 65px; height: 22px; border-radius: var(--radius-pill);"></div></td>
+                    <td class="col-year"><div class="skeleton-bar" style="width: 45px; height: 14px;"></div></td>
+                    <td class="col-action">
+                        <div style="display: flex; gap: 6px; justify-content: center;">
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderStudentsSkeleton() {
+            const tbody = document.getElementById('studentTableBody');
+            if (tbody) {
+                tbody.setAttribute('aria-busy', 'true');
+                tbody.innerHTML = getStudentsSkeletonHtml();
+            }
+        }
+
+        window.getStudentsSkeletonHtml = getStudentsSkeletonHtml;
+        window.renderStudentsSkeleton = renderStudentsSkeleton;
+
         async function loadStudentsList() {
+            const tbody = document.getElementById('studentTableBody');
+            if (tbody) {
+                tbody.setAttribute('aria-busy', 'true');
+                tbody.innerHTML = getStudentsSkeletonHtml();
+            }
             try {
-                const tbody = document.getElementById('studentTableBody');
                 if (!tbody) return;
 
                 const { data, error } = await supabaseClient
                     .from('students')
                     .select('*')
                     .order('name', { ascending: true });
+
+                tbody.removeAttribute('aria-busy');
 
                 if (error) {
                     console.error('Error fetching students:', error);
@@ -8454,10 +9173,21 @@
                 }
 
                 allStudentsList = data || [];
+                window.allStudentsList = allStudentsList;
                 renderStudentClassPills();
                 renderStudentsTable();
             } catch (err) {
+                if (tbody) tbody.removeAttribute('aria-busy');
                 console.error('Exception loading students:', err);
+                if (tbody) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-placeholder" style="color: var(--color-danger);">
+                                Terjadi kesalahan saat memuat data siswa.
+                            </td>
+                        </tr>
+                    `;
+                }
             }
         }
 
@@ -8466,8 +9196,9 @@
             if (!container) return;
 
             // Extract unique computed classes from hitungKelasSaatIni()
+            const sourceList = (window.allStudentsList && window.allStudentsList.length > 0) ? window.allStudentsList : allStudentsList;
             const classesSet = new Set();
-            allStudentsList.forEach(s => {
+            sourceList.forEach(s => {
                 const k = hitungKelasSaatIni(s);
                 if (k && k !== '-') classesSet.add(k);
             });
@@ -8485,7 +9216,7 @@
             `;
 
             classList.forEach(c => {
-                const count = allStudentsList.filter(s => hitungKelasSaatIni(s) === c).length;
+                const count = sourceList.filter(s => hitungKelasSaatIni(s) === c).length;
                 html += `
                     <button type="button" class="pill-btn ${activeStudentClassFilter === c ? 'active' : ''}" data-class="${escapeHtml(c)}" onclick="setStudentClassFilter('${escapeHtml(c)}')">
                         ${escapeHtml(c)} (${count})
@@ -8502,15 +9233,25 @@
             renderStudentsTable();
         }
 
+        function resetStudentsFilter() {
+            const sInput = document.getElementById('studentSearchInput');
+            if (sInput) sInput.value = '';
+            setStudentClassFilter('all');
+        }
+
+        window.resetStudentsFilter = resetStudentsFilter;
+
         function renderStudentsTable() {
             const tbody = document.getElementById('studentTableBody');
             const searchInput = document.getElementById('studentSearchInput');
             const countBadge = document.getElementById('studentCountBadge');
             if (!tbody) return;
+            tbody.removeAttribute('aria-busy');
 
             const q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+            const sourceList = (window.allStudentsList && window.allStudentsList.length > 0) ? window.allStudentsList : allStudentsList;
 
-            let filtered = allStudentsList.filter(s => {
+            let filtered = sourceList.filter(s => {
                 const kelasSaatIni = hitungKelasSaatIni(s);
                 const matchClass = (activeStudentClassFilter === 'all' || kelasSaatIni === activeStudentClassFilter);
                 const matchSearch = (!q || 
@@ -8527,13 +9268,52 @@
             }
 
             if (filtered.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="empty-placeholder">
-                            ${allStudentsList.length === 0 ? 'Belum ada data siswa. Klik tombol "Tambah Siswa" untuk memulai.' : 'Tidak ditemukan siswa yang sesuai filter atau pencarian.'}
-                        </td>
-                    </tr>
-                `;
+                const rawSearch = (searchInput ? searchInput.value.trim() : '');
+                const totalCount = (window.allStudentsList && window.allStudentsList.length > 0) ? window.allStudentsList.length : allStudentsList.length;
+                const isFiltered = (totalCount > 0) && (Boolean(rawSearch) || activeStudentClassFilter !== 'all');
+
+                if (isFiltered) {
+                    const keyword = rawSearch || (activeStudentClassFilter !== 'all' ? activeStudentClassFilter : '');
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-placeholder">
+                                <div class="empty-icon-circle empty-icon-search">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                    </svg>
+                                </div>
+                                <div class="empty-title">Tidak ada hasil untuk '${escapeHtml(keyword)}'</div>
+                                <p class="empty-desc">Coba gunakan nama siswa lain atau setel ulang filter kelas.</p>
+                                <button type="button" class="btn-cancel" onclick="resetStudentsFilter()">Reset pencarian</button>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="empty-placeholder">
+                                <div class="empty-icon-circle">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="9" cy="7" r="4"></circle>
+                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                    </svg>
+                                </div>
+                                <div class="empty-title">Belum ada data siswa</div>
+                                <p class="empty-desc">Belum ada data santri yang terdaftar di database madrasah.</p>
+                                <button type="button" class="btn-primary-action" onclick="openStudentModal()">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    Tambah Siswa
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                }
                 return;
             }
 
@@ -8827,15 +9607,65 @@
             });
         }
 
+        function getTeachersSkeletonHtml() {
+            const items = [
+                { name: '75%', subject: '50%', bio: '80%' },
+                { name: '85%', subject: '55%', bio: '90%' },
+                { name: '70%', subject: '45%', bio: '75%' },
+                { name: '80%', subject: '60%', bio: '85%' },
+                { name: '65%', subject: '40%', bio: '70%' }
+            ];
+            return items.map(item => `
+                <div class="teacher-card skeleton-card" aria-hidden="true" style="pointer-events: none;">
+                    <div class="teacher-order-pill" style="opacity: 0.4;"><div class="skeleton-bar" style="width: 20px; height: 12px;"></div></div>
+                    <div>
+                        <div class="teacher-card-header">
+                            <div class="skeleton-box" style="width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;"></div>
+                            <div style="flex: 1;">
+                                <div class="skeleton-bar" style="width: ${item.name}; height: 16px; margin-bottom: 6px; display: block;"></div>
+                                <div class="skeleton-bar" style="width: ${item.subject}; height: 20px; border-radius: var(--radius-pill); display: block;"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-bar" style="width: 45%; height: 20px; border-radius: var(--radius-pill); margin-bottom: 6px; display: block;"></div>
+                        <div class="skeleton-bar" style="width: ${item.bio}; height: 13px; margin: 8px 0 4px; display: block;"></div>
+                        <div class="skeleton-bar" style="width: 50%; height: 13px; display: block;"></div>
+                    </div>
+                    <div class="teacher-card-footer">
+                        <div style="display: flex; gap: 6px; margin-left: auto;">
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                            <div class="skeleton-box" style="width: 32px; height: 32px; border-radius: var(--radius-sm);"></div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTeachersSkeleton() {
+            const grid = document.getElementById('teachersGrid');
+            if (grid) {
+                grid.setAttribute('aria-busy', 'true');
+                grid.innerHTML = getTeachersSkeletonHtml();
+            }
+        }
+
+        window.getTeachersSkeletonHtml = getTeachersSkeletonHtml;
+        window.renderTeachersSkeleton = renderTeachersSkeleton;
+
         async function loadTeachersList() {
+            const grid = document.getElementById('teachersGrid');
+            if (grid) {
+                grid.setAttribute('aria-busy', 'true');
+                grid.innerHTML = getTeachersSkeletonHtml();
+            }
             try {
-                const grid = document.getElementById('teachersGrid');
                 if (!grid) return;
 
                 const { data, error } = await supabaseClient
                     .from('teachers')
                     .select('*')
                     .order('display_order', { ascending: true });
+
+                grid.removeAttribute('aria-busy');
 
                 if (error) {
                     console.error('Error fetching teachers:', error);
@@ -8848,21 +9678,41 @@
                 }
 
                 allTeachersList = data || [];
+                window.allTeachersList = allTeachersList;
                 renderTeachersGrid();
             } catch (err) {
+                if (grid) grid.removeAttribute('aria-busy');
                 console.error('Exception loading teachers:', err);
+                if (grid) {
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1; color: var(--color-danger);">
+                            Terjadi kesalahan saat memuat data guru.
+                        </div>
+                    `;
+                }
             }
         }
+
+        function resetTeachersFilter() {
+            const sInput = document.getElementById('teacherSearchInput');
+            if (sInput) sInput.value = '';
+            renderTeachersGrid();
+        }
+
+        window.resetTeachersFilter = resetTeachersFilter;
 
         function renderTeachersGrid() {
             const grid = document.getElementById('teachersGrid');
             const searchInput = document.getElementById('teacherSearchInput');
             const countBadge = document.getElementById('teacherCountBadge');
             if (!grid) return;
+            grid.removeAttribute('aria-busy');
 
-            const q = (searchInput ? searchInput.value.trim().toLowerCase() : '');
+            const rawQuery = (searchInput ? searchInput.value.trim() : '');
+            const q = rawQuery.toLowerCase();
+            const sourceList = (window.allTeachersList && window.allTeachersList.length > 0) ? window.allTeachersList : allTeachersList;
 
-            let filtered = allTeachersList.filter(t => {
+            let filtered = sourceList.filter(t => {
                 if (!q) return true;
                 const matchName = t.name && t.name.toLowerCase().includes(q);
                 const matchSubject = t.subject && t.subject.toLowerCase().includes(q);
@@ -8875,11 +9725,45 @@
             }
 
             if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="empty-placeholder" style="grid-column: 1 / -1;">
-                        ${allTeachersList.length === 0 ? 'Belum ada data guru. Klik tombol "Tambah Guru" untuk memulai.' : 'Tidak ditemukan guru yang sesuai pencarian.'}
-                    </div>
-                `;
+                const totalCount = (window.allTeachersList && window.allTeachersList.length > 0) ? window.allTeachersList.length : allTeachersList.length;
+                const isFiltered = (totalCount > 0) && Boolean(rawQuery);
+
+                if (isFiltered) {
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                            <div class="empty-icon-circle empty-icon-search">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </div>
+                            <div class="empty-title">Tidak ada hasil untuk '${escapeHtml(rawQuery)}'</div>
+                            <p class="empty-desc">Coba gunakan nama atau kata kunci mata pelajaran lain.</p>
+                            <button type="button" class="btn-cancel" onclick="resetTeachersFilter()">Reset pencarian</button>
+                        </div>
+                    `;
+                } else {
+                    grid.innerHTML = `
+                        <div class="empty-placeholder" style="grid-column: 1 / -1;">
+                            <div class="empty-icon-circle">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"></path>
+                                    <path d="M6 6h10"></path>
+                                    <path d="M6 10h10"></path>
+                                </svg>
+                            </div>
+                            <div class="empty-title">Belum ada data guru</div>
+                            <p class="empty-desc">Belum ada data ustadz atau tenaga pendidik yang ditambahkan.</p>
+                            <button type="button" class="btn-primary-action" onclick="openTeacherModal()">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Tambah Guru
+                            </button>
+                        </div>
+                    `;
+                }
                 return;
             }
 
