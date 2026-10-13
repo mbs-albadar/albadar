@@ -49,11 +49,97 @@ function getAbsoluteImageUrl(image) {
     return 'https://smpalbadar.sch.id' + cleanPath;
 }
 
-function getIsoDate(item) {
+const INDO_MONTHS = {
+    'januari': 1,
+    'februari': 2,
+    'maret': 3,
+    'april': 4,
+    'mei': 5,
+    'juni': 6,
+    'juli': 7,
+    'agustus': 8,
+    'september': 9,
+    'oktober': 10,
+    'november': 11,
+    'nopember': 11,
+    'desember': 12
+};
+
+function isValidDate(year, month, day) {
+    if (year < 2000 || year > 2100) return false;
+    if (month < 1 || month > 12) return false;
+    if (day < 1 || day > 31) return false;
+    const utcDate = new Date(Date.UTC(year, month - 1, day));
+    return utcDate.getUTCFullYear() === year &&
+           utcDate.getUTCMonth() === month - 1 &&
+           utcDate.getUTCDate() === day;
+}
+
+function formatYmd(year, month, day) {
+    return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+}
+
+function parseTextDate(dateStr) {
+    if (typeof dateStr !== 'string') return null;
+    const trimmed = dateStr.trim();
+    if (!trimmed) return null;
+
+    // 1. Format ISO: "2026-07-13"
+    const isoMatch = trimmed.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+    if (isoMatch) {
+        const y = parseInt(isoMatch[1], 10);
+        const m = parseInt(isoMatch[2], 10);
+        const d = parseInt(isoMatch[3], 10);
+        if (isValidDate(y, m, d)) {
+            return formatYmd(y, m, d);
+        }
+        return null;
+    }
+
+    // 2. Format Indonesia: "13 Juli 2026" / "  5   agustus 2026 "
+    const indoMatch = trimmed.match(/^(\d{1,2})\s+([a-zA-Z]+)\s+(\d{4})$/);
+    if (indoMatch) {
+        const d = parseInt(indoMatch[1], 10);
+        const monthKey = indoMatch[2].toLowerCase();
+        const y = parseInt(indoMatch[3], 10);
+        const m = INDO_MONTHS[monthKey];
+        if (m && isValidDate(y, m, d)) {
+            return formatYmd(y, m, d);
+        }
+        return null;
+    }
+
+    return null;
+}
+
+function getDatePublished(item) {
+    if (!item) return null;
+    // a. Jika kolom "date" (teks) dapat dibaca sebagai tanggal, pakai itu.
+    const textDate = parseTextDate(item.date);
+    if (textDate) {
+        return textDate;
+    }
+
+    // b. Jika tidak bisa dibaca, pakai logika yang sudah ada (created_at dst).
     const candidates = [item.created_at, item.updated_at, item.date_published, item.published_at];
     for (const c of candidates) {
         if (typeof c === 'string' && /^\d{4}-\d{2}-\d{2}/.test(c) && !isNaN(Date.parse(c))) {
             return new Date(c).toISOString();
+        }
+    }
+
+    // c. Jika keduanya tidak ada, jangan menulis datePublished.
+    return null;
+}
+
+function getDateModified(item, datePublished) {
+    if (!item || !datePublished) return null;
+    const updatedAt = item.updated_at;
+    if (typeof updatedAt === 'string' && /^\d{4}-\d{2}-\d{2}/.test(updatedAt) && !isNaN(Date.parse(updatedAt))) {
+        const modTime = Date.parse(updatedAt);
+        const pubTime = Date.parse(datePublished);
+        if (!isNaN(modTime) && !isNaN(pubTime) && modTime >= pubTime) {
+            return new Date(updatedAt).toISOString();
         }
     }
     return null;
@@ -221,29 +307,23 @@ module.exports = async function handler(req, res) {
         }
 
         let item = null;
-        let supabaseSuccess = false;
-
         const sbResult = await fetchFromSupabase(id);
+
         if (sbResult.status === 'found') {
             item = sbResult.data;
-            supabaseSuccess = true;
         } else if (sbResult.status === 'not_found') {
-            supabaseSuccess = true;
+            // Supabase menjawab normal dan id tidak ada ("not_found")
+            // Balas 404 (no-store) TANPA membuka news.json
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'text/html; charset=utf-8');
+            res.setHeader('Cache-Control', 'no-store');
+            return res.end(renderNotFoundPage(template));
         } else {
-            supabaseSuccess = false;
-        }
-
-        if (!item) {
+            // Permintaan ke Supabase GAGAL (error jaringan, timeout, atau status 5xx)
+            // assets/data/news.json HANYA dipakai jika permintaan ke Supabase GAGAL
             item = await fetchFromNewsJson(id);
-        }
-
-        if (!item) {
-            if (supabaseSuccess) {
-                res.statusCode = 404;
-                res.setHeader('Content-Type', 'text/html; charset=utf-8');
-                res.setHeader('Cache-Control', 'no-store');
-                return res.end(renderNotFoundPage(template));
-            } else {
+            if (!item) {
+                // Supabase gagal DAN id tidak ada di news.json -> 503 dengan Retry-After: 120 dan no-store
                 res.statusCode = 503;
                 res.setHeader('Retry-After', '120');
                 res.setHeader('Cache-Control', 'no-store');
@@ -324,9 +404,14 @@ module.exports = async function handler(req, res) {
             }
         };
 
-        const isoDate = getIsoDate(item);
-        if (isoDate) {
-            schema.datePublished = isoDate;
+        const datePublished = getDatePublished(item);
+        if (datePublished) {
+            schema.datePublished = datePublished;
+        }
+
+        const dateModified = getDateModified(item, datePublished);
+        if (dateModified) {
+            schema.dateModified = dateModified;
         }
 
         const jsonLdSafe = JSON.stringify(schema).replace(/</g, '\\u003c');
@@ -361,3 +446,9 @@ module.exports = async function handler(req, res) {
         res.end('Internal Server Error');
     }
 };
+
+module.exports.parseTextDate = parseTextDate;
+module.exports.getDatePublished = getDatePublished;
+module.exports.getDateModified = getDateModified;
+module.exports.fetchFromSupabase = fetchFromSupabase;
+module.exports.fetchFromNewsJson = fetchFromNewsJson;
