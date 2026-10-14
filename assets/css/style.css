@@ -1145,6 +1145,31 @@ p {
     flex-wrap: wrap;
 }
 
+.cta-hint {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.78);
+    margin-top: 1rem;
+}
+
+.cta-hint strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.btn-ext-icon {
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+}
+
+.page-hero .cta-hint {
+    text-align: left;
+}
+
+.hero-lux .cta-hint {
+    text-align: center;
+}
+
 /* === PAGE HERO (SUBPAGES) ===
    Satu sistem hero untuk semua halaman dalam: teks rata kiri di bagian bawah,
    judul berskala besar mengikuti beranda, pola geometris tipis di sisi kanan.
