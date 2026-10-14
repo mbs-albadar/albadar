@@ -4493,54 +4493,90 @@ body.menu-open .menu-bar {
     color: var(--color-text-muted);
 }
 
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 .article-share {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
     align-items: center;
+    justify-content: flex-start;
     margin-top: 2.5rem;
     padding-top: 1.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-.article-share-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--lux-dark);
-}
-
-.share-btn {
+.share-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 1.1rem;
-    border-radius: var(--radius-pill);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
     border: 1px solid var(--color-primary);
     color: var(--color-primary);
     background: transparent;
-    font-size: 0.85rem;
-    font-weight: 600;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    transition: all 0.3s ease;
+    padding: 0;
+    line-height: 1;
     font-family: inherit;
-    line-height: normal;
+    box-sizing: border-box;
 }
 
-.share-btn:hover {
+.share-icon svg {
+    display: block;
+    flex-shrink: 0;
+}
+
+.share-icon:hover {
     background: var(--color-primary);
     color: #fff;
+    transform: translateY(-2px);
 }
 
-.share-btn:focus,
-.share-btn:focus-visible {
+.share-icon:focus,
+.share-icon:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+    background: var(--color-primary);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.share-copy .icon-check {
+    display: none;
+}
+
+.share-copy.is-copied .icon-link {
+    display: none;
+}
+
+.share-copy.is-copied .icon-check {
+    display: block;
 }
 
 .share-feedback {
     font-size: 0.85rem;
     color: var(--color-text-muted);
+}
+
+@media (max-width: 768px) {
+    .share-icon {
+        width: 44px;
+        height: 44px;
+    }
 }
 
 .related-news-section {

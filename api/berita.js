@@ -465,10 +465,17 @@ module.exports = async function handler(req, res) {
 
         const shareHtml =
             '<div class="article-share" data-share-url="' + canonicalAttr + '">' +
-                '<span class="article-share-label">Bagikan:</span>' +
-                '<a class="share-btn" href="' + shareWaHref + '" target="_blank" rel="noopener noreferrer">WhatsApp</a>' +
-                '<a class="share-btn" href="' + shareFbHref + '" target="_blank" rel="noopener noreferrer">Facebook</a>' +
-                '<button type="button" class="share-btn share-copy">Salin tautan</button>' +
+                '<span class="article-share-label visually-hidden">Bagikan berita ini</span>' +
+                '<a class="share-icon share-wa" href="' + shareWaHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp" title="Bagikan ke WhatsApp">' +
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>' +
+                '</a>' +
+                '<a class="share-icon share-fb" href="' + shareFbHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke Facebook" title="Bagikan ke Facebook">' +
+                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.12 5.32H17V2.14A26 26 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.05.28-1.73 1.76-1.73"/></svg>' +
+                '</a>' +
+                '<button type="button" class="share-icon share-copy" aria-label="Salin tautan" title="Salin tautan">' +
+                    '<svg class="icon-link" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>' +
+                    '<svg class="icon-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
+                '</button>' +
                 '<span class="share-feedback" role="status" aria-live="polite"></span>' +
             '</div>' +
             '<script>' +
@@ -479,11 +486,21 @@ module.exports = async function handler(req, res) {
                 'var feedback=shareBlock.querySelector(\'.share-feedback\');' +
                 'if(!copyBtn)return;' +
                 'var timer=null;' +
+                'var copyTimer=null;' +
                 'function showFeedback(msg){' +
                     'if(!feedback)return;' +
                     'feedback.textContent=msg;' +
                     'if(timer)clearTimeout(timer);' +
                     'timer=setTimeout(function(){feedback.textContent=\'\';},2000);' +
+                '}' +
+                'function markCopied(){' +
+                    'showFeedback(\'Tautan disalin\');' +
+                    'if(!copyBtn)return;' +
+                    'copyBtn.classList.add(\'is-copied\');' +
+                    'if(copyTimer)clearTimeout(copyTimer);' +
+                    'copyTimer=setTimeout(function(){' +
+                        'if(copyBtn)copyBtn.classList.remove(\'is-copied\');' +
+                    '},2000);' +
                 '}' +
                 'function fallbackCopy(text){' +
                     'var success=false;' +
@@ -501,14 +518,14 @@ module.exports = async function handler(req, res) {
                         'success=document.execCommand(\'copy\');' +
                         'document.body.removeChild(ta);' +
                     '}catch(e){success=false;}' +
-                    'if(success){showFeedback(\'Tautan disalin\');}' +
+                    'if(success){markCopied();}' +
                     'else{showFeedback(\'Gagal menyalin\');}' +
                 '}' +
                 'copyBtn.addEventListener(\'click\',function(){' +
                     'var url=shareBlock.getAttribute(\'data-share-url\')||window.location.href;' +
                     'if(navigator.clipboard&&window.isSecureContext){' +
                         'navigator.clipboard.writeText(url).then(function(){' +
-                            'showFeedback(\'Tautan disalin\');' +
+                            'markCopied();' +
                         '}).catch(function(){' +
                             'fallbackCopy(url);' +
                         '});' +
