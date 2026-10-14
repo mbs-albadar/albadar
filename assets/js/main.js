@@ -1,22 +1,98 @@
+// ==========================================================================
+// Analytics Filter & Browser Marking (Abaikan Lingkungan Uji Coba & Pengelola)
+// ==========================================================================
+function shouldTrackAnalytics() {
+    try {
+        var host = '';
+        if (typeof location !== 'undefined' && location.hostname) {
+            host = location.hostname.toLowerCase();
+        } else if (typeof window !== 'undefined' && window.location && window.location.hostname) {
+            host = window.location.hostname.toLowerCase();
+        }
+        if (host === 'localhost' || host === '127.0.0.1' || host === 'vercel.app' || host.endsWith('.vercel.app')) {
+            return false;
+        }
+    } catch (e) {}
+
+    try {
+        var storage = (typeof window !== 'undefined' && window.localStorage) || (typeof localStorage !== 'undefined' && localStorage);
+        if (storage && storage.getItem('albadar_no_track') === '1') {
+            return false;
+        }
+    } catch (e) {
+        // jika localStorage tidak bisa diakses, anggap tidak diblokir (tetap lacak)
+    }
+
+    return true;
+}
+
+function handleNoTrackParam() {
+    try {
+        var currentHref = (typeof window !== 'undefined' && window.location && window.location.href) ||
+                          (typeof location !== 'undefined' && location.href);
+        if (!currentHref) return;
+
+        var url = new URL(currentHref);
+        if (url.searchParams.has('notrack')) {
+            var val = url.searchParams.get('notrack');
+            if (val === '1') {
+                try {
+                    var storage = (typeof window !== 'undefined' && window.localStorage) || (typeof localStorage !== 'undefined' && localStorage);
+                    if (storage) storage.setItem('albadar_no_track', '1');
+                } catch (e) {}
+            } else if (val === '0') {
+                try {
+                    var storage = (typeof window !== 'undefined' && window.localStorage) || (typeof localStorage !== 'undefined' && localStorage);
+                    if (storage) storage.removeItem('albadar_no_track');
+                } catch (e) {}
+            }
+
+            url.searchParams.delete('notrack');
+            var cleanUrl = url.pathname + (url.search ? url.search : '') + (url.hash || '');
+            if (typeof window !== 'undefined' && window.history && window.history.replaceState) {
+                window.history.replaceState(window.history.state, '', cleanUrl);
+            }
+        }
+    } catch (e) {
+        // Abaikan jika manipulasi URL / histori gagal
+    }
+}
+
+// Jalankan pembersihan URL dan penandaan sesegera mungkin saat script dimuat
+handleNoTrackParam();
+
+if (typeof window !== 'undefined') {
+    window.shouldTrackAnalytics = shouldTrackAnalytics;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Pastikan parameter URL sudah diproses sebelum page_view pertama dikirim
+    handleNoTrackParam();
+
     // Analytics Tracking (kunjungan halaman & klik penting)
     if (typeof supabaseClient !== 'undefined') {
-        supabaseClient
-            .from('analytics_events')
-            .insert([{ event_type: 'page_view', page_path: window.location.pathname }])
-            .then(function() {})
-            .catch(function() {});
+        if (shouldTrackAnalytics()) {
+            supabaseClient
+                .from('analytics_events')
+                .insert([{ event_type: 'page_view', page_path: window.location.pathname }])
+                .then(function() {})
+                .catch(function() {});
+        }
 
         document.addEventListener('click', function(e) {
             const waLink = e.target.closest('.wa-float-btn, a[href*="wa.me"]');
             if (waLink) {
-                supabaseClient.from('analytics_events').insert([{ event_type: 'click_wa', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                if (shouldTrackAnalytics()) {
+                    supabaseClient.from('analytics_events').insert([{ event_type: 'click_wa', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                }
                 return;
             }
 
             const ppdbLink = e.target.closest('a[href*="ppdb"]');
             if (ppdbLink) {
-                supabaseClient.from('analytics_events').insert([{ event_type: 'click_ppdb', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                if (shouldTrackAnalytics()) {
+                    supabaseClient.from('analytics_events').insert([{ event_type: 'click_ppdb', page_path: window.location.pathname }]).then(function() {}).catch(function() {});
+                }
                 return;
             }
 
@@ -24,7 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (brosurLink) {
                 const labelEl = brosurLink.querySelector('.ppdb-doc-label');
                 const detailText = labelEl ? labelEl.textContent : null;
-                supabaseClient.from('analytics_events').insert([{ event_type: 'click_brosur', page_path: window.location.pathname, detail: detailText }]).then(function() {}).catch(function() {});
+                if (shouldTrackAnalytics()) {
+                    supabaseClient.from('analytics_events').insert([{ event_type: 'click_brosur', page_path: window.location.pathname, detail: detailText }]).then(function() {}).catch(function() {});
+                }
             }
         });
     }
