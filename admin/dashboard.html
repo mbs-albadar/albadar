@@ -600,9 +600,8 @@
             letter-spacing: 0.04em;
             color: var(--color-text-muted);
             font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            white-space: normal;
+            line-height: 1.25;
             flex: 1;
             min-width: 0;
         }
@@ -3212,21 +3211,391 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        #dailyVisitsChartWrapper {
+        /* =========================================================
+           TOPBAR QUICK ACTIONS
+           ========================================================= */
+        .topbar-quick-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+        .topbar-qa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #FFFFFF;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 0.35rem 0.65rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--lux-dark);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            line-height: 1.2;
+        }
+        .topbar-qa-btn:hover {
+            background: rgba(4, 71, 58, 0.05);
+            border-color: var(--color-primary);
+            color: var(--color-primary);
+        }
+        .topbar-qa-btn svg {
+            color: var(--color-primary);
+            flex-shrink: 0;
+        }
+
+        /* =========================================================
+           BERANDA PADAT - 2 ROW LAYOUT (DESKTOP >= 1100px)
+           ========================================================= */
+        #sec-beranda {
+            padding-bottom: 88px;
+        }
+        #sec-beranda .welcome-card {
+            padding: 1.15rem 1.5rem;
+            margin-bottom: 1.15rem;
+        }
+        #sec-beranda .welcome-card h1 {
+            font-size: 1.35rem;
+            margin-bottom: 0.2rem;
+        }
+        #sec-beranda .welcome-card p {
+            font-size: 0.825rem;
+        }
+
+        .beranda-row {
+            display: flex;
+            gap: 1rem;
+            align-items: stretch;
+            margin-bottom: 1.15rem;
+        }
+        .beranda-row-1 .beranda-kpi-group,
+        .beranda-row-2 .beranda-kpi-group {
+            flex: 5;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .beranda-row-1 .beranda-visual-card,
+        .beranda-row-2 .beranda-visual-card {
+            flex: 7;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .beranda-group-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            min-height: 22px;
+        }
+        .beranda-group-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-text-muted);
+        }
+        .beranda-group-pill {
+            font-size: 0.68rem;
+            padding: 0.15rem 0.5rem;
+        }
+
+        .beranda-kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: 1fr;
+            gap: 0.75rem;
+            flex: 1;
+        }
+
+        /* Scoped KPI cards under #sec-beranda */
+        #sec-beranda .kpi-card {
+            padding: 0.9rem 1rem;
+            min-height: 0;
+        }
+        #sec-beranda .kpi-top {
+            margin-bottom: 0.35rem;
+        }
+        #sec-beranda .kpi-body {
+            margin: 0;
+        }
+        #sec-beranda .kpi-value {
+            font-size: 1.75rem;
+            line-height: 1.15;
+        }
+        #sec-beranda .kpi-label {
+            font-size: 0.68rem;
+            letter-spacing: 0.02em;
+            white-space: normal;
+            line-height: 1.2;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+        #sec-beranda .kpi-icon-chip {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        #sec-beranda .kpi-icon-chip svg {
+            width: 17px;
+            height: 17px;
+        }
+        #sec-beranda .kpi-sub {
+            font-size: 0.72rem;
+            margin-top: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        #sec-beranda .kpi-arrow-indicator {
+            display: inline-block;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0.45;
+        }
+        #sec-beranda .kpi-card:not(.is-static):hover .kpi-arrow-indicator,
+        #sec-beranda .kpi-card:not(.is-static):focus-visible .kpi-arrow-indicator {
+            opacity: 1;
+            transform: translateX(3px);
+            color: var(--color-primary);
+        }
+
+        /* Beranda Visual Card */
+        .beranda-visual-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.25rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .beranda-visual-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.65rem;
+        }
+        .beranda-visual-title-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            min-width: 0;
+        }
+        .beranda-visual-title {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            color: var(--lux-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin: 0;
+        }
+        .beranda-visual-subtitle {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin: 0;
+        }
+        .beranda-visual-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* Chart Wrappers & Empty State */
+        .beranda-chart-wrapper {
             position: relative;
             width: 100%;
-            height: 300px;
+            flex: 1;
+            min-height: 180px;
         }
+        .beranda-chart-empty {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--color-text-muted);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Popular Pages Donut & Custom Ranking List */
+        .popular-pages-body {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex: 1;
+            min-height: 180px;
+        }
+        .popular-pages-donut-wrap {
+            position: relative;
+            width: 155px;
+            height: 155px;
+            flex-shrink: 0;
+            margin: auto 0;
+        }
+        .popular-pages-donut-wrap canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .popular-pages-donut-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            text-align: center;
+        }
+        .donut-total-val {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--lux-dark);
+            line-height: 1;
+        }
+        .donut-total-lbl {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--color-text-muted);
+            margin-top: 0.15rem;
+        }
+        .popular-pages-legend-list {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            justify-content: center;
+        }
+        .popular-page-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            padding: 0.2rem 0;
+        }
+        .popular-page-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .popular-page-name {
+            flex: 1;
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--lux-dark);
+            font-weight: 500;
+        }
+        .popular-page-count {
+            font-weight: 600;
+            color: var(--lux-dark);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+        .popular-page-pct {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            min-width: 36px;
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        /* =========================================================
+           RESPONSIVE BREAKPOINTS FOR BERANDA
+           ========================================================= */
+        @media (max-width: 1099px) {
+            .beranda-row {
+                flex-direction: column;
+            }
+            .beranda-row-1 .beranda-kpi-group,
+            .beranda-row-2 .beranda-kpi-group,
+            .beranda-row-1 .beranda-visual-card,
+            .beranda-row-2 .beranda-visual-card {
+                width: 100%;
+                flex: none;
+            }
+            .beranda-chart-wrapper {
+                min-height: 220px;
+                height: 240px;
+            }
+            .popular-pages-body {
+                min-height: 190px;
+            }
+        }
+
         @media (max-width: 900px) {
             .visits-metrics-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+
         @media (max-width: 640px) {
-            #dailyVisitsChartWrapper {
-                height: 240px;
+            .admin-topbar {
+                height: auto;
+                min-height: 56px;
+                padding: 0.5rem 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+            .topbar-right {
+                width: 100%;
+                justify-content: space-between;
+                gap: 0.5rem;
+            }
+            .topbar-quick-actions {
+                flex: 1;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+                -webkit-overflow-scrolling: touch;
+            }
+            .topbar-quick-actions::-webkit-scrollbar {
+                display: none;
+            }
+            .beranda-kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.5rem;
+            }
+            #sec-beranda .kpi-card {
+                padding: 0.75rem 0.85rem;
+            }
+            #sec-beranda .kpi-value {
+                font-size: 1.45rem;
+            }
+            .popular-pages-body {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.85rem;
+            }
+            .popular-pages-donut-wrap {
+                margin: 0 auto;
+            }
+            .beranda-chart-wrapper {
+                min-height: 200px;
+                height: 210px;
             }
         }
+
         @media (max-width: 480px) {
             .visits-metrics-grid {
                 grid-template-columns: 1fr 1fr;
@@ -3237,6 +3606,22 @@
             }
             .visit-metric-val {
                 font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 360px) {
+            #sec-beranda .kpi-card {
+                padding: 0.65rem 0.65rem;
+            }
+            #sec-beranda .kpi-value {
+                font-size: 1.3rem;
+            }
+            #sec-beranda .kpi-label {
+                font-size: 0.68rem;
+            }
+            .topbar-qa-btn {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.7rem;
             }
         }
 
@@ -3493,6 +3878,32 @@
                 <h1 class="topbar-title" id="pageTitle">Beranda</h1>
             </div>
             <div class="topbar-right">
+                <div class="topbar-quick-actions" id="berandaQuickActions">
+                    <button type="button" class="topbar-qa-btn" onclick="openNewsModal()" title="Tambah Berita Baru">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>+ Berita</span>
+                    </button>
+                    <button type="button" class="topbar-qa-btn" onclick="switchTab('sec-berita')" title="Kelola Semua Berita">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg>
+                        <span>Berita</span>
+                    </button>
+                    <button type="button" class="topbar-qa-btn" onclick="switchTab('sec-prestasi'); setTimeout(() => openAchievementModal(), 100);" title="Tambah Prestasi">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+                        <span>+ Prestasi</span>
+                    </button>
+                    <button type="button" class="topbar-qa-btn role-super-admin-only" onclick="switchTab('sec-siswa')" title="Kelola Data Siswa">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>Siswa</span>
+                    </button>
+                    <button type="button" class="topbar-qa-btn role-super-admin-only" onclick="switchTab('sec-guru')" title="Kelola Data Guru">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
+                        <span>Guru</span>
+                    </button>
+                    <button type="button" class="topbar-qa-btn role-super-admin-only" onclick="switchTab('sec-site-images')" title="Kelola Gambar Situs">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
+                        <span>Gambar</span>
+                    </button>
+                </div>
                 <a href="../index.html" target="_blank" rel="noopener" class="view-site-link">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -3512,398 +3923,296 @@
                     <p id="welcomeSub">Sistem Informasi Administrasi dan Pengelolaan Konten SMP MBS Al Badar Prambanan.</p>
                 </div>
 
-                <!-- Ringkasan Section -->
-                <div class="section-heading">
-                    <div>
-                        <h3 class="section-heading-title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <rect x="3" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="3" width="7" height="7"></rect>
-                                <rect x="14" y="14" width="7" height="7"></rect>
-                                <rect x="3" y="14" width="7" height="7"></rect>
+                <!-- BARIS 1: KONTEN & SIVITAS (Kiri) + TREN KUNJUNGAN (Kanan) -->
+                <div class="beranda-row beranda-row-1">
+                    <!-- Kiri (~5/12): Kelompok KONTEN & SIVITAS -->
+                    <div class="beranda-kpi-group">
+                        <div class="beranda-group-header">
+                            <span class="beranda-group-label">KONTEN &amp; SIVITAS</span>
+                        </div>
+                        <div class="kpi-grid beranda-kpi-grid">
+                            <a href="#berita" class="kpi-card" onclick="switchTab('sec-berita'); return false;">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Berita</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                            <path d="M18 14h-8"></path>
+                                            <path d="M15 18h-5"></path>
+                                            <path d="M10 6h8v4h-8V6Z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statNewsCount">0</div>
+                                    <div class="kpi-sub">Publikasi <span class="kpi-arrow-indicator" aria-hidden="true">&rarr;</span></div>
+                                </div>
+                            </a>
+
+                            <a href="#prestasi" class="kpi-card" onclick="switchTab('sec-prestasi'); return false;">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Prestasi</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="8" r="6"></circle>
+                                            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statAchieveCount">0</div>
+                                    <div class="kpi-sub">Kejuaraan <span class="kpi-arrow-indicator" aria-hidden="true">&rarr;</span></div>
+                                </div>
+                            </a>
+
+                            <div class="kpi-card role-super-admin-only" id="cardStatSiswa" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-siswa');">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Siswa</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statStudentCount">0</div>
+                                    <div class="kpi-sub">Terdaftar <span class="kpi-arrow-indicator" aria-hidden="true">&rarr;</span></div>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card role-super-admin-only" id="cardStatGuru" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-guru');">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Guru</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="8.5" cy="7" r="4"></circle>
+                                            <polyline points="17 11 19 13 23 9"></polyline>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statTeacherCount">0</div>
+                                    <div class="kpi-sub">Pendidik <span class="kpi-arrow-indicator" aria-hidden="true">&rarr;</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kanan (~7/12): Kartu Tren Kunjungan -->
+                    <div class="card-container beranda-visual-card">
+                        <div class="beranda-visual-header">
+                            <div class="beranda-visual-title-wrap">
+                                <h3 class="beranda-visual-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 17 9 11 13 15 21 7"></polyline>
+                                        <polyline points="14 7 21 7 21 14"></polyline>
+                                    </svg>
+                                    <span id="dailyVisitsChartHeading">Tren Kunjungan</span>
+                                </h3>
+                                <p class="beranda-visual-subtitle" id="dailyVisitsChartSubheading">Memuat data kunjungan...</p>
+                            </div>
+                            <div class="beranda-visual-controls">
+                                <div class="visits-range-toggle" id="visitsRangeToggle" role="group" aria-label="Rentang Waktu Kunjungan">
+                                    <button type="button" class="visits-range-btn" data-range="7d" onclick="setVisitsTrendRange('7d')">7 Hari</button>
+                                    <button type="button" class="visits-range-btn active" data-range="30d" onclick="setVisitsTrendRange('30d')">30 Hari</button>
+                                    <button type="button" class="visits-range-btn" data-range="90d" onclick="setVisitsTrendRange('90d')">90 Hari</button>
+                                    <button type="button" class="visits-range-btn" data-range="monthly" onclick="setVisitsTrendRange('monthly')">Bulanan</button>
+                                </div>
+                                <span class="counter-badge" id="dailyVisitsTotalBadge">...</span>
+                            </div>
+                        </div>
+
+                        <!-- Ringkasan metrik tren (dipertahankan untuk kompatibilitas data script) -->
+                        <div class="visits-metrics-grid" id="visitsMetricsGrid" style="display: none;">
+                            <div class="visit-metric-card">
+                                <div class="visit-metric-label" id="visitMetricTotalLabel">Total Kunjungan</div>
+                                <div class="visit-metric-val" id="visitMetricTotalVal">-</div>
+                                <div class="visit-metric-sub" id="visitMetricTotalSub">30 hari terakhir</div>
+                            </div>
+                            <div class="visit-metric-card">
+                                <div class="visit-metric-label" id="visitMetricAvgLabel">Rata-rata / Hari</div>
+                                <div class="visit-metric-val" id="visitMetricAvgVal">-</div>
+                                <div class="visit-metric-sub" id="visitMetricAvgSub">Kunjungan per hari</div>
+                            </div>
+                            <div class="visit-metric-card">
+                                <div class="visit-metric-label" id="visitMetricPeakLabel">Hari Tertinggi</div>
+                                <div class="visit-metric-val" id="visitMetricPeakVal">-</div>
+                                <div class="visit-metric-sub" id="visitMetricPeakSub">Puncak kunjungan</div>
+                            </div>
+                            <div class="visit-metric-card">
+                                <div class="visit-metric-label" id="visitMetricGrowthLabel">Perubahan Tren</div>
+                                <div class="visit-metric-val" id="visitMetricGrowthVal">-</div>
+                                <div class="visit-metric-sub" id="visitMetricGrowthSub">vs Periode sebelumnya</div>
+                            </div>
+                        </div>
+
+                        <div id="dailyVisitsChartWrapper" class="beranda-chart-wrapper">
+                            <canvas id="dailyVisitsChart"></canvas>
+                        </div>
+
+                        <div id="dailyVisitsChartEmptyMessage" class="beranda-chart-empty" style="display: none;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.4rem; display: block; opacity: 0.6;">
+                                <polyline points="3 17 9 11 13 15 21 7"></polyline>
                             </svg>
-                            Ringkasan Konten &amp; Akademik
-                        </h3>
-                        <p class="section-heading-sub">Ikhtisar data publikasi informasi dan sivitas sekolah.</p>
-                    </div>
-                </div>
-
-                <div class="kpi-grid">
-                    <a href="#berita" class="kpi-card" onclick="switchTab('sec-berita'); return false;">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Berita &amp; Artikel</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
-                                    <path d="M18 14h-8"></path>
-                                    <path d="M15 18h-5"></path>
-                                    <path d="M10 6h8v4h-8V6Z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statNewsCount">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Publikasi</span>
-                            <span class="kpi-link-text">Lihat semua &rarr;</span>
-                        </div>
-                    </a>
-
-                    <a href="#prestasi" class="kpi-card" onclick="switchTab('sec-prestasi'); return false;">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Prestasi Siswa</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="8" r="6"></circle>
-                                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statAchieveCount">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Kejuaraan</span>
-                            <span class="kpi-link-text">Lihat semua &rarr;</span>
-                        </div>
-                    </a>
-
-                    <div class="kpi-card" id="cardStatSiswa" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-siswa');">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Jumlah Siswa</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statStudentCount">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Terdaftar</span>
-                            <span class="kpi-link-text">Lihat semua &rarr;</span>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card" id="cardStatGuru" role="button" tabindex="0" onclick="if(currentProfile && currentProfile.role === 'super_admin') switchTab('sec-guru');">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Jumlah Guru</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="8.5" cy="7" r="4"></circle>
-                                    <polyline points="17 11 19 13 23 9"></polyline>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statTeacherCount">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Pendidik</span>
-                            <span class="kpi-link-text">Lihat semua &rarr;</span>
+                            <p style="font-size: 0.825rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan untuk ditampilkan</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Statistik Pengunjung Section -->
-                <div class="section-heading">
-                    <div>
-                        <h3 class="section-heading-title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
+                <!-- BARIS 2: STATISTIK PENGUNJUNG (Kiri) + HALAMAN TERPOPULER (Kanan) -->
+                <div class="beranda-row beranda-row-2">
+                    <!-- Kiri (~5/12): Kelompok STATISTIK PENGUNJUNG -->
+                    <div class="beranda-kpi-group">
+                        <div class="beranda-group-header">
+                            <span class="beranda-group-label">STATISTIK PENGUNJUNG</span>
+                            <span class="section-heading-pill beranda-group-pill">30 hari terakhir</span>
+                        </div>
+                        <div class="kpi-grid beranda-kpi-grid">
+                            <div class="kpi-card kpi-card-emphasis">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Kunjungan</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
+                                            <circle cx="12" cy="12" r="3"></circle>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statPageViews">0</div>
+                                    <div class="kpi-sub">Pageview website</div>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Klik PPDB</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 21V9"></path>
+                                            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statPpdbClicks">0</div>
+                                    <div>
+                                        <span class="kpi-meta-pill is-loading" id="statPpdbConversion">0% dari kunjungan</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Klik Brosur</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                            <line x1="12" y1="18" x2="12" y2="12"></line>
+                                            <line x1="9" y1="15" x2="12" y2="18"></line>
+                                            <line x1="15" y1="15" x2="12" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statBrosurClicks">0</div>
+                                    <div>
+                                        <span class="kpi-meta-pill is-loading" id="statBrosurConversion">0% dari kunjungan</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="kpi-card">
+                                <div class="kpi-top">
+                                    <span class="kpi-label">Klik WhatsApp</span>
+                                    <div class="kpi-icon-chip" aria-hidden="true">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="kpi-body">
+                                    <div class="kpi-value is-loading" id="statWaClicks">0</div>
+                                    <div>
+                                        <span class="kpi-meta-pill is-loading" id="statWaConversion">0% dari kunjungan</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kanan (~7/12): Kartu Baru "Halaman Terpopuler" -->
+                    <div class="card-container beranda-visual-card">
+                        <div class="beranda-visual-header">
+                            <div class="beranda-visual-title-wrap">
+                                <h3 class="beranda-visual-title">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 3v18h18"></path>
+                                        <path d="M18 17V9"></path>
+                                        <path d="M13 17V5"></path>
+                                        <path d="M8 17v-3"></path>
+                                    </svg>
+                                    <span>Halaman Terpopuler</span>
+                                </h3>
+                                <p class="beranda-visual-subtitle" id="popularPagesSubheading">Memuat data halaman...</p>
+                            </div>
+                            <span class="section-heading-pill" id="popularPagesRangeBadge">30 hari terakhir</span>
+                        </div>
+
+                        <div class="popular-pages-body" id="popularPagesBody">
+                            <div class="popular-pages-donut-wrap">
+                                <canvas id="popularPagesChart"></canvas>
+                                <div class="popular-pages-donut-center" id="popularPagesDonutCenter">
+                                    <span class="donut-total-val" id="popularPagesTotalVal">0</span>
+                                    <span class="donut-total-lbl">Kunjungan</span>
+                                </div>
+                            </div>
+                            <div class="popular-pages-legend-list" id="popularPagesLegendList"></div>
+                        </div>
+
+                        <div id="popularPagesEmptyMessage" class="beranda-chart-empty" style="display: none;">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.4rem; display: block; opacity: 0.6;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
-                            Statistik Pengunjung
-                        </h3>
-                        <p class="section-heading-sub">Ringkasan performa kunjungan website dan aksi interaksi.</p>
-                    </div>
-                    <span class="section-heading-pill">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        30 hari terakhir
-                    </span>
-                </div>
-
-                <div class="kpi-grid">
-                    <div class="kpi-card kpi-card-emphasis">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Total Kunjungan</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statPageViews">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Total pageview website</span>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Klik Menu PPDB</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 21V9"></path>
-                                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statPpdbClicks">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Konversi</span>
-                            <span class="kpi-meta-pill is-loading" id="statPpdbConversion">0% dari kunjungan</span>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Klik Brosur</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                    <line x1="12" y1="18" x2="12" y2="12"></line>
-                                    <line x1="9" y1="15" x2="12" y2="18"></line>
-                                    <line x1="15" y1="15" x2="12" y2="18"></line>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statBrosurClicks">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Konversi</span>
-                            <span class="kpi-meta-pill is-loading" id="statBrosurConversion">0% dari kunjungan</span>
-                        </div>
-                    </div>
-
-                    <div class="kpi-card">
-                        <div class="kpi-top">
-                            <span class="kpi-label">Klik WhatsApp</span>
-                            <div class="kpi-icon-chip" aria-hidden="true">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="kpi-body">
-                            <div class="kpi-value is-loading" id="statWaClicks">0</div>
-                        </div>
-                        <div class="kpi-footer">
-                            <span class="kpi-sub">Konversi</span>
-                            <span class="kpi-meta-pill is-loading" id="statWaConversion">0% dari kunjungan</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Tren Kunjungan Harian & Bulanan -->
-                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;">
-                        <div>
-                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="3 17 9 11 13 15 21 7"></polyline>
-                                    <polyline points="14 7 21 7 21 14"></polyline>
-                                </svg>
-                                <span id="dailyVisitsChartHeading">Tren Kunjungan</span>
-                            </h3>
-                            <p id="dailyVisitsChartSubheading" style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Memuat data kunjungan...</p>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
-                            <div class="visits-range-toggle" id="visitsRangeToggle" role="group" aria-label="Rentang Waktu Kunjungan">
-                                <button type="button" class="visits-range-btn" data-range="7d" onclick="setVisitsTrendRange('7d')">7 Hari</button>
-                                <button type="button" class="visits-range-btn active" data-range="30d" onclick="setVisitsTrendRange('30d')">30 Hari</button>
-                                <button type="button" class="visits-range-btn" data-range="90d" onclick="setVisitsTrendRange('90d')">90 Hari</button>
-                                <button type="button" class="visits-range-btn" data-range="monthly" onclick="setVisitsTrendRange('monthly')">Bulanan</button>
-                            </div>
-                            <span class="counter-badge" id="dailyVisitsTotalBadge" style="background: var(--color-primary-light); color: var(--color-primary); border-color: rgba(4, 71, 58, 0.2);">...</span>
-                        </div>
-                    </div>
-
-                    <!-- Baris Ringkasan 4 Metrik Tren Kunjungan -->
-                    <div class="visits-metrics-grid" id="visitsMetricsGrid">
-                        <div class="visit-metric-card">
-                            <div class="visit-metric-label" id="visitMetricTotalLabel">Total Kunjungan</div>
-                            <div class="visit-metric-val" id="visitMetricTotalVal" style="color: var(--color-primary);">-</div>
-                            <div class="visit-metric-sub" id="visitMetricTotalSub">30 hari terakhir</div>
+                            <p style="font-size: 0.825rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan pada periode ini</p>
                         </div>
 
-                        <div class="visit-metric-card">
-                            <div class="visit-metric-label" id="visitMetricAvgLabel">Rata-rata / Hari</div>
-                            <div class="visit-metric-val" id="visitMetricAvgVal">-</div>
-                            <div class="visit-metric-sub" id="visitMetricAvgSub">Kunjungan per hari</div>
-                        </div>
-
-                        <div class="visit-metric-card">
-                            <div class="visit-metric-label" id="visitMetricPeakLabel">Hari Tertinggi</div>
-                            <div class="visit-metric-val" id="visitMetricPeakVal">-</div>
-                            <div class="visit-metric-sub" id="visitMetricPeakSub">Puncak kunjungan</div>
-                        </div>
-
-                        <div class="visit-metric-card">
-                            <div class="visit-metric-label" id="visitMetricGrowthLabel">Perubahan Tren</div>
-                            <div class="visit-metric-val" id="visitMetricGrowthVal">
-                                <span style="color: var(--color-text-muted);">-</span>
-                            </div>
-                            <div class="visit-metric-sub" id="visitMetricGrowthSub">vs Periode sebelumnya</div>
-                        </div>
-                    </div>
-
-                    <div id="dailyVisitsChartWrapper">
-                        <canvas id="dailyVisitsChart"></canvas>
-                    </div>
-
-                    <div id="dailyVisitsChartEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 0.5rem; display: block; opacity: 0.6;">
-                            <polyline points="3 17 9 11 13 15 21 7"></polyline>
-                        </svg>
-                        <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan untuk ditampilkan</p>
-                    </div>
-                </div>
-
-                <!-- Halaman Paling Sering Dikunjungi -->
-                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem;">
-                        <div>
-                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M3 3v18h18"></path>
-                                    <path d="M18 17V9"></path>
-                                    <path d="M13 17V5"></path>
-                                    <path d="M8 17v-3"></path>
-                                </svg>
-                                Halaman Paling Sering Dikunjungi
-                            </h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Ranking 5 halaman teratas dalam 30 hari terakhir.</p>
-                        </div>
-                    </div>
-
-                    <div id="topPagesList"></div>
-
-                    <div id="topPagesEmptyMessage" style="display: none; text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted); background: #FFFFFF; border: 1px dashed var(--color-border); border-radius: var(--radius-md);">
-                        <p style="font-size: 0.875rem; margin: 0; color: var(--color-text-muted);">Belum ada data kunjungan untuk ditampilkan</p>
+                        <!-- Dipertahankan untuk kompatibilitas id script lama -->
+                        <div id="topPagesList" style="display: none;"></div>
+                        <div id="topPagesEmptyMessage" style="display: none;"></div>
                     </div>
                 </div>
 
                 <!-- Recent Activities Section -->
-                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.15rem; flex-wrap: wrap; gap: 0.5rem;">
+                <div class="card-container" style="padding: 1.15rem 1.25rem; margin-bottom: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.85rem; flex-wrap: wrap; gap: 0.5rem;">
                         <div>
-                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem; margin: 0;">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--lux-gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                                 </svg>
                                 Aktivitas Terbaru
                             </h3>
-                            <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Riwayat pembaruan berita dan prestasi terakhir di website.</p>
+                            <p style="color: var(--color-text-muted); font-size: 0.75rem; margin-top: 0.15rem;">Riwayat pembaruan berita dan prestasi terakhir di website.</p>
                         </div>
                         <span class="counter-badge" id="recentActivitiesCountBadge">5 Terbaru</span>
                     </div>
 
                     <div class="recent-activities-list" id="recentActivitiesList">
-                        <div class="activity-loading" style="text-align: center; padding: 2rem 1rem; color: var(--color-text-muted);">
+                        <div class="activity-loading" style="text-align: center; padding: 1.5rem 1rem; color: var(--color-text-muted);">
                             <div class="auth-spinner" style="margin: 0 auto 0.5rem; width: 24px; height: 24px;"></div>
                             Memuat aktivitas terbaru...
                         </div>
                     </div>
                 </div>
 
-                <!-- Quick Action Bar -->
-                <div class="card-container" style="padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div style="margin-bottom: 1rem;">
-                        <h3 style="font-family: var(--font-heading); color: var(--lux-dark); font-size: 1.15rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                            </svg>
-                            Aksi Cepat
-                        </h3>
-                        <p style="color: var(--color-text-muted); font-size: 0.8rem; margin-top: 0.2rem;">Pintasan cepat untuk mengelola modul dan konten sekolah.</p>
-                    </div>
-                    <div class="quick-actions-grid">
-                        <button type="button" class="quick-action-btn" onclick="openNewsModal()">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                </svg>
-                            </div>
-                            <span>Tambah Berita Baru</span>
-                        </button>
-
-                        <button type="button" class="quick-action-btn" onclick="switchTab('sec-berita')">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
-                                    <path d="M18 14h-8"></path>
-                                    <path d="M15 18h-5"></path>
-                                    <path d="M10 6h8v4h-8V6Z"></path>
-                                </svg>
-                            </div>
-                            <span>Kelola Semua Berita</span>
-                        </button>
-
-                        <button type="button" class="quick-action-btn" onclick="switchTab('sec-prestasi'); setTimeout(() => openAchievementModal(), 100);">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="8" r="6"></circle>
-                                    <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-                                </svg>
-                            </div>
-                            <span>Tambah Prestasi</span>
-                        </button>
-
-                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-siswa')">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="9" cy="7" r="4"></circle>
-                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                                </svg>
-                            </div>
-                            <span>Kelola Data Siswa</span>
-                        </button>
-
-                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-guru')">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="8.5" cy="7" r="4"></circle>
-                                    <polyline points="17 11 19 13 23 9"></polyline>
-                                </svg>
-                            </div>
-                            <span>Kelola Data Guru</span>
-                        </button>
-
-                        <button type="button" class="quick-action-btn role-super-admin-only" onclick="switchTab('sec-site-images')">
-                            <div class="quick-action-icon">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                                    <circle cx="9" cy="9" r="2"></circle>
-                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                                </svg>
-                            </div>
-                            <span>Kelola Gambar Situs</span>
-                        </button>
-                    </div>
-                </div>
             </section>
 
             <!-- 2. SECTION BERITA (CRUD PENUH) -->
@@ -5621,6 +5930,9 @@
                         cardGuru.setAttribute('aria-disabled', 'true');
                     }
                 } else {
+                    document.querySelectorAll('.role-super-admin-only').forEach(el => {
+                        el.style.display = '';
+                    });
                     if (cardSiswa) {
                         cardSiswa.classList.remove('is-static');
                         cardSiswa.removeAttribute('aria-disabled');
@@ -5722,6 +6034,12 @@
 
             // Update Topbar Title
             document.getElementById('pageTitle').textContent = menuTitles[targetSectionId] || 'Dashboard';
+
+            // Update Topbar Quick Actions visibility (only on Beranda)
+            const quickActionsEl = document.getElementById('berandaQuickActions');
+            if (quickActionsEl) {
+                quickActionsEl.style.display = (targetSectionId === 'sec-beranda') ? '' : 'none';
+            }
 
             // Close mobile sidebar if open
             closeMobileSidebar();
@@ -6368,7 +6686,7 @@
             return fetchAllRows((from, to) =>
                 supabaseClient
                     .from('analytics_events')
-                    .select('created_at')
+                    .select('created_at, page_path')
                     .eq('event_type', 'page_view')
                     .order('created_at', { ascending: true })
                     .range(from, to)
@@ -6425,12 +6743,14 @@
                 }
 
                 cachedPageViewEvents = pageViewRows;
+                if (typeof window !== 'undefined') window.cachedPageViewEvents = cachedPageViewEvents;
                 applyVisitsTrendRange(currentVisitsTrendRange || '30d');
             } catch (err) {
                 console.error('Exception loading visitor analytics:', err);
                 setAnalyticsStatCards(0, 0, 0, 0);
                 renderTopPagesList([]);
                 cachedPageViewEvents = [];
+                if (typeof window !== 'undefined') window.cachedPageViewEvents = cachedPageViewEvents;
                 applyVisitsTrendRange(currentVisitsTrendRange || '30d');
             }
         }
@@ -6717,6 +7037,9 @@
                     totalViews
                 });
             }
+
+            // Perbarui kartu Halaman Terpopuler mengikuti rentang aktif yang sama
+            renderPopularPagesCard(rangeKey);
         }
 
         function renderVisitsTrendChart(chartData, mode, referenceDate, extraOpts = {}) {
@@ -6996,62 +7319,247 @@
 
         const PAGE_NAME_MAP = {
             '/': 'Beranda',
+            '/index': 'Beranda',
             '/index.html': 'Beranda',
-            '/about.html': 'Tentang Kami',
+            '/sekolah-kami': 'Sekolah Kami',
+            '/about': 'Sekolah Kami',
+            '/about.html': 'Sekolah Kami',
+            '/program': 'Program Pendidikan',
+            '/programs': 'Program Pendidikan',
             '/programs.html': 'Program Pendidikan',
+            '/kehidupan-santri': 'Kehidupan Siswa',
+            '/student-life': 'Kehidupan Siswa',
             '/student-life.html': 'Kehidupan Siswa',
-            '/achievements.html': 'Prestasi',
-            '/news.html': 'Berita',
-            '/berita-detail.html': 'Detail Berita',
+            '/ppdb': 'PPDB',
             '/ppdb.html': 'PPDB',
-            '/contact.html': 'Kontak',
+            '/prestasi': 'Prestasi',
+            '/achievements': 'Prestasi',
+            '/achievements.html': 'Prestasi',
+            '/berita': 'Berita',
+            '/news': 'Berita',
+            '/news.html': 'Berita',
+            '/berita-detail': 'Berita (artikel)',
+            '/berita-detail.html': 'Berita (artikel)',
+            '/faq': 'FAQ',
             '/faq.html': 'FAQ',
+            '/kontak': 'Kontak',
+            '/contact': 'Kontak',
+            '/contact.html': 'Kontak',
+            '/kebijakan-privasi': 'Kebijakan Privasi',
+            '/privacy-policy': 'Kebijakan Privasi',
             '/privacy-policy.html': 'Kebijakan Privasi',
+            '/404': 'Halaman Tidak Ditemukan',
             '/404.html': 'Halaman Tidak Ditemukan'
         };
 
-        function getFriendlyPageName(path) {
-            if (!path) return '(tidak diketahui)';
-            const cleanPath = path.split('?')[0].split('#')[0];
-            return PAGE_NAME_MAP[cleanPath] || cleanPath;
+        function normalizePagePath(rawPath) {
+            if (!rawPath || typeof rawPath !== 'string') return '';
+            let p = rawPath.split('?')[0].split('#')[0].trim();
+            if (p.endsWith('.html')) {
+                p = p.slice(0, -5);
+            }
+            if (p.length > 1 && p.endsWith('/')) {
+                p = p.replace(/\/+$/, '');
+            }
+            if (!p.startsWith('/')) {
+                p = '/' + p;
+            }
+            if (p === '') {
+                p = '/';
+            }
+            return p;
         }
 
-        function renderTopPagesList(topPages) {
-            const container = document.getElementById('topPagesList');
-            const emptyMsg = document.getElementById('topPagesEmptyMessage');
-            if (!container || !emptyMsg) return;
+        function getFriendlyPageName(rawPath) {
+            if (!rawPath) return '(tidak diketahui)';
+            const normalized = normalizePagePath(rawPath);
+            if (PAGE_NAME_MAP[normalized]) {
+                return PAGE_NAME_MAP[normalized];
+            }
+            if (PAGE_NAME_MAP[rawPath]) {
+                return PAGE_NAME_MAP[rawPath];
+            }
+            if (normalized.startsWith('/berita/')) {
+                return 'Berita (artikel)';
+            }
+            return normalized || rawPath;
+        }
 
-            if (!topPages || topPages.length === 0) {
-                container.style.display = 'none';
-                emptyMsg.style.display = 'block';
+        let popularPagesChart = null;
+
+        function renderPopularPagesCard(rangeKey) {
+            const bodyEl = document.getElementById('popularPagesBody');
+            const emptyEl = document.getElementById('popularPagesEmptyMessage');
+            const subheadingEl = document.getElementById('popularPagesSubheading');
+            const badgeEl = document.getElementById('popularPagesRangeBadge');
+            const totalValEl = document.getElementById('popularPagesTotalVal');
+            const legendListEl = document.getElementById('popularPagesLegendList');
+            const canvas = document.getElementById('popularPagesChart');
+
+            if (!bodyEl || !emptyEl) return;
+
+            // Update range badge and subheading
+            const rangeLabels = {
+                '7d': '7 hari terakhir',
+                '30d': '30 hari terakhir',
+                '90d': '90 hari terakhir',
+                'monthly': 'Seluruh periode'
+            };
+            if (badgeEl) {
+                badgeEl.textContent = rangeLabels[rangeKey] || '30 hari terakhir';
+            }
+            if (subheadingEl) {
+                if (rangeKey === 'monthly') {
+                    subheadingEl.textContent = 'Halaman paling banyak dikunjungi sepanjang waktu tercatat.';
+                } else {
+                    const days = rangeKey === '7d' ? 7 : (rangeKey === '90d' ? 90 : 30);
+                    subheadingEl.textContent = `Halaman paling banyak dikunjungi dalam ${days} hari terakhir.`;
+                }
+            }
+
+            // Filter cachedPageViewEvents according to rangeKey
+            const now = new Date();
+            const todayJakarta = getJakartaDateKey(now);
+            let filteredEvents = [];
+
+            if (rangeKey === 'monthly') {
+                filteredEvents = cachedPageViewEvents || [];
+            } else {
+                const dayCount = rangeKey === '7d' ? 7 : (rangeKey === '90d' ? 90 : 30);
+                const startDateKey = getJakartaDateOffset(todayJakarta, -(dayCount - 1));
+                filteredEvents = (cachedPageViewEvents || []).filter(r => {
+                    if (!r.created_at) return false;
+                    const dKey = getJakartaDateKey(r.created_at);
+                    return dKey && dKey >= startDateKey && dKey <= todayJakarta;
+                });
+            }
+
+            const totalCount = filteredEvents.length;
+
+            if (totalCount === 0) {
+                bodyEl.style.display = 'none';
+                emptyEl.style.display = 'flex';
+                if (totalValEl) totalValEl.textContent = '0';
+                if (popularPagesChart) {
+                    popularPagesChart.destroy();
+                    popularPagesChart = null;
+                }
                 return;
             }
 
-            container.style.display = 'block';
-            emptyMsg.style.display = 'none';
+            bodyEl.style.display = 'flex';
+            emptyEl.style.display = 'none';
+            if (totalValEl) {
+                totalValEl.textContent = Number(totalCount).toLocaleString('id-ID');
+            }
 
-            const maxCount = topPages[0][1] || 1;
+            // Aggregate counts by friendly page name
+            const pageCounts = {};
+            filteredEvents.forEach(r => {
+                const name = getFriendlyPageName(r.page_path);
+                pageCounts[name] = (pageCounts[name] || 0) + 1;
+            });
 
-            container.innerHTML = topPages.map((entry, index) => {
-                const path = escapeHtml(getFriendlyPageName(entry[0]));
-                const count = entry[1];
-                const pct = Math.max(6, Math.round((count / maxCount) * 100));
-                const borderStyle = index < topPages.length - 1 ? 'border-bottom: 1px solid var(--color-border);' : '';
-                return `
-                    <div style="display: flex; align-items: center; gap: 0.9rem; padding: 0.75rem 0; ${borderStyle}">
-                        <div style="flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--color-primary-light); color: var(--color-primary); font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; justify-content: center;">${index + 1}</div>
-                        <div style="flex: 1; min-width: 0;">
-                            <div style="display: flex; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.3rem;">
-                                <span style="font-size: 0.85rem; font-weight: 600; color: var(--lux-dark); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${path}</span>
-                                <span style="font-size: 0.8rem; color: var(--color-text-muted); flex-shrink: 0;">${count} kunjungan</span>
-                            </div>
-                            <div style="height: 6px; background: #F0F2F5; border-radius: 999px; overflow: hidden;">
-                                <div style="height: 100%; width: ${pct}%; background: var(--color-primary); border-radius: 999px;"></div>
-                            </div>
+            // Sort entries descending
+            const sortedEntries = Object.entries(pageCounts)
+                .sort((a, b) => b[1] - a[1]);
+
+            // Top 5 items + "Lainnya"
+            const top5 = sortedEntries.slice(0, 5);
+            const remaining = sortedEntries.slice(5);
+            const chartItems = [...top5];
+
+            if (remaining.length > 0) {
+                const othersCount = remaining.reduce((sum, item) => sum + item[1], 0);
+                if (othersCount > 0) {
+                    chartItems.push(['Lainnya', othersCount]);
+                }
+            }
+
+            // Palette: 5 brand variations + neutral gray for Lainnya
+            const PALETTE = [
+                '#04473A', // Primary dark green
+                '#D4B582', // Primary gold
+                '#0B6E59', // Medium emerald green
+                '#B88B4A', // Warm amber gold
+                '#248A73', // Teal sage
+                '#9CA3AF'  // Neutral gray
+            ];
+
+            // Render custom legend list
+            if (legendListEl) {
+                legendListEl.innerHTML = chartItems.map((item, idx) => {
+                    const name = item[0];
+                    const count = item[1];
+                    const pct = Math.round((count / totalCount) * 100);
+                    const color = PALETTE[idx % PALETTE.length];
+                    const escapedName = escapeHtml(name);
+                    return `
+                        <div class="popular-page-row" title="${escapedName}: ${count.toLocaleString('id-ID')} kunjungan (${pct}%)">
+                            <span class="popular-page-dot" style="background-color: ${color};"></span>
+                            <span class="popular-page-name">${escapedName}</span>
+                            <span class="popular-page-count">${Number(count).toLocaleString('id-ID')}</span>
+                            <span class="popular-page-pct">${pct}%</span>
                         </div>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            }
+
+            // Render Chart.js doughnut
+            if (!canvas) return;
+
+            if (typeof Chart === 'undefined') {
+                setTimeout(() => renderPopularPagesCard(rangeKey), 150);
+                return;
+            }
+
+            if (popularPagesChart) {
+                popularPagesChart.destroy();
+                popularPagesChart = null;
+            }
+
+            const ctx = canvas.getContext('2d');
+            const labels = chartItems.map(item => item[0]);
+            const dataVals = chartItems.map(item => item[1]);
+            const bgColors = chartItems.map((_, idx) => PALETTE[idx % PALETTE.length]);
+
+            popularPagesChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: dataVals,
+                        backgroundColor: bgColors,
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF',
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '65%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const val = context.raw || 0;
+                                    const pct = Math.round((val / totalCount) * 100);
+                                    return ` ${label}: ${Number(val).toLocaleString('id-ID')} kunjungan (${pct}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderTopPagesList(topPages) {
+            // Deprecated in favor of renderPopularPagesCard; kept for backward compatibility
         }
 
         // 5. BERITA MODULE (CRUD)
