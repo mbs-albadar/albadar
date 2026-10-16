@@ -229,25 +229,34 @@ function renderRelatedNewsCards(items) {
         const id = encodeURIComponent(String(item.id || ''));
         const title = escapeHtml(item.title || '');
         const image = escapeHtml(newsImage(item.image));
-        const category = escapeHtml(item.category || '');
-        const date = escapeHtml(item.date || '');
-        const excerpt = escapeHtml(item.excerpt || '');
 
-        return '<a href="/berita/' + id + '" class="news-card-lux lux-img-zoom">' +
+        return '<a href="/berita/' + id + '" class="news-card-lux related-card">' +
             '<div class="news-img-wrap">' +
                 '<img src="' + image + '" alt="' + title + '" loading="lazy" onerror="this.onerror=null;this.src=\'/assets/img/placeholder.svg\';">' +
             '</div>' +
             '<div class="news-content-lux">' +
-                '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">' +
-                    '<span class="news-tag-lux">' + category + '</span>' +
-                    '<span class="news-date" style="color: var(--color-text-muted); font-size: 0.75rem; font-weight: 500;">' + date + '</span>' +
-                '</div>' +
                 '<h3 class="news-title-lux">' + title + '</h3>' +
-                '<p class="news-excerpt-lux">' + excerpt + '</p>' +
-                '<span class="news-read-lux">Baca Selengkapnya</span>' +
             '</div>' +
         '</a>';
     }).join('\n');
+}
+
+function renderShareMarkup(extraClass, canonicalAttr, shareWaHref, shareFbHref) {
+    const classAttr = extraClass ? 'article-share ' + extraClass : 'article-share';
+    return '<div class="' + classAttr + '" data-share-url="' + canonicalAttr + '">' +
+        '<span class="article-share-label">Bagikan berita ini:</span>' +
+        '<a class="share-icon share-wa" href="' + shareWaHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp" title="Bagikan ke WhatsApp">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>' +
+        '</a>' +
+        '<a class="share-icon share-fb" href="' + shareFbHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke Facebook" title="Bagikan ke Facebook">' +
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.12 5.32H17V2.14A26 26 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.05.28-1.73 1.76-1.73"/></svg>' +
+        '</a>' +
+        '<button type="button" class="share-icon share-copy" aria-label="Salin tautan" title="Salin tautan">' +
+            '<svg class="icon-link" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>' +
+            '<svg class="icon-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
+        '</button>' +
+        '<span class="share-feedback" role="status" aria-live="polite"></span>' +
+    '</div>';
 }
 
 async function fetchFromNewsJson(id) {
@@ -463,78 +472,69 @@ module.exports = async function handler(req, res) {
         const shareWaHref = 'https://api.whatsapp.com/send?text=' + escapeHtml(encodeURIComponent((item.title || '') + ' ' + canonicalUrl));
         const shareFbHref = 'https://www.facebook.com/sharer/sharer.php?u=' + escapeHtml(encodeURIComponent(canonicalUrl));
 
-        const shareHtml =
-            '<div class="article-share" data-share-url="' + canonicalAttr + '">' +
-                '<span class="article-share-label">Bagikan berita ini:</span>' +
-                '<a class="share-icon share-wa" href="' + shareWaHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp" title="Bagikan ke WhatsApp">' +
-                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>' +
-                '</a>' +
-                '<a class="share-icon share-fb" href="' + shareFbHref + '" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke Facebook" title="Bagikan ke Facebook">' +
-                    '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M15.12 5.32H17V2.14A26 26 0 0 0 14.26 2c-2.72 0-4.58 1.66-4.58 4.7v2.62H6.61v3.56h3.07V22h3.68v-9.12h3.06l.46-3.56h-3.52V7.05c0-1.05.28-1.73 1.76-1.73"/></svg>' +
-                '</a>' +
-                '<button type="button" class="share-icon share-copy" aria-label="Salin tautan" title="Salin tautan">' +
-                    '<svg class="icon-link" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>' +
-                    '<svg class="icon-check" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg>' +
-                '</button>' +
-                '<span class="share-feedback" role="status" aria-live="polite"></span>' +
-            '</div>' +
+        const shareScript =
             '<script>' +
             '(function(){' +
-                'var shareBlock=document.querySelector(\'.article-share\');' +
-                'if(!shareBlock)return;' +
-                'var copyBtn=shareBlock.querySelector(\'.share-copy\');' +
-                'var feedback=shareBlock.querySelector(\'.share-feedback\');' +
-                'if(!copyBtn)return;' +
-                'var timer=null;' +
-                'var copyTimer=null;' +
-                'function showFeedback(msg){' +
-                    'if(!feedback)return;' +
-                    'feedback.textContent=msg;' +
-                    'if(timer)clearTimeout(timer);' +
-                    'timer=setTimeout(function(){feedback.textContent=\'\';},2000);' +
-                '}' +
-                'function markCopied(){' +
-                    'showFeedback(\'Tautan disalin\');' +
+                'var blocks=document.querySelectorAll(\'.article-share\');' +
+                'if(!blocks||!blocks.length)return;' +
+                'Array.prototype.forEach.call(blocks,function(shareBlock){' +
+                    'var copyBtn=shareBlock.querySelector(\'.share-copy\');' +
+                    'var feedback=shareBlock.querySelector(\'.share-feedback\');' +
                     'if(!copyBtn)return;' +
-                    'copyBtn.classList.add(\'is-copied\');' +
-                    'if(copyTimer)clearTimeout(copyTimer);' +
-                    'copyTimer=setTimeout(function(){' +
-                        'if(copyBtn)copyBtn.classList.remove(\'is-copied\');' +
-                    '},2000);' +
-                '}' +
-                'function fallbackCopy(text){' +
-                    'var success=false;' +
-                    'try{' +
-                        'var ta=document.createElement(\'textarea\');' +
-                        'ta.value=text;' +
-                        'ta.setAttribute(\'readonly\',\'\');' +
-                        'ta.style.position=\'fixed\';' +
-                        'ta.style.top=\'-9999px\';' +
-                        'ta.style.left=\'-9999px\';' +
-                        'ta.style.opacity=\'0\';' +
-                        'document.body.appendChild(ta);' +
-                        'ta.focus();' +
-                        'ta.select();' +
-                        'success=document.execCommand(\'copy\');' +
-                        'document.body.removeChild(ta);' +
-                    '}catch(e){success=false;}' +
-                    'if(success){markCopied();}' +
-                    'else{showFeedback(\'Gagal menyalin\');}' +
-                '}' +
-                'copyBtn.addEventListener(\'click\',function(){' +
-                    'var url=shareBlock.getAttribute(\'data-share-url\')||window.location.href;' +
-                    'if(navigator.clipboard&&window.isSecureContext){' +
-                        'navigator.clipboard.writeText(url).then(function(){' +
-                            'markCopied();' +
-                        '}).catch(function(){' +
-                            'fallbackCopy(url);' +
-                        '});' +
-                    '}else{' +
-                        'fallbackCopy(url);' +
+                    'var timer=null;' +
+                    'var copyTimer=null;' +
+                    'function showFeedback(msg){' +
+                        'if(!feedback)return;' +
+                        'feedback.textContent=msg;' +
+                        'if(timer)clearTimeout(timer);' +
+                        'timer=setTimeout(function(){feedback.textContent=\'\';},2000);' +
                     '}' +
+                    'function markCopied(){' +
+                        'showFeedback(\'Tautan disalin\');' +
+                        'if(!copyBtn)return;' +
+                        'copyBtn.classList.add(\'is-copied\');' +
+                        'if(copyTimer)clearTimeout(copyTimer);' +
+                        'copyTimer=setTimeout(function(){' +
+                            'if(copyBtn)copyBtn.classList.remove(\'is-copied\');' +
+                        '},2000);' +
+                    '}' +
+                    'function fallbackCopy(text){' +
+                        'var success=false;' +
+                        'try{' +
+                            'var ta=document.createElement(\'textarea\');' +
+                            'ta.value=text;' +
+                            'ta.setAttribute(\'readonly\',\'\');' +
+                            'ta.style.position=\'fixed\';' +
+                            'ta.style.top=\'-9999px\';' +
+                            'ta.style.left=\'-9999px\';' +
+                            'ta.style.opacity=\'0\';' +
+                            'document.body.appendChild(ta);' +
+                            'ta.focus();' +
+                            'ta.select();' +
+                            'success=document.execCommand(\'copy\');' +
+                            'document.body.removeChild(ta);' +
+                        '}catch(e){success=false;}' +
+                        'if(success){markCopied();}' +
+                        'else{showFeedback(\'Gagal menyalin\');}' +
+                    '}' +
+                    'copyBtn.addEventListener(\'click\',function(){' +
+                        'var url=shareBlock.getAttribute(\'data-share-url\')||window.location.href;' +
+                        'if(navigator.clipboard&&window.isSecureContext){' +
+                            'navigator.clipboard.writeText(url).then(function(){' +
+                                'markCopied();' +
+                            '}).catch(function(){' +
+                                'fallbackCopy(url);' +
+                            '});' +
+                        '}else{' +
+                            'fallbackCopy(url);' +
+                        '}' +
+                    '});' +
                 '});' +
             '})();' +
             '</script>';
+
+        const topShareHtml = renderShareMarkup('article-share--top', canonicalAttr, shareWaHref, shareFbHref);
+        const bottomShareHtml = renderShareMarkup('', canonicalAttr, shareWaHref, shareFbHref) + shareScript;
 
         const articleHtml =
             '<div class="article-meta">' +
@@ -542,11 +542,12 @@ module.exports = async function handler(req, res) {
                 '<span class="news-date" style="color: var(--color-text-muted); font-size: 0.8rem; font-weight: 500;">' + escapeHtml(item.date || '') + '</span>' +
             '</div>' +
             '<h1 class="article-title">' + titleText + '</h1>' +
+            topShareHtml +
             '<div class="article-cover">' +
                 '<img src="' + escapeHtml(newsImage(item.image)) + '" alt="' + titleText + '" onerror="this.onerror=null;this.src=\'/assets/img/placeholder.svg\';">' +
             '</div>' +
             '<div class="article-body">' + bodyHtml + '</div>' +
-            shareHtml;
+            bottomShareHtml;
 
         const schema = {
             "@context": "https://schema.org",
