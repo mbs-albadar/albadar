@@ -5404,3 +5404,143 @@ body.menu-open .menu-bar {
         padding: 2rem 0 !important;
     }
 }
+
+/* === HEADER VARIAN SOLID (halaman artikel berita, tanpa hero gelap) === */
+.site-header.site-header--solid {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    padding: 0.5rem 0;
+}
+
+.site-header.site-header--solid .logo,
+.site-header.site-header--solid .logo-text {
+    color: var(--color-primary);
+}
+
+.site-header.site-header--solid .main-nav a {
+    color: var(--lux-dark);
+}
+
+.site-header.site-header--solid .main-nav a:hover,
+.site-header.site-header--solid .main-nav a.active {
+    color: var(--color-primary);
+}
+
+.site-header.site-header--solid .main-nav a.nav-cta {
+    background-color: var(--lux-gold);
+    color: var(--lux-dark);
+    padding: 0.5rem 1.15rem;
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.site-header.site-header--solid .main-nav a.nav-cta:hover {
+    background-color: var(--color-secondary);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(17, 54, 110, 0.25);
+}
+
+.site-header.site-header--solid .main-nav a.nav-cta-secondary,
+.site-header.site-header--solid .main-nav a.nav-cta-secondary:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.site-header.site-header--solid .main-nav a.nav-cta-secondary:hover {
+    background: rgba(4, 71, 58, 0.1);
+}
+
+.site-header.site-header--solid .nav-item.dropdown:hover > a {
+    color: var(--color-primary);
+}
+
+.site-header.site-header--solid .main-nav .dropdown-menu li a {
+    display: block;
+    padding: 0.5rem 1.25rem;
+    color: var(--lux-dark);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.site-header.site-header--solid .main-nav .dropdown-menu li a:hover,
+.site-header.site-header--solid .main-nav .dropdown-menu li a.active {
+    background-color: rgba(4, 71, 58, 0.08);
+    color: var(--color-primary);
+}
+
+.site-header.site-header--solid .search-toggle-btn {
+    color: var(--lux-dark);
+}
+
+.site-header.site-header--solid .menu-bar {
+    background-color: var(--lux-dark);
+}
+
+.section.article-section {
+    padding-top: 6.5rem;
+}
+
+@media (max-width: 1024px) {
+    .site-header.site-header--solid .main-nav .nav-list a {
+        color: var(--lux-dark);
+        font-size: 1.05rem;
+        display: block;
+        width: 100%;
+        padding: 0.4rem 0;
+    }
+    .site-header.site-header--solid .main-nav .nav-list a.active {
+        color: var(--lux-gold);
+        font-weight: 700;
+    }
+    .site-header.site-header--solid .main-nav .nav-list a.nav-cta,
+    .site-header.site-header--solid .main-nav .nav-list a.nav-cta-secondary {
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+        box-sizing: border-box;
+    }
+    .site-header.site-header--solid .main-nav .dropdown-menu li a {
+        padding-left: 1.25rem;
+        font-size: 0.9rem;
+    }
+    .site-header.site-header--solid .search-toggle-btn {
+        color: var(--lux-dark);
+    }
+    .site-header.site-header--solid .search-toggle-btn:hover {
+        color: var(--lux-gold);
+    }
+}
+
+@media (max-width: 1024px) and (max-height: 500px) {
+    .site-header.site-header--solid .main-nav .nav-list a {
+        padding: 0.2rem 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .site-header.site-header--solid {
+        padding: 0.8rem 0;
+    }
+    .site-header.site-header--solid .logo {
+        color: var(--color-primary);
+        margin-right: 0.75rem;
+        max-width: calc(100% - 60px);
+        display: flex;
+        align-items: center;
+    }
+    .section.article-section {
+        padding-top: 5.5rem;
+    }
+}
+
